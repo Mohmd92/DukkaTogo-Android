@@ -14,7 +14,11 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
-
+    <style name="Style_TextView2">
+        <item name="fontFamily">@font/abudhbi_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/darkTheme_colorBackground</item>
+    </style>
     <style name="SCBSwitch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">@color/colorPrimary</item>

@@ -1,4 +1,4 @@
-package com.market.dokan.adapter;
+package com.dukan.dukkan.adapter;
 
 import androidx.fragment.app.Fragment;
 

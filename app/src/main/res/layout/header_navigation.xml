@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_nav"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginStart="20dp"
+        android:outlineProvider="background"
+        android:visibility="visible"
+        android:background="@drawable/button3"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="end"
+        android:id="@+id/header_im_close"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/header_im_close"
+        android:id="@+id/header_tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:fontFamily="@font/abudhbi_bold"
+        android:textColor="@color/colorPrimary"
+        android:text="Username" />
+    <LinearLayout
+        android:id="@+id/linner"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/header_tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginStart="20dp"
+            android:outlineProvider="background"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location" />
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/tv_version"
+            android:fontFamily="@font/abudhbi_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Palestine - Gaza Strip - Khan Younis"
+            android:textColor="@color/darkTheme_colorBackground"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <View
+        android:background="@color/classic_colorTintedBackground"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/linner"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</RelativeLayout>
