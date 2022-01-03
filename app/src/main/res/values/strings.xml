@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">DÜKKAN TOGO</string>
+    <string name="choose_country">Choose Country</string>
+    <string name="please_select_the_required_category_in_order_to_obtain_the_required">Please Select The Required Category In Order To Obtain The Required.</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="confirm">confirm</string>
+    <string name="enter_the_fingerprint">Enter The Fingerprint</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="please_enter_the_correct_mobile_number_and_password">Please Enter The Correct Mobile Number And Password</string>
+    <string name="e_mail_or_mobile_number">E-Mail Or Mobile Number</string>
+    <string name="password">Password</string>
+    <string name="hm122qa_gmail_com">hm122qa@gmail.com</string>
+    <string name="pass">**********</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="create_a_new_account">CREATE A NEW ACCOUNT</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="or">OR</string>
+    <string name="continue_with_google">Continue With Google</string>
+    <string name="continue_with_facebook">Continue With Facebook</string>
+    <string name="skip">Skip</string>
+    <string name="full_name">Full Name</string>
+    <string name="street_building_no">Street / Building No.</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="e_mail">E-mail</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="attach_to_all_terms_conditions"><![CDATA[Attach to all Terms & Conditions]]></string>
+</resources>
