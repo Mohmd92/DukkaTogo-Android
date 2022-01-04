@@ -29,6 +29,8 @@
     <color name="darkTheme_colorAccent">#2196F3</color>
     <color name="darkTheme_colorBackground">#303030</color>
     <color name="darkTheme_colorTintedBackground">#424242</color>
+    <color name="grey_300">#e0e0e0</color>
+    <color name="yalow">#FFB50D</color>
 
     <color name="blackTheme_colorBackground">#000000</color>
     <color name="blackTheme_colorTintedBackground">#303030</color>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    tools:context=".activity.MainActivity">
+
+    <RelativeLayout
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_margin="20dp"
+            android:background="@drawable/button12"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <LinearLayout
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:textSize="11sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_me"/>
+                <ImageView
+                    android:src="@drawable/ic_next"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <ImageView
+            android:layout_marginStart="30dp"
+            android:paddingBottom="30dp"
+            android:id="@+id/image_slide"
+            android:src="@drawable/wqq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_toEndOf="@+id/image_slide"
+            android:id="@+id/title"
+            android:fontFamily="@font/abudhbi_bold"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="welcome"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/title"
+            android:layout_toEndOf="@+id/image_slide"
+            android:textAllCaps="true"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/abudhbi_regular"
+            android:textSize="9sp"
+            android:textColor="@color/white"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:text="white Microwave oven, Microwave oven Home appliance"/>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

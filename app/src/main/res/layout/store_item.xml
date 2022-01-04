@@ -1,0 +1,57 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/linnnar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <RelativeLayout
+            android:id="@+id/relative"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/image"
+            android:layout_width="115dp"
+            android:layout_height="125dp"
+            android:src="@drawable/material_image"
+            android:scaleType="fitCenter"
+            app:siBorderColor="#ffffff"
+            app:siRadius="5dp" />
+    </RelativeLayout>
+
+
+
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tv_audio1"
+        app:layout_constraintTop_toBottomOf="@id/relative"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorPrimary"
+        android:textSize="11sp"
+        android:fontFamily="@font/abudhbi_regular"
+        android:text="Abu Ala Grocery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RatingBar
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_audio1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/ratingBar2"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginEnd="2dp"
+        android:clickable="false"
+        android:numStars="5"
+        android:rating="2.5"
+        android:stepSize="0.1"
+        android:theme="@style/CustomRatingBar"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
