@@ -19,6 +19,7 @@
     <color name="rich2">#829C9C</color>
     <color name="grayyy">#FBFBFB</color>
     <color name="grayyy2">#F7F7F7</color>
+    <color name="gray_main">#FCFCFC</color>
     <color name="silver">#5F5F5F</color>
     <color name="gray22">#5F5F5F</color>
     <color name="gray_new">#797980</color>
@@ -40,6 +41,7 @@
     <color name="classic_colorAccent">#455a64</color>
     <color name="classic_colorBackground">@android:color/transparent</color>
     <color name="classic_colorTintedBackground">#cdcdcd</color>
+    <color name="lineee">#707070</color>
 
     <color name="classic_darkTheme_colorPrimary">#37474f</color>
     <color name="classic_darkTheme_colorPrimaryDark">#263238</color>

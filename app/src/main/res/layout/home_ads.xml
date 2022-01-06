@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:background="@drawable/button1"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -44,10 +44,10 @@
  osmosis, germicidal,kitchen Appliance"/>
         </RelativeLayout>
         <ImageView
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/wqq1"
+            android:src="@drawable/wwwq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

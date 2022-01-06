@@ -28,14 +28,14 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.product_review);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 //                if(SharedPreferenceManager.getInstance(getBaseContext()).getuid()!=null) {
 //                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getuid().equals("")) {
-                            startActivity(new Intent(Splash.this, MainActivity.class));
+//                            startActivity(new Intent(Splash.this, MainActivity.class));
 //                    }else {
 ////                        startActivity(new Intent(Splash.this, LoginActivity.class));
 //                        finish();
@@ -47,7 +47,7 @@ public class Splash extends AppCompatActivity {
 //                }
 
             }
-        },500);
+        },2000);
 
     }
 
