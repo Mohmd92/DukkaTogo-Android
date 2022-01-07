@@ -14,36 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize">
-        <ImageView
-            android:layout_marginEnd="25dp"
-            android:layout_gravity="end"
-            android:outlineProvider="background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_group_11935" />
-        <ImageView
-            android:layout_marginEnd="25dp"
-            android:layout_gravity="end"
-            android:outlineProvider="background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search" />
-        <ImageView
-            android:layout_marginEnd="20dp"
-            android:layout_gravity="end"
-            android:outlineProvider="background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_filter" />
+
 
         <ImageView
-            android:layout_marginEnd="20dp"
-            android:layout_gravity="end"
             android:outlineProvider="background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification" />
         <ImageView
+            android:layout_marginEnd="20dp"
+            android:outlineProvider="background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search" />
+        <ImageView
+            android:rotation="180"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="end"
             android:outlineProvider="background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

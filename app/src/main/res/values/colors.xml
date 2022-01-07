@@ -42,6 +42,7 @@
     <color name="classic_colorBackground">@android:color/transparent</color>
     <color name="classic_colorTintedBackground">#cdcdcd</color>
     <color name="lineee">#707070</color>
+    <color name="countss">#ECECEC</color>
 
     <color name="classic_darkTheme_colorPrimary">#37474f</color>
     <color name="classic_darkTheme_colorPrimaryDark">#263238</color>
