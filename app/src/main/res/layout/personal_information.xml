@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        tools:context=".activity.MainActivity">
     <ScrollView
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".MainActivity">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
             <LinearLayout
                 android:id="@+id/linear"
                 android:layout_marginEnd="27dp"
@@ -29,107 +24,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <ImageView
-                    android:src="@drawable/ic_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/abudhbi_bold"
-                    android:textSize="22sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_a_new_account"/>
-                <TextView
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="13sp"
-                    android:textColor="@color/darkTheme_colorBackground"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/please_enter_the_correct_mobile_number_and_password"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@+id/relative"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_marginEnd="5dp"
-                        android:background="@drawable/button3"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <ImageView
-                            android:src="@drawable/ic_google_svgrepo_com"
+                            android:src="@drawable/ic_back"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
+                            android:layout_alignParentEnd="true"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="@string/continue_with_google"
-                            android:textColor="@color/darkTheme_colorBackground"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:background="@drawable/button3"
-                        android:gravity="center">
-
-                        <ImageView
+                            android:textSize="15sp"
+                            android:textColor="@color/blackTheme_colorBackground"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15sp"
-                            android:src="@drawable/ic_facebook" />
+                            android:text="@string/edit"/>
+                    </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/abudhbi_regular"
-                            android:text="@string/continue_with_facebook"
-                            android:textColor="@color/darkTheme_colorBackground"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-                </LinearLayout>
-                <RelativeLayout
-                    android:id="@+id/relative"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <View
-                        android:background="@color/classic_colorTintedBackground"
-                        android:layout_centerInParent="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"/>
-                    <TextView
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:background="@color/colorAccent"
-                        android:layout_centerInParent="true"
-                        android:fontFamily="@font/abudhbi_bold"
-                        android:textSize="15sp"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/or"/>
-                </RelativeLayout>
+
+                <ImageView
+                    android:outlineProvider="background"
+                    android:background="@drawable/button3"
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/header_im_close"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/user" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/header_tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/abudhbi_bold"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Username" />
+
                 <TextView
                     android:fontFamily="@font/abudhbi_regular"
                     android:layout_marginTop="10dp"
@@ -272,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mobile_number"/>
                 <LinearLayout
+                    android:paddingBottom="30dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -297,66 +229,7 @@
                         android:inputType="numberDecimal"
                         android:textSize="14sp"/>
                 </LinearLayout>
-                <TextView
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/password"/>
-                <EditText
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:layout_marginTop="10dp"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp"
-                    android:id="@+id/edit_password"
-                    android:background="@drawable/button3"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColorHint="#aeafaf"
-                    android:hint="@string/pass"
-                    android:inputType="textPassword"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/confirm_password"/>
-                <EditText
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:layout_marginTop="10dp"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp"
-                    android:background="@drawable/button3"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColorHint="#aeafaf"
-                    android:hint="@string/pass"
-                    android:inputType="textPassword"
-                    android:textSize="14sp"/>
-                <CheckBox
-                    android:layout_marginTop="10dp"
-                    android:textSize="13dp"
-                    android:fontFamily="@font/abudhbi_regular"
-                    android:text="@string/attach_to_all_terms_conditions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:fontFamily="@font/abudhbi_bold"
-                    android:layout_marginTop="30dp"
-                    android:id="@+id/confirm_button"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"
-                    android:text="@string/sign_up"
-                    android:background="@drawable/button33"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

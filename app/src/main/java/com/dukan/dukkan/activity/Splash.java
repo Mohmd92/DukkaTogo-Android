@@ -28,7 +28,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cart_item);
+        setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -37,7 +37,7 @@ public class Splash extends AppCompatActivity {
 //                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getuid().equals("")) {
 //                            startActivity(new Intent(Splash.this, MainActivity.class));
 //                    }else {
-                    startActivity(new Intent(Splash.this, ProductList.class));
+                    startActivity(new Intent(Splash.this, MainActivity.class));
 //                        finish();
 //                    }
 //                }else
@@ -47,7 +47,7 @@ public class Splash extends AppCompatActivity {
 //                }
 
             }
-        },10000);
+        },1000);
 
     }
 
