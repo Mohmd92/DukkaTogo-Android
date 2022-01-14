@@ -14,7 +14,7 @@
 
     <color name="colorPrimary">#E41D0E</color>
     <color name="colorPrimaryDark">#F8F8F8</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#E41D0E</color>
     <color name="rich">#073B3A</color>
     <color name="rich2">#829C9C</color>
     <color name="grayyy">#FBFBFB</color>
@@ -43,6 +43,7 @@
     <color name="classic_colorTintedBackground">#cdcdcd</color>
     <color name="lineee">#707070</color>
     <color name="countss">#ECECEC</color>
+    <color name="nono">#5A5A5A</color>
 
     <color name="classic_darkTheme_colorPrimary">#37474f</color>
     <color name="classic_darkTheme_colorPrimaryDark">#263238</color>

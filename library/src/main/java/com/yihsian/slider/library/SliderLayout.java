@@ -127,17 +127,17 @@ public class SliderLayout extends RelativeLayout {
                 if (currentPage != lastPage && videoIsPlaying) {
                     SliderItemView lastItemView = (SliderItemView) sliderAdpater.getView(lastPage);
                     videoIsPlaying = false;
-                    lastItemView.stopVideo();
+//                    lastItemView.stopVideo();
                     resumeTimer();
                 }
 
                 currentView = (SliderItemView) sliderAdpater.getView(currentPage);
 
-                if (currentView.getFileType() == SliderItemView.ITEM_LOCAL_VIDEO) {
-                    cancelTimer();
-                    videoIsPlaying = true;
-                    currentView.playVideo();
-                }
+//                if (currentView.getFileType() == SliderItemView.ITEM_LOCAL_VIDEO) {
+//                    cancelTimer();
+//                    videoIsPlaying = true;
+//                    currentView.playVideo();
+//                }
             }
 
             @Override
@@ -180,11 +180,11 @@ public class SliderLayout extends RelativeLayout {
         totalPage++;
         view.setPageIdx(totalPage);
 
-        if (totalPage == 1 && view.getFileType() == SliderItemView.ITEM_LOCAL_VIDEO) {
-            cancelTimer();
-            videoIsPlaying = true;
-            view.playVideo();
-        }
+//        if (totalPage == 1 && view.getFileType() == SliderItemView.ITEM_LOCAL_VIDEO) {
+//            cancelTimer();
+//            videoIsPlaying = true;
+//            view.playVideo();
+//        }
 
         itemViewList.add(view);
         sliderAdpater.addView(view);

@@ -17,39 +17,26 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dukan.dukkan.R;
-import com.market.dokan.util.SharedPreferenceManager;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if(SharedPreferenceManager.getInstance(getBaseContext()).getuid()!=null) {
-//                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getuid().equals("")) {
-//                            startActivity(new Intent(Splash.this, MainActivity.class));
-//                    }else {
-                    startActivity(new Intent(Splash.this, MainActivity.class));
-//                        finish();
-//                    }
-//                }else
-//                {
-////                    startActivity(new Intent(Splash.this, LoginActivity.class));
-//                    finish();
-//                }
+                if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token()!=null) {
+                    if (!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals(""))
+                                startActivity(new Intent(Splash.this, MainActivity.class));
+                           else
+                                startActivity(new Intent(Splash.this, LoginActivity.class));
+                   }else
+                         startActivity(new Intent(Splash.this, LoginActivity.class));
 
+                finish();
             }
         },1000);
-
     }
-
-
 }

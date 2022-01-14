@@ -4,6 +4,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:background="@drawable/button3113"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:contentPadding="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -24,4 +35,8 @@
         app:fillColor="#747474"
         app:pageColor="#fff"
         app:snap="false" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

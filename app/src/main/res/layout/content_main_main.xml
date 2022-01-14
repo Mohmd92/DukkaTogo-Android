@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+<ScrollView
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_marginStart="25dp"
             android:textAllCaps="true"
@@ -19,15 +30,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home_page"/>
-        <com.dukan.dukkan.util.HorizontalListView
-            android:id="@+id/HorizontalListView"
+        <view
             android:layout_marginTop="10dp"
+            android:id="@+id/sliderLayout"
+            class="com.yihsian.slider.library.SliderLayout"
+            id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:paddingStart="20dp"
-            tools:ignore="RtlSymmetry" />
+            android:layout_height="170dp" />
         <RelativeLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/relative3"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
@@ -55,7 +66,7 @@
                 />
         </RelativeLayout>
         <com.dukan.dukkan.util.HorizontalListView
-            android:id="@+id/HorizontalListView2"
+            android:id="@+id/HorizontalListViewStore"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="125dp"
@@ -94,10 +105,10 @@
                 />
         </RelativeLayout>
         <com.dukan.dukkan.util.HorizontalListView
-            android:id="@+id/HorizontalListView3"
+            android:id="@+id/HorizontalListViewMost"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="160dp"
             android:paddingStart="20dp"
             tools:ignore="RtlSymmetry" />
         <RelativeLayout
@@ -142,10 +153,10 @@
                 />
         </RelativeLayout>
         <com.dukan.dukkan.util.HorizontalListView
-            android:id="@+id/HorizontalListViewe"
+            android:id="@+id/HorizontalListViewNewProduct"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="160dp"
             android:paddingStart="20dp"
             tools:ignore="RtlSymmetry" />
     <RelativeLayout
@@ -166,9 +177,10 @@
             />
     </RelativeLayout>
     <com.dukan.dukkan.util.HorizontalListView
+        android:id="@+id/HorizontalListViewBrand"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="80dp"
         android:paddingStart="20dp"
         tools:ignore="RtlSymmetry" />
     <RelativeLayout
@@ -189,12 +201,23 @@
             />
     </RelativeLayout>
     <com.dukan.dukkan.util.HorizontalListView
+        android:id="@+id/HorizontalListViewDelivery"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="80dp"
         android:paddingStart="20dp"
         tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
 </ScrollView>
+<ProgressBar
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintBottom_toBottomOf="parent"
+android:id="@+id/progressBar"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.market.dokan.util;
+package com.dukan.dukkan.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,19 +13,10 @@ public class SharedPreferenceManager {
     private SharedPreferenceManager(Context context) {
         if (context != null) {
             this.mContext = context;
-            sharedPreferences = context.getSharedPreferences("app_sp", Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences("app_sps", Context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
         }
     }
-    public Boolean getNotificationStatus() {
-        return sharedPreferences.getBoolean("NotificationStatus", false);
-    }
-
-    public void setNotificationStatus(Boolean NotificationStatus) {
-        editor.putBoolean("NotificationStatus", NotificationStatus);
-        editor.commit();
-    }
-    /////////////
     public static SharedPreferenceManager getInstance(Context context) {
         if (instance == null) return new SharedPreferenceManager(context);
 
@@ -39,15 +30,7 @@ public class SharedPreferenceManager {
         editor.putString("User_Name", User_Name);
         editor.commit();
     }
-    /////////////
-    public String getDealer() {
-        return sharedPreferences.getString("Dealer", null);
-    }
 
-    public void setDealer(String Dealer) {
-        editor.putString("Dealer", Dealer);
-        editor.commit();
-    }
     /////////////
     public String getStatus() {
         return sharedPreferences.getString("Status", null);
@@ -78,66 +61,22 @@ public class SharedPreferenceManager {
         editor.commit();
     }
     /////////////
-    public String getuid() {
-        return sharedPreferences.getString("uid", "");
+    public String get_api_token() {
+        return sharedPreferences.getString("api_token", "");
     }
 
-    public void setuid(String uid) {
-        editor.putString("uid", uid);
+    public void set_api_token(String api_token) {
+        editor.putString("api_token", api_token);
         editor.commit();
     }
 
-    public String getphone() {
-        return sharedPreferences.getString("phone", "");
+    public String get_email() {
+        return sharedPreferences.getString("email", "");
     }
 
-    public void setphone(String phone) {
-        editor.putString("phone", phone);
+    public void set_email(String email) {
+        editor.putString("email", email);
         editor.commit();
     }
-    /////////////
-    public Boolean getInAppNotifications() {
-        return sharedPreferences.getBoolean("InAppNotifications", false);
-    }
-
-    public void setInAppNotifications(Boolean InAppNotifications) {
-        editor.putBoolean("InAppNotifications", InAppNotifications);
-        editor.commit();
-    }
-    /////////////
-    public void setBadge2Chat(int id) {
-        editor.putInt("badge", id);
-        editor.commit();
-    }
-
-    public int getBadge2Chat() {
-        return sharedPreferences.getInt("badge", 0);
-    }
-    public int getBadgeCount(){
-        return sharedPreferences.getInt("BadgeCount", 0);
-    }
-    public void setBadgeCount(int BadgeCount){
-        editor.putInt("BadgeCount",BadgeCount);
-        editor.commit();
-    }
-
-public String getCustomerName() {
-    return sharedPreferences.getString("CustomerName", "");
-}
-
-    public void setCustomerName(String CustomerName) {
-        editor.putString("CustomerName", CustomerName);
-        editor.commit();
-    }
- /////////////////
-public String getCustomerId() {
-    return sharedPreferences.getString("CustomerId", "");
-}
-
-    public void setCustomerId(String CustomerId) {
-        editor.putString("CustomerId", CustomerId);
-        editor.commit();
-    }
-
 
 }

@@ -65,12 +65,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:id="@+id/img"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/saudi_arabic"/>
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/suadi"/>
             <TextView
                 android:layout_toEndOf="@+id/img"
                 android:layout_centerVertical="true"
@@ -104,12 +105,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:id="@+id/img2"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/saudi_arabic"/>
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/england"/>
             <TextView
                 android:layout_toEndOf="@+id/img2"
                 android:layout_centerVertical="true"
@@ -142,12 +144,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:id="@+id/img3"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/saudi_arabic"/>
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/germany"/>
             <TextView
                 android:layout_toEndOf="@+id/img3"
                 android:layout_centerVertical="true"
@@ -179,12 +182,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:id="@+id/img4"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/saudi_arabic"/>
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/italy"/>
             <TextView
                 android:layout_toEndOf="@+id/img4"
                 android:layout_centerVertical="true"
@@ -216,12 +220,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:id="@+id/img5"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/saudi_arabic"/>
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/turky"/>
             <TextView
                 android:layout_toEndOf="@+id/img5"
                 android:layout_centerVertical="true"

@@ -22,6 +22,9 @@ import android.widget.TextView;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.fragment.HomeFragment;
+import com.dukan.dukkan.fragment.LogoutSheetFragment;
+import com.dukan.dukkan.fragment.TermsSheetFragment;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -63,12 +66,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
+        TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
+            if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
+                header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+        }
+
         header_im_close.setClipToOutline(true);
         viewPager = findViewById(R.id.home_pager_view);
         tabLayout = findViewById(R.id.home_tab_layout);
         tabLayout.setVisibility(View.GONE);
         tabsArrayList = new ArrayList<>();
-        tabsArrayList.add(new Tabs(0, "Orders", new HomeFragment()));
+        tabsArrayList.add(new Tabs(0, "Home", new HomeFragment()));
         MaterialShapeDrawable navViewBackground = (MaterialShapeDrawable) navigationView.getBackground();
         navViewBackground.setShapeAppearanceModel(
                 navViewBackground.getShapeAppearanceModel()
@@ -104,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeDrawer();
                 break;
             case R.id.nav_Stores:
+                startActivity(new Intent(MainActivity.this, StoresActivity.class));
                 closeDrawer();
                 break;
             case R.id.nav_store_map:
@@ -114,7 +124,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeDrawer();
                 break;
             case R.id.nav_logout:
-
+                LogoutSheetFragment logoutSheetFragment = new LogoutSheetFragment();
+                logoutSheetFragment.show(getSupportFragmentManager()
+                        , logoutSheetFragment.getTag());
+                closeDrawer();
                 break;
         }
         return false;
