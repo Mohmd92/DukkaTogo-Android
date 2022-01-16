@@ -68,6 +68,12 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+        tv_forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ForgetPassword.class));
+            }
+        });
     }
     private void Login() {
         InputMethodManager inputMethodManager =

@@ -44,7 +44,9 @@ public class LogoutSheetFragment extends BottomSheetDialogFragment {
                 SharedPreferenceManager.getInstance(getContext()).set_api_token("");
                 SharedPreferenceManager.getInstance(getContext()).setUser_Name("");
                 SharedPreferenceManager.getInstance(getContext()).set_email("");
-                    SharedPreferenceManager.getInstance(getContext()).setPassword("");
+                SharedPreferenceManager.getInstance(getContext()).setPassword("");
+                SharedPreferenceManager.getInstance(getContext()).setCountry("");
+                SharedPreferenceManager.getInstance(getContext()).setCity("");
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
                 dismiss();

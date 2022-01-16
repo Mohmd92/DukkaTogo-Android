@@ -19,6 +19,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         <ImageView
+            android:padding="5dp"
+            android:id="@+id/img_back"
             android:src="@drawable/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

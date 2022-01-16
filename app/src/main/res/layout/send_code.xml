@@ -31,6 +31,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         <ImageView
+            android:padding="5dp"
+            android:id="@+id/img_back"
             android:src="@drawable/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -59,6 +61,7 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/edit1"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -66,7 +69,7 @@
             android:fontFamily="@font/abudhbi_regular"
             android:imeOptions="actionNext"
             android:padding="10dp"
-            android:background="@drawable/button3"
+            android:background="@drawable/button3113"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColorHint="#aeafaf"
@@ -74,6 +77,7 @@
             android:inputType="number"
             android:textSize="20sp"/>
         <EditText
+            android:id="@+id/edit2"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -81,7 +85,7 @@
             android:fontFamily="@font/abudhbi_regular"
             android:imeOptions="actionNext"
             android:padding="10dp"
-            android:background="@drawable/button3"
+            android:background="@drawable/button3113"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColorHint="#aeafaf"
@@ -89,6 +93,7 @@
             android:inputType="number"
             android:textSize="20sp"/>
         <EditText
+            android:id="@+id/edit3"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -96,7 +101,7 @@
             android:fontFamily="@font/abudhbi_regular"
             android:imeOptions="actionNext"
             android:padding="10dp"
-            android:background="@drawable/button3"
+            android:background="@drawable/button3113"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColorHint="#aeafaf"
@@ -104,6 +109,7 @@
             android:inputType="number"
             android:textSize="20sp"/>
         <EditText
+            android:id="@+id/edit4"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -111,7 +117,7 @@
             android:fontFamily="@font/abudhbi_regular"
             android:imeOptions="actionNext"
             android:padding="10dp"
-            android:background="@drawable/button3"
+            android:background="@drawable/button3113"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColorHint="#aeafaf"
@@ -120,6 +126,7 @@
             android:textSize="20sp"/>
     </LinearLayout>
         <TextView
+            android:id="@+id/tv_resent"
             android:layout_gravity="center"
             android:fontFamily="@font/abudhbi_regular"
             android:layout_marginTop="30dp"

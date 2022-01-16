@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.TabAdapter;
+import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.TermsSheetFragment;
@@ -116,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, StoresActivity.class));
                 closeDrawer();
                 break;
-            case R.id.nav_store_map:
-//                startActivity(new Intent(MainActivity.this, Splash.class));
+            case R.id.nav_settings:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
 //                closeDrawer();
                 break;
             case R.id.nav_favorite:

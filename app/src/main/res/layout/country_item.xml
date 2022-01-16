@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <ImageView
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/germany"
+            android:id="@+id/spinnerImages"
+            android:layout_width="32dp"
+            android:layout_height="23dp"
+            android:contentDescription="@string/app_name"/>
+        <TextView
+            android:text="dddddd"
+            android:fontFamily="@font/abudhbi_regular"
+            android:textSize="13sp"
+            android:textColor="@color/blackTheme_colorBackground"
+            android:id="@+id/spinnerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+    </TableRow>
+
+</TableLayout>

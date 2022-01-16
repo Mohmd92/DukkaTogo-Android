@@ -31,6 +31,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         <ImageView
+            android:padding="5dp"
+            android:id="@+id/img_back"
             android:src="@drawable/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -61,10 +63,11 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_mask_group_1"/>
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_lang"
             android:layout_marginTop="20dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -87,10 +90,11 @@
                 android:src="@drawable/ic_next"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_password"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -113,10 +117,11 @@
                 android:src="@drawable/ic_next"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_fingerprint"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -142,10 +147,12 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:layout_marginBottom="20dp"
+            android:id="@+id/card_help"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">

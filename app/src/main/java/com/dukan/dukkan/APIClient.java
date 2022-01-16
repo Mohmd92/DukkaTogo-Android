@@ -21,7 +21,7 @@ public class APIClient {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.store.alkmal.com")
+                .baseUrl("https://www.store.equstudio.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -1,0 +1,59 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/constraintLayout"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <RelativeLayout
+            android:id="@+id/relative"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <ImageView
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:id="@+id/image"
+                android:layout_gravity="end|center_vertical"
+                android:layout_width="32dp"
+                android:layout_height="23dp"
+                android:src="@drawable/suadi"/>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_toEndOf="@+id/image"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/abudhbi_regular"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arabia"/>
+            <ImageView
+                android:id="@+id/img_chk"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_unchek"/>
+        </RelativeLayout>
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative"
+            android:id="@+id/viewss"
+            android:background="@color/classic_colorTintedBackground"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

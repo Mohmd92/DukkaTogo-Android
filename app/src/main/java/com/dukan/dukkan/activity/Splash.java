@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class Splash extends AppCompatActivity {
@@ -31,12 +32,21 @@ public class Splash extends AppCompatActivity {
                     if (!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals(""))
                                 startActivity(new Intent(Splash.this, MainActivity.class));
                            else
-                                startActivity(new Intent(Splash.this, LoginActivity.class));
+                        checkCountry();
                    }else
-                         startActivity(new Intent(Splash.this, LoginActivity.class));
+                    checkCountry();
 
                 finish();
             }
         },1000);
+    }
+    private void checkCountry(){
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getCountry()!=null) {
+            if (!SharedPreferenceManager.getInstance(getBaseContext()).getCountry().equals(""))
+                startActivity(new Intent(Splash.this, LoginActivity.class));
+            else
+                startActivity(new Intent(Splash.this, CountryActivity.class));
+        }else
+            startActivity(new Intent(Splash.this, CountryActivity.class));
     }
 }

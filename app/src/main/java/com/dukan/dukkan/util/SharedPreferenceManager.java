@@ -40,18 +40,6 @@ public class SharedPreferenceManager {
         editor.putString("Status", Status);
         editor.commit();
     }
-    /////////////
-    // ///////////
-    public String getUserType() {
-        return sharedPreferences.getString("UserType", null);
-    }
-
-    public void setUserType(String UserType) {
-        editor.putString("UserType", UserType);
-        editor.commit();
-    }
-    /////////////
-
     public String getPassword() {
         return sharedPreferences.getString("Password", null);
     }
@@ -78,5 +66,30 @@ public class SharedPreferenceManager {
         editor.putString("email", email);
         editor.commit();
     }
+    public String getSMScode() {
+        return sharedPreferences.getString("SMScode", null);
+    }
 
+    public void setSMScode(String SMScode) {
+        editor.putString("SMScode", SMScode);
+        editor.commit();
+    }
+
+    public String getCountry() {
+        return sharedPreferences.getString("Country", null);
+    }
+
+    public void setCountry(String Country) {
+        editor.putString("Country", Country);
+        editor.commit();
+    }
+
+    public String getCity() {
+        return sharedPreferences.getString("City", null);
+    }
+
+    public void setCity(String City) {
+        editor.putString("City", City);
+        editor.commit();
+    }
 }
