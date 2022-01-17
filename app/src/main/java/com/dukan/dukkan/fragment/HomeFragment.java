@@ -1,11 +1,14 @@
 package com.dukan.dukkan.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.LoginActivity;
+import com.dukan.dukkan.activity.ProductsActivity;
+import com.dukan.dukkan.activity.RegisterActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
@@ -29,6 +35,7 @@ import com.dukan.dukkan.pojo.NewProduct;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
 import com.dukan.dukkan.util.HorizontalListView;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.yihsian.slider.library.SliderItemView;
 import com.yihsian.slider.library.SliderLayout;
 
@@ -44,6 +51,7 @@ public class HomeFragment extends Fragment {
     private HorizontalListView HorizontalListViewStore,HorizontalListViewMost,HorizontalListViewNewProduct,HorizontalListViewBrand,HorizontalListViewDelivery;
     private  SliderLayout sliderLayout;
     ProgressBar progressBar;
+    ImageView img_filter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +59,29 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.content_main_main, container, false);
         apiInterface = APIClient.getClient().create(APIInterface.class);
         sliderLayout = root.findViewById(R.id.sliderLayout);
+        img_filter = root.findViewById(R.id.img_filter);
+        TextView view_all_product = root.findViewById(R.id.view_all_product);
         HorizontalListViewStore = root.findViewById(R.id.HorizontalListViewStore);
         HorizontalListViewMost = root.findViewById(R.id.HorizontalListViewMost);
         HorizontalListViewNewProduct = root.findViewById(R.id.HorizontalListViewNewProduct);
         HorizontalListViewBrand = root.findViewById(R.id.HorizontalListViewBrand);
         HorizontalListViewDelivery = root.findViewById(R.id.HorizontalListViewDelivery);
         progressBar = root.findViewById(R.id.progressBar);
+        img_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StoreFilterSheetFragment storeFilterSheetFragment = new StoreFilterSheetFragment();
+                storeFilterSheetFragment.show(getParentFragmentManager()
+                        , storeFilterSheetFragment.getTag());
+            }
+        });
+        view_all_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ProductsActivity.class));
 
+            }
+        });
         getHome();
         return root;
     }

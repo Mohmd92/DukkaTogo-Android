@@ -29,6 +29,18 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
+
+    <string name="enter_name">Please enter user name</string>
+    <string name="enter_street_building_no">Please enter Street / Building No.</string>
+    <string name="enter_postal_code">Please enter Postal Code</string>
+    <string name="enter_e_mail">Please enter mail</string>
+    <string name="enter_mobile_number">Please enter Mobile Number</string>
+    <string name="enter_confirm_password">Please enter confirm password </string>
+    <string name="enter_password">Please enter password</string>
+    <string name="check_terms">Please check Terms And Conditions</string>
+
+
+
     <string name="attach_to_all_terms_conditions"><![CDATA[Attach to all Terms & Conditions]]></string>
     <string name="forget_password2">FORGET PASSWORD</string>
     <string name="send">send</string>
@@ -41,7 +53,7 @@
     <string name="log_out">Log Out</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
-    <string name="switch_share_app">Switch Share App</string>
+    <string name="share_app">Share App</string>
     <string name="switch_accounts">Switch Accounts</string>
     <string name="settings">Settings</string>
     <string name="chat">Chat</string>
@@ -52,6 +64,7 @@
     <string name="home_page">home page</string>
     <string name="stores">Stores</string>
     <string name="view_all"><u>View All</u></string>
+    <string name="filter_stores">Filter Stores</string>
     <string name="most_wanted">most wanted</string>
     <string name="new_products">new products</string>
     <string name="worldwide_trademark">Worldwide Trademark</string>
@@ -130,6 +143,5 @@
     <string name="number_of_products">Number Of Products</string>
     <string name="euros">Euros</string>
     <string name="paid_money">Paid Money</string>
-    <string name="select">select...</string>
-
+    <string name="select">select…</string>
 </resources>

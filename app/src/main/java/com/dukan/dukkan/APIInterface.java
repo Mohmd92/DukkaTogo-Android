@@ -10,6 +10,7 @@ import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Product;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
 
@@ -37,8 +38,8 @@ public interface APIInterface {
     Call<MultipleProducts> doGetListProduct();
 
     @Headers({"api-token: API-TEST-TOKEN"})
-    @GET("/api/v1/stores")
-    Call<MultipleStore> doGetListStore();
+    @GET("/api/v1/stores?")
+    Call<MultipleStore> doGetListStore(@Query("city_id") int city_id,@Query("country_id") int country_id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/categories")

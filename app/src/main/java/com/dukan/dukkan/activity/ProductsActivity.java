@@ -8,15 +8,20 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.pojo.MultipleProducts;
-import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.MultipleProducts;
+import com.dukan.dukkan.pojo.NewProduct;
+import com.dukan.dukkan.util.AutoFitGridLayoutManager;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 import java.util.List;
@@ -26,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class StoresActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     APIInterface apiInterface;
     ProgressBar progressBar;
@@ -35,7 +40,7 @@ public class StoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store);
+        setContentView(R.layout.activity_products);
         progressBar =findViewById(R.id.progressBar);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
@@ -49,33 +54,35 @@ public class StoresActivity extends AppCompatActivity {
             }
         });
         apiInterface = APIClient.getClient().create(APIInterface.class);
-       getStores();
+       getProducts();
 
 
     }
-    private void getStores() {
+    private void getProducts() {
         int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountry());
         int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCity());
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleStore> callNew = apiInterface.doGetListStore(cityId,countryId);
-        callNew.enqueue(new Callback<MultipleStore>() {
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct();
+        callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
-            public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {
+            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
                 Log.d("TAG111111",response.code()+"");
-                MultipleStore resource = response.body();
+                MultipleProducts resource = response.body();
                 String status = resource.status;
-                List<MultipleStore.Datum> datumList = resource.data;
-//                for (MultipleStore.Datum datum : datumList) {
-//                    displayResponse += datum.id + " " + datum.name + " " + datum.description +"\n";
-//                }
-//                Log.d("TAG111111","  d "+displayResponse);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                RecyclerStoreAdapter adapter = new RecyclerStoreAdapter(getApplicationContext(), datumList);
+                List<MultipleProducts.Datum> newProduct = resource.data;
+                AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getApplicationContext(), 400);
+
+//                recyclerView.setLayoutManager(layoutManager);
+                RecyclerProductAdapter adapter = new RecyclerProductAdapter(getApplicationContext(), newProduct);
                 recyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
+
+                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+                recyclerView.setLayoutManager(mLayoutManager);
+
             }
             @Override
-            public void onFailure(Call<MultipleStore> call, Throwable t) {
+            public void onFailure(Call<MultipleProducts> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
 

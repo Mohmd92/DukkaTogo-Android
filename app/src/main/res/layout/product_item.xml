@@ -1,13 +1,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/linnnar"
-    android:padding="5dp"
-    android:layout_width="155dp"
-    android:background="@drawable/button133"
-    android:layout_height="186dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
+        android:background="@drawable/button133"
+        android:layout_margin="5dp"
+        android:paddingBottom="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,6 +19,7 @@
         app:cardElevation="2dp"
         app:contentPadding="0dp">
         <LinearLayout
+            android:padding="10dp"
             android:orientation="vertical"
             android:id="@+id/relative"
             app:layout_constraintTop_toTopOf="parent"
@@ -58,6 +61,7 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
             <RatingBar
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_audio1"

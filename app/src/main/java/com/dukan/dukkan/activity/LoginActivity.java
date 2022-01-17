@@ -61,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, getString(R.string.please_enter_email_password), Toast.LENGTH_SHORT).show();
             }
         });
+        tv_sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

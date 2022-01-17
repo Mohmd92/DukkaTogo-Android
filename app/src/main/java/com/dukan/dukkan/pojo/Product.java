@@ -1,23 +1,21 @@
 package com.dukan.dukkan.pojo;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category {
+/**
+
+ */
+
+public class Product {
     @SerializedName("status")
-    @Expose
-    public Boolean status;
-    @SerializedName("message")
-    @Expose
-    public String message;
+    public String status;
     @SerializedName("data")
-    @Expose
     public List<Datum> data = new ArrayList<>();
-
-    public static class Datum {
-
+    public class Datum {
         @SerializedName("id")
         @Expose
         public Integer id;
@@ -27,15 +25,21 @@ public class Category {
         @SerializedName("description")
         @Expose
         public String description;
-        @SerializedName("image")
+        @SerializedName("price")
         @Expose
-        public String image;
+        public String price;
+        @SerializedName("code")
+        @Expose
+        public String code;
         @SerializedName("user_id")
         @Expose
         public Integer userId;
         @SerializedName("category_id")
         @Expose
         public Integer categoryId;
+        @SerializedName("brand_id")
+        @Expose
+        public Object brandId;
         @SerializedName("store_id")
         @Expose
         public Integer storeId;
@@ -48,6 +52,9 @@ public class Category {
         @SerializedName("deleted_at")
         @Expose
         public Object deletedAt;
+        @SerializedName("image")
+        @Expose
+        public String image;
 
     }
-    }
+}

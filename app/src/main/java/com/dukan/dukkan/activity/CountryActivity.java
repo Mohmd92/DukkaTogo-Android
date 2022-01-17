@@ -50,7 +50,7 @@ public class CountryActivity extends AppCompatActivity {
             }
         });
         apiInterface = APIClient.getClient().create(APIInterface.class);
-        getCategories();
+        getCountries();
 
     }
     private void getCities(Long id) {
@@ -109,7 +109,7 @@ public class CountryActivity extends AppCompatActivity {
             }
         });
     }
-    private void getCategories() {
+    private void getCountries() {
         progressBar.setVisibility(View.VISIBLE);
         Call<Country> callNew = apiInterface.doGetListCountry();
         callNew.enqueue(new Callback<Country>() {
