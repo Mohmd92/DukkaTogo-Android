@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_buy"
+            android:title="@string/orders" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_chart"
+            android:title="@string/statistics" />
+        <item
+            android:id="@+id/nav_read_code"
+            android:icon="@drawable/ic_scan"
+            android:title="@string/read_code" />
+
+        <item
+            android:id="@+id/nav_history_orders"
+            android:icon="@drawable/ic_history"
+            android:title="@string/history_orders" />
+
+        <item
+            android:id="@+id/nav_learn_with_us"
+            android:icon="@drawable/ic_play"
+            android:title="@string/learn_with_us" />
+
+        <item
+            android:id="@+id/nav_call_us"
+            android:icon="@drawable/ic_calling"
+            android:title="@string/call_us" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_switch_accounts"
+            android:icon="@drawable/ic_swap"
+            android:title="@string/switch_accounts" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/sign_out"/>
+    </group>
+</menu>

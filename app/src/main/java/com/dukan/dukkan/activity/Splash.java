@@ -41,8 +41,9 @@ public class Splash extends AppCompatActivity {
         },1000);
     }
     private void checkCountry(){
+        SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
         if(SharedPreferenceManager.getInstance(getBaseContext()).getCountry()!=null) {
-            if (!SharedPreferenceManager.getInstance(getBaseContext()).getCountry().equals(""))
+            if (SharedPreferenceManager.getInstance(getBaseContext()).getCountry().equals(""))
                 startActivity(new Intent(Splash.this, LoginActivity.class));
             else
                 startActivity(new Intent(Splash.this, CountryActivity.class));

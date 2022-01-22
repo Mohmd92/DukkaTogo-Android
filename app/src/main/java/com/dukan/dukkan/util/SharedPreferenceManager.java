@@ -92,4 +92,12 @@ public class SharedPreferenceManager {
         editor.putString("City", City);
         editor.commit();
     }
+    public String getUserType() {
+        return sharedPreferences.getString("UserType", null);
+    }
+
+    public void setUserType(String UserType) {
+        editor.putString("UserType", UserType);
+        editor.commit();
+    }
 }

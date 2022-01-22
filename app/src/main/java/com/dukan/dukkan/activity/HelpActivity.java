@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -19,6 +21,32 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support_help);
+        LinearLayout linear_call = findViewById(R.id.linear_call);
+        Toolbar toolbar = findViewById(R.id.toolbar2);
+        toolbar.setTitle("");
+        ImageView icon_back = toolbar.findViewById(R.id.icon_back);
+        ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
+        ImageView icon_search = toolbar.findViewById(R.id.icon_search);
+        ImageView icon_filter = toolbar.findViewById(R.id.icon_filter);
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_menu.setVisibility(View.GONE);
+        icon_filter.setVisibility(View.GONE);
+        icon_search.setVisibility(View.GONE);
+        icon_notification.setVisibility(View.GONE);
+        setSupportActionBar(toolbar);
+        if (SharedPreferenceManager.getInstance(getBaseContext()).getUserType().equals("driver")){
+            findViewById(R.id.tv_title).setVisibility(View.GONE);
+            findViewById(R.id.tv_sub_title).setVisibility(View.GONE);
+            findViewById(R.id.imag).setVisibility(View.GONE);
+            findViewById(R.id.tv22).setVisibility(View.GONE);
+            findViewById(R.id.tv_sub_title2).setVisibility(View.VISIBLE);
+            linear_call.setVisibility(View.GONE);
+            icon_notification.setVisibility(View.VISIBLE);
+        }else{
+            findViewById(R.id.tv_sub_title2).setVisibility(View.GONE);
+        }
+        setSupportActionBar(toolbar);
+
         tv_ref =findViewById(R.id.tv_ref);
         tv_dish =findViewById(R.id.tv_dish);
         tv_wash =findViewById(R.id.tv_wash);
@@ -31,8 +59,7 @@ public class HelpActivity extends AppCompatActivity {
         ImageView img_dish =findViewById(R.id.img_dish);
         ImageView img_wash =findViewById(R.id.img_wash);
 
-        ImageView img_back =findViewById(R.id.img_back);
-        img_back.setOnClickListener(new View.OnClickListener() {
+        icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

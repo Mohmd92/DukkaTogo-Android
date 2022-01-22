@@ -144,4 +144,26 @@
     <string name="euros">Euros</string>
     <string name="paid_money">Paid Money</string>
     <string name="select">select…</string>
+    <string name="last_seen">Last Seen …</string>
+    <string name="read_code">Read Code</string>
+    <string name="history_orders">History Orders</string>
+    <string name="learn_with_us">Learn With Us</string>
+    <string name="call_us">Call Us</string>
+    <string name="products">Products</string>
+    <string name="starting_place">Starting Place</string>
+    <string name="arrival_area">Arrival Area</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="all_orders">All Orders</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="scanning_code">Scanning Code ...</string>
+    <string name="filter_orders">Filter Orders</string>
+    <string name="first_date">First Date</string>
+    <string name="second_date">Second Date</string>
+    <string name="profile">profile</string>
+    <string name="driving_license_number">Driving License Number</string>
+    <string name="affiliation_date">Affiliation Date</string>
+    <string name="license_number">License Number</string>
+    <string name="license_photo">License Photo</string>
+    <string name="motorcycles">Motorcycles</string>
 </resources>
