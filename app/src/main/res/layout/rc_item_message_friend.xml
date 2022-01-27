@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
+
+    <RelativeLayout
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/imageView3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/user"/>
+        <LinearLayout
+            android:layout_toEndOf="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="@drawable/button3"
+                    android:scrollbars="vertical"
+                    android:visibility="gone"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <ImageView
+                    android:visibility="gone"
+                    android:background="@drawable/testrect"
+                    android:id="@+id/video"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/ic_voice_2"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"/>
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                    android:background="@drawable/testrect"
+                    android:visibility="gone"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:id="@+id/imagechar"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/wwwq"
+                    app:siBorderColor="@color/serach"
+                    app:siRadius="5dp" />
+
+            <LinearLayout
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/testcorner"
+                        />
+                <TextView
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:textSize="12sp"
+                    android:id="@+id/textContentFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hmm ... Tuesday night, around 19 hours is good for you?"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/darkTheme_colorBackground"
+                    android:background="@drawable/testrect"/>
+            </LinearLayout>
+            <TextView
+                android:text="8:14"
+                android:id="@+id/tv_time"
+                android:textSize="10sp"
+                android:fontFamily="@font/abudhbi_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

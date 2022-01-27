@@ -44,7 +44,7 @@ public class Splash extends AppCompatActivity {
         SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
         if(SharedPreferenceManager.getInstance(getBaseContext()).getCountry()!=null) {
             if (SharedPreferenceManager.getInstance(getBaseContext()).getCountry().equals(""))
-                startActivity(new Intent(Splash.this, LoginActivity.class));
+                startActivity(new Intent(Splash.this, ChatActivity.class));
             else
                 startActivity(new Intent(Splash.this, CountryActivity.class));
         }else

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_discount_code"
+            android:icon="@drawable/ic_chart"
+            android:title="@string/discount_codee" />
+        <item
+            android:id="@+id/nav_drivers"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/drivers" />
+        <item
+            android:id="@+id/nav_orders_delivered"
+            android:icon="@drawable/ic_bag"
+            android:title="@string/orders_delivered" />
+
+        <item
+            android:id="@+id/nav_work_hours"
+            android:icon="@drawable/ic_time_circle"
+            android:title="@string/work_hours" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_switch_accounts"
+            android:icon="@drawable/ic_swap"
+            android:title="@string/switch_accounts" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/sign_out"/>
+    </group>
+</menu>
