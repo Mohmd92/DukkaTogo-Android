@@ -59,7 +59,7 @@ public class StoreFilterSheetFragment extends BottomSheetDialogFragment {
     }
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //        TextView textView00 = (TextView) view.findViewById(R.id.textView00);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         spinner_country =  view.findViewById(R.id.spinner_country);
         spinner_category =  view.findViewById(R.id.spinner_category);
         spinner_city =  view.findViewById(R.id.spinner_city);
@@ -167,12 +167,12 @@ public class StoreFilterSheetFragment extends BottomSheetDialogFragment {
                     List<City.Datum> datumList = resource.data;
                     Integer[] idCity=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     for (City.Datum datum : datumList) {
                         idCity[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]="city";
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);
@@ -223,12 +223,12 @@ public class StoreFilterSheetFragment extends BottomSheetDialogFragment {
                     List<Country.Datum> datumList = resource.data;
                     Integer[] idCountry=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     for (Country.Datum datum : datumList) {
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]=datum.image;
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);

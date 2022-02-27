@@ -52,7 +52,7 @@ public class DriveFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.content_main_driver, container, false);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         image_Derive = root.findViewById(R.id.imag);
         header_tv_user_name = root.findViewById(R.id.header_tv_user_name);
         tv_last_seen = root.findViewById(R.id.tv_last_seen);

@@ -42,7 +42,7 @@ public class MerchantCreateDiscount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_create_discount);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         card_open = findViewById(R.id.card_open);
         card_close = findViewById(R.id.card_close);
         tv_starting_date = findViewById(R.id.tv_starting_date);

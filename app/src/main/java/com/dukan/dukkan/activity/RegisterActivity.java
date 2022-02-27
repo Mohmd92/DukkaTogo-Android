@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         getCountries();
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                     List<Country.Datum> datumList = resource.data;
                     Integer[] idCountry=new Integer[datumList.size()];
                     String[] phoneCode=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     int selection=0;
                     for (Country.Datum datum : datumList) {
@@ -138,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                             selection=i;
                         idCountry[i]=datum.id;
                         phoneCode[i]=datum.phoneCode;
-                        img[i]=R.drawable.germany;
+                        img[i]=datum.image;
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);

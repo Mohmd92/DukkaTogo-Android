@@ -42,58 +42,10 @@ public class Country {
         @SerializedName("status")
         @Expose
         public Integer status;
-        @SerializedName("timezones")
-        @Expose
-        public List<Timezone> timezones = null;
-        @SerializedName("currency")
-        @Expose
-        public Currency currency;
 
-    }
-    public class Timezone {
+        @SerializedName("image")
+        @Expose
+        public String image;
 
-        @SerializedName("id")
-        @Expose
-        public Integer id;
-        @SerializedName("country_id")
-        @Expose
-        public Integer countryId;
-        @SerializedName("name")
-        @Expose
-        public String name;
-
-    }
-    public class Currency {
-
-        @SerializedName("id")
-        @Expose
-        public Integer id;
-        @SerializedName("country_id")
-        @Expose
-        public Integer countryId;
-        @SerializedName("name")
-        @Expose
-        public String name;
-        @SerializedName("code")
-        @Expose
-        public String code;
-        @SerializedName("precision")
-        @Expose
-        public Integer precision;
-        @SerializedName("symbol")
-        @Expose
-        public String symbol;
-        @SerializedName("symbol_native")
-        @Expose
-        public String symbolNative;
-        @SerializedName("symbol_first")
-        @Expose
-        public Integer symbolFirst;
-        @SerializedName("decimal_mark")
-        @Expose
-        public String decimalMark;
-        @SerializedName("thousands_separator")
-        @Expose
-        public String thousandsSeparator;
     }
  }

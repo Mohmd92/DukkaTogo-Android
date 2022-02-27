@@ -22,7 +22,7 @@ public class MerchantDiscountsCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_discounts_code);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         recyclerView = findViewById(R.id.recyclerView);
         RelativeLayout rel_add = findViewById(R.id.rel_add);
         Toolbar toolbar = findViewById(R.id.toolbar2);

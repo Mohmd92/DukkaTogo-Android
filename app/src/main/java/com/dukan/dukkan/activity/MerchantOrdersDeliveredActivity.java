@@ -21,7 +21,7 @@ public class MerchantOrdersDeliveredActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_orders_elivered);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         recyclerView = findViewById(R.id.recyclerView);
         Toolbar toolbar = findViewById(R.id.toolbar2);
         toolbar.setTitle("");

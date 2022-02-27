@@ -2,7 +2,9 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Slider {
+import java.util.ArrayList;
+import java.util.List;
+public class Role {
 
     @SerializedName("id")
     @Expose
@@ -10,23 +12,17 @@ public class Slider {
     @SerializedName("name")
     @Expose
     public String name;
-    @SerializedName("url")
+    @SerializedName("guard_name")
     @Expose
-    public String url;
-    @SerializedName("image")
-    @Expose
-    public String image;
-    @SerializedName("status")
-    @Expose
-    public String status;
+    public String guardName;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
-    @SerializedName("deleted_at")
+    @SerializedName("pivot")
     @Expose
-    public Object deletedAt;
+    public Pivot pivot;
 
 }

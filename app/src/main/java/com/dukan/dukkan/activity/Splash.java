@@ -28,8 +28,8 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token()!=null) {
-                    if (!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals(""))
+                if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
+                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
                                 startActivity(new Intent(Splash.this, MainActivity.class));
                            else
                         checkCountry();
@@ -41,10 +41,11 @@ public class Splash extends AppCompatActivity {
         },1000);
     }
     private void checkCountry(){
-        SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
-        if(SharedPreferenceManager.getInstance(getBaseContext()).getCountry()!=null) {
-            if (SharedPreferenceManager.getInstance(getBaseContext()).getCountry().equals(""))
-                startActivity(new Intent(Splash.this, ChatActivity.class));
+//        SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
+        SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId()!=null) {
+            if (SharedPreferenceManager.getInstance(getBaseContext()).getCountryId().equals(""))
+                startActivity(new Intent(Splash.this, LoginActivity.class));
             else
                 startActivity(new Intent(Splash.this, CountryActivity.class));
         }else

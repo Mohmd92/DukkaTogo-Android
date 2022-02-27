@@ -22,7 +22,7 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_list_activity);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         RelativeLayout rel_new_chat = findViewById(R.id.rel_new_chat);
         recyclerView = findViewById(R.id.recyclerView);
         ImageView img_back = findViewById(R.id.img_back);

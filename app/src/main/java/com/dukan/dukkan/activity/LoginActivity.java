@@ -1,5 +1,6 @@
 package com.dukan.dukkan.activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,10 +23,14 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.Login;
+import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Role;
 import com.dukan.dukkan.pojo.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     APIInterface apiInterface;
     ProgressBar progressBar;
     CheckBox checkboxs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_forget =findViewById(R.id.tv_forget);
         tv_skip =findViewById(R.id.tv_skip);
         checkboxs =findViewById(R.id.checkboxs);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,12 +103,29 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }else {
+                    Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
+
                     progressBar.setVisibility(View.GONE);
-                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.user.apiToken);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.user.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.user.email);
+//                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.data.name);
+                    SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.data.email);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(login.data.cityId);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCountry(login.data.country.name);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(login.data.countryId);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
+                    List<Role> roles = login.data.roles;
+                    StringBuilder UserRole= new StringBuilder();
+                    for (Role datum : roles) {
+                        UserRole.append(datum.name);
+                        UserRole.append("*");
+                    }
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUserType(String.valueOf(UserRole));
+
                     if(checkboxs.isChecked())
                         SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
+                    else
+                        SharedPreferenceManager.getInstance(getBaseContext()).setPassword("");
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }

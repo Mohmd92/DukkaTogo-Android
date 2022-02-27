@@ -70,7 +70,7 @@ public class DriverProfileLicenceActivity extends AppCompatActivity {
             img_transport.setVisibility(View.GONE);
             img_transport2.setVisibility(View.GONE);
         }
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         ImageView icon_back = toolbar.findViewById(R.id.icon_back);
         ImageView icon_edit = toolbar.findViewById(R.id.icon_edit);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);

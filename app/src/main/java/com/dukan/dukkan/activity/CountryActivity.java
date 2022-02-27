@@ -1,5 +1,6 @@
 package com.dukan.dukkan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,11 +46,13 @@ public class CountryActivity extends AppCompatActivity {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferenceManager.getInstance(getBaseContext()).setCountry(countryId);
-                SharedPreferenceManager.getInstance(getBaseContext()).setCity(cityId);
+                SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(countryId);
+                SharedPreferenceManager.getInstance(getBaseContext()).setCityId(cityId);
+                startActivity(new Intent(CountryActivity.this, LoginActivity.class));
+                finish();
             }
         });
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         getCountries();
 
     }
@@ -66,12 +69,12 @@ public class CountryActivity extends AppCompatActivity {
                     List<City.Datum> datumList = resource.data;
                     Integer[] idCity=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     for (City.Datum datum : datumList) {
                         idCity[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]="city";
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);
@@ -122,12 +125,12 @@ public class CountryActivity extends AppCompatActivity {
                     List<Country.Datum> datumList = resource.data;
                     Integer[] idCountry=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     for (Country.Datum datum : datumList) {
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]=datum.image;
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);

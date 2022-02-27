@@ -82,7 +82,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
             spinner_mobile.setEnabled(false);
         }
 
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         ImageView icon_back = toolbar.findViewById(R.id.icon_back);
         ImageView icon_edit = toolbar.findViewById(R.id.icon_edit);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
@@ -134,7 +134,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
                     List<Country.Datum> datumList = resource.data;
                     Integer[] idCountry=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     String[] phoneCode=new String[datumList.size()];
 
                     int i=0;
@@ -144,7 +144,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
                             selection=i;
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]=datum.image;
                         phoneCode[i]=datum.phoneCode;
                         i++;
                     }
@@ -199,7 +199,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
                     List<City.Datum> datumList = resource.data;
                     Integer[] idCity=new Integer[datumList.size()];
                     String[] name=new String[datumList.size()];
-                    Integer[] img=new Integer[datumList.size()];
+                    String[] img=new String[datumList.size()];
                     int i=0;
                     int selection=0;
                     for (City.Datum datum : datumList) {
@@ -207,7 +207,8 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
                             selection=i;
                         idCity[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=R.drawable.germany;
+                        img[i]="city";
+
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);

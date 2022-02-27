@@ -71,6 +71,7 @@
     <string name="delivery_companies">delivery companies</string>
     <string name="more_me">More Me</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="remove_to_cart">Remove from cart</string>
     <string name="filter_latest_offers">Filter Latest Offers</string>
     <string name="categories">Categories</string>
     <string name="filter">Filter</string>
@@ -187,4 +188,7 @@
     <string name="driver">Driver</string>
     <string name="no_messages">No Messages</string>
     <string name="type_something">Type Something</string>
+    <string name="driving_data">Driving Data</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure">Are you sure?</string>
 </resources>

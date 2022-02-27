@@ -74,6 +74,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         header_im_close.setClipToOutline(true);
+        ImageView icon_buy = findViewById(R.id.icon_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
         viewPager = findViewById(R.id.home_pager_view);
         tabLayout = findViewById(R.id.home_tab_layout);
         tabLayout.setVisibility(View.GONE);

@@ -31,7 +31,7 @@ public class MerchantWorkingHours extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_working_hours);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         tv_day = findViewById(R.id.tv_day);
         card_open = findViewById(R.id.card_open);
         card_close = findViewById(R.id.card_close);

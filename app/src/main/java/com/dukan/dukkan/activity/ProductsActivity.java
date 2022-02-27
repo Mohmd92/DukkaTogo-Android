@@ -53,7 +53,7 @@ public class ProductsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
        getProducts();
 
 

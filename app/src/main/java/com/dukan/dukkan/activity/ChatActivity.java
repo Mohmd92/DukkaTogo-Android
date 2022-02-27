@@ -27,7 +27,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         ImageView img_file = findViewById(R.id.img_file);
         ImageView img_photo = findViewById(R.id.img_photo);
         ImageView img_voice = findViewById(R.id.img_voice);

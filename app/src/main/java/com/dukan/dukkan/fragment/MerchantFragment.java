@@ -29,7 +29,7 @@ public class MerchantFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.content_main_merchant, container, false);
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         image_Merchant = root.findViewById(R.id.imag);
         header_tv_user_name = root.findViewById(R.id.header_tv_user_name);
         tv_desc = root.findViewById(R.id.tv_desc);

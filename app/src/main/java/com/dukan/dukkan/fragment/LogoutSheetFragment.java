@@ -47,6 +47,9 @@ public class LogoutSheetFragment extends BottomSheetDialogFragment {
                 SharedPreferenceManager.getInstance(getContext()).setPassword("");
                 SharedPreferenceManager.getInstance(getContext()).setCountry("");
                 SharedPreferenceManager.getInstance(getContext()).setCity("");
+                SharedPreferenceManager.getInstance(getContext()).setCityId("");
+                SharedPreferenceManager.getInstance(getContext()).setCountryId("");
+                SharedPreferenceManager.getInstance(getContext()).setUserImage("");
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
                 dismiss();

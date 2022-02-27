@@ -83,6 +83,14 @@ public class SharedPreferenceManager {
         editor.putString("Country", Country);
         editor.commit();
     }
+    public String getCountryId() {
+        return sharedPreferences.getString("CountryId", null);
+    }
+
+    public void setCountryId(String CountryId) {
+        editor.putString("CountryId", CountryId);
+        editor.commit();
+    }
 
     public String getCity() {
         return sharedPreferences.getString("City", null);
@@ -92,12 +100,28 @@ public class SharedPreferenceManager {
         editor.putString("City", City);
         editor.commit();
     }
+    public String getCityId() {
+        return sharedPreferences.getString("CityId", null);
+    }
+
+    public void setCityId(String CityId) {
+        editor.putString("CityId", CityId);
+        editor.commit();
+    }
     public String getUserType() {
         return sharedPreferences.getString("UserType", null);
     }
 
     public void setUserType(String UserType) {
         editor.putString("UserType", UserType);
+        editor.commit();
+    }
+    public String getUserImage() {
+        return sharedPreferences.getString("UserImage", null);
+    }
+
+    public void setUserImage(String UserImage) {
+        editor.putString("UserImage", UserImage);
         editor.commit();
     }
 }

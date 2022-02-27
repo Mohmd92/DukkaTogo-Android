@@ -66,7 +66,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
                 tvMax.setText(String.valueOf(maxValue)+" $");
             }
         });
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         getCategories();
 // set final value listener
         rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {

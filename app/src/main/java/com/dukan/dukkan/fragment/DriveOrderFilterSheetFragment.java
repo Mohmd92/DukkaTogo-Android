@@ -63,7 +63,7 @@ public class DriveOrderFilterSheetFragment extends BottomSheetDialogFragment {
          process_date2 = (TextView) view.findViewById(R.id.process_date2);
         myCalendar = Calendar.getInstance();
         myCalendar2 = Calendar.getInstance();
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
