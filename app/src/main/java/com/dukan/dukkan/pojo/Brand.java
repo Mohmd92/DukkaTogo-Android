@@ -22,8 +22,8 @@ public class Brand {
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
-    @SerializedName("deleted_at")
+    @SerializedName("store_id")
     @Expose
-    public Object deletedAt;
+    public Object storeId;
 
 }

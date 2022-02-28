@@ -1,18 +1,18 @@
 package com.dukan.dukkan;
 
-
-
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
+import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
 
@@ -26,10 +26,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
-
- */
-
 public interface APIInterface {
 
     @GET("/api/unknown")
@@ -37,7 +33,8 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/products")
-    Call<MultipleProducts> doGetListProduct();
+    Call<MultipleProducts> doGetListProduct(@Query("device_id") String device_id,@Query("os") String os,@Query("store_id") int store_id,@Query("brand_id") int brand_id
+            ,@Query("category_id") int category_id,@Query("search") String search,@Query("new") int news,@Query("most_wanted") int most_wanted);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/stores?")
@@ -60,8 +57,23 @@ public interface APIInterface {
     Call<City> doGetCity(@Path("id") Long id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/favorites")
+    Call<FavoriteMain> favorite(@Body CartParamenter cartParamenter);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/favorites")
+    Call<FavoriteMain> favoriteRemove(@Body CartRemoveParamenter cartRemoveParamenter);
+
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/favorites")
+    Call<FavoriteMain> doGetListFavorite(@Query("device_id") String device_id);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/carts")
     Call<CartMain> doGetListCart(@Query("device_id") String device_id);
+
+
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/carts")
@@ -74,6 +86,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/login")
     Call<Login> login(@Body User user);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/stores/{id}")
+    Call<ShowStore> StoreDetails(@Path("id") int id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/users?")

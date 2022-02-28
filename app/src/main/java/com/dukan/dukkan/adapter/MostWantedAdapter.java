@@ -88,8 +88,10 @@ public class MostWantedAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.progressBar =  view.findViewById(R.id.progressBar);
             viewHolder.image =  view.findViewById(R.id.image);
+            viewHolder.img_heart =  view.findViewById(R.id.img_heart);
             viewHolder.tv_name =  view.findViewById(R.id.tv_name);
             viewHolder.tv_price =  view.findViewById(R.id.tv_price);
+            viewHolder.tv_heart =  view.findViewById(R.id.tv_heart);
             viewHolder.rateProduct =  view.findViewById(R.id.ratingBar2);
             viewHolder.rel_add_to_card =  view.findViewById(R.id.rel_add_to_card);
             viewHolder.text_add =  view.findViewById(R.id.text_add);
@@ -163,12 +165,24 @@ public class MostWantedAdapter extends BaseAdapter {
         Picasso.get()
                 .load(mValues.get(i).image)
                 .into(viewHolder.image);
+        if(mValues.get(i).isCart!=null)
+            viewHolder.text_add.setText(context.getString(R.string.remove_to_cart));
+        else
+            viewHolder.text_add.setText(context.getString(R.string.add_to_cart));
+
+        if(mValues.get(i).isFavorite) {
+            viewHolder.img_heart.setImageResource(R.drawable.ic_heart_on);
+            viewHolder.tv_heart.setText("true");
+        }else{
+                viewHolder.img_heart.setImageResource(R.drawable.ic_heart);
+                viewHolder.tv_heart.setText("false");
+            }
         return view;
     }
     private class ViewHolder {
-        TextView text_add,tv_price,tv_name;
+        TextView text_add,tv_price,tv_name,tv_heart;
         RatingBar rateProduct;
-        ImageView image;
+        ImageView image,img_heart;
         ProgressBar progressBar;
         RelativeLayout rel_add_to_card,rel_heart;
     }

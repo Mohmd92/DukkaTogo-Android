@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layerr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+        tools:context=".TestActivity">
             <LinearLayout
                 android:id="@+id/linear"
                 android:layout_marginEnd="27dp"

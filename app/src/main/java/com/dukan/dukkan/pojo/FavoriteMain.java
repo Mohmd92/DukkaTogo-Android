@@ -2,44 +2,34 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CartMain {
-    @SerializedName("status")
-    @Expose
-    public Boolean status;
-    @SerializedName("message")
-    @Expose
-    public String message;
-    @SerializedName("data")
-    @Expose
-    public Data data;
+public class FavoriteMain {
 
-    public class Data {
-
-        @SerializedName("carts")
+        @SerializedName("status")
         @Expose
-        public List<Cart> carts = null;
-        @SerializedName("cart_total")
+        public Boolean status;
+        @SerializedName("message")
         @Expose
-        public Integer cartTotal;
+        public String message;
+        @SerializedName("data")
+        @Expose
+        public List<Datum> data = null;
 
-    }
-    public class Cart {
+    public class Datum {
 
         @SerializedName("id")
         @Expose
         public Integer id;
-        @SerializedName("price")
+        @SerializedName("product_id")
         @Expose
-        public Integer price;
-        @SerializedName("qty")
+        public String productId;
+        @SerializedName("user_id")
         @Expose
-        public Integer qty;
-        @SerializedName("total")
+        public Object userId;
+        @SerializedName("device_id")
         @Expose
-        public Integer total;
+        public String deviceId;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -86,6 +76,9 @@ public class CartMain {
         @SerializedName("is_cart")
         @Expose
         public IsCart isCart;
+        @SerializedName("rate")
+        @Expose
+        public Integer rate;
 
     }
- }
+}

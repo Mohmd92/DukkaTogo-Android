@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layerr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+        tools:context=".TestActivity">
     <LinearLayout
         android:id="@+id/linear"
         android:layout_marginEnd="20dp"
@@ -49,7 +49,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MainActivity">
+            tools:context=".TestActivity">
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="10dp"
                 android:id="@+id/recyclerView"

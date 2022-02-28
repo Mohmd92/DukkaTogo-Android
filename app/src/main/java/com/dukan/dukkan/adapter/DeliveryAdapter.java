@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.Brand;
+import com.dukan.dukkan.pojo.Delivery;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.List;
 public class DeliveryAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflter;
-    private List<Brand> mValues;
+    private List<Delivery> mValues;
 
     public DeliveryAdapter(
-            Context applicationContext,List<Brand> values
+            Context applicationContext,List<Delivery> values
             ) {
         this.context = applicationContext;
         this.mValues = values;

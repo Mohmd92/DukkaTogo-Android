@@ -25,6 +25,8 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+//        SharedPreferenceManager.getInstance(getBaseContext()).setCountryId("32");
+//        SharedPreferenceManager.getInstance(getBaseContext()).setCityId("8550");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -42,7 +44,7 @@ public class Splash extends AppCompatActivity {
     }
     private void checkCountry(){
 //        SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
-        SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
+//        SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
         if(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId()!=null) {
             if (SharedPreferenceManager.getInstance(getBaseContext()).getCountryId().equals(""))
                 startActivity(new Intent(Splash.this, LoginActivity.class));

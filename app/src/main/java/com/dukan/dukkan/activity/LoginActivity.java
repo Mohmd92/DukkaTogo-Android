@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
 
                     progressBar.setVisibility(View.GONE);
-//                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
+                  SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
                     SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.data.name);
                     SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.data.email);
                     SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);

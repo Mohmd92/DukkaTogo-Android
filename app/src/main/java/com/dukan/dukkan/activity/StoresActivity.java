@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -54,10 +55,10 @@ public class StoresActivity extends AppCompatActivity {
 
     }
     private void getStores() {
-        int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountry());
-        int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCity());
+        int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId());
+        int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCityId());
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleStore> callNew = apiInterface.doGetListStore(cityId,countryId);
+        Call<MultipleStore> callNew = apiInterface.doGetListStore(0,0);
         callNew.enqueue(new Callback<MultipleStore>() {
             @Override
             public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {

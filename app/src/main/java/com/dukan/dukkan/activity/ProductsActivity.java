@@ -1,6 +1,8 @@
 package com.dukan.dukkan.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,8 +18,12 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
 import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.fragment.DriveOrderFilterSheetFragment;
+import com.dukan.dukkan.fragment.FilterSheetFragment;
+import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.NewProduct;
@@ -31,11 +37,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ProductsActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity implements  RecyclerCartsAdapter.ItemClickListener {
     RecyclerView recyclerView;
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
+    int mostProduct,newProduct=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,10 @@ public class ProductsActivity extends AppCompatActivity {
         progressBar =findViewById(R.id.progressBar);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
+        Bundle extras = getIntent().getExtras();
+        newProduct= extras.getInt("new");
+        mostProduct= extras.getInt("most");
+        ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         iconMenu.setVisibility(View.GONE);
@@ -53,16 +64,24 @@ public class ProductsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        icon_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterSheetFragment filterSheetFragment = new FilterSheetFragment();
+                filterSheetFragment.show(getSupportFragmentManager()
+                        , filterSheetFragment.getTag());
+            }
+        });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
        getProducts();
 
 
     }
     private void getProducts() {
-        int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountry());
-        int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCity());
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct();
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,0,"",newProduct,mostProduct);
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
@@ -70,9 +89,6 @@ public class ProductsActivity extends AppCompatActivity {
                 MultipleProducts resource = response.body();
                 String status = resource.status;
                 List<MultipleProducts.Datum> newProduct = resource.data;
-                AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getApplicationContext(), 400);
-
-//                recyclerView.setLayoutManager(layoutManager);
                 RecyclerProductAdapter adapter = new RecyclerProductAdapter(getApplicationContext(), newProduct);
                 recyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
@@ -91,4 +107,8 @@ public class ProductsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View view, int position) {
+
+    }
 }

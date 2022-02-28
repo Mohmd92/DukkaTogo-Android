@@ -24,6 +24,7 @@ public class Data {
     public List<Brand> brands = null;
     @SerializedName("deliveries")
     @Expose
-    public List<Object> deliveries = null;
+    public List<Delivery> deliveries = null;
+
 
 }

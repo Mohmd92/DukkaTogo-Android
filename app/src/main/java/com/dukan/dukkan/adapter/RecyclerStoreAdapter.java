@@ -61,6 +61,7 @@ public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdap
                         .load(item.image)
                         .into(select_item_image);
             Log.d("TAG1112111"," item.name "+item.name);
+              ratebar.setRating(item.rate);
 
         }
         @Override

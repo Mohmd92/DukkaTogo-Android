@@ -97,6 +97,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         progressBar.setVisibility(View.VISIBLE);
         Call<CartMain> callNew = apiInterface.doGetListCart(ID);
         callNew.enqueue(new Callback<CartMain>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<CartMain> callNew, Response<CartMain> response) {
                 CartMain cart = response.body();
@@ -123,49 +124,6 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
 
         });
     }
-
-    void  onClickToAddCard(View view, List<CartMain.Cart> mosted,int i){
-        RelativeLayout relative_plus = (RelativeLayout) view.findViewById(R.id.relative_plus);
-        TextView product_count = (TextView) view.findViewById(R.id.product_count);
-        relative_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
-                    CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
-                    Call<CartMain> call1 = apiInterface.cart(cartParamenter);
-                Toast.makeText(CartActivity.this, "onClick "+mosted.get(i).id+"  nn "+ID, Toast.LENGTH_SHORT).show();
-
-                call1.enqueue(new Callback<CartMain>() {
-                        @Override
-                        public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                            CartMain cart = response.body();
-                            System.out.println("7878788888888888 "+cart.status);
-
-                            if (cart.status){
-                                Toast.makeText(CartActivity.this, cart.message, Toast.LENGTH_SHORT).show();
-                                int pCount= Integer.parseInt(product_count.getText().toString());
-                                int tv_total= Integer.parseInt(tv_total_price.getText().toString());
-                                pCount++;
-                                product_count.setText(pCount);
-                                tv_total=tv_total+(mosted.get(i).price);
-                                product_count.setText(tv_total);
-                            }else
-                                Toast.makeText(CartActivity.this, cart.message, Toast.LENGTH_SHORT).show();
-
-                        }
-                        @Override
-                        public void onFailure(Call<CartMain> call, Throwable t) {
-                           Toast.makeText(CartActivity.this, "onFailure", Toast.LENGTH_SHORT).show();
-                           System.out.println("7878788888888888 "+t.getMessage());
-                            call.cancel();
-                        }
-                    });
-                }
-
-        });
-    }
-
     @Override
     public void onClick(View view, int position) {
 //        onClickToAddCard(view,datumList,position);

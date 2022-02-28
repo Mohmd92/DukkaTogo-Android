@@ -1,6 +1,8 @@
 package com.dukan.dukkan;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -15,7 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
 
     TextView responseText;
     APIInterface apiInterface;
@@ -31,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         /**
          GET List Resources
          **/
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct();
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,0,"",0,0);
+
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {

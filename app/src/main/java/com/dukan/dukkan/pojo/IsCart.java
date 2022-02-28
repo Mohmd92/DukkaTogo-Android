@@ -2,23 +2,20 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Slider {
+public class IsCart{
 
     @SerializedName("id")
     @Expose
     public Integer id;
-    @SerializedName("name")
+    @SerializedName("price")
     @Expose
-    public String name;
-    @SerializedName("url")
+    public Integer price;
+    @SerializedName("qty")
     @Expose
-    public String url;
-    @SerializedName("image")
+    public Integer qty;
+    @SerializedName("total")
     @Expose
-    public String image;
-    @SerializedName("status")
-    @Expose
-    public String status;
+    public Integer total;
     @SerializedName("created_at")
     @Expose
     public String createdAt;

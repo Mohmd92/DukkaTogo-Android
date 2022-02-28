@@ -15,33 +15,27 @@ public class NewProduct {
     public String description;
     @SerializedName("price")
     @Expose
-    public String price;
+    public Integer price;
     @SerializedName("code")
     @Expose
     public String code;
-    @SerializedName("user_id")
-    @Expose
-    public Integer userId;
-    @SerializedName("category_id")
-    @Expose
-    public Integer categoryId;
-    @SerializedName("brand_id")
-    @Expose
-    public Object brandId;
-    @SerializedName("store_id")
-    @Expose
-    public Integer storeId;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
-    @SerializedName("deleted_at")
-    @Expose
-    public Object deletedAt;
     @SerializedName("image")
     @Expose
     public String image;
+    @SerializedName("is_favorite")
+    @Expose
+    public Boolean isFavorite;
+    @SerializedName("is_cart")
+    @Expose
+    public IsCart isCart;
+    @SerializedName("rate")
+    @Expose
+    public Integer rate;
 
 }

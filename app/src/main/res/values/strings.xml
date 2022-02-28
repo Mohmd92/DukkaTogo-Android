@@ -59,6 +59,7 @@
     <string name="chat">Chat</string>
     <string name="my_points">My Points</string>
     <string name="favorite">Favorite</string>
+    <string name="favorites">Favorites</string>
     <string name="store_map">Store Map</string>
     <string name="home">Home</string>
     <string name="home_page">home page</string>
@@ -71,7 +72,8 @@
     <string name="delivery_companies">delivery companies</string>
     <string name="more_me">More Me</string>
     <string name="add_to_cart">Add to cart</string>
-    <string name="remove_to_cart">Remove from cart</string>
+    <string name="remove_to_cart2">Remove from cart</string>
+    <string name="remove_to_cart">Remove</string>
     <string name="filter_latest_offers">Filter Latest Offers</string>
     <string name="categories">Categories</string>
     <string name="filter">Filter</string>
@@ -191,4 +193,5 @@
     <string name="driving_data">Driving Data</string>
     <string name="delete">Delete</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="share_via">Share via</string>
 </resources>

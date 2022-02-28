@@ -67,11 +67,14 @@ public class NewProductAdapter extends BaseAdapter {
             view = inflter.inflate(R.layout.wanted_item, null);
             viewHolder = new ViewHolder();
             viewHolder.image =  view.findViewById(R.id.image);
+            viewHolder.img_heart =  view.findViewById(R.id.img_heart);
             viewHolder.tv_name =  view.findViewById(R.id.tv_name);
+            viewHolder.tv_heart =  view.findViewById(R.id.tv_heart);
             viewHolder.tv_price =  view.findViewById(R.id.tv_price);
             viewHolder.rateProduct =  view.findViewById(R.id.ratingBar2);
             viewHolder.rel_add_to_card =  view.findViewById(R.id.rel_add_to_card);
             viewHolder.rel_heart =  view.findViewById(R.id.rel_heart);
+            viewHolder.text_add =  view.findViewById(R.id.text_add);
 
             view.setTag(viewHolder);
 
@@ -83,12 +86,23 @@ public class NewProductAdapter extends BaseAdapter {
         Picasso.get()
                 .load(mValues.get(i).image)
                 .into(viewHolder.image);
+        if(mValues.get(i).isCart!=null)
+            viewHolder.text_add.setText(context.getString(R.string.remove_to_cart));
+        else
+            viewHolder.text_add.setText(context.getString(R.string.add_to_cart));
+        if(mValues.get(i).isFavorite) {
+            viewHolder.img_heart.setImageResource(R.drawable.ic_heart_on);
+            viewHolder.tv_heart.setText("true");
+        }else{
+            viewHolder.img_heart.setImageResource(R.drawable.ic_heart);
+            viewHolder.tv_heart.setText("false");
+        }
         return view;
     }
     private class ViewHolder {
-        TextView tv_price,tv_name;
+        TextView tv_price,tv_name,text_add,tv_heart;
         RatingBar rateProduct;
-        ImageView image;
+        ImageView img_heart,image;
         RelativeLayout rel_add_to_card,rel_heart;
     }
 

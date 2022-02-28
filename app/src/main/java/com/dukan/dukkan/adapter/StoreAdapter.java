@@ -79,6 +79,7 @@ public class StoreAdapter extends BaseAdapter {
         Picasso.get()
                 .load(mValues.get(i).image)
                 .into(viewHolder.image);
+        viewHolder.rateStore.setRating(mValues.get(i).rate);
         return view;
     }
     private class ViewHolder {

@@ -1,21 +1,20 @@
 package com.dukan.dukkan.pojo;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ShowStore {
 
-/**
-
- */
-
-public class MultipleStore {
     @SerializedName("status")
-    public String status;
+    @Expose
+    public Boolean status;
+    @SerializedName("message")
+    @Expose
+    public String message;
     @SerializedName("data")
-    public List<Datum> data = new ArrayList<>();
-    public class Datum {
+    @Expose
+    public Data data;
+    public class Data {
+
         @SerializedName("id")
         @Expose
         public Integer id;
@@ -51,10 +50,10 @@ public class MultipleStore {
         public String cityId;
         @SerializedName("lat")
         @Expose
-        public Object lat;
+        public String lat;
         @SerializedName("lng")
         @Expose
-        public Object lng;
+        public String lng;
         @SerializedName("status")
         @Expose
         public String status;
@@ -66,26 +65,28 @@ public class MultipleStore {
         public String updatedAt;
         @SerializedName("url_facebook")
         @Expose
-        public Object urlFacebook;
+        public String urlFacebook;
         @SerializedName("url_instagram")
         @Expose
-        public Object urlInstagram;
+        public String urlInstagram;
         @SerializedName("url_whatsapp")
         @Expose
-        public Object urlWhatsapp;
+        public String urlWhatsapp;
         @SerializedName("url_twitter")
         @Expose
-        public Object urlTwitter;
+        public String urlTwitter;
         @SerializedName("url_telegram")
         @Expose
-        public Object urlTelegram;
+        public String urlTelegram;
+        @SerializedName("products_count")
+        @Expose
+        public String productsCount;
         @SerializedName("customers_count")
         @Expose
         public Integer customersCount;
         @SerializedName("rate")
         @Expose
         public Integer rate;
-
 
     }
 }

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.TabAdapter;
+import com.dukan.dukkan.fragment.CategorySheetFragment;
 import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
@@ -124,11 +125,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, StoresActivity.class));
                 closeDrawer();
                 break;
+            case R.id.nav_store_map:
+                closeDrawer();
+                break;
+            case R.id.nav_favorite:
+                startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+                closeDrawer();
+                break;
+            case R.id.nav_points:
+                closeDrawer();
+                break;
+            case R.id.nav_chat:
+                closeDrawer();
+                break;
             case R.id.nav_settings:
                 startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 closeDrawer();
                 break;
-            case R.id.nav_favorite:
+            case R.id.nav_switch_accounts:
+                CategorySheetFragment CategorySheetFragment = new CategorySheetFragment();
+                CategorySheetFragment.show(getSupportFragmentManager()
+                        , CategorySheetFragment.getTag());
+                closeDrawer();
+                break;
+            case R.id.nav_share:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Here is the share content body";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.full_name));
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
                 closeDrawer();
                 break;
             case R.id.nav_logout:
