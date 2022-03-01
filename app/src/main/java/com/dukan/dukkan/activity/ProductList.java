@@ -25,6 +25,7 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.adapter.Tabs;
 import com.dukan.dukkan.fragment.HomeFragment;
+import com.dukan.dukkan.fragment.ProductListFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -41,6 +42,8 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
+    private int StoreId;
+    private String StoreName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +54,14 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        Bundle extras = getIntent().getExtras();
+        StoreId= extras.getInt("StoreId");
+        StoreName= extras.getString("StoreName");
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar2);
         title = findViewById(R.id.home_title);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -74,12 +81,36 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
+        ImageView icon_back = toolbar.findViewById(R.id.img_back);
+        icon_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
         header_im_close.setClipToOutline(true);
 
+        viewPager = findViewById(R.id.home_pager_view);
+        tabsArrayList = new ArrayList<>();
+        Bundle bundle = new Bundle();
+        bundle.putInt("StoreId", StoreId);
+        bundle.putString("StoreName", StoreName);
+        ProductListFragment fragment = new ProductListFragment();
+        fragment.setArguments(bundle);
+        tabsArrayList.add(new Tabs(0, "ProductList", fragment));
+//        MaterialShapeDrawable navViewBackground = (MaterialShapeDrawable) navigationView.getBackground();
+//        navViewBackground.setShapeAppearanceModel(
+//                navViewBackground.getShapeAppearanceModel()
+//                        .toBuilder()
+//                        .setTopRightCorner(CornerFamily.ROUNDED,160)
+//                        .build());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TabAdapter adapter = new TabAdapter(fragmentManager, tabsArrayList);
+        viewPager.setAdapter(adapter);
     }
 
     @Override

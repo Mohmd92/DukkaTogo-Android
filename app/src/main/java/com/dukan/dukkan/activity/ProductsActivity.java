@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,18 +43,23 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
-    int mostProduct,newProduct=0;
+    int mostProduct,newProduct=0,store=0;
+    String title="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         progressBar =findViewById(R.id.progressBar);
+        TextView tv_title =findViewById(R.id.tv_title);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
         Bundle extras = getIntent().getExtras();
         newProduct= extras.getInt("new");
         mostProduct= extras.getInt("most");
+        store= extras.getInt("store");
+        title= extras.getString("title");
+        tv_title.setText(title);
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
@@ -81,7 +87,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,0,"",newProduct,mostProduct);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",store,0,0,"",newProduct,mostProduct);
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {

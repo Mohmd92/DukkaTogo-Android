@@ -1,9 +1,13 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +31,7 @@ import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
 
+import java.nio.ShortBuffer;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,6 +48,7 @@ public class ShowStoresActivity extends AppCompatActivity {
     RelativeLayout rel_product_list;
     int productID;
     String url_telegram,url_twitter,url_whatsapp,url_instagram,url_facebook;
+    int storeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +82,23 @@ public class ShowStoresActivity extends AppCompatActivity {
         RelativeLayout rel_telegram=findViewById(R.id.rel_telegram);
         RelativeLayout rel_call=findViewById(R.id.rel_call);
         RelativeLayout rel_map=findViewById(R.id.rel_map);
-        iconBack.setOnClickListener(new View.OnClickListener() {
+        rel_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                if(TextUtils.isEmpty(tv_number.getText().toString())){
+                    String phone = tv_number.getText().toString();
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                    startActivity(intent);
+                }
             }
         });
         rel_product_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(ShowStoresActivity.this, ProductList.class);
+                i.putExtra("StoreId", storeId);
+                i.putExtra("StoreName", tv_name.getText().toString());
+                startActivity(i);
             }
         });
         card_rating.setOnClickListener(new View.OnClickListener() {
@@ -110,10 +124,95 @@ public class ShowStoresActivity extends AppCompatActivity {
             }
             }
         });
+        rel_twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( url_twitter!=null){
+                    Intent i = getOpenTwitterIntent(ShowStoresActivity.this, url_twitter);
+                    startActivity(i);
+            }
+            }
+        });
+        rel_telegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( url_telegram!=null){
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_telegram));
+                        PackageManager pm = getPackageManager();
+                        if (intent.resolveActivity(pm) != null) {
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ShowStoresActivity.this, "Error message", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception ignored) {
+                    }
+            }
+            }
+        });
+        rel_instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( url_instagram!=null){
+                    Uri uri = Uri.parse(url_instagram);
+                    Intent insta = new Intent(Intent.ACTION_VIEW, uri);
+                    insta.setPackage("com.instagram.android");
+
+                    if (isIntentAvailable(getApplicationContext(), insta)){
+                        startActivity(insta);
+                    } else{
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url_instagram)));
+                    }
+
+
+            }
+            }
+        });
+        rel_whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( url_whatsapp!=null){
+                    boolean installed = appInstalledOrNot("com.whatsapp");
+                    if (installed){
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+"+91"+url_whatsapp + "&text="));
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(ShowStoresActivity.this, "Whats app not installed on your device", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
        getStores();
 
 
+    }
+    public static Intent getOpenTwitterIntent(Context c, String Username) {
+
+        try {
+            c.getPackageManager().getPackageInfo("com.twitter.android", 0);
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name="+ Username));
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + Username));
+        }
+    }
+    private boolean appInstalledOrNot(String url){
+        PackageManager packageManager =getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url,PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        }catch (PackageManager.NameNotFoundException e){
+            app_installed = false;
+        }
+        return app_installed;
+    }
+    private boolean isIntentAvailable(Context ctx, Intent intent) {
+        final PackageManager packageManager = ctx.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
     }
     private void getStores() {
         Call<ShowStore> callNew = apiInterface.StoreDetails(productID);
@@ -124,6 +223,7 @@ public class ShowStoresActivity extends AppCompatActivity {
                 Log.d("TAG111111",response.code()+"");
                 ShowStore resource = response.body();
                 if(resource.status){
+                    storeId=resource.data.id;
                     tv_name.setText(resource.data.name);
                     tv_num_products.setText(""+resource.data.productsCount);
                     tv_customer_num.setText(""+resource.data.customersCount);

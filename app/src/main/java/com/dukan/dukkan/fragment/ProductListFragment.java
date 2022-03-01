@@ -3,8 +3,8 @@ package com.dukan.dukkan.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dukan.dukkan.APIClient;
@@ -26,8 +28,10 @@ import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
+import com.dukan.dukkan.adapter.ListProductAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.CartMain;
@@ -35,14 +39,12 @@ import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Delivery;
 import com.dukan.dukkan.pojo.FavoriteMain;
-import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
+import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.NewProduct;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
 import com.dukan.dukkan.util.HorizontalListView;
-import com.dukan.dukkan.util.SharedPreferenceManager;
-import com.squareup.picasso.Picasso;
 import com.yihsian.slider.library.SliderItemView;
 import com.yihsian.slider.library.SliderLayout;
 
@@ -54,45 +56,48 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ProductListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     APIInterface apiInterface;
-    private HorizontalListView HorizontalListViewStore,HorizontalListViewMost,HorizontalListViewNewProduct,HorizontalListViewBrand,HorizontalListViewDelivery;
+    private HorizontalListView HorizontalListViewLastOffers,HorizontalListViewMost,HorizontalListViewNewProduct;
     private  SliderLayout sliderLayout;
-    ProgressBar progressBar;
     ImageView img_filter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    TextView store_name;
+    String ID,StoreName="";
+    int StoreId=0;
 
+    @SuppressLint("HardwareIds")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.content_main_main, container, false);
+        View root = inflater.inflate(R.layout.product_list, container, false);
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         sliderLayout = root.findViewById(R.id.sliderLayout);
-        img_filter = root.findViewById(R.id.img_filter);
+       ID = Settings.Secure.getString(getContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            StoreId = bundle.getInt("StoreId", 0);
+            StoreName = bundle.getString("StoreName", "");
+        }
         TextView view_all_product = root.findViewById(R.id.view_all_product);
         TextView view_most_product = root.findViewById(R.id.view_most_product);
-        HorizontalListViewStore = root.findViewById(R.id.HorizontalListViewStore);
+        TextView view_last_offers = root.findViewById(R.id.view_last_offers);
+        store_name = root.findViewById(R.id.store_name);
+        store_name.setText(StoreName);
+
         HorizontalListViewMost = root.findViewById(R.id.HorizontalListViewMost);
         HorizontalListViewNewProduct = root.findViewById(R.id.HorizontalListViewNewProduct);
-        HorizontalListViewBrand = root.findViewById(R.id.HorizontalListViewBrand);
-        HorizontalListViewDelivery = root.findViewById(R.id.HorizontalListViewDelivery);
+        HorizontalListViewLastOffers = root.findViewById(R.id.HorizontalListViewLastOffers);
         mSwipeRefreshLayout = (SwipeRefreshLayout)  root.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        progressBar = root.findViewById(R.id.progressBar);
-        img_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StoreFilterSheetFragment storeFilterSheetFragment = new StoreFilterSheetFragment();
-                storeFilterSheetFragment.show(getParentFragmentManager()
-                        , storeFilterSheetFragment.getTag());
-            }
-        });
+
         view_all_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), ProductsActivity.class);
                 i.putExtra("title", getString(R.string.new_products));
-                i.putExtra("store", 0);
+                i.putExtra("store", StoreId);
                 i.putExtra("new", 1);
                 i.putExtra("most", 0);
                 startActivity(i);
@@ -103,104 +108,83 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), ProductsActivity.class);
                 i.putExtra("title", getString(R.string.most_wanted));
-                i.putExtra("store", 0);
+                i.putExtra("store", StoreId);
                 i.putExtra("new", 0);
                 i.putExtra("most", 1);
                 startActivity(i);
             }
         });
-        getHome();
+        getNewProducts();
+        getMostWanted();
 
         return root;
     }
-
-    private void getHome() {
+    private void getNewProducts() {
         mSwipeRefreshLayout.setRefreshing(true);
-        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        System.out.println("sssssssssss... "+ID);
-        System.out.println("sssssssssss... "+ SharedPreferenceManager.getInstance(getContext()).get_api_token());
-
-        sliderLayout.removeAllSliders();
-        Call<Home> callNew = apiInterface.doGetListHome(ID);
-        callNew.enqueue(new Callback<Home>() {
+      Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",1,0);
+        callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
-            public void onResponse(Call<Home> callNew, Response<Home> response) {
-                Home resource = response.body();
-                String message = resource.message;
-                if(message.equals("success")){
-                    List<Slider> slid = resource.data.sliders;
-                    List<Store> stores = resource.data.stores;
-                    List<MostWanted> mosted = (ArrayList<MostWanted>) resource.data.mostWanted;
-                    List<NewProduct> newProduct = resource.data.newProducts;
-                    List<Brand> brand = resource.data.brands;
-                    List<Delivery> delivery = resource.data.deliveries;
-                    SliderItemView view01 = new SliderItemView(getContext());
-                    for (Slider datum : slid) {
-                        view01 = new SliderItemView(getContext());
-                        view01.setItem2(datum.image,datum.name);
-                        sliderLayout.addSlider(view01);
+            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
+                Log.d("TAG111111",response.code()+"");
+                MultipleProducts resource = response.body();
+                String status = resource.status;
+                List<MultipleProducts.Datum> newProduct = resource.data;
+                ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(),newProduct);
+                HorizontalListViewNewProduct.setAdapter(listProductAdapter);
+                listProductAdapter.notifyDataSetChanged();
+
+                HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        onClikMostwanted(view,newProduct,i);
                     }
-                    StoreAdapter customAdapter = new StoreAdapter(getContext(),stores);
-                    HorizontalListViewStore.setAdapter(customAdapter);
-                    customAdapter.notifyDataSetChanged();
-                    HorizontalListViewStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent i2 = new Intent(getActivity(), ShowStoresActivity.class);
-                            i2.putExtra("productID", stores.get(i).id);
-                            i2.putExtra("most", 0);
-                            startActivity(i2);
-                        }
-                    });
-
-                    MostWantedAdapter mostAdapter = new MostWantedAdapter(getContext(),mosted);
-                    HorizontalListViewMost.setAdapter(mostAdapter);
-                    customAdapter.notifyDataSetChanged();
-                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,mosted,i);
-                        }
-                    });
-                    /////////////////
-
-                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
-                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
-                    customAdapter.notifyDataSetChanged();
-                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,mosted,i);
-                        }
-                    });
-
-                    BrandAdapter brandAdapter = new BrandAdapter(getContext(),brand);
-                    HorizontalListViewBrand.setAdapter(brandAdapter);
-                    customAdapter.notifyDataSetChanged();
-
-                    DeliveryAdapter deliveryAdapter = new DeliveryAdapter(getContext(),delivery);
-                    HorizontalListViewDelivery.setAdapter(deliveryAdapter);
-                    customAdapter.notifyDataSetChanged();
-
-                    progressBar.setVisibility(View.GONE);
-
-                }
+                });
                 mSwipeRefreshLayout.setRefreshing(false);
+
             }
             @Override
-            public void onFailure(Call<Home> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+            public void onFailure(Call<MultipleProducts> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
                 mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                System.out.println("88888888888 9999  "+t.getMessage());
+
             }
 
         });
+    }
+    private void getMostWanted() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",0,1);
+        callNew.enqueue(new Callback<MultipleProducts>() {
+            @Override
+            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
+                Log.d("TAG111111",response.code()+"");
+                MultipleProducts resource = response.body();
+                String status = resource.status;
+                List<MultipleProducts.Datum> newProduct = resource.data;
+                ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(),newProduct);
+                HorizontalListViewMost.setAdapter(listProductAdapter);
+                listProductAdapter.notifyDataSetChanged();
 
+                HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        onClikMostwanted(view,newProduct,i);
+                    }
+                });
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+            @Override
+            public void onFailure(Call<MultipleProducts> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+                mSwipeRefreshLayout.setRefreshing(false);
+
+
+            }
+
+        });
     }
 
-void  onClikMostwanted(View view, List<MostWanted> mosted,int i){
+void  onClikMostwanted(View view, List<MultipleProducts.Datum> mosted,int i){
     TextView text_add = (TextView) view.findViewById(R.id.text_add);
     TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
     ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
@@ -325,6 +309,7 @@ void  onClikMostwanted(View view, List<MostWanted> mosted,int i){
 
     @Override
     public void onRefresh() {
-        getHome();
+        getNewProducts();
+        getMostWanted();
     }
 }
