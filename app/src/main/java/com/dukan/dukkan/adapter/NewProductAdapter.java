@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class NewProductAdapter extends BaseAdapter {
             viewHolder.rel_add_to_card =  view.findViewById(R.id.rel_add_to_card);
             viewHolder.rel_heart =  view.findViewById(R.id.rel_heart);
             viewHolder.text_add =  view.findViewById(R.id.text_add);
+            viewHolder.linear_main =  view.findViewById(R.id.linear_main);
 
             view.setTag(viewHolder);
 
@@ -104,6 +106,8 @@ public class NewProductAdapter extends BaseAdapter {
         RatingBar rateProduct;
         ImageView img_heart,image;
         RelativeLayout rel_add_to_card,rel_heart;
+        LinearLayout linear_main;
+
     }
 
 

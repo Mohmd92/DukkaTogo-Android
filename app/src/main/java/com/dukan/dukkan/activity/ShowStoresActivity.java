@@ -46,16 +46,17 @@ public class ShowStoresActivity extends AppCompatActivity {
     ImageView image;
     TextView tv_num_products,tv_rating_num,tv_customer_num,tv_number,tv_address,tv_name;
     RelativeLayout rel_product_list;
-    int productID;
+    int stoeId;
     String url_telegram,url_twitter,url_whatsapp,url_instagram,url_facebook;
-    int storeId;
+    int storeId,rateStore;
+    String imageStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_store);
         Bundle extras = getIntent().getExtras();
-        productID= extras.getInt("productID");
+        stoeId= extras.getInt("productID");
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
         image = findViewById(R.id.image);
@@ -69,6 +70,12 @@ public class ShowStoresActivity extends AppCompatActivity {
         ImageView icon_search =toolbar.findViewById(R.id.icon_search);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        iconBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         icon_filter.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
         iconMenu.setVisibility(View.GONE);
@@ -85,7 +92,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         rel_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(tv_number.getText().toString())){
+                if(!TextUtils.isEmpty(tv_number.getText().toString())){
                     String phone = tv_number.getText().toString();
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
                     startActivity(intent);
@@ -96,6 +103,8 @@ public class ShowStoresActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ShowStoresActivity.this, ProductList.class);
+                i.putExtra("rateStore", rateStore);
+                i.putExtra("imageStore", imageStore);
                 i.putExtra("StoreId", storeId);
                 i.putExtra("StoreName", tv_name.getText().toString());
                 startActivity(i);
@@ -215,7 +224,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         return list.size() > 0;
     }
     private void getStores() {
-        Call<ShowStore> callNew = apiInterface.StoreDetails(productID);
+        Call<ShowStore> callNew = apiInterface.StoreDetails(stoeId);
         callNew.enqueue(new Callback<ShowStore>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -238,6 +247,8 @@ public class ShowStoresActivity extends AppCompatActivity {
                     Picasso.get()
                             .load(resource.data.image)
                             .into(image);
+                    imageStore=resource.data.image;
+                    rateStore=resource.data.rate;
 
                 }else
                     Toast.makeText(ShowStoresActivity.this, resource.message, Toast.LENGTH_SHORT).show();

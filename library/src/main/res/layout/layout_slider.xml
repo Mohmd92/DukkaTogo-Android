@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/com.yihsian.slider.library"
     android:orientation="vertical"
+    android:background="@android:color/transparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:layout_margin="5dp"
-        android:background="@drawable/button3113"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="5dp"
@@ -17,6 +17,7 @@
             android:layout_height="match_parent">
 
     <androidx.viewpager.widget.ViewPager
+        android:background="@android:color/transparent"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

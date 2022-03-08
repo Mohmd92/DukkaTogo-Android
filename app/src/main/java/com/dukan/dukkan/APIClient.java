@@ -26,6 +26,7 @@ public class APIClient {
     public static Retrofit getClient(Context context) {
         context = context.getApplicationContext();
         final String tokeen= SharedPreferenceManager.getInstance(context).get_api_token();
+        System.out.println("tttttttttttttttttt "+tokeen);
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 //        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 //        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();

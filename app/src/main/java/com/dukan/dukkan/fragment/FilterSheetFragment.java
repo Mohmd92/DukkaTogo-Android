@@ -1,5 +1,6 @@
 package com.dukan.dukkan.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import retrofit2.Response;
 public class FilterSheetFragment extends BottomSheetDialogFragment {
     APIInterface apiInterface;
     Spinner spinner_country;
+    String title;
+    TextView filter_title;
     public FilterSheetFragment() {
         // Required empty public constructor
     }
@@ -53,12 +56,19 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.bottom_sheet_filter, container, false);
     }
+    @SuppressLint("SetTextI18n")
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         CrystalRangeSeekbar rangeSeekbar = (CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar1);
         TextView tvMin = (TextView) view.findViewById(R.id.textMin1);
         TextView tvMax = (TextView) view.findViewById(R.id.textMax1);
         spinner_country = view.findViewById(R.id.spinner_country);
+        filter_title = view.findViewById(R.id.textView0);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            title = bundle.getString("title", "");
+            filter_title.setText(getContext().getString(R.string.filter)+" "+title);
+        }
         rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
             public void valueChanged(Number minValue, Number maxValue) {

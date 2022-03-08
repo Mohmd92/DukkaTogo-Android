@@ -40,23 +40,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:outlineProvider="background"
-            android:background="@drawable/button3"
-            android:layout_marginTop="25dp"
-            android:id="@+id/header_im_close"
+            android:paddingTop="25dp"
+            android:paddingBottom="8dp"
+            android:id="@+id/img_profile"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/user" />
-
+            android:layout_height="100dp" />
         <TextView
             android:layout_marginTop="10dp"
-            android:id="@+id/header_tv_user_name"
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:fontFamily="@font/abudhbi_bold"
-            android:textColor="@color/colorPrimary"
-            android:text="Username" />
+            android:textColor="@color/colorPrimary"/>
         <LinearLayout
             android:id="@+id/linner"
             android:layout_marginTop="5dp"
@@ -71,24 +67,25 @@
                 android:src="@drawable/ic_location2" />
             <TextView
                 android:layout_marginStart="10dp"
-                android:id="@+id/tv_version"
+                android:id="@+id/tv_location"
                 android:fontFamily="@font/abudhbi_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Palestine - Gaza Strip - Khan Younis"
                 android:textColor="@color/darkTheme_colorBackground"
                 android:textSize="13sp" />
         </LinearLayout>
         <View
-            android:background="@color/classic_colorTintedBackground"
-            android:layout_marginTop="15dp"
+            android:background="@color/countss"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <androidx.cardview.widget.CardView
+            android:layout_marginEnd="1dp"
+            android:id="@+id/card_personal_info"
             android:layout_marginTop="20dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -115,10 +112,12 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:layout_marginEnd="1dp"
+            android:id="@+id/card_orders"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -145,10 +144,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/card_statistics"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:contentPadding="0dp">
@@ -222,5 +224,13 @@
             android:layout_height="45dp"/>
     </LinearLayout>
     </LinearLayout>
-
+    <ProgressBar
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

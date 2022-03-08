@@ -12,9 +12,13 @@ import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Profile;
+import com.dukan.dukkan.pojo.Rate;
+import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
+import com.dukan.dukkan.pojo.UserProfile;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -48,6 +52,14 @@ public interface APIInterface {
     @GET("/api/v1/categories")
     Call<Category> doGetListCategory();
 
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/profile")
+    Call<Profile> UserProfile();
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/profile")
+    Call<Profile> updateProfile(@Body UserProfile userProfile);
+
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/countries")
     Call<Country> doGetListCountry();
@@ -73,7 +85,9 @@ public interface APIInterface {
     @GET("/api/v1/carts")
     Call<CartMain> doGetListCart(@Query("device_id") String device_id);
 
-
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/product_rates")
+    Call<Rate> ProductRates(@Query("product_id") int product_id, @Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/carts")
@@ -90,6 +104,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/stores/{id}")
     Call<ShowStore> StoreDetails(@Path("id") int id);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/products/{id}")
+    Call<ShowProduct> productDetails(@Path("id") int id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/users?")

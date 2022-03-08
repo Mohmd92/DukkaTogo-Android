@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.ProductsActivity;
+import com.dukan.dukkan.activity.ShowProductActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
@@ -127,18 +129,19 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
                 Log.d("TAG111111",response.code()+"");
                 MultipleProducts resource = response.body();
-                String status = resource.status;
-                List<MultipleProducts.Datum> newProduct = resource.data;
-                ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(),newProduct);
-                HorizontalListViewNewProduct.setAdapter(listProductAdapter);
-                listProductAdapter.notifyDataSetChanged();
+                 if(resource.status) {
+                     List<MultipleProducts.Data.Product> newProduct = resource.data.products;
+                     ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
+                     HorizontalListViewNewProduct.setAdapter(listProductAdapter);
+                     listProductAdapter.notifyDataSetChanged();
 
-                HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        onClikMostwanted(view,newProduct,i);
-                    }
-                });
+                     HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                         @Override
+                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                             onClikMostwanted(view, newProduct, i);
+                         }
+                     });
+                 }
                 mSwipeRefreshLayout.setRefreshing(false);
 
             }
@@ -159,18 +162,19 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
                 Log.d("TAG111111",response.code()+"");
                 MultipleProducts resource = response.body();
-                String status = resource.status;
-                List<MultipleProducts.Datum> newProduct = resource.data;
-                ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(),newProduct);
-                HorizontalListViewMost.setAdapter(listProductAdapter);
-                listProductAdapter.notifyDataSetChanged();
+                if(resource.status) {
+                    List<MultipleProducts.Data.Product> newProduct = resource.data.products;
+                    ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
+                    HorizontalListViewMost.setAdapter(listProductAdapter);
+                    listProductAdapter.notifyDataSetChanged();
 
-                HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        onClikMostwanted(view,newProduct,i);
-                    }
-                });
+                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            onClikMostwanted(view, newProduct, i);
+                        }
+                    });
+                }
                 mSwipeRefreshLayout.setRefreshing(false);
             }
             @Override
@@ -184,14 +188,21 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         });
     }
 
-void  onClikMostwanted(View view, List<MultipleProducts.Datum> mosted,int i){
+void  onClikMostwanted(View view, List<MultipleProducts.Data.Product> mosted,int i){
     TextView text_add = (TextView) view.findViewById(R.id.text_add);
     TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
     ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
     RelativeLayout rel_add_to_card = (RelativeLayout) view.findViewById(R.id.rel_add_to_card);
     RelativeLayout rel_heart = (RelativeLayout) view.findViewById(R.id.rel_heart);
     ProgressBar progressBar2 = (ProgressBar) view.findViewById(R.id.progressBar);
-
+    LinearLayout linear_main = (LinearLayout) view.findViewById(R.id.linear_main);
+    linear_main.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i2 = new Intent(getContext(), ShowProductActivity.class);
+            startActivity(i2);
+        }
+    });
     rel_add_to_card.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {

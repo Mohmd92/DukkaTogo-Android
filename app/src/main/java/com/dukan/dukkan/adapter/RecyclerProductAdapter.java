@@ -33,12 +33,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ViewHolder> {
-    List<MultipleProducts.Datum> mValues;
+    List<MultipleProducts.Data.Product> mValues;
     Context mContext;
     private ItemClickListener clickListener;
 
     int row_index=-1;
-    public RecyclerProductAdapter(Context context, List<MultipleProducts.Datum> values) {
+    public RecyclerProductAdapter(Context context, List<MultipleProducts.Data.Product> values) {
 
         mValues = values;
         mContext = context;
@@ -47,7 +47,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        MultipleProducts.Datum item;
+        MultipleProducts.Data.Product item;
         TextView tv_price,tv_name,text_add,tv_heart;
         RatingBar rateProduct;
         ImageView image,img_heart;
@@ -72,7 +72,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
         }
         @SuppressLint("SetTextI18n")
-        public void setData(MultipleProducts.Datum item) {
+        public void setData(MultipleProducts.Data.Product item) {
             this.item = item;
             if(item.name.length()>10)
                 tv_name.setText(item.name.substring(0,10)+"...");

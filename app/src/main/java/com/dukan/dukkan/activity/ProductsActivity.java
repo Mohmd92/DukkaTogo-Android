@@ -73,7 +73,10 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         icon_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
                 FilterSheetFragment filterSheetFragment = new FilterSheetFragment();
+                bundle.putString("title", title);
+                filterSheetFragment.setArguments(bundle);
                 filterSheetFragment.show(getSupportFragmentManager()
                         , filterSheetFragment.getTag());
             }
@@ -93,8 +96,8 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
                 Log.d("TAG111111",response.code()+"");
                 MultipleProducts resource = response.body();
-                String status = resource.status;
-                List<MultipleProducts.Datum> newProduct = resource.data;
+                if(resource.status) {
+                    List<MultipleProducts.Data.Product> newProduct = resource.data.products;
                 RecyclerProductAdapter adapter = new RecyclerProductAdapter(getApplicationContext(), newProduct);
                 recyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
@@ -102,7 +105,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                 recyclerView.setLayoutManager(mLayoutManager);
 
-            }
+            }}
             @Override
             public void onFailure(Call<MultipleProducts> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());

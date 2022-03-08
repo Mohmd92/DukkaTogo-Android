@@ -45,13 +45,13 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
         TextView textView = (TextView) row.findViewById(R.id.spinnerTextView);
         textView.setText(contentArray[position]);
-
         ImageView imageView = (ImageView)row.findViewById(R.id.spinnerImages);
-        if(!imageArray[position].equals("city"))
-            GlideToVectorYou.init().with(getContext()).load(Uri.parse(imageArray[position]),imageView);
-        else
-            imageView.setVisibility(View.GONE);
-
+        if(!imageArray[position].equals("null")) {
+            if (!imageArray[position].equals("city"))
+                GlideToVectorYou.init().with(getContext()).load(Uri.parse(imageArray[position]), imageView);
+            else
+                imageView.setVisibility(View.GONE);
+        }
         return row;
     }
 }

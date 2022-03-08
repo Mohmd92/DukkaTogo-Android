@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dukan.dukkan.R;
@@ -26,6 +27,7 @@ import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.TermsSheetFragment;
+import com.dukan.dukkan.pojo.UserProfile;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
+        RelativeLayout rel_profile = view.findViewById(R.id.rel_profile);
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
@@ -80,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
+        rel_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
             }
         });
         viewPager = findViewById(R.id.home_pager_view);

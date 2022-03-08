@@ -7,13 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.MultipleProducts;
-import com.dukan.dukkan.pojo.MultipleProducts.Datum;
+import com.dukan.dukkan.pojo.MultipleProducts.Data.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,10 +22,10 @@ import java.util.List;
 public class ListProductAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflter;
-    private List<MultipleProducts.Datum> mValues;
+    private List<MultipleProducts.Data.Product> mValues;
 
     public ListProductAdapter(
-            Context applicationContext,List<MultipleProducts.Datum> values
+            Context applicationContext,List<MultipleProducts.Data.Product> values
             ) {
         this.context = applicationContext;
         this.mValues = values;
@@ -75,6 +76,7 @@ public class ListProductAdapter extends BaseAdapter {
             viewHolder.rel_add_to_card =  view.findViewById(R.id.rel_add_to_card);
             viewHolder.rel_heart =  view.findViewById(R.id.rel_heart);
             viewHolder.text_add =  view.findViewById(R.id.text_add);
+            viewHolder.linear_main =  view.findViewById(R.id.linear_main);
 
             view.setTag(viewHolder);
 
@@ -105,6 +107,8 @@ public class ListProductAdapter extends BaseAdapter {
         RatingBar rateProduct;
         ImageView img_heart,image;
         RelativeLayout rel_add_to_card,rel_heart;
+        LinearLayout linear_main;
+
     }
 
 

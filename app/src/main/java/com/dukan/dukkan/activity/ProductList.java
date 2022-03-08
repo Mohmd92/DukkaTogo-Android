@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,8 +44,8 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
-    private int StoreId;
-    private String StoreName;
+    private int StoreId,rateStore;
+    private String StoreName,imageStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,10 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Bundle extras = getIntent().getExtras();
+        rateStore= extras.getInt("rateStore");
         StoreId= extras.getInt("StoreId");
         StoreName= extras.getString("StoreName");
+        imageStore= extras.getString("imageStore");
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar2);
@@ -91,8 +95,17 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
+        TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
+        TextView tv_rating_num = view.findViewById(R.id.tv_rating_num);
+        RatingBar ratingBar = view.findViewById(R.id.ratingBar2);
+        ratingBar.setRating(rateStore);
+        header_tv_user_name.setText(StoreName);
+        tv_rating_num.setText(""+rateStore);
         header_im_close = view.findViewById(R.id.header_im_close);
         header_im_close.setClipToOutline(true);
+        Picasso.get()
+                .load(imageStore)
+                .into(header_im_close);
 
         viewPager = findViewById(R.id.home_pager_view);
         tabsArrayList = new ArrayList<>();

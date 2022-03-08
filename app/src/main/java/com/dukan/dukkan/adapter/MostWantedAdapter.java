@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -96,6 +97,7 @@ public class MostWantedAdapter extends BaseAdapter {
             viewHolder.rel_add_to_card =  view.findViewById(R.id.rel_add_to_card);
             viewHolder.text_add =  view.findViewById(R.id.text_add);
             viewHolder.rel_heart =  view.findViewById(R.id.rel_heart);
+            viewHolder.linear_main =  view.findViewById(R.id.linear_main);
 //            viewHolder.rel_add_to_card.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -185,6 +187,7 @@ public class MostWantedAdapter extends BaseAdapter {
         ImageView image,img_heart;
         ProgressBar progressBar;
         RelativeLayout rel_add_to_card,rel_heart;
+        LinearLayout linear_main;
     }
 
 

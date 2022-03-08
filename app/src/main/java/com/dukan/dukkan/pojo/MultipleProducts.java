@@ -13,10 +13,24 @@ import java.util.List;
 public class MultipleProducts {
 
     @SerializedName("status")
-    public String status;
+    @Expose
+    public Boolean status;
     @SerializedName("data")
-    public List<Datum> data = new ArrayList<>();
-    public class Datum {
+    @Expose
+    public Data data;
+    public class Data {
+
+        @SerializedName("products")
+        @Expose
+        public List<Product> products = null;
+        @SerializedName("advertisement")
+        @Expose
+        public Advertisement advertisement;
+
+
+
+    public class Product {
+
         @SerializedName("id")
         @Expose
         public Integer id;
@@ -46,9 +60,11 @@ public class MultipleProducts {
         public Boolean isFavorite;
         @SerializedName("is_cart")
         @Expose
-        public IsCart isCart;
+        public Object isCart;
         @SerializedName("rate")
         @Expose
         public Integer rate;
+
+    }
     }
 }

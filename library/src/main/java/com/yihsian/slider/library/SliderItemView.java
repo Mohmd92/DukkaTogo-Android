@@ -131,6 +131,26 @@ public class SliderItemView extends RelativeLayout {
         }
         rq.into(imageView);
     }
+    public void setItem3 (String str,String txt) {
+        txt_title.setText(txt);
+        imageView.setVisibility(View.VISIBLE);
+        videoView.setVisibility(View.INVISIBLE);
+        txt_title.setVisibility(View.GONE);
+
+        RequestCreator rq = Picasso.get().load(str);
+        switch (mScaleType){
+            case Fit:
+                rq.fit();
+                break;
+            case CenterCrop:
+                rq.fit().centerCrop();
+                break;
+            case CenterInside:
+                rq.fit().centerInside();
+                break;
+        }
+        rq.into(imageView);
+    }
     public void setItem (File file, int type) {
         this.file = file;
         this.fileType = type;

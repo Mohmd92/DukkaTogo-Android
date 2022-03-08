@@ -47,13 +47,13 @@ public class TestActivity extends AppCompatActivity {
                 String displayResponse = "";
 
                 MultipleProducts resource = response.body();
-                String status = resource.status;
-                List<MultipleProducts.Datum> datumList = resource.data;
+                if(resource.status) {
+                    List<MultipleProducts.Data.Product> datumList = resource.data.products;
 
-                displayResponse += status + " status\n";
 
-                for (MultipleProducts.Datum datum : datumList) {
+                for (MultipleProducts.Data.Product datum : datumList) {
                     displayResponse += datum.id + " " + datum.name + " " + datum.description + " " + datum.price + "\n";
+                }
                 }
 
                 responseText.setText(displayResponse);

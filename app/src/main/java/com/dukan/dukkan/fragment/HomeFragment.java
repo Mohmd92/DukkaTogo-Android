@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.ProductsActivity;
+import com.dukan.dukkan.activity.ShowProductActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
@@ -204,10 +206,20 @@ void  onClikMostwanted(View view, List<MostWanted> mosted,int i){
     TextView text_add = (TextView) view.findViewById(R.id.text_add);
     TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
     ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
+    LinearLayout linear_main = (LinearLayout) view.findViewById(R.id.linear_main);
     RelativeLayout rel_add_to_card = (RelativeLayout) view.findViewById(R.id.rel_add_to_card);
     RelativeLayout rel_heart = (RelativeLayout) view.findViewById(R.id.rel_heart);
     ProgressBar progressBar2 = (ProgressBar) view.findViewById(R.id.progressBar);
-
+    linear_main.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i2 = new Intent(getActivity(), ShowProductActivity.class);
+            i2.putExtra("productID", mosted.get(i).id);
+            startActivity(i2);
+ 
+        }
+    });
+    //////////////////
     rel_add_to_card.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
