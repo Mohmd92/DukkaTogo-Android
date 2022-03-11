@@ -30,6 +30,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.model.SliderItem;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
@@ -100,6 +101,7 @@ public class ShowProductActivity extends AppCompatActivity {
         rel_add_to_card=findViewById(R.id.rel_add_to_card);
         CardView card_favorite=findViewById(R.id.card_favorite);
         CardView card_desc=findViewById(R.id.card_desc);
+        CardView card_rating=findViewById(R.id.card_rating);
         CardView card_customer_reviews=findViewById(R.id.card_customer_reviews);
         img_roow=findViewById(R.id.img_roows);
         HorizontalListView = findViewById(R.id.HorizontalListView);
@@ -111,6 +113,17 @@ public class ShowProductActivity extends AppCompatActivity {
         RelativeLayout relative_plus = findViewById(R.id.relative_plus);
         RelativeLayout relative_minus = findViewById(R.id.relative_minus);
         product_count = findViewById(R.id.product_count);
+        card_rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
+                bundle.putInt("productID", productID);
+                reviewSheetFragment.setArguments(bundle);
+                reviewSheetFragment.show(getSupportFragmentManager()
+                        , reviewSheetFragment.getTag());
+            }
+        });
         card_customer_reviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -154,11 +154,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:textColorHint="#aeafaf"
-                    android:hint="Mohammed Khalaf"
+                    android:hint="@string/full_name"
                     android:inputType="text"
                     android:textSize="14sp"/>
                 <LinearLayout
-                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -183,34 +182,66 @@
                         android:text="@string/city"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <Spinner
+                    <LinearLayout
                         android:layout_weight="1"
                         android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:imeOptions="actionNext"
-                        android:id="@+id/spinner_country"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:textSize="16sp"/>
-                    <EditText
-                        android:id="@+id/edit_city"
+                        android:background="@drawable/background2"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:textSize="16sp"
+                            android:id="@+id/spinner_country"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:gravity="center"
+                            android:background="@android:color/transparent"
+                            android:spinnerMode="dropdown"
+                            tools:ignore="NestedWeights" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_arrow" />
+
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/abudhbi_regular"
                         android:layout_marginTop="10dp"
-                        android:imeOptions="actionNext"
-                        android:padding="10dp"
-                        android:background="@drawable/button3113"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:textColorHint="#aeafaf"
-                        android:hint="@string/city"
-                        android:inputType="text"
-                        android:textSize="14sp"/>
+                        android:background="@drawable/background2"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:textSize="16sp"
+                            android:id="@+id/spinner_city"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:gravity="center"
+                            android:background="@android:color/transparent"
+                            android:spinnerMode="dropdown"
+                            tools:ignore="NestedWeights" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_arrow" />
+
+                    </LinearLayout>
                 </LinearLayout>
                 <TextView
                     android:fontFamily="@font/abudhbi_regular"
@@ -230,7 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:textColorHint="#aeafaf"
-                    android:hint="Palestine - Gaza Strip - Khan Younis"
+                    android:hint="@string/street_building_no"
                     android:inputType="text"
                     android:textSize="14sp"/>
                 <TextView
@@ -272,7 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:textColorHint="#aeafaf"
-                    android:hint="hm122qa@gmail.com"
+                    android:hint="example@gmail.com"
                     android:inputType="textEmailAddress"
                     android:textSize="14sp"/>
                 <TextView
@@ -328,7 +359,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:textColorHint="#aeafaf"
-                        android:hint="597   5848   515"
+                        android:hint="000   0000   000"
                         android:inputType="numberDecimal"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -365,7 +396,7 @@
                     android:id="@+id/edit_password2"
                     android:fontFamily="@font/abudhbi_regular"
                     android:layout_marginTop="10dp"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:padding="10dp"
                     android:background="@drawable/button3113"
                     android:layout_width="match_parent"

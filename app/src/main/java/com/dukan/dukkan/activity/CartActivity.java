@@ -29,11 +29,13 @@ import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.adapter.SpinnerAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
+import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleStore;
@@ -75,11 +77,13 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                check_coupon(Long.valueOf(edit_discount.getText().toString()));
             }
         });
         but_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, CheckOut.class));
             }
         });
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +93,27 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
             }
         });
         getCarts();
+    }
+    private void check_coupon(Long id) {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<City> callNew = apiInterface.doCheckCoupon(id);
+        callNew.enqueue(new Callback<City>() {
+            @Override
+            public void onResponse(Call<City> callNew, Response<City> response) {
+                Log.d("TAG111111",response.code()+"");
+                City resource = response.body();
+                Boolean status = resource.status;
+                if(status)
+                    Toast.makeText(CartActivity.this, ""+resource.status, Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<City> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+                progressBar.setVisibility(View.GONE);
+
+            }
+        });
     }
     private void getCarts() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),

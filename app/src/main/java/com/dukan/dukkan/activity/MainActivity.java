@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dukan.dukkan.APIClient;
+import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.fragment.CategorySheetFragment;
@@ -27,6 +29,7 @@ import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.TermsSheetFragment;
+import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.UserProfile;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.navigation.NavigationView;
@@ -34,18 +37,25 @@ import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.dukan.dukkan.adapter.Tabs;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private TextView title;
+    private TextView title,tv_location,header_tv_user_name;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar);
@@ -70,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
+        header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
+        tv_location = view.findViewById(R.id.tv_location);
         RelativeLayout rel_profile = view.findViewById(R.id.rel_profile);
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
@@ -117,6 +130,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        getProfile();
+    }
+    private void getProfile() {
+        Call<Profile> callNew = apiInterface.UserProfile();
+        callNew.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
+                Profile resource = response.body();
+                Boolean status = resource.status;
+                if(status) {
+                    header_tv_user_name.setText(resource.user.name);
+                    tv_location.setText(resource.user.address);
+                    Picasso.get()
+                            .load(resource.user.image)
+                            .into(header_im_close);
+                }
+            }
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                call.cancel();
             }
         });
     }

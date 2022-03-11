@@ -40,13 +40,13 @@ public class Login {
         public String status;
         @SerializedName("user_id")
         @Expose
-        public Object userId;
+        public String userId;
         @SerializedName("lat")
         @Expose
-        public Object lat;
+        public String lat;
         @SerializedName("lng")
         @Expose
-        public Object lng;
+        public String lng;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -55,7 +55,7 @@ public class Login {
         public String updatedAt;
         @SerializedName("deleted_at")
         @Expose
-        public Object deletedAt;
+        public String deletedAt;
         @SerializedName("country_id")
         @Expose
         public String countryId;

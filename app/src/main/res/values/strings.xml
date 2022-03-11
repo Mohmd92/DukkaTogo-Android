@@ -30,6 +30,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
 
+    <string name="enter_review">Please enter review</string>
     <string name="enter_name">Please enter user name</string>
     <string name="enter_street_building_no">Please enter Street / Building No.</string>
     <string name="enter_postal_code">Please enter Postal Code</string>
@@ -195,4 +196,8 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="share_via">Share via</string>
     <string name="specifications">Specifications :</string>
+    <string name="write_your_opinion">Write Your Opinion</string>
+    <string name="review">review</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="name">Name</string>
 </resources>

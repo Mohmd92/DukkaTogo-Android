@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
@@ -52,23 +53,28 @@ public class CustomerReviews extends AppCompatActivity  {
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
         productID= getIntent().getExtras().getInt("productID");
-        getProducts();
+        getRates();
 
 
     }
-    private void getProducts() {
+    private void getRates() {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         Call<Rate> callNew = apiInterface.ProductRates(productID,ID,"android");
+        Log.d("TAG111111 ssss d ",productID+"");
         callNew.enqueue(new Callback<Rate>() {
             @Override
             public void onResponse(Call<Rate> callNew, Response<Rate> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111 ssss",response.code()+"");
                 Rate resource = response.body();
+                Log.d("TAG111111 ssss",resource.status+"");
+
                 if(resource.status) {
-                    List<Rate.Datum> newProduct = resource.data;
-                    RecyclerRatesAdapter adapter = new RecyclerRatesAdapter(getApplicationContext(), newProduct);
+                    List<Rate.Datum> rates = resource.data;
+                    Log.d("TAG111111 ssss ee ",rates.size()+"");
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    RecyclerRatesAdapter adapter = new RecyclerRatesAdapter(getApplicationContext(), rates);
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }}

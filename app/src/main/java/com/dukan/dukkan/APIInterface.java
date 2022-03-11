@@ -1,9 +1,15 @@
 package com.dukan.dukkan;
 
+import com.dukan.dukkan.pojo.Address;
+import com.dukan.dukkan.pojo.AddressEditParameter;
+import com.dukan.dukkan.pojo.AddressParameter;
+import com.dukan.dukkan.pojo.AllAddress;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Category;
+import com.dukan.dukkan.pojo.ChangePassParameter;
+import com.dukan.dukkan.pojo.ChangePassword;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
 import com.dukan.dukkan.pojo.FavoriteMain;
@@ -14,6 +20,9 @@ import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.Rate;
+import com.dukan.dukkan.pojo.RateParameter;
+import com.dukan.dukkan.pojo.Register;
+import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.User;
@@ -69,8 +78,28 @@ public interface APIInterface {
     Call<City> doGetCity(@Path("id") Long id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/check_coupon/{id}")
+    Call<City> doCheckCoupon(@Path("id") Long id);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/address")
+    Call<Address> AddAddress(@Body AddressParameter addressParameter);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/address/{id}")
+    Call<Address> EditAddress(@Path("id") int id,@Body AddressEditParameter addressEditParameter);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/address")
+    Call<AllAddress> GetAllAddress(@Query("device_id") String device_id,@Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")
     Call<FavoriteMain> favorite(@Body CartParamenter cartParamenter);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/register")
+    Call<Register> register(@Body RegisterParameter registerParameter);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")
@@ -88,6 +117,15 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/product_rates")
     Call<Rate> ProductRates(@Query("product_id") int product_id, @Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/product_rates")
+    Call<Rate> DoRate(@Body RateParameter rateParameter);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/change_password")
+    Call<ChangePassword> DoChangePassword(@Body ChangePassParameter changePassParameter);
+
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/carts")

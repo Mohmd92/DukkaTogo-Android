@@ -2,7 +2,6 @@ package com.dukan.dukkan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.dukan.dukkan.R;
-import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class SettingActivity extends AppCompatActivity {
     Switch switchs;
@@ -33,7 +31,7 @@ public class SettingActivity extends AppCompatActivity {
         card_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingActivity.this, ChangePassword.class));
+                startActivity(new Intent(SettingActivity.this, ChangePasswords.class));
             }
         });
         card_help.setOnClickListener(new View.OnClickListener() {

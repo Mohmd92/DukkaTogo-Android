@@ -40,5 +40,6 @@ public class Rate {
         @Expose
         public UserProfile user;
 
+
 }
 }

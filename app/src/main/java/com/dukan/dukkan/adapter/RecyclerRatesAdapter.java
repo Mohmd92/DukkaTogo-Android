@@ -17,6 +17,9 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.Rate;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class RecyclerRatesAdapter extends RecyclerView.Adapter<RecyclerRatesAdapter.ViewHolder> {
@@ -55,7 +58,19 @@ public class RecyclerRatesAdapter extends RecyclerView.Adapter<RecyclerRatesAdap
             this.item = item;
 
             tv_user_name.setText(item.user.name);
-            tv_date.setText(item.createdAt);
+            SimpleDateFormat formatterOut = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy");
+
+            try {
+                Date date = formatterOut.parse(item.createdAt);
+                System.out.println(date);
+                System.out.println(formatterOut.format(date));
+                tv_date.setText(formatterOut.format(date));
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             tv_comment.setText(item.comment);
             ratebar.setRating(Float.parseFloat(item.rate));
                 Picasso.get()

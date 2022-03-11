@@ -26,6 +26,9 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.fragment.FilterSheetFragment;
+import com.dukan.dukkan.fragment.LogoutSheetFragment;
+import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -113,6 +116,12 @@ public class ShowStoresActivity extends AppCompatActivity {
         card_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
+//                bundle.putString("title", prod);
+//                reviewSheetFragment.setArguments(bundle);
+//                reviewSheetFragment.show(getSupportFragmentManager()
+//                        , reviewSheetFragment.getTag());
             }
         });
         card_chat.setOnClickListener(new View.OnClickListener() {

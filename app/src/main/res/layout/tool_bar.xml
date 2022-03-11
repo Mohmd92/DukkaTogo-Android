@@ -9,6 +9,7 @@
     tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:paddingEnd="10dp"
         android:layout_marginTop="20dp"
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
