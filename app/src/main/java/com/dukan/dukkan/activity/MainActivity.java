@@ -9,9 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -135,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getProfile();
     }
     private void getProfile() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        System.out.println("vvvvvvvvvvddd "+ID);
         Call<Profile> callNew = apiInterface.UserProfile();
         callNew.enqueue(new Callback<Profile>() {
             @Override

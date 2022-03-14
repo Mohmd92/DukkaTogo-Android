@@ -44,7 +44,8 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
-    private int StoreId,rateStore;
+    private int StoreId;
+    private float rateStore;
     private String StoreName,imageStore;
 
     @Override

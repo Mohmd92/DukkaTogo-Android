@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         System.out.println("sssssssssss... "+ SharedPreferenceManager.getInstance(getContext()).get_api_token());
 
         sliderLayout.removeAllSliders();
-        Call<Home> callNew = apiInterface.doGetListHome(ID);
+        Call<Home> callNew = apiInterface.doGetListHome(ID,"android");
         callNew.enqueue(new Callback<Home>() {
             @Override
             public void onResponse(Call<Home> callNew, Response<Home> response) {
@@ -228,7 +228,7 @@ void  onClikMostwanted(View view, List<MostWanted> mosted,int i){
                 @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
                         Settings.Secure.ANDROID_ID);
                 CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
-                Call<CartMain> call1 = apiInterface.cart(cartParamenter);
+                Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
                 call1.enqueue(new Callback<CartMain>() {
                     @Override
                     public void onResponse(Call<CartMain> call, Response<CartMain> response) {

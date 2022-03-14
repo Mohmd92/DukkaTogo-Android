@@ -159,7 +159,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
                     if (text_add.getText().equals(mContext.getString(R.string.add_to_cart))) {
                         CartParamenter cartParamenter = new CartParamenter(item.id, ID);
-                        Call<CartMain> call1 = apiInterface.cart(cartParamenter);
+                        Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
                         call1.enqueue(new Callback<CartMain>() {
                             @Override
                             public void onResponse(Call<CartMain> call, Response<CartMain> response) {

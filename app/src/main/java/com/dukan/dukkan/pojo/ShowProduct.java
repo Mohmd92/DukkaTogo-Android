@@ -53,7 +53,7 @@ public class ShowProduct {
         public IsCart isCart;
         @SerializedName("rate")
         @Expose
-        public Integer rate;
+        public float rate;
         @SerializedName("images")
         @Expose
         public List<Image> images = null;

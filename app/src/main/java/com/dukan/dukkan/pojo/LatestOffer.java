@@ -36,6 +36,6 @@ public class LatestOffer {
     public IsCart isCart;
     @SerializedName("rate")
     @Expose
-    public Integer rate;
+    public float rate;
 
 }

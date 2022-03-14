@@ -86,7 +86,7 @@ public class ShowStore {
         public Integer customersCount;
         @SerializedName("rate")
         @Expose
-        public Integer rate;
+        public float rate;
 
     }
 }

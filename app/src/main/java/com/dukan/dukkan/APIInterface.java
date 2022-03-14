@@ -55,7 +55,7 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
-    Call<Home> doGetListHome(@Query("device_id") String device_id);
+    Call<Home> doGetListHome(@Query("device_id") String device_id,@Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/categories")
@@ -127,9 +127,9 @@ public interface APIInterface {
     Call<ChangePassword> DoChangePassword(@Body ChangePassParameter changePassParameter);
 
 
-    @Headers({"api-token: API-TEST-TOKEN"})
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/carts")
-    Call<CartMain> cart(@Body CartParamenter cartParamenter);
+    Call<CartMain> cart(@Query("device_id") String device_id,@Body CartParamenter cartParamenter);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/carts")

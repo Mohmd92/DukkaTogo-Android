@@ -129,7 +129,7 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
 
                     if (text_add.getText().equals(mContext.getString(R.string.add_to_cart))) {
                         CartParamenter cartParamenter = new CartParamenter(item.product.id, ID);
-                        Call<CartMain> call1 = apiInterface.cart(cartParamenter);
+                        Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
                         call1.enqueue(new Callback<CartMain>() {
                             @Override
                             public void onResponse(Call<CartMain> call, Response<CartMain> response) {

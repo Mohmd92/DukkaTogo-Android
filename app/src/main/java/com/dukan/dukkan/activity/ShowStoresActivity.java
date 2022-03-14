@@ -51,7 +51,8 @@ public class ShowStoresActivity extends AppCompatActivity {
     RelativeLayout rel_product_list;
     int stoeId;
     String url_telegram,url_twitter,url_whatsapp,url_instagram,url_facebook;
-    int storeId,rateStore;
+    int storeId;
+    float rateStore;
     String imageStore;
 
     @Override

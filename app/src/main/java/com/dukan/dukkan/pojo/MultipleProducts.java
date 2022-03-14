@@ -63,7 +63,7 @@ public class MultipleProducts {
         public Object isCart;
         @SerializedName("rate")
         @Expose
-        public Integer rate;
+        public float rate;
 
     }
     }
