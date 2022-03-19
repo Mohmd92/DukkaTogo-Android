@@ -38,10 +38,10 @@ public class Store {
     public String cityId;
     @SerializedName("lat")
     @Expose
-    public Object lat;
+    public String lat;
     @SerializedName("lng")
     @Expose
-    public Object lng;
+    public String lng;
     @SerializedName("status")
     @Expose
     public String status;

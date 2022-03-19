@@ -11,9 +11,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +46,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.dukan.dukkan.adapter.Tabs;
 import com.squareup.picasso.Picasso;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -134,31 +141,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        getProfile();
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getLoginType().equals(""))
+             getProfile();
+        else if(SharedPreferenceManager.getInstance(getBaseContext()).getLoginType().equals("google") || SharedPreferenceManager.getInstance(getBaseContext()).getLoginType().equals("facebook"))
+             getProfileGoogle();
+
+
+        printHashKey();
+    }
+    public  void printHashKey()
+    {
+
+        // Add code to print out the key hash
+        try {
+
+            PackageInfo info
+                    = getPackageManager().getPackageInfo(
+                    "com.dukan.dukkan",
+                    PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : info.signatures) {
+
+                MessageDigest md
+                        = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:",
+                        Base64.encodeToString(
+                                md.digest(),
+                                Base64.DEFAULT));
+            }
+        }
+
+        catch (PackageManager.NameNotFoundException e) {
+        }
+
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+    private  void getProfileGoogle(){
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+        tv_location.setText("");
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                .into(header_im_close);
     }
     private void getProfile() {
-        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        System.out.println("vvvvvvvvvvddd "+ID);
-        Call<Profile> callNew = apiInterface.UserProfile();
-        callNew.enqueue(new Callback<Profile>() {
-            @Override
-            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
-                Profile resource = response.body();
-                Boolean status = resource.status;
-                if(status) {
-                    header_tv_user_name.setText(resource.user.name);
-                    tv_location.setText(resource.user.address);
-                    Picasso.get()
-                            .load(resource.user.image)
-                            .into(header_im_close);
-                }
-            }
-            @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
-                call.cancel();
-            }
-        });
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+        tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                .into(header_im_close);
+//        Call<Profile> callNew = apiInterface.UserProfile();
+//        callNew.enqueue(new Callback<Profile>() {
+//            @Override
+//            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
+//                Profile resource = response.body();
+//                Boolean status = resource.status;
+//                if(status) {
+//                    header_tv_user_name.setText(resource.user.name);
+//                    tv_location.setText(resource.user.address);
+//                    Picasso.get()
+//                            .load(resource.user.image)
+//                            .into(header_im_close);
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<Profile> call, Throwable t) {
+//                call.cancel();
+//            }
+//        });
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);

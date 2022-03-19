@@ -167,7 +167,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
 
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=datum.image;
+                        img[i]=datum.iso2;
                         phoneCode[i]=datum.phoneCode;
                         i++;
                     }

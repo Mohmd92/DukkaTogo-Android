@@ -51,7 +51,7 @@ public class CartMain {
         public Product product;
         @SerializedName("user")
         @Expose
-        public Object user;
+        public UserProfile user;
 
     }
     public class Product {

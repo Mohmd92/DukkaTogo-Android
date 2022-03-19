@@ -193,6 +193,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginEnd="27dp"
             android:layout_marginStart="27dp"
             android:background="@drawable/button3113"
@@ -200,11 +201,19 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="45dp">
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="visible" />
             <ImageView
+                android:visibility="gone"
                 android:src="@drawable/ic_group_12296"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:visibility="gone"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/abudhbi_regular"
                 android:textSize="13sp"
@@ -215,6 +224,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -224,13 +234,22 @@
             android:background="@drawable/button3113"
             android:gravity="center">
 
+            <com.facebook.login.widget.LoginButton
+                android:layout_gravity="center"
+                android:id="@+id/fbLogin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+
             <ImageView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:src="@drawable/ic_group_12295" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

@@ -2,33 +2,31 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CategoryProduct {
+public class Advertisement2 {
 
     @SerializedName("id")
     @Expose
     public Integer id;
-    @SerializedName("name")
+    @SerializedName("title")
     @Expose
-    public String name;
+    public String title;
     @SerializedName("description")
     @Expose
     public String description;
     @SerializedName("image")
     @Expose
     public String image;
-    @SerializedName("user_id")
+    @SerializedName("date")
     @Expose
-    public String userId;
-    @SerializedName("category_id")
+    public String date;
+    @SerializedName("status")
     @Expose
-    public String categoryId;
-    @SerializedName("store_id")
-    @Expose
-    public String storeId;
+    public String status;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
+
 }

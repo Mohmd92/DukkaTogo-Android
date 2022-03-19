@@ -26,11 +26,14 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.activity.ShowProductActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
+import com.dukan.dukkan.activity.StoresActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
+import com.dukan.dukkan.pojo.Advertisement;
+import com.dukan.dukkan.pojo.Advertisement2;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
@@ -61,8 +64,10 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private HorizontalListView HorizontalListViewStore,HorizontalListViewMost,HorizontalListViewNewProduct,HorizontalListViewBrand,HorizontalListViewDelivery;
     private  SliderLayout sliderLayout;
     ProgressBar progressBar;
-    ImageView img_filter;
+    ImageView img_filter,image_advertisement1,image_advertisement2;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView desc_advertisement1,title_advertisement1;
+    private TextView desc_advertisement2,title_advertisement2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +77,16 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         sliderLayout = root.findViewById(R.id.sliderLayout);
         img_filter = root.findViewById(R.id.img_filter);
         TextView view_all_product = root.findViewById(R.id.view_all_product);
+        TextView view_stores = root.findViewById(R.id.view_stores);
         TextView view_most_product = root.findViewById(R.id.view_most_product);
+
+        image_advertisement1 = root.findViewById(R.id.image_advertisement1);
+        desc_advertisement1 = root.findViewById(R.id.desc_advertisement1);
+        title_advertisement1 = root.findViewById(R.id.title_advertisement1);
+        image_advertisement2 = root.findViewById(R.id.image_advertisement2);
+        desc_advertisement2 = root.findViewById(R.id.desc_advertisement2);
+        title_advertisement2 = root.findViewById(R.id.title_advertisement2);
+
         HorizontalListViewStore = root.findViewById(R.id.HorizontalListViewStore);
         HorizontalListViewMost = root.findViewById(R.id.HorizontalListViewMost);
         HorizontalListViewNewProduct = root.findViewById(R.id.HorizontalListViewNewProduct);
@@ -87,6 +101,13 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 StoreFilterSheetFragment storeFilterSheetFragment = new StoreFilterSheetFragment();
                 storeFilterSheetFragment.show(getParentFragmentManager()
                         , storeFilterSheetFragment.getTag());
+            }
+        });
+        view_stores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), StoresActivity.class);
+                startActivity(i);
             }
         });
         view_all_product.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +158,21 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     List<NewProduct> newProduct = resource.data.newProducts;
                     List<Brand> brand = resource.data.brands;
                     List<Delivery> delivery = resource.data.deliveries;
+                    Advertisement advertisement1 = resource.data.advertisement;
+                    title_advertisement1.setText(advertisement1.title);
+                    desc_advertisement1.setText(advertisement1.description);
+                    Picasso.get()
+                            .load(advertisement1.image)
+                            .into(image_advertisement1);
+
+                    Advertisement2 advertisement2 = resource.data.advertisement2;
+                    title_advertisement2.setText(advertisement2.title);
+                    desc_advertisement2.setText(advertisement2.description);
+                    Picasso.get()
+                            .load(advertisement2.image)
+                            .into(image_advertisement2);
+
+
                     SliderItemView view01 = new SliderItemView(getContext());
                     for (Slider datum : slid) {
                         view01 = new SliderItemView(getContext());

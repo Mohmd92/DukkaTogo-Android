@@ -6,21 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".activity.MainActivity">
+<LinearLayout
+    android:layout_margin="10dp"
+    android:background="@drawable/button133"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:layout_weight="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_margin="10dp"
-            android:background="@drawable/button1"
+            android:layout_marginStart="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="150dp">
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/title_advertisement1"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/abudhbi_bold"
@@ -28,9 +37,10 @@
                 android:textColor="@color/blackTheme_colorBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Water Filter Gurugram"/>
+                android:text=""/>
             <TextView
-                android:layout_below="@+id/title"
+                android:id="@+id/desc_advertisement1"
+                android:layout_below="@+id/title_advertisement1"
                 android:layout_marginStart="5dp"
                 android:textAllCaps="true"
                 android:layout_marginTop="2dp"
@@ -39,17 +49,17 @@
                 android:textColor="@color/blackTheme_colorBackground"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text=" Water purification
- Havells RO Water Purifier Dealer Reverse
- osmosis, germicidal,kitchen Appliance"/>
+                android:text="  "/>
         </RelativeLayout>
-        <ImageView
-            android:layout_marginEnd="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/wwwq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
 
     </RelativeLayout>
+    <ImageView
+        android:layout_weight="2"
+        android:id="@+id/image_advertisement1"
+        android:layout_marginEnd="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

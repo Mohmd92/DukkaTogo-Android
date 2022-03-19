@@ -50,7 +50,7 @@ public class APIClient {
 
          retrofit = new Retrofit.Builder()
                 .client(client2)
-                .baseUrl("https://store.alkmal.com")
+                .baseUrl(context.getString(R.string.url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

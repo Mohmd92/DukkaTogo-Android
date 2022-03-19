@@ -228,7 +228,7 @@ public class StoreFilterSheetFragment extends BottomSheetDialogFragment {
                     for (Country.Datum datum : datumList) {
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=datum.image;
+                        img[i]=datum.iso2;
                         i++;
                     }
                     progressBar.setVisibility(View.GONE);

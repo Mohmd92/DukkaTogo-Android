@@ -26,7 +26,7 @@ public class FavoriteMain {
         public String productId;
         @SerializedName("user_id")
         @Expose
-        public Object userId;
+        public String userId;
         @SerializedName("device_id")
         @Expose
         public String deviceId;
@@ -41,7 +41,7 @@ public class FavoriteMain {
         public Product product;
         @SerializedName("user")
         @Expose
-        public Object user;
+        public UserProfile user;
 
     }
     public class Product {

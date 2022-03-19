@@ -124,4 +124,21 @@ public class SharedPreferenceManager {
         editor.putString("UserImage", UserImage);
         editor.commit();
     }
+
+    public String getLoginType() {
+        return sharedPreferences.getString("LoginType", null);
+    }
+
+    public void setLoginType(String LoginType) {
+        editor.putString("LoginType", LoginType);
+        editor.commit();
+    }
+    public String getAddress() {
+        return sharedPreferences.getString("Address", null);
+    }
+
+    public void setAddress(String Address) {
+        editor.putString("Address", Address);
+        editor.commit();
+    }
 }

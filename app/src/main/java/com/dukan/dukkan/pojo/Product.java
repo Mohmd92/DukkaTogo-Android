@@ -39,7 +39,7 @@ public class Product {
         public Integer categoryId;
         @SerializedName("brand_id")
         @Expose
-        public Object brandId;
+        public String brandId;
         @SerializedName("store_id")
         @Expose
         public Integer storeId;
@@ -51,7 +51,7 @@ public class Product {
         public String updatedAt;
         @SerializedName("deleted_at")
         @Expose
-        public Object deletedAt;
+        public String deletedAt;
         @SerializedName("image")
         @Expose
         public String image;

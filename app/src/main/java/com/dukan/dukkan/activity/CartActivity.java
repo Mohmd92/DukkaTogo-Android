@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,15 +28,19 @@ import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerAddressAdapter;
 import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.adapter.SpinnerAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
+import com.dukan.dukkan.pojo.AllAddress;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
+import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
+import com.dukan.dukkan.pojo.Coupon;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleStore;
@@ -77,7 +82,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                check_coupon(Long.valueOf(edit_discount.getText().toString()));
+                check_coupon(edit_discount.getText().toString());
             }
         });
         but_checkout.setOnClickListener(new View.OnClickListener() {
@@ -94,21 +99,56 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         });
         getCarts();
     }
-    private void check_coupon(Long id) {
+    private void CreateOrders() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        Call<City> callNew = apiInterface.doCheckCoupon(id);
-        callNew.enqueue(new Callback<City>() {
+        System.out.println("IDIDIDIDIDID "+ID);
+        Call<CheckOutCart> callNew = apiInterface.CreateOrderCart(ID,"android");
+        callNew.enqueue(new Callback<CheckOutCart>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<City> callNew, Response<City> response) {
+            public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
+                CheckOutCart cart = response.body();
+                if (cart.status) {
+                    CheckOutCart resource = response.body();
+                    List<CheckOutCart.Datum> datumList = resource.data;
+
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//                    RecyclerAddressAdapter adapter = new RecyclerAddressAdapter(getApplicationContext(),  datumList);
+//                    recyclerView.setAdapter(adapter);
+                }
+                progressBar.setVisibility(View.GONE);
+
+            }
+            @Override
+            public void onFailure(Call<CheckOutCart> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+        });
+    }
+    private void check_coupon(String id) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    getCurrentFocus().getWindowToken(), 0);
+        }
+        progressBar.setVisibility(View.VISIBLE);
+        Call<Coupon> callNew = apiInterface.doCheckCoupon(id);
+        callNew.enqueue(new Callback<Coupon>() {
+            @Override
+            public void onResponse(Call<Coupon> callNew, Response<Coupon> response) {
                 Log.d("TAG111111",response.code()+"");
-                City resource = response.body();
+                Coupon resource = response.body();
                 Boolean status = resource.status;
                 if(status)
-                    Toast.makeText(CartActivity.this, ""+resource.status, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this, ""+resource.data.expiration, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
             }
             @Override
-            public void onFailure(Call<City> call, Throwable t) {
+            public void onFailure(Call<Coupon> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
 

@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import java.nio.ShortBuffer;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +55,7 @@ public class ShowStoresActivity extends AppCompatActivity {
     int storeId;
     float rateStore;
     String imageStore;
+    String latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,16 @@ public class ShowStoresActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(tv_number.getText().toString())){
                     String phone = tv_number.getText().toString();
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                    startActivity(intent);
+                }
+            }
+        });
+        rel_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!latitude.equals("null") && !longitude.equals("null")){
+                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     startActivity(intent);
                 }
             }
@@ -259,6 +271,9 @@ public class ShowStoresActivity extends AppCompatActivity {
                             .into(image);
                     imageStore=resource.data.image;
                     rateStore=resource.data.rate;
+                    latitude=resource.data.lat;
+                    longitude=resource.data.lng;
+
 
                 }else
                     Toast.makeText(ShowStoresActivity.this, resource.message, Toast.LENGTH_SHORT).show();

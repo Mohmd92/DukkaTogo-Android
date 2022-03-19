@@ -18,6 +18,7 @@ import com.dukan.dukkan.activity.MainActivity;
 import com.dukan.dukkan.activity.RegisterActivity;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LogoutSheetFragment extends BottomSheetDialogFragment {
     public LogoutSheetFragment() {
@@ -41,6 +42,12 @@ public class LogoutSheetFragment extends BottomSheetDialogFragment {
         yes_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(SharedPreferenceManager.getInstance(getContext()).getLoginType().equals("google")) {
+                    FirebaseAuth mFirebaseAuth;
+                    mFirebaseAuth = FirebaseAuth.getInstance();
+                    mFirebaseAuth.signOut();
+                }
+
                 SharedPreferenceManager.getInstance(getContext()).set_api_token("");
                 SharedPreferenceManager.getInstance(getContext()).setUser_Name("");
                 SharedPreferenceManager.getInstance(getContext()).set_email("");

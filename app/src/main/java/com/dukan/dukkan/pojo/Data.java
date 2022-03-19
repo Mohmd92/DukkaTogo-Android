@@ -12,19 +12,24 @@ public class Data {
     public List<Slider> sliders = new ArrayList<>();
     @SerializedName("stores")
     @Expose
-    public List<Store> stores = null;
+    public List<Store> stores = new ArrayList<>();
     @SerializedName("most_wanted")
     @Expose
-    public List<MostWanted> mostWanted = null;
+    public List<MostWanted> mostWanted = new ArrayList<>();
     @SerializedName("new_products")
     @Expose
-    public List<NewProduct> newProducts = null;
+    public List<NewProduct> newProducts =new ArrayList<>();
     @SerializedName("brands")
     @Expose
-    public List<Brand> brands = null;
+    public List<Brand> brands =new ArrayList<>();
     @SerializedName("deliveries")
     @Expose
-    public List<Delivery> deliveries = null;
-
+    public List<Delivery> deliveries = new ArrayList<>();
+    @SerializedName("advertisement")
+    @Expose
+    public Advertisement advertisement;
+    @SerializedName("advertisement2")
+    @Expose
+    public Advertisement2 advertisement2;
 
 }

@@ -144,7 +144,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
                             selection=i;
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=datum.image;
+                        img[i]=datum.iso2;
                         phoneCode[i]=datum.phoneCode;
                         i++;
                     }

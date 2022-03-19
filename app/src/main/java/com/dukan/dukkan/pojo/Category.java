@@ -47,7 +47,7 @@ public class Category {
         public String updatedAt;
         @SerializedName("deleted_at")
         @Expose
-        public Object deletedAt;
+        public String deletedAt;
 
     }
     }

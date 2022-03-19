@@ -51,10 +51,10 @@ public class MultipleStore {
         public String cityId;
         @SerializedName("lat")
         @Expose
-        public Object lat;
+        public String lat;
         @SerializedName("lng")
         @Expose
-        public Object lng;
+        public String lng;
         @SerializedName("status")
         @Expose
         public String status;
@@ -66,19 +66,19 @@ public class MultipleStore {
         public String updatedAt;
         @SerializedName("url_facebook")
         @Expose
-        public Object urlFacebook;
+        public String urlFacebook;
         @SerializedName("url_instagram")
         @Expose
-        public Object urlInstagram;
+        public String urlInstagram;
         @SerializedName("url_whatsapp")
         @Expose
-        public Object urlWhatsapp;
+        public String urlWhatsapp;
         @SerializedName("url_twitter")
         @Expose
-        public Object urlTwitter;
+        public String urlTwitter;
         @SerializedName("url_telegram")
         @Expose
-        public Object urlTelegram;
+        public String urlTelegram;
         @SerializedName("customers_count")
         @Expose
         public Integer customersCount;

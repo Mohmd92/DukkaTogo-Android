@@ -8,7 +8,7 @@ public class Image {
     public Integer id;
     @SerializedName("name")
     @Expose
-    public Object name;
+    public String name;
     @SerializedName("path")
     @Expose
     public String path;

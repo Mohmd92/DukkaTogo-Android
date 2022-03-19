@@ -28,7 +28,7 @@ public class Login {
         public String email;
         @SerializedName("email_verified_at")
         @Expose
-        public Object emailVerifiedAt;
+        public String emailVerifiedAt;
         @SerializedName("mobile")
         @Expose
         public String mobile;

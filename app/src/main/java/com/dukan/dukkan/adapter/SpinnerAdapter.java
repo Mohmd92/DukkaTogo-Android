@@ -42,16 +42,17 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.country_item, parent, false);
-
         TextView textView = (TextView) row.findViewById(R.id.spinnerTextView);
         textView.setText(contentArray[position]);
         ImageView imageView = (ImageView)row.findViewById(R.id.spinnerImages);
-        if(!imageArray[position].equals("null")) {
+        String image_url=getContext().getString(R.string.url)+"/assets/flags/"+imageArray[position].toLowerCase()+".png";
+        System.out.println("image_urlimage_urlimage_url "+image_url);
             if (!imageArray[position].equals("city"))
-                GlideToVectorYou.init().with(getContext()).load(Uri.parse(imageArray[position]), imageView);
+                Picasso.get()
+                        .load(image_url)
+                        .into(imageView);
             else
                 imageView.setVisibility(View.GONE);
-        }
         return row;
     }
 }

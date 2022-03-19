@@ -60,7 +60,7 @@ public class MultipleProducts {
         public Boolean isFavorite;
         @SerializedName("is_cart")
         @Expose
-        public Object isCart;
+        public IsCart isCart;
         @SerializedName("rate")
         @Expose
         public float rate;

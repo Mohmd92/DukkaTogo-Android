@@ -10,8 +10,10 @@ import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.ChangePassParameter;
 import com.dukan.dukkan.pojo.ChangePassword;
+import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
+import com.dukan.dukkan.pojo.Coupon;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.Login;
@@ -79,7 +81,7 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/check_coupon/{id}")
-    Call<City> doCheckCoupon(@Path("id") Long id);
+    Call<Coupon> doCheckCoupon(@Path("id") String id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/address")
@@ -92,6 +94,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/address")
     Call<AllAddress> GetAllAddress(@Query("device_id") String device_id,@Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/orders")
+    Call<CheckOutCart> CreateOrderCart(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")

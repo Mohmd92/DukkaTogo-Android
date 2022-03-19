@@ -15,7 +15,7 @@ public class Delivery {
     public String email;
     @SerializedName("email_verified_at")
     @Expose
-    public Object emailVerifiedAt;
+    public String emailVerifiedAt;
     @SerializedName("mobile")
     @Expose
     public String mobile;
@@ -27,13 +27,13 @@ public class Delivery {
     public String status;
     @SerializedName("user_id")
     @Expose
-    public Object userId;
+    public String userId;
     @SerializedName("lat")
     @Expose
-    public Object lat;
+    public String lat;
     @SerializedName("lng")
     @Expose
-    public Object lng;
+    public String lng;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
@@ -54,7 +54,7 @@ public class Delivery {
     public String postalCode;
     @SerializedName("username")
     @Expose
-    public Object username;
+    public String username;
 
 
 }

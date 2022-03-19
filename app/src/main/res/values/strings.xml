@@ -124,6 +124,8 @@
     <string name="todo">TODO</string>
     <string name="add_new_address">add new address</string>
     <string name="save">save</string>
+    <string name="CheckInternet">Internet Connection Required</string>
+
     <string name="my_profile">my profile</string>
     <string name="personal_information">Personal Information</string>
     <string name="statistics">Statistics</string>
@@ -200,4 +202,8 @@
     <string name="review">review</string>
     <string name="payment_method">Payment Method</string>
     <string name="name">Name</string>
+    <string name="please_wait">Please wait ....</string>
+    <string name="facebook_app_id">1010083496266258</string> <string name="fb_login_protocol_scheme">fb163958234165942</string>
+    <string name="url">https://store.alkmal.com</string>
+
 </resources>

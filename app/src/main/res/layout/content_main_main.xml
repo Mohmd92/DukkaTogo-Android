@@ -52,8 +52,17 @@
             android:paddingEnd="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
+            <TextView
+                android:id="@+id/view_stores"
+                android:text="@string/view_all"
+                android:textColor="@color/darkTheme_colorBackground"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                />
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/img_filter"
                 android:padding="5dp"
                 android:src="@drawable/ic_filter"
@@ -82,11 +91,12 @@
             tools:ignore="RtlSymmetry" />
 <include
     layout="@layout/home_ads"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="180dp">
 </include>
         <RelativeLayout
+            android:layout_marginTop="10dp"
             android:id="@+id/relative4"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
@@ -120,19 +130,13 @@
             android:layout_height="160dp"
             android:paddingStart="20dp"
             tools:ignore="RtlSymmetry" />
-        <RelativeLayout
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/button11"
+        <include
+            layout="@layout/home_ads2"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
-            <ImageView
-                android:scaleType="fitXY"
-                android:src="@drawable/wqq2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </RelativeLayout>
+            android:layout_height="180dp">
+        </include>
+
         <RelativeLayout
             android:layout_marginTop="10dp"
             android:id="@+id/relative5"

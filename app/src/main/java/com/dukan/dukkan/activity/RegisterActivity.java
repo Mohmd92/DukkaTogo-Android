@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        SharedPreferenceManager.getInstance(getBaseContext()).setLoginType("");
         ImageView img_back =findViewById(R.id.img_back);
         LinearLayout liner_facebook =findViewById(R.id.liner_facebook);
         LinearLayout liner_google =findViewById(R.id.liner_google);
@@ -144,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                     for (Country.Datum datum : datumList) {
                         idCountry[i]=datum.id;
                         name[i]=datum.name;
-                        img[i]=datum.image;
+                        img[i]=datum.iso2;
                         phoneCode[i]=datum.phoneCode;
                         i++;
                     }
