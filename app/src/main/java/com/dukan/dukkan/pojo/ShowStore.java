@@ -2,6 +2,9 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShowStore {
 
     @SerializedName("status")
@@ -80,13 +83,31 @@ public class ShowStore {
         public String urlTelegram;
         @SerializedName("products_count")
         @Expose
-        public String productsCount;
+        public Integer productsCount;
+        @SerializedName("advertisements")
+        @Expose
+        public List<Advertisement> advertisements =new ArrayList<>();
+        @SerializedName("most_wanted")
+        @Expose
+        public List<NewProduct> mostWanted =new ArrayList<>();
+        @SerializedName("new_products")
+        @Expose
+        public List<NewProduct> newProducts =new ArrayList<>();
+        @SerializedName("latest_offers")
+        @Expose
+        public List<NewProduct> latestOffers = new ArrayList<>();
         @SerializedName("customers_count")
         @Expose
         public Integer customersCount;
         @SerializedName("rate")
         @Expose
-        public float rate;
+        public Double rate;
+        @SerializedName("store_time_works")
+        @Expose
+        public List<StoreTimeWork> storeTimeWorks = new ArrayList<>();
+        @SerializedName("products")
+        @Expose
+        public List<NewProduct> products =new ArrayList<>();
 
     }
 }

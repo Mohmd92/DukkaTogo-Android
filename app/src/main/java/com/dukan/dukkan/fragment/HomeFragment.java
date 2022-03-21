@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     SliderItemView view01 = new SliderItemView(getContext());
                     for (Slider datum : slid) {
                         view01 = new SliderItemView(getContext());
-                        view01.setItem2(datum.image,datum.name);
+                        view01.setItem2(datum.image,datum.name,datum.url);
                         sliderLayout.addSlider(view01);
                     }
                     StoreAdapter customAdapter = new StoreAdapter(getContext(),stores);
@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Intent i2 = new Intent(getActivity(), ShowStoresActivity.class);
-                            i2.putExtra("productID", stores.get(i).id);
+                            i2.putExtra("StoreID", stores.get(i).id);
                             i2.putExtra("most", 0);
                             startActivity(i2);
                         }

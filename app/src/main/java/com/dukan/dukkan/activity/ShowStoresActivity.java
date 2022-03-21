@@ -29,6 +29,7 @@ import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.ReviewSheetFragment;
+import com.dukan.dukkan.fragment.ReviewStoreSheetFragment;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -50,7 +51,6 @@ public class ShowStoresActivity extends AppCompatActivity {
     ImageView image;
     TextView tv_num_products,tv_rating_num,tv_customer_num,tv_number,tv_address,tv_name;
     RelativeLayout rel_product_list;
-    int stoeId;
     String url_telegram,url_twitter,url_whatsapp,url_instagram,url_facebook;
     int storeId;
     float rateStore;
@@ -62,7 +62,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_store);
         Bundle extras = getIntent().getExtras();
-        stoeId= extras.getInt("productID");
+        storeId= extras.getInt("StoreID");
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
         image = findViewById(R.id.image);
@@ -108,8 +108,10 @@ public class ShowStoresActivity extends AppCompatActivity {
         rel_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!latitude.equals("null") && !longitude.equals("null")){
-                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                if(latitude!=null && longitude!=null){
+                    float lat= Float.parseFloat(latitude);
+                    float lng= Float.parseFloat(longitude);
+                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", lat, lng);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     startActivity(intent);
                 }
@@ -129,12 +131,13 @@ public class ShowStoresActivity extends AppCompatActivity {
         card_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bundle bundle = new Bundle();
-//                ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
-//                bundle.putString("title", prod);
-//                reviewSheetFragment.setArguments(bundle);
-//                reviewSheetFragment.show(getSupportFragmentManager()
-//                        , reviewSheetFragment.getTag());
+                Bundle bundle = new Bundle();
+                ReviewStoreSheetFragment reviewSheetFragment = new ReviewStoreSheetFragment();
+                bundle.putInt("storeIds", storeId);
+                reviewSheetFragment.setArguments(bundle);
+                reviewSheetFragment.show(getSupportFragmentManager()
+                        , reviewSheetFragment.getTag());
+
             }
         });
         card_chat.setOnClickListener(new View.OnClickListener() {
@@ -246,7 +249,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         return list.size() > 0;
     }
     private void getStores() {
-        Call<ShowStore> callNew = apiInterface.StoreDetails(stoeId);
+        Call<ShowStore> callNew = apiInterface.StoreDetails(storeId);
         callNew.enqueue(new Callback<ShowStore>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -270,7 +273,7 @@ public class ShowStoresActivity extends AppCompatActivity {
                             .load(resource.data.image)
                             .into(image);
                     imageStore=resource.data.image;
-                    rateStore=resource.data.rate;
+                    rateStore=0;//resource.data.rate;
                     latitude=resource.data.lat;
                     longitude=resource.data.lng;
 

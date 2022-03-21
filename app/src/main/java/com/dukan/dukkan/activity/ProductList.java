@@ -1,6 +1,7 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Gravity;
@@ -31,6 +32,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -48,6 +52,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     private float rateStore;
     private String StoreName,imageStore;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Bundle extras = getIntent().getExtras();
+
         rateStore= extras.getInt("rateStore");
         StoreId= extras.getInt("StoreId");
         StoreName= extras.getString("StoreName");

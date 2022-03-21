@@ -35,6 +35,7 @@ import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
+import com.dukan.dukkan.pojo.Advertisement;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
@@ -44,11 +45,16 @@ import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.NewProduct;
+import com.dukan.dukkan.pojo.Product;
+import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
 import com.dukan.dukkan.util.HorizontalListView;
+import com.squareup.picasso.Picasso;
 import com.yihsian.slider.library.SliderItemView;
+import com.yihsian.slider.library.SliderItemView2;
 import com.yihsian.slider.library.SliderLayout;
+import com.yihsian.slider.library.SliderLayout2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +67,7 @@ import retrofit2.Response;
 public class ProductListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     APIInterface apiInterface;
     private HorizontalListView HorizontalListViewLastOffers,HorizontalListViewMost,HorizontalListViewNewProduct;
-    private  SliderLayout sliderLayout;
+    private SliderLayout2 sliderLayout;
     ImageView img_filter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     TextView store_name;
@@ -116,211 +122,290 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                 startActivity(i);
             }
         });
-        getNewProducts();
-        getMostWanted();
+        view_last_offers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent i = new Intent(getActivity(), ProductsActivity.class);
+//                i.putExtra("title", getString(R.string.latest_offers));
+//                i.putExtra("store", StoreId);
+//                i.putExtra("new", 0);
+//                i.putExtra("most", 1);
+//                startActivity(i);
+            }
+        });
+        getStores();
 
         return root;
     }
-    private void getNewProducts() {
+    private void getStores() {
         mSwipeRefreshLayout.setRefreshing(true);
-      Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",1,0);
-        callNew.enqueue(new Callback<MultipleProducts>() {
+        Call<ShowStore> callNew = apiInterface.StoreDetails(StoreId);
+        callNew.enqueue(new Callback<ShowStore>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
+            public void onResponse(Call<ShowStore> callNew, Response<ShowStore> response) {
                 Log.d("TAG111111",response.code()+"");
-                MultipleProducts resource = response.body();
-                 if(resource.status) {
-                     List<MultipleProducts.Data.Product> newProduct = resource.data.products;
-                     ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
-                     HorizontalListViewNewProduct.setAdapter(listProductAdapter);
-                     listProductAdapter.notifyDataSetChanged();
+                ShowStore resource = response.body();
+                if(resource.status){
+                    List<NewProduct> newProduct = resource.data.newProducts;
+                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
+                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
+                    NewProductAdapter.notifyDataSetChanged();
+                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            onClikMostwanted(view,newProduct,i);
+                        }
+                    });
 
-                     HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                         @Override
-                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                             onClikMostwanted(view, newProduct, i);
-                         }
-                     });
-                 }
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-            @Override
-            public void onFailure(Call<MultipleProducts> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-
-        });
-    }
-    private void getMostWanted() {
-        mSwipeRefreshLayout.setRefreshing(true);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",0,1);
-        callNew.enqueue(new Callback<MultipleProducts>() {
-            @Override
-            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
-                Log.d("TAG111111",response.code()+"");
-                MultipleProducts resource = response.body();
-                if(resource.status) {
-                    List<MultipleProducts.Data.Product> newProduct = resource.data.products;
-                    ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
-                    HorizontalListViewMost.setAdapter(listProductAdapter);
-                    listProductAdapter.notifyDataSetChanged();
+                    List<NewProduct> mostwant = resource.data.mostWanted;
+                    NewProductAdapter mostProductAdapter = new NewProductAdapter(getContext(), mostwant);
+                    HorizontalListViewMost.setAdapter(mostProductAdapter);
+                    mostProductAdapter.notifyDataSetChanged();
 
                     HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view, newProduct, i);
+                            onClikMostwanted(view, mostwant, i);
                         }
                     });
+
+                    List<NewProduct> latestOffer = resource.data.latestOffers;
+                    NewProductAdapter latestProductAdapter = new NewProductAdapter(getContext(), latestOffer);
+                    HorizontalListViewLastOffers.setAdapter(latestProductAdapter);
+                    mostProductAdapter.notifyDataSetChanged();
+
+                    HorizontalListViewLastOffers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            onClikMostwanted(view, latestOffer, i);
+                        }
+                    });
+                    List<Advertisement> slid = resource.data.advertisements;
+                    SliderItemView2 view01 = new SliderItemView2(getContext());
+                    sliderLayout.removeAllSliders();
+                    for (Advertisement datum : slid) {
+                        view01 = new SliderItemView2(getContext());
+                        System.out.println("SWQQAAAAdddd "+datum.image);
+                        view01.setItem2(datum.image,datum.title,datum.description);
+                        sliderLayout.addSlider(view01);
+                    }
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
+
             }
             @Override
-            public void onFailure(Call<MultipleProducts> call, Throwable t) {
+            public void onFailure(Call<ShowStore> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
-                mSwipeRefreshLayout.setRefreshing(false);
-
 
             }
 
         });
     }
 
-void  onClikMostwanted(View view, List<MultipleProducts.Data.Product> mosted,int i){
-    TextView text_add = (TextView) view.findViewById(R.id.text_add);
-    TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
-    ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
-    RelativeLayout rel_add_to_card = (RelativeLayout) view.findViewById(R.id.rel_add_to_card);
-    RelativeLayout rel_heart = (RelativeLayout) view.findViewById(R.id.rel_heart);
-    ProgressBar progressBar2 = (ProgressBar) view.findViewById(R.id.progressBar);
-    LinearLayout linear_main = (LinearLayout) view.findViewById(R.id.linear_main);
-    linear_main.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i2 = new Intent(getContext(), ShowProductActivity.class);
-            startActivity(i2);
-        }
-    });
-    rel_add_to_card.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            progressBar2.setVisibility(View.VISIBLE);
-            if(text_add.getText().equals(getString(R.string.add_to_cart))) {
-                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
-                CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
-                Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
-                call1.enqueue(new Callback<CartMain>() {
-                    @Override
-                    public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                        CartMain cart = response.body();
-                        if (cart.status)
-                            text_add.setText(getActivity().getString(R.string.remove_to_cart));
-                        else
-                            Toast.makeText(getActivity(), cart.message, Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(Call<CartMain> call, Throwable t) {
-//                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.VISIBLE);
-                        call.cancel();
-                    }
-                });
+//    private void getNewProducts() {
+//        mSwipeRefreshLayout.setRefreshing(true);
+//      Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",1,0);
+//        callNew.enqueue(new Callback<MultipleProducts>() {
+//            @Override
+//            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
+//                Log.d("TAG111111",response.code()+"");
+//                MultipleProducts resource = response.body();
+//                 if(resource.status) {
+//                     List<MultipleProducts.Data.Product> newProduct = resource.data.products;
+//                     ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
+//                     HorizontalListViewNewProduct.setAdapter(listProductAdapter);
+//                     listProductAdapter.notifyDataSetChanged();
+//
+//                     HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                         @Override
+//                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                             onClikMostwanted(view, newProduct, i);
+//                         }
+//                     });
+//                 }
+//                mSwipeRefreshLayout.setRefreshing(false);
+//
+//            }
+//            @Override
+//            public void onFailure(Call<MultipleProducts> call, Throwable t) {
+//                Log.d("TAG111111","  e "+t.getMessage());
+//                mSwipeRefreshLayout.setRefreshing(false);
+//
+//            }
+//
+//        });
+//    }
+//    private void getMostWanted() {
+//        mSwipeRefreshLayout.setRefreshing(true);
+//        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",StoreId,0,0,"",0,1);
+//        callNew.enqueue(new Callback<MultipleProducts>() {
+//            @Override
+//            public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
+//                Log.d("TAG111111",response.code()+"");
+//                MultipleProducts resource = response.body();
+//                if(resource.status) {
+//                    List<NewProduct> newProduct = resource.data.products;
+//                    ListProductAdapter listProductAdapter = new ListProductAdapter(getContext(), newProduct);
+//                    HorizontalListViewMost.setAdapter(listProductAdapter);
+//                    listProductAdapter.notifyDataSetChanged();
+//
+//                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view, newProduct, i);
+//                        }
+//                    });
+//                }
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//            @Override
+//            public void onFailure(Call<MultipleProducts> call, Throwable t) {
+//                Log.d("TAG111111","  e "+t.getMessage());
+//                mSwipeRefreshLayout.setRefreshing(false);
+//
+//
+//            }
+//
+//        });
+//    }
+    void  onClikMostwanted(View view, List<NewProduct> mosted, int i){
+        TextView text_add = (TextView) view.findViewById(R.id.text_add);
+        TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
+        ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
+        LinearLayout linear_main = (LinearLayout) view.findViewById(R.id.linear_main);
+        RelativeLayout rel_add_to_card = (RelativeLayout) view.findViewById(R.id.rel_add_to_card);
+        RelativeLayout rel_heart = (RelativeLayout) view.findViewById(R.id.rel_heart);
+        ProgressBar progressBar2 = (ProgressBar) view.findViewById(R.id.progressBar);
+        linear_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                getContext().finish();
+//                Intent i2 = new Intent(getContext()., ShowProductActivity.class);
+//                i2.putExtra("productID", mosted.get(i).id);
+//                getContext().overridePendingTransition(0, 0);
+//                startActivity(i2);
+//                overridePendingTransition(0, 0);
             }
-            else{
-                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
-                CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
-                Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
-                call1.enqueue(new Callback<CartMain>() {
-                    @Override
-                    public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                        CartMain cart = response.body();
-                        if (cart.status)
-                            text_add.setText(getString(R.string.add_to_cart));
-                        else
-                            Toast.makeText(getActivity(), cart.message, Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.GONE);
-                    }
+        });
+        //////////////////
+        rel_add_to_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar2.setVisibility(View.VISIBLE);
+                if(text_add.getText().equals(getString(R.string.add_to_cart))) {
+                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
+                    Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
+                    call1.enqueue(new Callback<CartMain>() {
+                        @Override
+                        public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+                            CartMain cart = response.body();
+                            if (cart.status)
+                                text_add.setText(getString(R.string.remove_to_cart));
+                            else
+                                Toast.makeText(getContext(), cart.message, Toast.LENGTH_SHORT).show();
+                            progressBar2.setVisibility(View.VISIBLE);
+                        }
 
-                    @Override
-                    public void onFailure(Call<CartMain> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<CartMain> call, Throwable t) {
 //                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.GONE);
-                        call.cancel();
-                    }
-                });
-            }
-        }
-    });
-    //////////////////
-    rel_heart.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            progressBar2.setVisibility(View.VISIBLE);
-            if(tv_heart.getText().toString().equals("false")){
-                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
-                CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
-                Call<FavoriteMain> call1 = apiInterface.favorite(cartParamenter);
-                call1.enqueue(new Callback<FavoriteMain>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(Call<FavoriteMain> call, Response<FavoriteMain> response) {
-                        FavoriteMain favorite = response.body();
-                        if (favorite.status) {
-                            img_heart.setImageResource(R.drawable.ic_heart_on);
-                            tv_heart.setText("true");
-                        }else
-                            Toast.makeText(getActivity(), favorite.message, Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.VISIBLE);
-                    }
+                            progressBar2.setVisibility(View.VISIBLE);
+                            call.cancel();
+                        }
+                    });
+                }
+                else{
+                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
+                    Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
+                    call1.enqueue(new Callback<CartMain>() {
+                        @Override
+                        public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+                            CartMain cart = response.body();
+                            if (cart.status)
+                                text_add.setText(getString(R.string.add_to_cart));
+                            else
+                                Toast.makeText(getContext(), cart.message, Toast.LENGTH_SHORT).show();
+                            progressBar2.setVisibility(View.GONE);
+                        }
 
-                    @Override
-                    public void onFailure(Call<FavoriteMain> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<CartMain> call, Throwable t) {
 //                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.VISIBLE);
-                        call.cancel();
-                    }
-                });
+                            progressBar2.setVisibility(View.GONE);
+                            call.cancel();
+                        }
+                    });
+                }
             }
-            else{
-                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
-                CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
-                Call<FavoriteMain> call1 = apiInterface.favoriteRemove(cartRemoveParamenter);
-                call1.enqueue(new Callback<FavoriteMain>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(Call<FavoriteMain> call, Response<FavoriteMain> response) {
-                        FavoriteMain favorite = response.body();
-                        if (favorite.status) {
-                            img_heart.setImageResource(R.drawable.ic_heart);
-                            tv_heart.setText("false");
-                        }else
-                            Toast.makeText(getActivity(), favorite.message, Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.GONE);
-                    }
+        });
+        //////////////////
+        rel_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar2.setVisibility(View.VISIBLE);
+                if(tv_heart.getText().toString().equals("false")){
+                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
+                    Call<FavoriteMain> call1 = apiInterface.favorite(cartParamenter);
+                    call1.enqueue(new Callback<FavoriteMain>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onResponse(Call<FavoriteMain> call, Response<FavoriteMain> response) {
+                            FavoriteMain favorite = response.body();
+                            if (favorite.status) {
+                                img_heart.setImageResource(R.drawable.ic_heart_on);
+                                tv_heart.setText("true");
+                            }else
+                                Toast.makeText(getContext(), favorite.message, Toast.LENGTH_SHORT).show();
+                            progressBar2.setVisibility(View.VISIBLE);
+                        }
 
-                    @Override
-                    public void onFailure(Call<FavoriteMain> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<FavoriteMain> call, Throwable t) {
 //                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                        progressBar2.setVisibility(View.GONE);
-                        call.cancel();
-                    }
-                });
+                            progressBar2.setVisibility(View.VISIBLE);
+                            call.cancel();
+                        }
+                    });
+                }
+                else{
+                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
+                    Call<FavoriteMain> call1 = apiInterface.favoriteRemove(cartRemoveParamenter);
+                    call1.enqueue(new Callback<FavoriteMain>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onResponse(Call<FavoriteMain> call, Response<FavoriteMain> response) {
+                            FavoriteMain favorite = response.body();
+                            if (favorite.status) {
+                                img_heart.setImageResource(R.drawable.ic_heart);
+                                tv_heart.setText("false");
+                            }else
+                                Toast.makeText(getContext(), favorite.message, Toast.LENGTH_SHORT).show();
+                            progressBar2.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<FavoriteMain> call, Throwable t) {
+//                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
+                            progressBar2.setVisibility(View.GONE);
+                            call.cancel();
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
 }
 
     @Override
     public void onRefresh() {
-        getNewProducts();
-        getMostWanted();
+        getStores();
     }
 }

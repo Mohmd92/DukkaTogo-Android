@@ -1,47 +1,42 @@
 package com.dukan.dukkan.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
+import com.dukan.dukkan.pojo.RateStore;
+import com.dukan.dukkan.pojo.RateStoreParameter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReviewSheetFragment extends BottomSheetDialogFragment {
+public class ReviewStoreSheetFragment extends BottomSheetDialogFragment {
     APIInterface apiInterface;
     EditText edit_review;
-    int productID;
+    int StoreID;
     RatingBar ratingBar;
     ProgressBar progressBar;
-    public ReviewSheetFragment() {
+    public ReviewStoreSheetFragment() {
         // Required empty public constructor
     }
     @Override
@@ -59,14 +54,16 @@ public class ReviewSheetFragment extends BottomSheetDialogFragment {
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         edit_review = (EditText) view.findViewById(R.id.edit_review);
-        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar2);
         progressBar = view.findViewById(R.id.progressBar);
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar2);
         Button confirm_button = (Button) view.findViewById(R.id.confirm_button);
-        Bundle bundle = this.getArguments();
-        if (bundle != null)
-            productID = bundle.getInt("productID",0 );
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            StoreID = bundle.getInt("storeIds" );
 
-        System.out.println("ssssssssddddddddc productID  "+productID);
+        }
+
+
 
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
 
@@ -82,7 +79,6 @@ public class ReviewSheetFragment extends BottomSheetDialogFragment {
     }
     private void Rate() {
         progressBar.setVisibility(View.VISIBLE);
-
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
         if (getActivity().getCurrentFocus() != null) {
@@ -91,23 +87,21 @@ public class ReviewSheetFragment extends BottomSheetDialogFragment {
         }
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        RateParameter rateParameter = new RateParameter(productID,edit_review.getText().toString(),ratingBar.getRating(),"android",ID);
-        Call<Rate> call1 = apiInterface.DoRate(rateParameter);
-        call1.enqueue(new Callback<Rate>() {
+        RateStoreParameter rateParameter = new RateStoreParameter(StoreID,edit_review.getText().toString(),ratingBar.getRating(),"android",ID);
+        Call<RateStore> call1 = apiInterface.DoStoreRate(rateParameter);
+        call1.enqueue(new Callback<RateStore>() {
             @Override
-            public void onResponse(Call<Rate> call, Response<Rate> response) {
-                Rate Rate = response.body();
-                    Toast.makeText(getContext(), Rate.message, Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<RateStore> call, Response<RateStore> response) {
+                RateStore Rate = response.body();
+                    Toast.makeText(getContext(), ""+Rate.status, Toast.LENGTH_SHORT).show();
                     dismiss();
                 progressBar.setVisibility(View.GONE);
 
             }
-
             @Override
-            public void onFailure(Call<Rate> call, Throwable t) {
-                call.cancel();
+            public void onFailure(Call<RateStore> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-
+                call.cancel();
             }
         });
     }

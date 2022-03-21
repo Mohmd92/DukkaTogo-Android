@@ -23,6 +23,8 @@ import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
+import com.dukan.dukkan.pojo.RateStore;
+import com.dukan.dukkan.pojo.RateStoreParameter;
 import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.ShowProduct;
@@ -127,6 +129,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/product_rates")
     Call<Rate> DoRate(@Body RateParameter rateParameter);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/store_rates")
+    Call<RateStore> DoStoreRate(@Body RateStoreParameter rateStoreParameter);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/change_password")

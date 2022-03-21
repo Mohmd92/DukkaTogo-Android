@@ -2,12 +2,14 @@ package com.yihsian.slider.library;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -58,7 +60,6 @@ public class SliderItemView extends RelativeLayout {
     //@(#) PRIVATE ATTRIBUTES
     private TextView txt_title;
     private ImageView imageView;
-    private VideoView videoView;
     private LinearLayout imageEffectView;
     private String imagepath,videoPath,video_url;
     private SliderViewInterface sliderViewInterface;
@@ -66,6 +67,8 @@ public class SliderItemView extends RelativeLayout {
     private int fileType;
     private int pageIdx;
     private ScaleType mScaleType = ScaleType.Fit;
+    private LinearLayout lin_next;
+    private RelativeLayout relll;
 
     //@(#) PUBLIC ENUM
     public enum ScaleType{
@@ -108,14 +111,28 @@ public class SliderItemView extends RelativeLayout {
         inflate(getContext(), R.layout.layout_slider_item, this);
         this.imageView = (ImageView) findViewById(R.id.itemImage);
         this.txt_title = (TextView) findViewById(R.id.txt_title);
-        this.videoView = (VideoView)findViewById(R.id.itemVideo);
+        this.lin_next =  findViewById(R.id.lin_next);
+        this.relll =  findViewById(R.id.relll);
         this.imageEffectView = (LinearLayout) findViewById(R.id.imageEffectView);
     }
 
-    public void setItem2 (String str,String txt) {
+    public void setItem2 (String str, String txt, final String url) {
         txt_title.setText(txt);
         imageView.setVisibility(View.VISIBLE);
-        videoView.setVisibility(View.INVISIBLE);
+        relll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("ssssddcccccccccccccccc "+url);
+                String urls=url;
+              if(!TextUtils.isEmpty(url)){
+                  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                       urls = "http://" + url;
+                  }
+                      Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urls));
+                      getContext().startActivity(browserIntent);
+              }
+            }
+        });
 
         RequestCreator rq = Picasso.get().load(str);
         switch (mScaleType){
@@ -130,59 +147,6 @@ public class SliderItemView extends RelativeLayout {
                 break;
         }
         rq.into(imageView);
-    }
-    public void setItem3 (String str,String txt) {
-        txt_title.setText(txt);
-        imageView.setVisibility(View.VISIBLE);
-        videoView.setVisibility(View.INVISIBLE);
-        txt_title.setVisibility(View.GONE);
-
-        RequestCreator rq = Picasso.get().load(str);
-        switch (mScaleType){
-            case Fit:
-                rq.fit();
-                break;
-            case CenterCrop:
-                rq.fit().centerCrop();
-                break;
-            case CenterInside:
-                rq.fit().centerInside();
-                break;
-        }
-        rq.into(imageView);
-    }
-    public void setItem (File file, int type) {
-        this.file = file;
-        this.fileType = type;
-
-        switch (type) {
-            case ITEM_LOCAL_IMAGE:
-                imageView.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.INVISIBLE);
-
-                if(file.exists()){
-                    RequestCreator rq = Picasso.get().load(file);
-                    switch (mScaleType){
-                        case Fit:
-                            rq.fit();
-                            break;
-                        case CenterCrop:
-                            rq.fit().centerCrop();
-                            break;
-                        case CenterInside:
-                            rq.fit().centerInside();
-                            break;
-                    }
-                    rq.into(imageView);
-                }
-                break;
-            case ITEM_LOCAL_VIDEO:
-                imageView.setVisibility(View.INVISIBLE);
-                videoView.setVisibility(View.VISIBLE);
-                videoPath = file.getAbsolutePath();
-                videoView.setVideoURI(Uri.parse(videoPath));
-                break;
-        }
     }
 
     /**

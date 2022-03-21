@@ -22,7 +22,7 @@ public class MultipleProducts {
 
         @SerializedName("products")
         @Expose
-        public List<Product> products = null;
+        public List<Product> products =new ArrayList<>();
         @SerializedName("advertisement")
         @Expose
         public Advertisement advertisement;
