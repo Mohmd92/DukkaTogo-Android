@@ -49,6 +49,15 @@ public class SharedPreferenceManager {
         editor.commit();
     }
     /////////////
+    public Boolean getPasswordRemember() {
+        return sharedPreferences.getBoolean("Remember", false);
+    }
+
+    public void setPasswordRemember(Boolean Remember) {
+        editor.putBoolean("Remember", Remember);
+        editor.commit();
+    }
+    /////////////
     public String get_api_token() {
         return sharedPreferences.getString("api_token", "");
     }

@@ -19,6 +19,7 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar);
         title = findViewById(R.id.home_title);
+        ImageView icon_search = toolbar.findViewById(R.id.icon_search);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -105,6 +108,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
+        icon_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
         rel_profile.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +154,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              getProfile();
         else if(SharedPreferenceManager.getInstance(getBaseContext()).getLoginType().equals("google") || SharedPreferenceManager.getInstance(getBaseContext()).getLoginType().equals("facebook"))
              getProfileGoogle();
-
+        Menu menu =navigationView.getMenu();
+        MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
+        String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
+        if(userProfileInfo.length==1)
+            nav_switch_account.setVisible(false);
 
         printHashKey();
     }
@@ -192,31 +205,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Picasso.get()
                 .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
                 .into(header_im_close);
-//        Call<Profile> callNew = apiInterface.UserProfile();
-//        callNew.enqueue(new Callback<Profile>() {
-//            @Override
-//            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
-//                Profile resource = response.body();
-//                Boolean status = resource.status;
-//                if(status) {
-//                    header_tv_user_name.setText(resource.user.name);
-//                    tv_location.setText(resource.user.address);
-//                    Picasso.get()
-//                            .load(resource.user.image)
-//                            .into(header_im_close);
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<Profile> call, Throwable t) {
-//                call.cancel();
-//            }
-//        });
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
         switch (item.getItemId()) {
             case R.id.nav_home:
                 tabLayout.getTabAt(0).select();

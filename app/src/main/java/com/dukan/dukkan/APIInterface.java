@@ -20,6 +20,7 @@ import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Order;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
@@ -100,6 +101,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/orders")
     Call<CheckOutCart> CreateOrderCart(@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/orders")
+    Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date") String date);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")

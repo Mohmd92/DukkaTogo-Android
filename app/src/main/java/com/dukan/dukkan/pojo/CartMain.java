@@ -15,17 +15,38 @@ public class CartMain {
     @SerializedName("data")
     @Expose
     public Data data;
-
+    public class PaymentGateway {
+        @SerializedName("id")
+        @Expose
+        public Integer id;
+        @SerializedName("name")
+        @Expose
+        public String name;
+        @SerializedName("description")
+        @Expose
+        public String description;
+    }
     public class Data {
 
         @SerializedName("carts")
         @Expose
-        public List<Cart> carts = null;
+        public List<Cart> carts = new ArrayList<>();
         @SerializedName("cart_total")
         @Expose
         public Integer cartTotal;
-
+        @Expose
+        public Integer deliveryPrice;
+        @SerializedName("total")
+        @Expose
+        public Integer total;
+        @SerializedName("payment_gateway")
+        @Expose
+        public List<PaymentGateway> paymentGateway =new ArrayList<>();
+        @SerializedName("addresses")
+        @Expose
+        public List<Object> addresses =new ArrayList<>();
     }
+
     public class Cart {
 
         @SerializedName("id")

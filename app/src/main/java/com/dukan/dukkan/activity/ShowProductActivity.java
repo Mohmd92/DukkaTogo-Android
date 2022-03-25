@@ -91,12 +91,21 @@ public class ShowProductActivity extends AppCompatActivity {
         img_heart = findViewById(R.id.img_heart);
         progressBar2 = findViewById(R.id.progressBar);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        ImageView ic_share =toolbar.findViewById(R.id.icon_share);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        ic_share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        String url=getString(R.string.url)+"/products/"+productID;
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(browserIntent);
+                }
+            });
 
         rel_add_to_card=findViewById(R.id.rel_add_to_card);
         CardView card_favorite=findViewById(R.id.card_favorite);

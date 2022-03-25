@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,6 +47,7 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
+    private TextView tv_location,header_tv_user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,8 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
+        header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
+        tv_location = view.findViewById(R.id.tv_location);
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
@@ -95,6 +100,18 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
         TabAdapter adapter = new TabAdapter(fragmentManager, tabsArrayList);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
+        Menu menu =navigationView.getMenu();
+        MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
+        String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
+        if(userProfileInfo.length==1)
+            nav_switch_account.setVisible(false);
+    }
+    private void getProfile() {
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+        tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                .into(header_im_close);
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);

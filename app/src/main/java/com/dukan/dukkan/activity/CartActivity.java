@@ -65,6 +65,8 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
     ProgressBar progressBar;
     APIInterface apiInterface;
     List<CartMain.Cart> datumList;
+    List<CartMain.PaymentGateway> PaymentGateways;
+    String extra_str="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +90,10 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         but_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, CheckOut.class));
+                Intent i = new Intent(CartActivity.this, CheckOut.class);
+                i.putExtra("extra_str", extra_str);
+                startActivity(i);
+                finish();
             }
         });
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -99,35 +104,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         });
         getCarts();
     }
-    private void CreateOrders() {
-        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        progressBar.setVisibility(View.VISIBLE);
-        System.out.println("IDIDIDIDIDID "+ID);
-        Call<CheckOutCart> callNew = apiInterface.CreateOrderCart(ID,"android");
-        callNew.enqueue(new Callback<CheckOutCart>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
-                CheckOutCart cart = response.body();
-                if (cart.status) {
-                    CheckOutCart resource = response.body();
-                    List<CheckOutCart.Datum> datumList = resource.data;
 
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//                    RecyclerAddressAdapter adapter = new RecyclerAddressAdapter(getApplicationContext(),  datumList);
-//                    recyclerView.setAdapter(adapter);
-                }
-                progressBar.setVisibility(View.GONE);
-
-            }
-            @Override
-            public void onFailure(Call<CheckOutCart> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-            }
-
-        });
-    }
     private void check_coupon(String id) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -168,14 +145,23 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                 CartMain cart = response.body();
                 if (cart.status) {
                     datumList = cart.data.carts;
+                    PaymentGateways = cart.data.paymentGateway;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     RecyclerCartsAdapter adapter = new RecyclerCartsAdapter(getApplicationContext(), datumList);
                     recyclerView.setAdapter(adapter);
                     tv_total_price.setText(Integer.toString(cart.data.cartTotal));
                     tv_num_products.setText(Integer.toString(datumList.size()));
                     adapter.setClickListener(CartActivity.this);
-
-
+                    String payments="";
+                    String paymentsss="";
+                    for(int i=0;i<PaymentGateways.size();i++){
+                        payments=PaymentGateways.get(i).id+"#"+PaymentGateways.get(i).name+"#"+PaymentGateways.get(i).description;
+                        paymentsss=paymentsss+"%"+payments;
+                    }
+                    if(cart.data.deliveryPrice==null)
+                        extra_str=cart.data.total+"&"+cart.data.cartTotal+"&0&"+paymentsss;
+                    else
+                     extra_str=cart.data.total+"&"+cart.data.cartTotal+"&"+cart.data.deliveryPrice+"&"+paymentsss;
                 }
 
 

@@ -25,15 +25,22 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        String UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserType();
 //        SharedPreferenceManager.getInstance(getBaseContext()).setCountryId("32");
 //        SharedPreferenceManager.getInstance(getBaseContext()).setCityId("8550");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
-                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
-                                startActivity(new Intent(Splash.this, MainActivity.class));
-                           else
+                    if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals("")){
+                        if (UserRole.contains("Merchant"))
+                            startActivity(new Intent(Splash.this, MainMerchantActivity.class));
+                        else if (UserRole.contains("Delivery"))
+                            startActivity(new Intent(Splash.this, MainDriveActivity.class));
+                        else
+                            startActivity(new Intent(Splash.this, MainActivity.class));
+                    }
+                   else
                         checkCountry();
                    }else
                     checkCountry();

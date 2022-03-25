@@ -18,6 +18,8 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.DriverProfileActivity;
+import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.squareup.picasso.Picasso;
 
 
 public class MerchantFragment extends Fragment {
@@ -31,8 +33,8 @@ public class MerchantFragment extends Fragment {
         View root = inflater.inflate(R.layout.content_main_merchant, container, false);
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         image_Merchant = root.findViewById(R.id.imag);
-        header_tv_user_name = root.findViewById(R.id.header_tv_user_name);
         tv_desc = root.findViewById(R.id.tv_desc);
+        header_tv_user_name = root.findViewById(R.id.header_tv_user_name);
         tv_day = root.findViewById(R.id.tv_day);
         tv_view_all = root.findViewById(R.id.tv_view_all);
         tv_working_hours = root.findViewById(R.id.tv_working_hours);
@@ -47,7 +49,15 @@ public class MerchantFragment extends Fragment {
 //                startActivity(new Intent(getActivity(), DriverProfileActivity.class));
             }
         });
+        getProfile();
         return root;
+    }
+    private void getProfile() {
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getContext()).getUser_Name());
+        tv_desc.setText(SharedPreferenceManager.getInstance(getContext()).getAddress());
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getContext()).getUserImage())
+                .into(image_Merchant);
     }
 //    private void getHome() {
 //        progressBar.setVisibility(View.VISIBLE);

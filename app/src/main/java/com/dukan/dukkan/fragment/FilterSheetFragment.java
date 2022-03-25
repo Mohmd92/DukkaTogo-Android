@@ -28,6 +28,7 @@ import com.dukan.dukkan.activity.LoginActivity;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.Category;
+import com.dukan.dukkan.pojo.CategoryProduct;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -115,11 +116,11 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
                 Category resource = response.body();
                 Boolean status = resource.status;
                 if(status) {
-                    List<Category.Datum> datumList = resource.data;
+                    List<CategoryProduct> datumList = resource.data;
                     String[] categ=new String[datumList.size()+1];
                     categ[0]=getString(R.string.select);
                     int i=1;
-                  for (Category.Datum datum : datumList) {
+                  for (CategoryProduct datum : datumList) {
                       categ[i]=datum.name;
                               i++;
                   }

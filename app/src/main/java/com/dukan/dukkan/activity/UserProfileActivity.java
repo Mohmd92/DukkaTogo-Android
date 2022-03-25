@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.UserProfile;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -30,6 +32,7 @@ public class UserProfileActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String UserProfileString;
     UserProfile UserProfile;
+    LinearLayout linear_no_account,linear_exist_account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class UserProfileActivity extends AppCompatActivity {
         card_personal_info = findViewById(R.id.card_personal_info);
         card_orders = findViewById(R.id.card_orders);
         card_statistics = findViewById(R.id.card_statistics);
+        linear_exist_account = findViewById(R.id.linear_exist_account);
+        linear_no_account = findViewById(R.id.linear_no_account);
         progressBar = findViewById(R.id.progressBar);
         ImageView img_back = findViewById(R.id.img_back);
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +65,21 @@ public class UserProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        getProfile();
+        card_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UserProfileActivity.this, OrdersActivity.class);
+                startActivity(i);
+            }
+        });
+  if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+      linear_exist_account.setVisibility(View.GONE);
+      linear_no_account.setVisibility(View.VISIBLE);
+  }else {
+      linear_exist_account.setVisibility(View.VISIBLE);
+      linear_no_account.setVisibility(View.GONE);
+     // getProfile();
+  }
     }
     private void getProfile() {
         progressBar.setVisibility(View.VISIBLE);

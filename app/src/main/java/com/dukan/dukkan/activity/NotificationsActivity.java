@@ -14,6 +14,8 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class NotificationsActivity extends AppCompatActivity {
+    LinearLayout linear_no_account,linear_exist_account,linear_no_notifications;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,9 @@ public class NotificationsActivity extends AppCompatActivity {
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);
         ImageView icon_filter = toolbar.findViewById(R.id.icon_filter);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        linear_exist_account = findViewById(R.id.linear_exist_account);
+        linear_no_account = findViewById(R.id.linear_no_account);
+        linear_no_notifications = findViewById(R.id.linear_no_notifications);
         icon_menu.setVisibility(View.GONE);
         icon_filter.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
@@ -40,6 +45,12 @@ public class NotificationsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            linear_exist_account.setVisibility(View.GONE);
+            linear_no_account.setVisibility(View.VISIBLE);
+        }else {
+            linear_exist_account.setVisibility(View.VISIBLE);
+            linear_no_account.setVisibility(View.GONE);
+        }
     }
 }

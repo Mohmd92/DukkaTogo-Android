@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -107,6 +108,11 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
 
             }
         });
+        Menu menu =navigationView.getMenu();
+        MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
+        String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
+        if(userProfileInfo.length==1)
+            nav_switch_account.setVisible(false);
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);

@@ -21,14 +21,25 @@ public class CategoryProduct {
     public String userId;
     @SerializedName("category_id")
     @Expose
-    public String categoryId;
+    public int categoryId;
     @SerializedName("store_id")
     @Expose
-    public String storeId;
+    public int storeId;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
+
+    public CategoryProduct(int id,String name,String description,String image,String userId,int categoryId,int storeId,String createdAt){
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.image=image;
+        this.userId=userId;
+        this.categoryId=categoryId;
+        this.storeId=storeId;
+        this.createdAt=createdAt;
+    }
 }

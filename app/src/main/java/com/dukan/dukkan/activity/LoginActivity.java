@@ -103,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
         checkboxs =findViewById(R.id.checkboxs);
         mFirebaseAuth = FirebaseAuth.getInstance();
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getPasswordRemember()){
+            System.out.println("9999999999999999999dd "+SharedPreferenceManager.getInstance(getBaseContext()).get_email());
+            edit_mail.setText(SharedPreferenceManager.getInstance(getBaseContext()).get_email());
+            edit_password.setText(SharedPreferenceManager.getInstance(getBaseContext()).getPassword());
+            checkboxs.setChecked(true);
+        }
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
                 startActivity(new Intent(LoginActivity.this, MainMerchantActivity.class));
                 finish();
             }
@@ -334,18 +341,22 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
                     SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
                     List<Role> roles = login.data.roles;
-                    StringBuilder UserRole= new StringBuilder();
+                    String UserRole="";
                     for (Role datum : roles) {
-                        UserRole.append(datum.name);
-                        UserRole.append("*");
+                        UserRole=UserRole + datum.name+"&";
                     }
-                    SharedPreferenceManager.getInstance(getBaseContext()).setUserType(String.valueOf(UserRole));
-
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUserType(UserRole);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
                     if(checkboxs.isChecked())
-                        SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
+                        SharedPreferenceManager.getInstance(getBaseContext()).setPasswordRemember(true);
                     else
-                        SharedPreferenceManager.getInstance(getBaseContext()).setPassword("");
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        SharedPreferenceManager.getInstance(getBaseContext()).setPasswordRemember(false);
+                    if (UserRole.contains("Merchant"))
+                        startActivity(new Intent(LoginActivity.this, MainMerchantActivity.class));
+                    else if (UserRole.contains("Delivery"))
+                        startActivity(new Intent(LoginActivity.this, MainDriveActivity.class));
+                    else
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
             }

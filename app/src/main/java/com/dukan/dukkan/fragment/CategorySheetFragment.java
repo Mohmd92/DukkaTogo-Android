@@ -1,5 +1,6 @@
 package com.dukan.dukkan.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +23,12 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.LoginActivity;
+import com.dukan.dukkan.activity.MainActivity;
+import com.dukan.dukkan.activity.MainDriveActivity;
+import com.dukan.dukkan.activity.MainMerchantActivity;
 import com.dukan.dukkan.pojo.Category;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -57,6 +63,16 @@ public class CategorySheetFragment extends BottomSheetDialogFragment {
          img_customer = view.findViewById(R.id.img_customer);
          img_merchant = view.findViewById(R.id.img_merchant);
          img_driver = view.findViewById(R.id.img_driver);
+        rel_merchant.setVisibility(View.GONE);
+        rel_driver.setVisibility(View.GONE);
+        rel_customer.setVisibility(View.GONE);
+        String UserRole=SharedPreferenceManager.getInstance(getContext()).getUserType();
+        if (UserRole.contains("Merchant"))
+            rel_merchant.setVisibility(View.VISIBLE);
+        else if (UserRole.contains("Delivery"))
+            rel_driver.setVisibility(View.VISIBLE);
+        else if (UserRole.contains("Customer"))
+            rel_customer.setVisibility(View.VISIBLE);
         Button confirm_button =  view.findViewById(R.id.confirm_button);
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +83,8 @@ public class CategorySheetFragment extends BottomSheetDialogFragment {
         rel_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainActivity.class));
+                dismiss();
                 Picasso.get()
                         .load(R.drawable.ic_check)
                         .placeholder(R.drawable.ic_check)
@@ -86,6 +104,8 @@ public class CategorySheetFragment extends BottomSheetDialogFragment {
         rel_merchant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainMerchantActivity.class));
+                dismiss();
                 Picasso.get()
                         .load(R.drawable.ic_unchek)
                         .placeholder(R.drawable.ic_unchek)
@@ -105,6 +125,8 @@ public class CategorySheetFragment extends BottomSheetDialogFragment {
         rel_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainDriveActivity.class));
+                dismiss();
                 Picasso.get()
                         .load(R.drawable.ic_unchek)
                         .placeholder(R.drawable.ic_unchek)
