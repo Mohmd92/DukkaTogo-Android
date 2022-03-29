@@ -2,6 +2,9 @@ package com.dukan.dukkan.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Store {
     @SerializedName("id")
     @Expose
@@ -72,4 +75,7 @@ public class Store {
     @SerializedName("rate")
     @Expose
     public float rate;
+    @SerializedName("store_time_works")
+    @Expose
+    public List<StoreTimeWork> storeTimeWorks = new ArrayList<>();
 }

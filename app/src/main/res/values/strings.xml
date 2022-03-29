@@ -209,5 +209,21 @@
     <string name="all">All</string>
     <string name="total_price_for">Total Price For</string>
     <string name="item_s">Item(s)</string>
+    <string name="happy_shop_owner">Happy Shop Owner</string>
+    <string name="offline">OffLine</string>
+    <string name="Sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="select_time">Select Time</string>
+    <string name="am"> AM</string>
+    <string name="pm"> PM</string>
+    <string name="store_data">Store Data</string>
+    <string name="store_name">Store Name</string>
+    <string name="store_no">Store No.</string>
+    <string name="store_location">Store Location</string>
 
 </resources>

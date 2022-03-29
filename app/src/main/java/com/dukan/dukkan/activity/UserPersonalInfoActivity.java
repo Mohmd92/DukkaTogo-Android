@@ -47,13 +47,14 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
     String cityId="";
     EditText edit_name,edit_street,edit_postal_code,edit_mail,edit_mobile;
     Boolean EditableScreen=false;
-    String UserProfile,image_url="";
+    String activty,UserProfile,image_url="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_information);
         UserProfile= getIntent().getExtras().getString("UserProfile");
+        activty= getIntent().getExtras().getString("activity");
         String[] userProfileInfo = UserProfile.split("&&");
         ImageView img_back = findViewById(R.id.img_back);
         img_profile =  findViewById(R.id.img_profile);
@@ -71,8 +72,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
         edit_mail =  findViewById(R.id.edit_mail);
         edit_mobile =  findViewById(R.id.edit_mobile);
          tv_edit =  findViewById(R.id.tv_edit);
-//    1            UserProfile.countryId
-//     2           UserProfile.cityId
+
         tv_user_name.setText(userProfileInfo[8]);
         edit_name.setText(userProfileInfo[0]);
         edit_street.setText(userProfileInfo[3]);
@@ -111,8 +111,12 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(UserPersonalInfoActivity.this, UserProfileActivity.class);
-                startActivity(i);
+                if(activty.equals("merchant"))
+                    startActivity(new Intent(UserPersonalInfoActivity.this, MerchantProfileActivity.class));
+                else if(activty.equals("customer"))
+                    startActivity(new Intent(UserPersonalInfoActivity.this, UserProfileActivity.class));
+                else
+                    startActivity(new Intent(UserPersonalInfoActivity.this, MerchantProfileActivity.class));
                 finish();
             }
         });

@@ -20,11 +20,11 @@ public class StoreTimeWork {
     public String to;
     @SerializedName("created_at")
     @Expose
-    public Object createdAt;
+    public String createdAt;
     @SerializedName("updated_at")
     @Expose
-    public Object updatedAt;
+    public String updatedAt;
     @SerializedName("deleted_at")
     @Expose
-    public Object deletedAt;
+    public String deletedAt;
 }

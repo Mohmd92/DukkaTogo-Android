@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                closeDrawer();
             }
         });
         viewPager = findViewById(R.id.home_pager_view);

@@ -66,7 +66,7 @@
                 <ImageView
                     android:scaleType="fitXY"
                     android:id="@+id/image_driver"
-                    android:src="@drawable/user"
+
                     android:layout_centerVertical="true"
                     android:layout_width="55dp"
                     android:layout_height="65dp"/>

@@ -28,7 +28,7 @@
         android:textSize="22sp"
         android:fontFamily="@font/abudhbi_bold"
         android:textColor="@color/colorPrimary"
-        android:text="Username" />
+         />
     <LinearLayout
         android:layout_marginStart="30dp"
         android:id="@+id/linner"

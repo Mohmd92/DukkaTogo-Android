@@ -41,6 +41,7 @@ import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Coupon;
+import com.dukan.dukkan.pojo.CouponMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleStore;
@@ -113,19 +114,19 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                     getCurrentFocus().getWindowToken(), 0);
         }
         progressBar.setVisibility(View.VISIBLE);
-        Call<Coupon> callNew = apiInterface.doCheckCoupon(id);
-        callNew.enqueue(new Callback<Coupon>() {
+        Call<CouponMain> callNew = apiInterface.doCheckCoupon(id);
+        callNew.enqueue(new Callback<CouponMain>() {
             @Override
-            public void onResponse(Call<Coupon> callNew, Response<Coupon> response) {
+            public void onResponse(Call<CouponMain> callNew, Response<CouponMain> response) {
                 Log.d("TAG111111",response.code()+"");
-                Coupon resource = response.body();
+                CouponMain resource = response.body();
                 Boolean status = resource.status;
                 if(status)
-                    Toast.makeText(CartActivity.this, ""+resource.data.expiration, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this, ""+resource.data.cart.cartTotal, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
             }
             @Override
-            public void onFailure(Call<Coupon> call, Throwable t) {
+            public void onFailure(Call<CouponMain> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
 

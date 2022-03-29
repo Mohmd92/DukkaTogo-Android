@@ -71,7 +71,7 @@
                        android:maxWidth="50dp"
                        android:maxHeight="50dp"
                        android:scaleType="fitXY"
-                       android:src="@drawable/user"
+
                        app:shapeAppearance="?attr/actionButtonStyle"
                        app:shapeAppearanceOverlay="@style/imageViewRounded"
                        app:strokeColor="@android:color/white" />

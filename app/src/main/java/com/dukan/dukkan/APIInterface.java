@@ -14,6 +14,7 @@ import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
 import com.dukan.dukkan.pojo.Coupon;
+import com.dukan.dukkan.pojo.CouponMain;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.Login;
@@ -30,6 +31,7 @@ import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
+import com.dukan.dukkan.pojo.StoreTimes;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
 import com.dukan.dukkan.pojo.UserProfile;
@@ -84,11 +86,22 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/check_coupon/{id}")
-    Call<Coupon> doCheckCoupon(@Path("id") String id);
+    Call<CouponMain> doCheckCoupon(@Path("id") String id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/address")
     Call<Address> AddAddress(@Body AddressParameter addressParameter);
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @POST("/api/v1/store_times")
+    Call<StoreTimes> EditTimesWork(@Field("store_id") int store_id
+            ,@Field("days[Sunday][from]") String Sundayfrom,@Field("days[Sunday][to]") String Sundayto
+            ,@Field("days[Monday][from]") String Mondayfrom,@Field("days[Monday][to]") String Mondayto
+            ,@Field("days[Tuesday][from]") String Tuesdayfrom,@Field("days[Tuesday][to]") String Tuesdayto
+            ,@Field("days[Wednesday][from]") String Wednesdayfrom,@Field("days[Wednesday][to]") String Wednesdayto
+            ,@Field("days[Thursday][from]") String Thursdayfrom,@Field("days[Thursday][to]") String Thursdayto
+            ,@Field("days[Friday][from]") String Fridayfrom,@Field("days[Friday][to]") String Fridayto
+            ,@Field("days[Saturday][from]") String Saturdayfrom,@Field("days[Saturday][to]") String Saturdayto);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/address/{id}")

@@ -31,7 +31,7 @@ public class UserProfileActivity extends AppCompatActivity {
     APIInterface apiInterface;
     ProgressBar progressBar;
     String UserProfileString;
-    UserProfile UserProfile;
+    Profile.Data UserProfile;
     LinearLayout linear_no_account,linear_exist_account;
 
     @Override
@@ -61,6 +61,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 UserProfileString=UserProfile.name+"&&"+UserProfile.countryId+"&&"+UserProfile.cityId+"&&"+UserProfile.address+"&&"+UserProfile.postalCode+"&&"+UserProfile.email+"&&"+UserProfile.mobile+"&&"+UserProfile.image+"&&"+UserProfile.username;
                 Intent i = new Intent(UserProfileActivity.this, UserPersonalInfoActivity.class);
                 i.putExtra("UserProfile", UserProfileString);
+                i.putExtra("activity", "customer");
                 startActivity(i);
                 finish();
             }
@@ -72,14 +73,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-  if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
-      linear_exist_account.setVisibility(View.GONE);
-      linear_no_account.setVisibility(View.VISIBLE);
-  }else {
-      linear_exist_account.setVisibility(View.VISIBLE);
-      linear_no_account.setVisibility(View.GONE);
-     // getProfile();
-  }
+        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            linear_exist_account.setVisibility(View.GONE);
+            linear_no_account.setVisibility(View.VISIBLE);
+        }else {
+            linear_exist_account.setVisibility(View.VISIBLE);
+            linear_no_account.setVisibility(View.GONE);
+            getProfile();
+        }
     }
     private void getProfile() {
         progressBar.setVisibility(View.VISIBLE);
@@ -88,13 +89,14 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Profile> callNew, Response<Profile> response) {
                 Profile resource = response.body();
+                System.out.println("ds33333333333 "+resource.data.name);
                 Boolean status = resource.status;
                 if(status) {
-                    UserProfile=resource.user;
-                    tv_user_name.setText(resource.user.name);
-                    tv_location.setText(resource.user.address);
+                    UserProfile=resource.data;
+                    tv_user_name.setText(resource.data.name);
+                    tv_location.setText(resource.data.address);
                     Picasso.get()
-                            .load(resource.user.image)
+                            .load(resource.data.image)
                             .into(img_profile);
                 }
                 progressBar.setVisibility(View.GONE);

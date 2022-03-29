@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -78,12 +79,19 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
         header_im_close = view.findViewById(R.id.header_im_close);
         header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         tv_location = view.findViewById(R.id.tv_location);
+        RelativeLayout rel_profile = view.findViewById(R.id.rel_profile);
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
-                header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+                getProfile();
         }
-
+        rel_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMerchantActivity.this, MerchantProfileActivity.class));
+                closeDrawer();
+            }
+        });
         header_im_close.setClipToOutline(true);
         viewPager = findViewById(R.id.home_pager_view);
         tabLayout = findViewById(R.id.home_tab_layout);

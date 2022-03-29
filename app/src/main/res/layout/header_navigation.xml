@@ -16,7 +16,7 @@
         android:id="@+id/header_im_close"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:src="@drawable/user" />
+          />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -28,7 +28,7 @@
         android:textSize="22sp"
         android:fontFamily="@font/abudhbi_bold"
         android:textColor="@color/colorPrimary"
-        android:text="Username" />
+         />
     <LinearLayout
         android:id="@+id/linner"
         android:layout_marginTop="5dp"

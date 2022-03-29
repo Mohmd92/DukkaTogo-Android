@@ -50,7 +50,7 @@
                         android:outlineProvider="background"
                         android:layout_width="97dp"
                         android:layout_height="97dp"
-                        android:src="@drawable/user" />
+                          />
                     <ImageView
                         android:id="@+id/img_profile_true"
                         android:layout_alignParentEnd="true"
@@ -69,7 +69,7 @@
                     android:textSize="22sp"
                     android:fontFamily="@font/abudhbi_bold"
                     android:textColor="@color/colorPrimary"
-                    android:text="Username" />
+                     />
 
                 <TextView
                     android:fontFamily="@font/abudhbi_regular"

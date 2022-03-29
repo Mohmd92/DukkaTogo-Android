@@ -340,6 +340,8 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(login.data.countryId);
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
                     SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
+                    System.out.println("tttttttttttttttttt "+login.data.apiToken);
+
                     List<Role> roles = login.data.roles;
                     String UserRole="";
                     for (Role datum : roles) {

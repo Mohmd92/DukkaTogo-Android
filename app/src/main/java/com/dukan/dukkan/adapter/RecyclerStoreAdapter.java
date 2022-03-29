@@ -14,14 +14,18 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdapter.ViewHolder> {
     List<MultipleStore.Datum> mValues;
@@ -66,6 +70,11 @@ public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdap
         }
         @Override
         public void onClick(View view) {
+            Intent i2 = new Intent(mContext, ShowStoresActivity.class);
+            i2.putExtra("StoreID", item.id);
+            i2.putExtra("most", 0);
+            i2.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(i2);
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
