@@ -19,6 +19,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.CartActivity;
+import com.dukan.dukkan.pojo.Cart;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
@@ -31,12 +32,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdapter.ViewHolder> {
-    List<CartMain.Cart> mValues;
+    List<Cart> mValues;
     Context mContext;
     private ItemClickListener clickListener;
     APIInterface apiInterface;
 
-    public RecyclerCartsAdapter(Context context, List<CartMain.Cart> values) {
+    public RecyclerCartsAdapter(Context context, List<Cart> values) {
 
         mValues = values;
         mContext = context;
@@ -45,7 +46,7 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        CartMain.Cart item;
+        Cart item;
         TextView product_name,product_count,product_price;
         ImageView image,product_color;
         RelativeLayout relative_plus,relative_minus,relative_delete;
@@ -65,7 +66,7 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
             relative_delete = v.findViewById(R.id.relative_delete);
 
         }
-        public void setData(CartMain.Cart item) {
+        public void setData(Cart item) {
             this.item = item;
             if(item.product.name.length()>24)
                 product_name.setText(item.product.name.substring(0,24)+"...");

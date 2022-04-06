@@ -108,6 +108,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                 i.putExtra("store", StoreId);
                 i.putExtra("new", 1);
                 i.putExtra("most", 0);
+                i.putExtra("category", 0);
                 startActivity(i);
             }
         });
@@ -119,6 +120,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                 i.putExtra("store", StoreId);
                 i.putExtra("new", 0);
                 i.putExtra("most", 1);
+                i.putExtra("category", 0);
                 startActivity(i);
             }
         });

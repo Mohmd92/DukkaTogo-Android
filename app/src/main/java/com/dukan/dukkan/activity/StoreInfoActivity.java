@@ -32,11 +32,11 @@ import retrofit2.Response;
 
 public class StoreInfoActivity extends AppCompatActivity {
     ImageView img_profile,image_edit;
-    TextView tv_user_name;
+    TextView tv_user_name,tv_store_noe,tv_store_name;
     ProgressBar progressBar;
     APIInterface apiInterface;
     EditText edit_name,edit_store_no,edit_store_location,edit_mobile;
-    Boolean EditableScreen=false;
+    Boolean EditableScreen=true;
     String StoreProfile,image_url="";
     Spinner spinner_mobile;
     String countryId="";
@@ -55,14 +55,19 @@ public class StoreInfoActivity extends AppCompatActivity {
         spinner_mobile =  findViewById(R.id.spinner_mobile);
         progressBar =  findViewById(R.id.progressBar);
 
+        tv_store_noe =  findViewById(R.id.tv_store_noe);
+        tv_store_name =  findViewById(R.id.tv_store_name);
+
         edit_name =  findViewById(R.id.edit_name);
         edit_store_no =  findViewById(R.id.edit_store_no);
         edit_store_location =  findViewById(R.id.edit_store_location);
         edit_mobile =  findViewById(R.id.edit_mobile);
         image_edit =  findViewById(R.id.image_edit);
         tv_user_name.setText(StoreProfileInfo[0]);
+        tv_store_name.setText(StoreProfileInfo[2]);
         edit_name.setText(StoreProfileInfo[2]);
         edit_store_no.setText(StoreProfileInfo[3]);
+        tv_store_noe.setText(StoreProfileInfo[3]);
         edit_store_location.setText(StoreProfileInfo[4]);
         edit_mobile.setText(StoreProfileInfo[5]);
         countryId=StoreProfileInfo[6];
@@ -95,26 +100,20 @@ public class StoreInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        image_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!EditableScreen){
-                    EditableScreen=true;
-                    image_edit.setImageResource(R.drawable.ic_edit_square);
-                    edit_name.setEnabled(true);
-                    edit_store_no.setEnabled(true);
-                    edit_store_location.setEnabled(true);
-                    edit_mobile.setEnabled(true);
-                    spinner_mobile.setEnabled(true);
-                }else {
-                    Save();
-
-                }
-
-                //        SharedPreferenceManager.getInstance(getBaseContext()).setCountry(countryId);
-//        SharedPreferenceManager.getInstance(getBaseContext()).setCity(cityId);
-            }
-        });
+//        image_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(!EditableScreen){
+//                    EditableScreen=true;
+//                    image_edit.setImageResource(R.drawable.ic_edit_square);
+//                    edit_name.setEnabled(true);
+//                    edit_store_no.setEnabled(true);
+//                    edit_store_location.setEnabled(true);
+//                    edit_mobile.setEnabled(true);
+//                    spinner_mobile.setEnabled(true);
+//                }
+//            }
+//        });
 
         getMobile();
     }
@@ -166,47 +165,5 @@ public class StoreInfoActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void Save() {
-//        InputMethodManager inputMethodManager =
-//                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//        if (getCurrentFocus() != null) {
-//            inputMethodManager.hideSoftInputFromWindow(
-//                    getCurrentFocus().getWindowToken(), 0);
-//        }
-//        progressBar.setVisibility(View.VISIBLE);
-//        StoreProfile StoreProfile = new StoreProfile(edit_name.getText().toString(), edit_mail.getText().toString(), countryId, cityId, edit_store_no.getText().toString(), edit_store_location.getText().toString(), edit_mobile.getText().toString(), image_url);
-//        Call<Profile> call1 = apiInterface.updateProfile(StoreProfile);
-//        call1.enqueue(new Callback<Profile>() {
-//            @Override
-//            public void onResponse(Call<Profile> call, Response<Profile> response) {
-//                Profile login = response.body();
-//                if (login.status.equals(true)) {
-//                    Toast.makeText(StoreInfoActivity.this, login.message, Toast.LENGTH_SHORT).show();
-//                    progressBar.setVisibility(View.GONE);
-//                    EditableScreen=false;
-//                    tv_edit.setText(getString(R.string.edit));
-//                    edit_name.setEnabled(false);
-//                    edit_store_no.setEnabled(false);
-//                    edit_store_location.setEnabled(false);
-//                    edit_mail.setEnabled(false);
-//                    edit_mobile.setEnabled(false);
-//                    spinner_country.setEnabled(false);
-//                    spinner_city.setEnabled(false);
-//                    spinner_mobile.setEnabled(false);
-//                } else {
-//                    Toast.makeText(StoreInfoActivity.this, login.message, Toast.LENGTH_SHORT).show();
-//                    progressBar.setVisibility(View.GONE);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Profile> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
-//                call.cancel();
-//            }
-//        });
     }
 }

@@ -47,12 +47,12 @@ public class Coupon {
     public String updatedAt;
     @SerializedName("product")
     @Expose
-    public Product product;
+    public Product.Datum product;
     @SerializedName("store")
     @Expose
     public Store store;
     @SerializedName("category")
     @Expose
-    public Category category;
+    public CategoryProduct category;
 
 }

@@ -34,6 +34,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <ImageView
+                            android:visibility="gone"
                             android:padding="5dp"
                             android:layout_alignParentEnd="true"
                             android:id="@+id/image_edit"
@@ -63,7 +64,7 @@
                         android:textSize="20sp"
                         android:fontFamily="@font/abudhbi_bold"
                         android:textColor="@color/colorPrimary"
-                        android:text="sss" />
+                        android:text="" />
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/rel_licences"
@@ -86,15 +87,14 @@
                             android:textColor="@color/blackTheme_colorTintedBackground"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/driving_license_number"/>
+                            android:text="@string/store_name"/>
 
                         <TextView
-                            android:id="@+id/tv_driving_license"
+                            android:id="@+id/tv_store_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="km - 1002005"
                             android:textColor="@color/blackTheme_colorTintedBackground"
                             android:textSize="12sp" />
 
@@ -106,14 +106,13 @@
                             android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/affiliation_date"/>
+                            android:text="@string/store_no"/>
                         <TextView
-                            android:id="@+id/tv_affiliation_date"
+                            android:id="@+id/tv_store_noe"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="km - 1002005"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>

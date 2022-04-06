@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeDrawer();
                 break;
             case R.id.nav_store_map:
+                startActivity(new Intent(MainActivity.this, StoreMapActivity.class));
                 closeDrawer();
                 break;
             case R.id.nav_favorite:

@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,27 +21,36 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.dukan.dukkan.APIClient;
+import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.adapter.CategoryAdapter;
+import com.dukan.dukkan.adapter.RecyclerCategoryAdapter;
 import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.adapter.Tabs;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.ProductListFragment;
+import com.dukan.dukkan.pojo.Category;
+import com.dukan.dukkan.pojo.CategoryProduct;
+import com.dukan.dukkan.util.HorizontalListView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.shape.CornerFamily;
-import com.google.android.material.shape.MaterialShapeDrawable;
-import com.google.android.material.tabs.TabLayout;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ViewPager viewPager;
@@ -51,7 +64,9 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     private int StoreId;
     private float rateStore;
     private String StoreName,imageStore;
-
+    RecyclerView recyclerView;
+    APIInterface apiInterface;
+    List<CategoryProduct> categ = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +120,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         TextView tv_rating_num = view.findViewById(R.id.tv_rating_num);
         RatingBar ratingBar = view.findViewById(R.id.ratingBar2);
+        recyclerView = view.findViewById(R.id.recyclerView);
         ratingBar.setRating(rateStore);
         header_tv_user_name.setText(StoreName);
         tv_rating_num.setText(""+rateStore);
@@ -131,10 +147,40 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         FragmentManager fragmentManager = getSupportFragmentManager();
         TabAdapter adapter = new TabAdapter(fragmentManager, tabsArrayList);
         viewPager.setAdapter(adapter);
+        apiInterface = APIClient.getClient(this).create(APIInterface.class);
+        getCategories();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+    private void getCategories() {
+        Log.d("TAG111111","333333333");
+
+        Call<Category> callNew = apiInterface.doGetListCategoryStore(StoreId);
+        callNew.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> callNew, Response<Category> response) {
+                Log.d("TAG111111",response.code()+"");
+                Category resource = response.body();
+                Boolean status = resource.status;
+                if(status) {
+
+                    categ = resource.data;
+                    Log.d("TAG111111","StoreId "+StoreId);
+                    Log.d("TAG111111","size "+categ.size());
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    RecyclerCategoryAdapter customAdapter = new RecyclerCategoryAdapter(getApplicationContext(),categ);
+                    recyclerView.setAdapter(customAdapter);
+                    customAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+            }
+        });
     }
 }

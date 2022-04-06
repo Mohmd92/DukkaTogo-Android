@@ -43,7 +43,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
-    int mostProduct,newProduct=0,store=0;
+    int mostProduct,newProduct=0,store=0,category=0;
     String title="";
 
     @Override
@@ -59,6 +59,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         mostProduct= extras.getInt("most");
         store= extras.getInt("store");
         title= extras.getString("title");
+        category= extras.getInt("category");
         tv_title.setText(title);
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
@@ -90,7 +91,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",store,0,0,"",newProduct,mostProduct);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",store,0,category,"",newProduct,mostProduct);
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {

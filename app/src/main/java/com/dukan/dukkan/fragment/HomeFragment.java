@@ -118,6 +118,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 i.putExtra("store", 0);
                 i.putExtra("new", 1);
                 i.putExtra("most", 0);
+                i.putExtra("category", 0);
                 startActivity(i);
             }
         });
@@ -129,6 +130,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 i.putExtra("store", 0);
                 i.putExtra("new", 0);
                 i.putExtra("most", 1);
+                i.putExtra("category", 0);
                 startActivity(i);
             }
         });

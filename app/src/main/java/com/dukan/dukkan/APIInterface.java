@@ -5,15 +5,17 @@ import com.dukan.dukkan.pojo.AddressEditParameter;
 import com.dukan.dukkan.pojo.AddressParameter;
 import com.dukan.dukkan.pojo.AllAddress;
 import com.dukan.dukkan.pojo.CartMain;
+import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.ChangePassParameter;
 import com.dukan.dukkan.pojo.ChangePassword;
+import com.dukan.dukkan.pojo.CheckOuts;
 import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
-import com.dukan.dukkan.pojo.Coupon;
+import com.dukan.dukkan.pojo.CouponList;
 import com.dukan.dukkan.pojo.CouponMain;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
@@ -68,6 +70,10 @@ public interface APIInterface {
     @GET("/api/v1/categories")
     Call<Category> doGetListCategory();
 
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/categories")
+    Call<Category> doGetListCategoryStore(@Query("store_id") int store_id);
+
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/profile")
     Call<Profile> UserProfile();
@@ -79,6 +85,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/countries")
     Call<Country> doGetListCountry();
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/check_coupon")
+    Call<CouponList> doGetListCoupon();
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/cities/{id}")
@@ -116,6 +126,10 @@ public interface APIInterface {
     Call<CheckOutCart> CreateOrderCart(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/checkout")
+    Call<CheckOuts> DoCheckOut(@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/orders")
     Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date") String date);
 
@@ -138,7 +152,7 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/carts")
-    Call<CartMain> doGetListCart(@Query("device_id") String device_id);
+    Call<CartMain2> doGetListCart(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/product_rates")

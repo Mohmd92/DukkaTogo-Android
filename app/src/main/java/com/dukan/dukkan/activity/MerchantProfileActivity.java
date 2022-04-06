@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class MerchantProfileActivity extends AppCompatActivity {
     ImageView img_profile,img_profile_true;
-    TextView tv_user_name,tv_location,tv_driving_license,tv_affiliation_date;
+    TextView tv_user_name,tv_location,tv_driving_license,tv_affiliation_date,tv_store_noe,tv_store_name;
     CardView card_personal_info,card_store_data;
     ProgressBar progressBar;
     APIInterface apiInterface;
@@ -44,6 +44,8 @@ public class MerchantProfileActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         img_profile = findViewById(R.id.img_profile);
         img_profile.setClipToOutline(true);
+        tv_store_noe =  findViewById(R.id.tv_store_noe);
+        tv_store_name =  findViewById(R.id.tv_store_name);
         img_profile_true = findViewById(R.id.img_profile_true);
         tv_user_name = findViewById(R.id.tv_user_name);
         tv_location = findViewById(R.id.tv_location);
@@ -110,6 +112,8 @@ public class MerchantProfileActivity extends AppCompatActivity {
                     StoreInff=resource.data.store;
                     tv_user_name.setText(resource.data.name);
                     tv_location.setText(resource.data.address);
+                    tv_store_name.setText(resource.data.store.name);
+                    tv_store_noe.setText(resource.data.store.id);
                     Picasso.get()
                             .load(resource.data.image)
                             .into(img_profile);

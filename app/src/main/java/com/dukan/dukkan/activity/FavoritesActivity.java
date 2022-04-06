@@ -46,10 +46,12 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
         progressBar =findViewById(R.id.progressBar);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
+        ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         ImageView icon_notification =toolbar.findViewById(R.id.icon_notification);
         icon_notification.setVisibility(View.GONE);
+        icon_filter.setVisibility(View.GONE);
         iconMenu.setVisibility(View.GONE);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override

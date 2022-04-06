@@ -23,10 +23,15 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerLanguageAdapter;
 import com.dukan.dukkan.adapter.RecyclerPaymentAdapter;
 import com.dukan.dukkan.model.DataModeLanguage;
+import com.dukan.dukkan.pojo.Address;
+import com.dukan.dukkan.pojo.AddressData;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CheckOutCart;
+import com.dukan.dukkan.pojo.CheckOuts;
 import com.dukan.dukkan.pojo.PaymentGateway;
+import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.yihsian.slider.library.SliderItemView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,11 +45,9 @@ public class CheckOut extends AppCompatActivity {
     TextView tv_address_name,tv_change,tv_address,tv_name,tv_mobile,tv_total,tv_total_price,tv_delivery_fee;
     ImageView check1,check2;
     Boolean checkOne=true;
-    String cartTotal;
-    String deliveryPrice;
-    String[] payments;
     ProgressBar progressBar;
     APIInterface apiInterface;
+    RecyclerView recyclerView;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,28 +66,11 @@ public class CheckOut extends AppCompatActivity {
         tv_delivery_fee = findViewById(R.id.tv_delivery_fee);
         check1 = findViewById(R.id.check1);
         check2 = findViewById(R.id.check2);
-        RecyclerView recyclerView =  findViewById(R.id.recyclerView);
+        recyclerView =  findViewById(R.id.recyclerView);
         RelativeLayout rel_cash =  findViewById(R.id.rel_cash);
         RelativeLayout rel_card =  findViewById(R.id.rel_card);
         Button checkout_button =  findViewById(R.id.checkout_button);
         Button redeem_points_button =  findViewById(R.id.redeem_points_button);
-        String extra_str= getIntent().getExtras().getString("extra_str");
-        String[] allDatass = extra_str.split("&");
-        cartTotal= allDatass[1];
-        deliveryPrice= allDatass[2];
-        payments= allDatass[3].split("%");
-        tv_total_price.setText(cartTotal);
-        tv_delivery_fee.setText(deliveryPrice);
-        tv_total.setText(""+allDatass[0]);
-        /////////////////////////////////////////////////
-        ArrayList<PaymentGateway> arrayList = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        for(int i=1;i<payments.length;i++) {
-            arrayList.add(new PaymentGateway(Integer.valueOf(payments[i].split("#")[0]), payments[i].split("#")[1], payments[i].split("#")[2]));
-            RecyclerPaymentAdapter adapter = new RecyclerPaymentAdapter(getApplicationContext(), arrayList);
-            recyclerView.setAdapter(adapter);
-        }
-        /////////////////////////////////////////////////
 
         ImageView img_back =  findViewById(R.id.img_back);
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +92,44 @@ public class CheckOut extends AppCompatActivity {
                 CreateOrders();
             }
         });
+        CheckOuts();
+    }
+    private void CheckOuts() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        progressBar.setVisibility(View.VISIBLE);
+        System.out.println("IDIDIDIDIDID "+ID);
+        Call<CheckOuts> callNew = apiInterface.DoCheckOut(ID,"android");
+        callNew.enqueue(new Callback<CheckOuts>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<CheckOuts> callNew, Response<CheckOuts> response) {
+                CheckOuts cart = response.body();
+                System.out.println("HHHHHHHHHHHHHHHHssss "+cart.status);
+                if (cart.status){
+                    tv_total_price.setText(String.valueOf(cart.data.cartTotal));
+                    tv_delivery_fee.setText(String.valueOf(cart.data.deliveryPrice));
+                    tv_total.setText(String.valueOf(cart.data.total));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    RecyclerPaymentAdapter adapter = new RecyclerPaymentAdapter(getApplicationContext(), cart.data.paymentGateway);
+                    recyclerView.setAdapter(adapter);
+                    List<AddressData> slid = cart.data.addresses;
+                    for (AddressData datum : slid) {
+                        tv_address_name.setText(datum.name);
+                        tv_address.setText(datum.location);
+                        tv_mobile.setText(datum.mobile);
+                    }
+                }
+                else
+                    Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<CheckOuts> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+        });
     }
     private void CreateOrders() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
@@ -118,9 +142,9 @@ public class CheckOut extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
                 CheckOutCart cart = response.body();
-                if (cart.status)
+                if (cart.status) {
                     finish();
-                else
+                }else
                     Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
 

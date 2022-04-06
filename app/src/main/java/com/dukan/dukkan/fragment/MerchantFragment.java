@@ -3,6 +3,7 @@ package com.dukan.dukkan.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,10 +74,12 @@ public class MerchantFragment extends Fragment {
                 .into(image_Merchant);
     }
     private void getProfile() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         Calendar calendar = Calendar.getInstance();
 //        int cuarentDay = calendar.get(Calendar.DAY_OF_WEEK);
         String cuarentDay = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(System.currentTimeMillis());
-        System.out.println("cuarentDaycuarentDay "+cuarentDay);
+        System.out.println("IDIDIDIDIDIDID "+ID);
         progressBar.setVisibility(View.VISIBLE);
         Call<Profile> callNew = apiInterface.UserProfile();
         callNew.enqueue(new Callback<Profile>() {
