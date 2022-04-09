@@ -8,12 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.PaymentGateway;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -59,6 +61,7 @@ public class RecyclerPaymentAdapter extends RecyclerView.Adapter<RecyclerPayment
         }
         @Override
         public void onClick(View view) {
+
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
@@ -102,6 +105,8 @@ public class RecyclerPaymentAdapter extends RecyclerView.Adapter<RecyclerPayment
         Vholder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(mContext, ""+Vholder.item.id, Toast.LENGTH_SHORT).show();
+                SharedPreferenceManager.getInstance(mContext).setPaymentId(Vholder.item.id);
                 if (lastCheckedPosition >= 0)
                     notifyItemChanged(lastCheckedPosition);
                 lastCheckedPosition = Vholder.getAdapterPosition();

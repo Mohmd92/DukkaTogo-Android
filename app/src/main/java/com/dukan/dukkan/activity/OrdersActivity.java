@@ -85,7 +85,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
         System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
@@ -115,7 +115,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
         System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {

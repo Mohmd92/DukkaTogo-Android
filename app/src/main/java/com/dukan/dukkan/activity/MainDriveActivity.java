@@ -32,6 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private TextView title;
+    private TextView title,tv_location,header_tv_user_name;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
@@ -73,12 +74,8 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         header_im_close = view.findViewById(R.id.header_im_close);
-        TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
-        if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
-            if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
-                header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
-        }
-
+        header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
+        tv_location = view.findViewById(R.id.tv_location);
         header_im_close.setClipToOutline(true);
         viewPager = findViewById(R.id.home_pager_view);
         tabLayout = findViewById(R.id.home_tab_layout);
@@ -113,6 +110,14 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
         String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
         if(userProfileInfo.length==1)
             nav_switch_account.setVisible(false);
+        getProfile();
+    }
+    private void getProfile() {
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+        tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                .into(header_im_close);
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);
@@ -134,7 +139,7 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
                 closeDrawer();
                 break;
             case R.id.nav_read_code:
-                startActivity(new Intent(MainDriveActivity.this, DriverReadCardActivity.class));
+                startActivity(new Intent(MainDriveActivity.this, QrCodeScaner.class));
                 closeDrawer();
                 break;
                 case R.id.nav_call_us:

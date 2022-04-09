@@ -78,4 +78,8 @@ public class Store {
     @SerializedName("store_time_works")
     @Expose
     public List<StoreTimeWork> storeTimeWorks = new ArrayList<>();
+
+    @SerializedName("orders")
+    @Expose
+    public List<OrderItem> orders = new ArrayList<>();
 }

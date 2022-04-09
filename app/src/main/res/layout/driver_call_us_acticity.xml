@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/direct_number"/>
             <TextView
+                android:id="@+id/tv_number"
                 android:layout_marginStart="5dp"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"

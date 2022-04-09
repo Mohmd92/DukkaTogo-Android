@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class ShowOrder {
     @SerializedName("message")
     @Expose
     public String message;
@@ -14,8 +14,8 @@ public class Order {
     public Boolean status;
     @SerializedName("data")
     @Expose
-    public List<Datum> data =new ArrayList<>();
-    public class Datum {
+    public Data data;
+    public class Data {
 
         @SerializedName("id")
         @Expose

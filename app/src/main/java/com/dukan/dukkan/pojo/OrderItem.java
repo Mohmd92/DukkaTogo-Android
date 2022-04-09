@@ -49,9 +49,9 @@ public class OrderItem {
     @SerializedName("delivery_id")
     @Expose
     public String deliveryId;
-    @SerializedName("address_id")
+    @SerializedName("address")
     @Expose
-    public String addressId;
+    public AddressData address;
     @SerializedName("qr_code")
     @Expose
     public String qrCode;

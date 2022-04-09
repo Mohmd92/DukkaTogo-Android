@@ -77,13 +77,14 @@ public class AddAddressActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        AddressParameter address = new AddressParameter(edit_name.getText().toString(),edit_country.getText().toString(),edit_city.getText().toString(),edit_address.getText().toString(),ID,"android");
-        Call<Address> call1 = apiInterface.AddAddress(address);
+        AddressParameter address = new AddressParameter(edit_name.getText().toString(),"","",edit_address.getText().toString(),ID,"android");
+        Call<Address> call1 = apiInterface.AddAddress(edit_name.getText().toString(),edit_address.getText().toString(),ID,"android");
         call1.enqueue(new Callback<Address>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
                 Address addresss = response.body();
+                System.out.println("addresssaddresss "+response.body());
                 if (addresss.status) {
                     Toast.makeText(AddAddressActivity.this, "done", Toast.LENGTH_SHORT).show();
                     finish();

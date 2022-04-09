@@ -32,6 +32,16 @@ public class SharedPreferenceManager {
     }
 
     /////////////
+    public String getSelectedAddress() {
+        return sharedPreferences.getString("SelectedAddress", null);
+    }
+
+    public void setSelectedAddress(String SelectedAddress) {
+        editor.putString("SelectedAddress", SelectedAddress);
+        editor.commit();
+    }
+
+    /////////////
     public String getStatus() {
         return sharedPreferences.getString("Status", null);
     }
@@ -64,6 +74,15 @@ public class SharedPreferenceManager {
 
     public void set_api_token(String api_token) {
         editor.putString("api_token", api_token);
+        editor.commit();
+    }
+    /////////////
+    public int getPaymentId() {
+        return sharedPreferences.getInt("PaymentId", 0);
+    }
+
+    public void setPaymentId(int PaymentId) {
+        editor.putInt("PaymentId", PaymentId);
         editor.commit();
     }
 

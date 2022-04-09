@@ -225,5 +225,6 @@
     <string name="store_name">Store Name</string>
     <string name="store_no">Store No.</string>
     <string name="store_location">Store Location</string>
+    <string name="select_payment_method">Select payment method</string>
 
 </resources>

@@ -17,6 +17,7 @@ import com.dukan.dukkan.pojo.City;
 import com.dukan.dukkan.pojo.Country;
 import com.dukan.dukkan.pojo.CouponList;
 import com.dukan.dukkan.pojo.CouponMain;
+import com.dukan.dukkan.pojo.Driver;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.Login;
@@ -31,12 +32,16 @@ import com.dukan.dukkan.pojo.RateStore;
 import com.dukan.dukkan.pojo.RateStoreParameter;
 import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
+import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.StoreTimes;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
 import com.dukan.dukkan.pojo.UserProfile;
+import com.dukan.dukkan.pojo.Video;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -67,12 +72,18 @@ public interface APIInterface {
     Call<Home> doGetListHome(@Query("device_id") String device_id,@Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
-    @GET("/api/v1/categories")
-    Call<Category> doGetListCategory();
+    @GET("/api/v1/videos?")
+    Call<Video> doGetListVideo(@Query("device_id") String device_id, @Query("os") String os);
+
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/categories?")
+    Call<Category> doGetListCategoryStore(@Query("store_id") int store_id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/categories")
-    Call<Category> doGetListCategoryStore(@Query("store_id") int store_id);
+    Call<Category> doGetListCategory();
+
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/profile")
@@ -97,10 +108,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/check_coupon/{id}")
     Call<CouponMain> doCheckCoupon(@Path("id") String id);
-
-    @Headers({"api-token: API-TEST-TOKEN"})
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/address")
-    Call<Address> AddAddress(@Body AddressParameter addressParameter);
+    Call<Address> AddAddress(@Field("name") String name, @Field("location") String location,@Query("device_id") String device_id, @Query("os") String os);
     @FormUrlEncoded
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/store_times")
@@ -121,9 +132,18 @@ public interface APIInterface {
     @GET("/api/v1/address")
     Call<AllAddress> GetAllAddress(@Query("device_id") String device_id,@Query("os") String os);
 
+    @FormUrlEncoded
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/orders")
-    Call<CheckOutCart> CreateOrderCart(@Query("device_id") String device_id, @Query("os") String os);
+    Call<CheckOutCart> CreateOrderCart(@Field("address_id") int address_id, @Field("payment_gateway_id") int payment_gateway_id,@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/orders/{id}")
+    Call<ShowOrder> OrderDetails(@Path("id") int id, @Query("merchant") String merchant, @Query("delivery") String delivery, @Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/users")
+    Call<Driver> GetDrivers(@Query("store_id") String store_id , @Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/checkout")
@@ -131,7 +151,12 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/orders")
-    Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date") String date);
+    Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date_from") String date_from,
+                             @Query("date_to") String date_to,
+                             @Query("user_id") String user_id,
+                             @Query("merchant") String merchant,
+                             @Query("status") String status
+    );
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")

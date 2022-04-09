@@ -43,4 +43,8 @@ public class OrderDetail {
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
+
+    @SerializedName("product")
+    @Expose
+    public NewProduct product;
 }

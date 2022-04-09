@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     MostWantedAdapter mostAdapter = new MostWantedAdapter(getContext(),mosted);
                     HorizontalListViewMost.setAdapter(mostAdapter);
-                    customAdapter.notifyDataSetChanged();
+                    mostAdapter.notifyDataSetChanged();
                     HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
                     HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
-                    customAdapter.notifyDataSetChanged();
+                    NewProductAdapter.notifyDataSetChanged();
                     HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

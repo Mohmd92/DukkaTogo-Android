@@ -1,27 +1,32 @@
 package com.dukan.dukkan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
-import com.dukan.dukkan.pojo.OrderItem;
+import com.dukan.dukkan.activity.MerchantOrderDetailsActivity;
+import com.dukan.dukkan.activity.MerchantOrdersDeliveredActivity;
+import com.dukan.dukkan.activity.ShowStoresActivity;
+import com.dukan.dukkan.pojo.Order;
+import com.dukan.dukkan.pojo.Order.Datum;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 import java.util.List;
 
-public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerMerchantOrderAdapter.ViewHolder> {
-    List<OrderItem> mValues;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
+public class RecyclerMerchantOrder2Adapter extends RecyclerView.Adapter<RecyclerMerchantOrder2Adapter.ViewHolder> {
+    List<Order.Datum> mValues;
     Context mContext;
     protected ItemListener mListener;
-    public RecyclerMerchantOrderAdapter(Context context, List<OrderItem> values) {
+    public RecyclerMerchantOrder2Adapter(Context context, List<Order.Datum> values) {
 
         mValues = values;
         mContext = context;
@@ -30,7 +35,7 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        OrderItem item;
+        Order.Datum item;
         TextView tv_from,tv_to;
 
 
@@ -43,7 +48,7 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
             tv_to = v.findViewById(R.id.tv_to);
 
         }
-        public void setData(OrderItem item) {
+        public void setData(Order.Datum item) {
             this.item = item;
 
             tv_from.setText(SharedPreferenceManager.getInstance(mContext).getAddress());
@@ -53,6 +58,10 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
         }
         @Override
         public void onClick(View view) {
+            Intent i2 = new Intent(mContext, MerchantOrderDetailsActivity.class);
+            i2.putExtra("OrderId", item.id);
+            i2.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(i2);
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
@@ -60,7 +69,7 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
     }
 
     @Override
-    public RecyclerMerchantOrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerMerchantOrder2Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.requests_item, parent, false);
 
@@ -78,6 +87,6 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
         return mValues.size();
     }
      public interface ItemListener {
-        void onItemClick(OrderItem item);
+        void onItemClick(Order.Datum item);
     }
 }

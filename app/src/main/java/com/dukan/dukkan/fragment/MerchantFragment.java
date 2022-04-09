@@ -14,12 +14,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.MerchantProfileActivity;
+import com.dukan.dukkan.adapter.RecyclerMerchantOrderAdapter;
+import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.pojo.Order;
+import com.dukan.dukkan.pojo.OrderItem;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.StoreTimeWork;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -33,6 +38,8 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class MerchantFragment extends Fragment {
@@ -76,10 +83,7 @@ public class MerchantFragment extends Fragment {
     private void getProfile() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Calendar calendar = Calendar.getInstance();
-//        int cuarentDay = calendar.get(Calendar.DAY_OF_WEEK);
         String cuarentDay = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(System.currentTimeMillis());
-        System.out.println("IDIDIDIDIDIDID "+ID);
         progressBar.setVisibility(View.VISIBLE);
         Call<Profile> callNew = apiInterface.UserProfile();
         callNew.enqueue(new Callback<Profile>() {
@@ -89,6 +93,14 @@ public class MerchantFragment extends Fragment {
                 Profile resource = response.body();
                 Boolean status = resource.status;
                 if(status) {
+                    List<OrderItem> orders = resource.data.store.orders;
+                    System.out.println("sssssaaaaaaaaaaaaa "+orders.size());
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    RecyclerMerchantOrderAdapter adapter = new RecyclerMerchantOrderAdapter(getContext(), orders);
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
+
+
                     header_tv_user_name.setText(resource.data.name);
                     Picasso.get()
                             .load(resource.data.image)

@@ -32,6 +32,8 @@ import com.dukan.dukkan.pojo.NewProduct;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
 import com.dukan.dukkan.util.HorizontalListView;
+import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.squareup.picasso.Picasso;
 import com.yihsian.slider.library.SliderItemView;
 import com.yihsian.slider.library.SliderLayout;
 
@@ -67,7 +69,14 @@ public class DriveFragment extends Fragment {
                 startActivity(new Intent(getActivity(), DriverProfileActivity.class));
             }
         });
+        getProfile2();
         return root;
+    }
+    private void getProfile2() {
+        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getContext()).getUser_Name());
+        Picasso.get()
+                .load(SharedPreferenceManager.getInstance(getContext()).getUserImage())
+                .into(image_Derive);
     }
 //    private void getHome() {
 //        progressBar.setVisibility(View.VISIBLE);

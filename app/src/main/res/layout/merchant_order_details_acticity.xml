@@ -50,9 +50,10 @@
             android:textColor="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="25 oct"/>
+            android:text=""/>
 
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="4dp"
             android:id="@+id/tv_day"
             android:fontFamily="@font/abudhbi_regular"
@@ -100,7 +101,7 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"/>
+                android:text=""/>
             <TextView
                 android:fontFamily="@font/abudhbi_bold"
                 android:textSize="18sp"
@@ -113,8 +114,7 @@
             android:id="@+id/HorizontalListViewProduct"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:paddingStart="20dp"
+            android:layout_height="130dp"
             tools:ignore="RtlSymmetry" />
         <androidx.cardview.widget.CardView
             android:layout_marginTop="10dp"
@@ -168,8 +168,7 @@
                         android:textSize="13sp"
                         android:textColor="@color/blackTheme_colorBackground"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="La Chaumière Hôtel proche du Puy du Fou"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -227,8 +226,7 @@
                         android:textSize="13sp"
                         android:textColor="@color/blackTheme_colorBackground"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="La Chaumière Hôtel proche du Puy du Fou"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -265,7 +263,6 @@
                         android:textColor="@color/blackTheme_colorBackground"
                         android:fontFamily="@font/abudhbi_bold"
                         android:textSize="15sp"
-                        android:text="20,5"
                         android:layout_alignParentEnd="true"
                         android:tint="@color/colorPrimary"
                         android:layout_marginEnd="7dp"
@@ -275,6 +272,8 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_point"
+                android:visibility="gone"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/button3113"
@@ -285,6 +284,7 @@
                 app:cardElevation="2dp"
                 app:contentPadding="0dp">
                 <RelativeLayout
+                    android:id="@+id/rel_point"
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -302,7 +302,6 @@
                         android:textColor="@color/blackTheme_colorBackground"
                         android:fontFamily="@font/abudhbi_bold"
                         android:textSize="15sp"
-                        android:text="20,5"
                         android:layout_alignParentEnd="true"
                         android:tint="@color/colorPrimary"
                         android:layout_marginEnd="7dp"
@@ -344,9 +343,10 @@
                                 android:textColor="@color/colorPrimary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Moahmmed "/>
+                                android:text=" "/>
 
                             <LinearLayout
+                                android:id="@+id/linear_drive"
                                 android:layout_marginTop="7dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
@@ -366,7 +366,6 @@
                                     android:textColor="@color/blackTheme_colorBackground"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="03/03/2021"
                                     tools:ignore="SmallSp" />
                             </LinearLayout>
                         </LinearLayout>
@@ -374,7 +373,6 @@
                         <ImageView
                             android:scaleType="fitXY"
                             android:id="@+id/image_driver"
-
                             android:layout_centerVertical="true"
                             android:layout_width="55dp"
                             android:layout_height="65dp"/>

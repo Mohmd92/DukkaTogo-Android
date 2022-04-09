@@ -13,12 +13,14 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class DriverReadCardActivity extends AppCompatActivity {
+    String QrCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_read_card_acticity);
         Toolbar toolbar = findViewById(R.id.toolbar2);
         toolbar.setTitle("");
+        QrCode = getIntent().getExtras().getString("QrCode");
         ImageView icon_back = toolbar.findViewById(R.id.icon_back);
         ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);

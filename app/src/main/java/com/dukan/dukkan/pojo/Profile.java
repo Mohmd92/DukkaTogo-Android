@@ -78,7 +78,7 @@ public class Profile {
         public Store store;
         @SerializedName("orders")
         @Expose
-        public List<Order> orders = new ArrayList<>();
+        public List<OrderItem> orders = new ArrayList<>();
         @SerializedName("country")
         @Expose
         public Country country;

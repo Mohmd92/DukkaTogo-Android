@@ -113,11 +113,13 @@ public class MerchantProfileActivity extends AppCompatActivity {
                     tv_user_name.setText(resource.data.name);
                     tv_location.setText(resource.data.address);
                     tv_store_name.setText(resource.data.store.name);
-                    tv_store_noe.setText(resource.data.store.id);
+                    tv_store_noe.setText(""+resource.data.store.id);
                     Picasso.get()
                             .load(resource.data.image)
                             .into(img_profile);
                 }
+                if(resource.data.status.equals("1"))
+                    img_profile_true.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
             @Override

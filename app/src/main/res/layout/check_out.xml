@@ -124,7 +124,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="Please Enter Correct Mobile"
                             android:textColor="@color/blackTheme_colorBackground"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -148,7 +147,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="Mohammed "
                             android:textColor="@color/blackTheme_colorBackground"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -172,7 +170,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/abudhbi_regular"
-                            android:text="009720 000 0000"
                             android:textColor="@color/blackTheme_colorBackground"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -219,7 +216,7 @@
                     android:textColor="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1530$"/>
+                    android:text=""/>
             </RelativeLayout>
                 <View
                     android:layout_marginTop="5dp"
@@ -249,7 +246,7 @@
                         android:textColor="@color/blackTheme_colorBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1530$"/>
+                        android:text=""/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_marginTop="10dp"
@@ -274,7 +271,7 @@
                         android:textColor="@color/blackTheme_colorBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1530$"/>
+                        android:text=""/>
                 </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

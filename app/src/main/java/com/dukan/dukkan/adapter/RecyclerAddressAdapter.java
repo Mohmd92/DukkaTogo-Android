@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.CheckOut;
 import com.dukan.dukkan.activity.EditAddressActivity;
 import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.pojo.AllAddress;
@@ -25,6 +26,7 @@ import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Rate;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -87,6 +89,10 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
         }
         @Override
         public void onClick(View view) {
+            SharedPreferenceManager.getInstance(mContext).setSelectedAddress(item.id+"&"+item.name+"&"+item.location+"&"+item.mobile+"&"+tv_address_name.getText().toString());
+            Intent i = new Intent(mContext, CheckOut.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(i);
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
