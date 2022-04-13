@@ -1,7 +1,10 @@
 package com.dukan.dukkan.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
@@ -24,11 +28,13 @@ import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerMerchantOrder2Adapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Brand;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.NewProduct;
+import com.dukan.dukkan.pojo.Order;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
 import com.dukan.dukkan.util.HorizontalListView;
@@ -70,6 +76,7 @@ public class DriveFragment extends Fragment {
             }
         });
         getProfile2();
+        getOrders();
         return root;
     }
     private void getProfile2() {
@@ -78,32 +85,34 @@ public class DriveFragment extends Fragment {
                 .load(SharedPreferenceManager.getInstance(getContext()).getUserImage())
                 .into(image_Derive);
     }
-//    private void getHome() {
-//        progressBar.setVisibility(View.VISIBLE);
-//        Call<Home> callNew = apiInterface.doGetListHome();
-//        callNew.enqueue(new Callback<Home>() {
-//            @Override
-//            public void onResponse(Call<Home> callNew, Response<Home> response) {
-//                Home resource = response.body();
-//                String message = resource.message;
-//                if(message.equals("success")){
-//                    List<Slider> slid = resource.data.sliders;
-//                    List<Store> stores = resource.data.stores;
-//                    List<MostWanted> mosted = resource.data.mostWanted;
-//                    List<NewProduct> newProduct = resource.data.newProducts;
-//                    List<Brand> brand = resource.data.brands;
-//                    List<Brand> delivery = resource.data.brands;
-//                    SliderItemView view01 = new SliderItemView(getContext());
-//
-//                    progressBar.setVisibility(View.GONE);
-//                }
-//
-//            }
-//            @Override
-//            public void onFailure(Call<Home> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
-//            }
-//
-//        });
-//    }
+    private void getOrders() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        progressBar.setVisibility(View.VISIBLE);
+        System.out.println("TAG111111 ssssss "+ID);
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","1","","","","","");
+        callNew.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> callNew, Response<Order> response) {
+                Log.d("TAG111111",response.code()+"");
+                Order resource = response.body();
+                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
+                if(resource.status){
+                    Log.d("TAG111111","111111111111111111111111111111111ww");
+                    List<Order.Datum> datumList = resource.data;
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    RecyclerMerchantOrder2Adapter adapter = new RecyclerMerchantOrder2Adapter(getActivity(), datumList);
+                    recyclerView.setAdapter(adapter);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+                progressBar.setVisibility(View.GONE);
+
+            }
+
+        });
+    }
 }

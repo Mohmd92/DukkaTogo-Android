@@ -7,15 +7,31 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         tools:context=".activity.MainActivity">
-    <include
+    <RelativeLayout
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:id="@+id/layerr"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        layout="@layout/tool_bar2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:padding="5dp"
+            android:id="@+id/icon_back"
+            android:src="@drawable/ic_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/icon_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_square" />
+    </RelativeLayout>
+
     <ScrollView
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layerr"
@@ -98,7 +114,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/abudhbi_regular"
-                    android:text="km - 1002005"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
@@ -117,7 +132,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/abudhbi_regular"
-                    android:text="km - 1002005"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -125,7 +139,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/wwwq"
+                android:src="@drawable/delv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -148,7 +162,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:textColorHint="#aeafaf"
-            android:hint="km - 1002005"
             android:inputType="text"
             android:textSize="14sp"/>
         <TextView
@@ -169,7 +182,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:textColorHint="#aeafaf"
-            android:hint="23/3/2022"
             android:inputType="date"
             android:textSize="14sp"/>
         <LinearLayout
@@ -209,8 +221,8 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp">
                 <ImageView
+                    android:id="@+id/img_licence"
                     android:layout_margin="20dp"
-                    android:src="@drawable/wqq2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <ImageView
@@ -240,8 +252,9 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp">
                 <ImageView
+                    android:id="@+id/img_mot"
                     android:layout_margin="20dp"
-                    android:src="@drawable/wqq2"
+                    android:src="@drawable/delv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <ImageView

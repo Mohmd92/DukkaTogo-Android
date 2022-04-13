@@ -116,7 +116,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
                 else if(activty.equals("customer"))
                     startActivity(new Intent(UserPersonalInfoActivity.this, UserProfileActivity.class));
                 else
-                    startActivity(new Intent(UserPersonalInfoActivity.this, MerchantProfileActivity.class));
+                    startActivity(new Intent(UserPersonalInfoActivity.this, DriverProfileActivity.class));
                 finish();
             }
         });

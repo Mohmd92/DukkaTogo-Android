@@ -18,10 +18,10 @@
             android:icon="@drawable/ic_scan"
             android:title="@string/read_code" />
 
-        <item
-            android:id="@+id/nav_history_orders"
-            android:icon="@drawable/ic_history"
-            android:title="@string/history_orders" />
+<!--        <item-->
+<!--            android:id="@+id/nav_history_orders"-->
+<!--            android:icon="@drawable/ic_history"-->
+<!--            android:title="@string/history_orders" />-->
 
         <item
             android:id="@+id/nav_learn_with_us"

@@ -1,5 +1,6 @@
 package com.dukan.dukkan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -117,6 +118,8 @@ public class DriverPersonalInfoActivity extends AppCompatActivity {
         icon_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+
             }
         });
         getCountries();

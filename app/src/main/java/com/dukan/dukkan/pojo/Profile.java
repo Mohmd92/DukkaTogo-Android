@@ -73,6 +73,15 @@ public class Profile {
         @SerializedName("username")
         @Expose
         public String username;
+        @SerializedName("license_number")
+        @Expose
+        public String licenseNumber;
+        @SerializedName("license_picture")
+        @Expose
+        public String licensePicture;
+        @SerializedName("vehicle_picture")
+        @Expose
+        public String vehiclePicture;
         @SerializedName("store")
         @Expose
         public Store store;

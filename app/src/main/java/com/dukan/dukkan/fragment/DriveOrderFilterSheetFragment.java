@@ -2,14 +2,18 @@ package com.dukan.dukkan.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +28,10 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.DriverOrdersActivity;
+import com.dukan.dukkan.activity.DriverStatisticsActivity;
 import com.dukan.dukkan.pojo.Category;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.SimpleDateFormat;
@@ -64,6 +71,7 @@ public class DriveOrderFilterSheetFragment extends BottomSheetDialogFragment {
         myCalendar = Calendar.getInstance();
         myCalendar2 = Calendar.getInstance();
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
+        Button confirm_button =  view.findViewById(R.id.confirm_button);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -85,6 +93,15 @@ public class DriveOrderFilterSheetFragment extends BottomSheetDialogFragment {
                 updateLabel2();
             }
         };
+        confirm_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(process_date.getText().toString()) && !TextUtils.isEmpty(process_date2.getText().toString())){
+                    SharedPreferenceManager.getInstance(getContext()).setFilterDates(process_date.getText().toString() +"&"+ process_date2.getText().toString());
+                    dismiss();
+                }
+            }
+        });
         process_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,15 +137,22 @@ public class DriveOrderFilterSheetFragment extends BottomSheetDialogFragment {
 
     }
     private void updateLabel() {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         process_date.setText(sdf.format(myCalendar.getTime()));
         date_str=myCalendar.getTimeInMillis();
     }
     private void updateLabel2() {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         process_date2.setText(sdf.format(myCalendar2.getTime()));
         date_str2=myCalendar2.getTimeInMillis();
+    }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        Intent intent = new Intent(getContext(), DriverStatisticsActivity.class);
+        startActivity(intent);
+//        getActivity().finish();
     }
 }

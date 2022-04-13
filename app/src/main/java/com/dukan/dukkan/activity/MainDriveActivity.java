@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -105,6 +106,14 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
 
             }
         });
+        RelativeLayout rel_profile = view.findViewById(R.id.rel_profile);
+        rel_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainDriveActivity.this, DriverProfileActivity.class));
+                closeDrawer();
+            }
+        });
         Menu menu =navigationView.getMenu();
         MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
         String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
@@ -146,10 +155,10 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(MainDriveActivity.this, DriverCallUSActivity.class));
                 closeDrawer();
                 break;
-                case R.id.nav_history_orders:
-                startActivity(new Intent(MainDriveActivity.this, DriverHistoryOrdersActivity.class));
-                closeDrawer();
-                break;
+//                case R.id.nav_history_orders:
+//                startActivity(new Intent(MainDriveActivity.this, DriverHistoryOrdersActivity.class));
+//                closeDrawer();
+//                break;
                 case R.id.nav_learn_with_us:
                 startActivity(new Intent(MainDriveActivity.this, DriverLearnActivity.class));
                 closeDrawer();

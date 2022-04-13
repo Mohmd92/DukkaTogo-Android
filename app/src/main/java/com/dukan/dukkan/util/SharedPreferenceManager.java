@@ -169,4 +169,13 @@ public class SharedPreferenceManager {
         editor.putString("Address", Address);
         editor.commit();
     }
+
+    public String getFilterDates() {
+        return sharedPreferences.getString("FilterDates", null);
+    }
+
+    public void setFilterDates(String FilterDates) {
+        editor.putString("FilterDates", FilterDates);
+        editor.commit();
+    }
 }

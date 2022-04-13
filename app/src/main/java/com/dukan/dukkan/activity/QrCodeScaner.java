@@ -37,17 +37,18 @@ public class QrCodeScaner extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.result_not_found), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), MainDriveActivity.class);
                 startActivity(intent);
                 finish();
             } else {
                 System.out.println("GGGGGGGGGGGGGgggggg obj "+result.getContents());
-                Intent intent = new Intent(getApplicationContext(), DriverReadCardActivity.class);//
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("QrCode", result.getContents());
-                getApplicationContext().startActivity(intent);
-                finish();
+
+//                Intent intent = new Intent(getApplicationContext(), DriverReadCardActivity.class);//
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("QrCode", result.getContents());
+//                getApplicationContext().startActivity(intent);
+//                finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

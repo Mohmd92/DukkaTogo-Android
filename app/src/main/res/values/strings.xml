@@ -171,7 +171,7 @@
     <string name="affiliation_date">Affiliation Date</string>
     <string name="license_number">License Number</string>
     <string name="license_photo">License Photo</string>
-    <string name="motorcycles">Motorcycles</string>
+    <string name="motorcycles">Motorcycles Delivery</string>
     <string name="working_hours">Working Hours</string>
     <string name="time_from_work_to_completion">Time From Work To Completion</string>
     <string name="latest_orders">Latest Orders</string>
@@ -226,5 +226,8 @@
     <string name="store_no">Store No.</string>
     <string name="store_location">Store Location</string>
     <string name="select_payment_method">Select payment method</string>
+    <string name="result_not_found">Result Not Found</string>
+    <string name="today_s_requests">Today Requests</string>
+    <string name="requests">Requests</string>
 
 </resources>
