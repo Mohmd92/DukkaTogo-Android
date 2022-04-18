@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -87,10 +88,8 @@ public class SearchActivity extends AppCompatActivity {
         card_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(edit_search.getText().toString())) {
                     getProducts(edit_search.getText().toString(), categoryId);
                     icon_reset.setVisibility(View.VISIBLE);
-                }
             }
         });
         icon_reset.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +131,7 @@ public class SearchActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,categ_id,txt,0,0);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,categ_id,txt,0,0,0,0);
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
@@ -164,7 +163,14 @@ public class SearchActivity extends AppCompatActivity {
                 Category resource = response.body();
                 Boolean status = resource.status;
                 if(status) {
+                    Integer[] cateIds=new Integer[resource.data.size()];
+
                     categ = resource.data;
+                    int i=0;
+                    for (CategoryProduct datum : categ) {
+                        cateIds[i]= datum.id;
+                        i++;
+                    }
                      customAdapter = new CategoryAdapter(getApplicationContext(),categ);
                     HorizontalListView.setAdapter(customAdapter);
                     customAdapter.notifyDataSetChanged();
@@ -181,7 +187,7 @@ public class SearchActivity extends AppCompatActivity {
                             previousSelectedItem=view;
                             view.findViewById(R.id.relative).setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.button55));
                             ((TextView) view.findViewById(R.id.category_name)).setTextColor(Color.WHITE);
-                            categoryId=categ.get(position).categoryId;
+                            categoryId=cateIds[position];
                         }
                     });
                 }

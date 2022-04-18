@@ -76,11 +76,13 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.tv_name.setText("" + mValues.get(i).productName);
-        viewHolder.tv_price.setText("" + mValues.get(i).product.price);
-        Picasso.get()
-                .load(mValues.get(i).product.image)
-                .into(viewHolder.image);
-        viewHolder.rateStore.setRating(mValues.get(i).product.rate);
+        if(mValues.get(i).product!=null) {
+            viewHolder.tv_price.setText("" + mValues.get(i).product.price);
+            Picasso.get()
+                    .load(mValues.get(i).product.image)
+                    .into(viewHolder.image);
+            viewHolder.rateStore.setRating(mValues.get(i).product.rate);
+        }
         return view;
     }
     private class ViewHolder {

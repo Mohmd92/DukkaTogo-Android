@@ -21,11 +21,16 @@ import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 public class Splash extends AppCompatActivity {
+    String UserRole="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        String UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserType();
+        SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null){
+            if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
+                UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserType();
+        }
 //        SharedPreferenceManager.getInstance(getBaseContext()).setCountryId("32");
 //        SharedPreferenceManager.getInstance(getBaseContext()).setCityId("8550");
         new Handler().postDelayed(new Runnable() {

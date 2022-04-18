@@ -82,6 +82,14 @@ public class ShowStoresActivity extends AppCompatActivity {
                 finish();
             }
         });
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowStoresActivity.this, NotificationsActivity.class));
+
+            }
+        });
         icon_filter.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
         iconMenu.setVisibility(View.GONE);

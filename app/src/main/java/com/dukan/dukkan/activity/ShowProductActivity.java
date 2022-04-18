@@ -98,6 +98,14 @@ public class ShowProductActivity extends AppCompatActivity {
                 finish();
             }
         });
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowProductActivity.this, NotificationsActivity.class));
+
+            }
+        });
         ic_share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

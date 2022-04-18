@@ -27,7 +27,7 @@ import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
-import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerDriverOrderAdapter;
 import com.dukan.dukkan.adapter.RecyclerMerchantOrder2Adapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Brand;
@@ -101,7 +101,7 @@ public class DriveFragment extends Fragment {
                     Log.d("TAG111111","111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    RecyclerMerchantOrder2Adapter adapter = new RecyclerMerchantOrder2Adapter(getActivity(), datumList);
+                    RecyclerDriverOrderAdapter adapter = new RecyclerDriverOrderAdapter(getActivity(), datumList);
                     recyclerView.setAdapter(adapter);
                 }
                 progressBar.setVisibility(View.GONE);

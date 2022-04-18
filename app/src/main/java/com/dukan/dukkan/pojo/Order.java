@@ -76,7 +76,7 @@ public class Order {
         public UserOrder user;
         @SerializedName("delivery")
         @Expose
-        public Object delivery;
+        public Delivery delivery;
         @SerializedName("address")
         @Expose
         public AddressData address;

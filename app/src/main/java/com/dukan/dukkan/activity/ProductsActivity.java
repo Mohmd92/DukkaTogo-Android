@@ -1,6 +1,7 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -71,6 +73,14 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
                 finish();
             }
         });
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductsActivity.this, NotificationsActivity.class));
+
+            }
+        });
         icon_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,15 +93,15 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
             }
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-       getProducts();
+       getProducts(category,0,0);
 
 
     }
-    private void getProducts() {
+    private void getProducts(int category,int price_from,int price_to) {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",store,0,category,"",newProduct,mostProduct);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",store,0,category,"",newProduct,mostProduct,price_from,price_to);
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
@@ -120,5 +130,14 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     @Override
     public void onClick(View view, int position) {
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")){
+            String[] getFilterDates =  SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
+            getProducts(Integer.parseInt(getFilterDates[0]),Integer.parseInt(getFilterDates[1]),Integer.parseInt(getFilterDates[2]));
+            SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
+        }
     }
 }

@@ -1,18 +1,22 @@
 package com.dukan.dukkan.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +28,9 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.DriverStatisticsActivity;
 import com.dukan.dukkan.activity.LoginActivity;
+import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.Category;
@@ -43,6 +49,10 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
     Spinner spinner_country;
     String title;
     TextView filter_title;
+    int currentItem = 0,categId=-1;
+    Number minValuess=0;
+    Number maxValuess=1000;
+
     public FilterSheetFragment() {
         // Required empty public constructor
     }
@@ -63,6 +73,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
         CrystalRangeSeekbar rangeSeekbar = (CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar1);
         TextView tvMin = (TextView) view.findViewById(R.id.textMin1);
         TextView tvMax = (TextView) view.findViewById(R.id.textMax1);
+        Button confirm_button = view.findViewById(R.id.confirm_button);
         spinner_country = view.findViewById(R.id.spinner_country);
         filter_title = view.findViewById(R.id.textView0);
         Bundle bundle = this.getArguments();
@@ -75,6 +86,8 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
             public void valueChanged(Number minValue, Number maxValue) {
                 tvMin.setText(String.valueOf(minValue)+" $");
                 tvMax.setText(String.valueOf(maxValue)+" $");
+                minValuess=minValue;
+                maxValuess=maxValue;
             }
         });
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
@@ -86,27 +99,19 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
                 Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
             }
         });
-//        Button yes_button =  view.findViewById(R.id.yes_button);
-//        Button no_button =  view.findViewById(R.id.no_button);
-//        yes_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SharedPreferenceManager.getInstance(getContext()).set_api_token("");
-//                SharedPreferenceManager.getInstance(getContext()).setUser_Name("");
-//                SharedPreferenceManager.getInstance(getContext()).set_email("");
-//                    SharedPreferenceManager.getInstance(getContext()).setPassword("");
-//                startActivity(new Intent(getActivity(), LoginActivity.class));
-//                getActivity().finish();
-//                dismiss();
-//            }
-//        });
-//        no_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dismiss();
-//            }
-//        });
+        confirm_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sendData=categId+"&"+minValuess+"&"+maxValuess;
+                if(categId!=-1){
+                    SharedPreferenceManager.getInstance(getContext()).setFilterDates(sendData);
+                    dismiss();
+                }
+            }
+        });
+
     }
+
     private void getCategories() {
         Call<Category> callNew = apiInterface.doGetListCategory();
         callNew.enqueue(new Callback<Category>() {
@@ -118,14 +123,32 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
                 if(status) {
                     List<CategoryProduct> datumList = resource.data;
                     String[] categ=new String[datumList.size()+1];
+                    Integer[] categssID=new Integer[datumList.size()+1];
                     categ[0]=getString(R.string.select);
+                    categssID[0]=0;
                     int i=1;
                   for (CategoryProduct datum : datumList) {
                       categ[i]=datum.name;
+                      categssID[i]=datum.id;
                               i++;
                   }
-//                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),R.layout.brand_dropdown,categ);
+                    spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if(currentItem == position){
+                                return; //do nothing
+                            }
+                            else {
+                                categId=categssID[position];
+                            }
+                            currentItem = position;
+                        }
 
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                     final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                             getActivity(),R.layout.brand_dropdown,categ){
                         @Override
@@ -167,4 +190,15 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
             }
         });
 }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        Intent i = new Intent(getActivity(), ProductsActivity.class);
+//        i.putExtra("title", getString(R.string.most_wanted));
+//        i.putExtra("store", 0);
+//        i.putExtra("new", 0);
+//        i.putExtra("most", 1);
+//        i.putExtra("category", 0);
+        startActivity(i);
+    }
 }

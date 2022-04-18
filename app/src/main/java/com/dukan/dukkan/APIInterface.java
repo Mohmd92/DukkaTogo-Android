@@ -25,6 +25,7 @@ import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Order;
+import com.dukan.dukkan.pojo.OrderToDelevey;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
@@ -61,7 +62,7 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/products")
     Call<MultipleProducts> doGetListProduct(@Query("device_id") String device_id,@Query("os") String os,@Query("store_id") int store_id,@Query("brand_id") int brand_id
-            ,@Query("category_id") int category_id,@Query("search") String search,@Query("new") int news,@Query("most_wanted") int most_wanted);
+            ,@Query("category_id") int category_id,@Query("search") String search,@Query("new") int news,@Query("most_wanted") int most_wanted,@Query("price_from") int price_from,@Query("price_to") int price_to);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/stores?")
@@ -131,6 +132,11 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/address")
     Call<AllAddress> GetAllAddress(@Query("device_id") String device_id,@Query("os") String os);
+
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/orders/{id}")
+    Call<OrderToDelevey> OrderToDelevry(@Path("id") int id, @Query("device_id") String device_id, @Query("os") String os, @Field("note") String note, @Field("_method") String _method, @Field("status") int status, @Field("add") int add);
 
     @FormUrlEncoded
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})

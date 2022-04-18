@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity {
          **/
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,0,"",0,0);
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID,"android",0,0,0,"",0,0,0,0);
 
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override

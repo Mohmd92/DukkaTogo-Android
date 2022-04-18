@@ -44,7 +44,6 @@
                     android:textColor="@color/blackTheme_colorBackground"
                     android:textSize="11sp"
                     android:fontFamily="@font/abudhbi_regular"
-                    android:text="lg.washing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -55,7 +54,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="11sp"
                     android:fontFamily="@font/abudhbi_bold"
-                    android:text="40$"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
@@ -71,7 +69,6 @@
         android:layout_height="15dp"
         android:clickable="false"
         android:numStars="5"
-        android:rating="2.5"
         android:stepSize="0.1"
         android:theme="@style/CustomRatingBar"/>
 

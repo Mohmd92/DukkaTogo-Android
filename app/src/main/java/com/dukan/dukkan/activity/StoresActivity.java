@@ -1,5 +1,6 @@
 package com.dukan.dukkan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,14 @@ public class StoresActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar2);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StoresActivity.this, NotificationsActivity.class));
+
+            }
+        });
         iconMenu.setVisibility(View.GONE);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
