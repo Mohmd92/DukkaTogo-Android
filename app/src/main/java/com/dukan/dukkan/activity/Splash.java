@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,9 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder(StrictMode.getVmPolicy())
+                .detectLeakedClosableObjects()
+                .build());
         SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null){
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
@@ -50,13 +54,14 @@ public class Splash extends AppCompatActivity {
                    }else
                     checkCountry();
 
-                finish();
+//                finish();
             }
         },1000);
     }
     private void checkCountry(){
+//        Toast.makeText(this, "Test version", Toast.LENGTH_SHORT).show();
 //        SharedPreferenceManager.getInstance(getBaseContext()).setUserType("driver");
-//        SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
+        SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
         if(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId()!=null) {
             if (SharedPreferenceManager.getInstance(getBaseContext()).getCountryId().equals(""))
                 startActivity(new Intent(Splash.this, LoginActivity.class));

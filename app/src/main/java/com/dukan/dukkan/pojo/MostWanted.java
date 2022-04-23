@@ -34,6 +34,11 @@ public class MostWanted {
     @SerializedName("is_cart")
     @Expose
     public IsCart isCart;
+
+    @SerializedName("hasCart")
+    @Expose
+    public Boolean hasCart;
+
     @SerializedName("rate")
     @Expose
     public float rate;

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -33,6 +34,8 @@ import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.ListProductAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerMostwantedAdapter;
+import com.dukan.dukkan.adapter.RecyclerNewProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Advertisement;
@@ -73,6 +76,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
     TextView store_name;
     String ID,StoreName="";
     int StoreId=0;
+    RecyclerView recyclerViewViewMost,recyclerViewNewProduct,recyclerViewLastOffers;
 
     @SuppressLint("HardwareIds")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,6 +97,10 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         TextView view_last_offers = root.findViewById(R.id.view_last_offers);
         store_name = root.findViewById(R.id.store_name);
         store_name.setText(StoreName);
+
+        recyclerViewViewMost = root.findViewById(R.id.recyclerViewViewMost);
+        recyclerViewNewProduct = root.findViewById(R.id.recyclerViewNewProduct);
+        recyclerViewLastOffers = root.findViewById(R.id.recyclerViewLastOffers);
 
         HorizontalListViewMost = root.findViewById(R.id.HorizontalListViewMost);
         HorizontalListViewNewProduct = root.findViewById(R.id.HorizontalListViewNewProduct);
@@ -149,40 +157,59 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                 Log.d("TAG111111",response.code()+"");
                 ShowStore resource = response.body();
                 if(resource.status){
-                    List<NewProduct> newProduct = resource.data.newProducts;
-                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
-                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
-                    NewProductAdapter.notifyDataSetChanged();
-                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,newProduct,i);
-                        }
-                    });
+//                    List<NewProduct> newProduct = resource.data.newProducts;
+//                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
+//                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
+//                    NewProductAdapter.notifyDataSetChanged();
+//                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view,newProduct,i);
+//                        }
+//                    });
 
-                    List<NewProduct> mostwant = resource.data.mostWanted;
-                    NewProductAdapter mostProductAdapter = new NewProductAdapter(getContext(), mostwant);
-                    HorizontalListViewMost.setAdapter(mostProductAdapter);
-                    mostProductAdapter.notifyDataSetChanged();
+                    LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewNewProduct.setLayoutManager(layoutManager);
+                    List<NewProduct> datumListNew = resource.data.newProducts;
+                    RecyclerNewProductAdapter adapter = new RecyclerNewProductAdapter(getContext(), datumListNew);
+                    recyclerViewNewProduct.setAdapter(adapter);
 
-                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view, mostwant, i);
-                        }
-                    });
+//                    List<NewProduct> mostwant = resource.data.mostWanted;
+//                    NewProductAdapter mostProductAdapter = new NewProductAdapter(getContext(), mostwant);
+//                    HorizontalListViewMost.setAdapter(mostProductAdapter);
+//                    mostProductAdapter.notifyDataSetChanged();
+//
+//                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view, mostwant, i);
+//                        }
+//                    });
+                    LinearLayoutManager layoutManager2= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewViewMost.setLayoutManager(layoutManager2);
+                    List<NewProduct> datumListMost = resource.data.mostWanted;
+                    RecyclerNewProductAdapter adapterMost = new RecyclerNewProductAdapter(getContext(), datumListMost);
+                    recyclerViewViewMost.setAdapter(adapterMost);
 
-                    List<NewProduct> latestOffer = resource.data.latestOffers;
-                    NewProductAdapter latestProductAdapter = new NewProductAdapter(getContext(), latestOffer);
-                    HorizontalListViewLastOffers.setAdapter(latestProductAdapter);
-                    mostProductAdapter.notifyDataSetChanged();
 
-                    HorizontalListViewLastOffers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view, latestOffer, i);
-                        }
-                    });
+//                    List<NewProduct> latestOffer = resource.data.latestOffers;
+//                    NewProductAdapter latestProductAdapter = new NewProductAdapter(getContext(), latestOffer);
+//                    HorizontalListViewLastOffers.setAdapter(latestProductAdapter);
+//                    mostProductAdapter.notifyDataSetChanged();
+//
+//                    HorizontalListViewLastOffers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view, latestOffer, i);
+//                        }
+//                    });
+
+                    LinearLayoutManager layoutManager3= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewViewMost.setLayoutManager(layoutManager3);
+                    List<NewProduct> datumListLast = resource.data.latestOffers;
+                    RecyclerNewProductAdapter adapterLast = new RecyclerNewProductAdapter(getContext(), datumListLast);
+                    recyclerViewViewMost.setAdapter(adapterLast);
+
                     List<Advertisement> slid = resource.data.advertisements;
                     SliderItemView2 view01 = new SliderItemView2(getContext());
                     sliderLayout.removeAllSliders();

@@ -1,7 +1,9 @@
 package com.dukan.dukkan.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.fragment.ChooseDriverSheetFragment;
 import com.dukan.dukkan.pojo.Order;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -27,15 +33,17 @@ import java.util.Locale;
 public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdapter.ViewHolder> {
     List<Order.Datum> mValues;
     Context mContext;
+    Activity Aactivity;
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
     int row_index=-1;
     private int lastCheckedPosition = -1;
     private int initPosition = -1;
-    public RecyclerOrderAdapter(Context context, List<Order.Datum> values) {
+    public RecyclerOrderAdapter(Context context, List<Order.Datum> values, Activity activity) {
 
         mValues = values;
         mContext = context;
+        Aactivity = activity;
 //        mListener=itemListener;
     }
 
@@ -73,6 +81,25 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
                 RecyclerOrderDetailAdapter adapter = new RecyclerOrderDetailAdapter(mContext, item.orderDetails);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+                img_barcode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        Bundle bundle = new Bundle();
+//
+//                        ChooseDriverSheetFragment chooseDriverSheetFragment = new ChooseDriverSheetFragment();
+//                        bundle.putString("qrcode", item.qrCode);
+//                        chooseDriverSheetFragment.setArguments(bundle);
+//                        chooseDriverSheetFragment.show(((FragmentActivity)mContext).getSupportFragmentManager()
+//                                , chooseDriverSheetFragment.getTag());
+
+                        final BottomSheetDialog bt=new BottomSheetDialog (Aactivity,R.style.AppBottomSheetDialogTheme);
+                        View views= LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_choose_driver,null);
+                        ImageView imageView=views.findViewById(R.id.img_qrcode);
+                        Glide.with(mContext).load(item.qrCode).into(imageView);
+                        bt.setContentView(views);
+                        bt.show();
+                    }
+                });
             }
 
         }

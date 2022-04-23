@@ -84,7 +84,6 @@ public class OrdersActivity extends AppCompatActivity {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("TAG111111 ssssss "+ID);
         Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","");
         callNew.enqueue(new Callback<Order>() {
             @Override
@@ -96,14 +95,14 @@ public class OrdersActivity extends AppCompatActivity {
                     Log.d("TAG111111","111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerOrderAdapter adapter = new RecyclerOrderAdapter(getApplicationContext(), datumList);
+                    RecyclerOrderAdapter adapter = new RecyclerOrderAdapter(getApplicationContext(), datumList,OrdersActivity.this);
                 recyclerView.setAdapter(adapter);
             }
                 progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.d("TAG111111 xxxx","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
 
             }

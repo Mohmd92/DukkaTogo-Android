@@ -196,6 +196,7 @@
     <string name="driving_data">Driving Data</string>
     <string name="delete">Delete</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="login_to_rate">Login to rate</string>
     <string name="share_via">Share via</string>
     <string name="specifications">Specifications :</string>
     <string name="write_your_opinion">Write Your Opinion</string>
@@ -229,5 +230,8 @@
     <string name="result_not_found">Result Not Found</string>
     <string name="today_s_requests">Today Requests</string>
     <string name="requests">Requests</string>
+    <string name="the_total_amount">The Total Amount</string>
+    <string name="order_has_been_received">The order has been received from the merchant</string>
+    <string name="order_has_been_delivered">The request has been delivered to the user</string>
 
 </resources>

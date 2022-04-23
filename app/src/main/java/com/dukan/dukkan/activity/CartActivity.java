@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
 import com.dukan.dukkan.pojo.Cart;
 import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.CouponMain;
+import com.dukan.dukkan.util.SharedPreferenceManager;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +40,8 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
     APIInterface apiInterface;
     List<Cart> datumList;
     String extra_str="";
+    LinearLayout linear_no_account,linear_exist_account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,8 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         tv_num_products = findViewById(R.id.tv_num_products);
         progressBar = findViewById(R.id.progressBar);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-
+        linear_exist_account = findViewById(R.id.linear_exist_account);
+        linear_no_account = findViewById(R.id.linear_no_account);
         ImageView img_back =  findViewById(R.id.img_back);
         Button but_checkout =  findViewById(R.id.but_checkout);
         Button confirm_button =  findViewById(R.id.confirm_button);
@@ -68,9 +74,19 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(CartActivity.this, MainActivity.class);
+                startActivity(i);
                 finish();
             }
         });
+//        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+//            linear_exist_account.setVisibility(View.GONE);
+//            linear_no_account.setVisibility(View.VISIBLE);
+//        }else {
+//            linear_exist_account.setVisibility(View.VISIBLE);
+//            linear_no_account.setVisibility(View.GONE);
+//            getCarts();
+//        }
         getCarts();
     }
 

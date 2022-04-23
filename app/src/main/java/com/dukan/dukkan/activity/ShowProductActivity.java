@@ -2,6 +2,7 @@ package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -21,15 +22,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerNewProductAdapter;
 import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.model.SliderItem;
 import com.dukan.dukkan.pojo.CartMain;
@@ -43,6 +47,7 @@ import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.util.HorizontalListView;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -72,6 +77,7 @@ public class ShowProductActivity extends AppCompatActivity {
     private SliderAdapterExample adapter;
     SliderView sliderView;
     ProgressBar progressBar2;
+    RecyclerView recyclerViewNewProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,7 @@ public class ShowProductActivity extends AppCompatActivity {
         product_price = findViewById(R.id.product_price);
         ratingBar2 = findViewById(R.id.ratingBar2);
         tv_rating_num = findViewById(R.id.tv_rating_num);
+        recyclerViewNewProduct = findViewById(R.id.recyclerViewNewProduct);
         product_detail = findViewById(R.id.product_detail);
         tv_heart = findViewById(R.id.tv_heart);
         img_heart = findViewById(R.id.img_heart);
@@ -133,12 +140,37 @@ public class ShowProductActivity extends AppCompatActivity {
         card_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
-                bundle.putInt("productID", productID);
-                reviewSheetFragment.setArguments(bundle);
-                reviewSheetFragment.show(getSupportFragmentManager()
-                        , reviewSheetFragment.getTag());
+                if(!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+                    Bundle bundle = new Bundle();
+                    ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
+                    bundle.putInt("productID", productID);
+                    reviewSheetFragment.setArguments(bundle);
+                    reviewSheetFragment.show(getSupportFragmentManager()
+                            , reviewSheetFragment.getTag());
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShowProductActivity.this);
+
+                        builder.setTitle(getString(R.string.sign_in));
+                        builder.setMessage(getString(R.string.login_to_rate));
+
+                        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(ShowProductActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        });
+
+                        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                }
             }
         });
         card_customer_reviews.setOnClickListener(new View.OnClickListener() {
@@ -346,17 +378,22 @@ public class ShowProductActivity extends AppCompatActivity {
                     product_price.setText(String.valueOf(resource.data.price));
                     tv_rating_num.setText(String.valueOf(resource.data.rate));
                     ratingBar2.setRating(resource.data.rate);
-                    List<NewProduct> newProduct = resource.data.similarProducts;
-
-                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getApplicationContext(),newProduct);
-                    HorizontalListView.setAdapter(NewProductAdapter);
-                    NewProductAdapter.notifyDataSetChanged();
-                    HorizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,newProduct,i);
-                        }
-                    });
+//                    List<NewProduct> newProduct = resource.data.similarProducts;
+//
+//                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getApplicationContext(),newProduct);
+//                    HorizontalListView.setAdapter(NewProductAdapter);
+//                    NewProductAdapter.notifyDataSetChanged();
+//                    HorizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view,newProduct,i);
+//                        }
+//                    });
+                    LinearLayoutManager layoutManager2= new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewNewProduct.setLayoutManager(layoutManager2);
+                    List<NewProduct> datumListNew = resource.data.similarProducts;
+                    RecyclerNewProductAdapter adapterNew = new RecyclerNewProductAdapter(getApplicationContext(), datumListNew);
+                    recyclerViewNewProduct.setAdapter(adapterNew);
 
                     List<Image> slid = resource.data.images;
                     List<SliderItem> sliderItemList = new ArrayList<>();
@@ -537,5 +574,10 @@ public class ShowProductActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProductDetails();
     }
 }

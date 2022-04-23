@@ -73,6 +73,13 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        card_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UserProfileActivity.this, StatisticsActivity.class);
+                startActivity(i);
+            }
+        });
         if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
             linear_exist_account.setVisibility(View.GONE);
             linear_no_account.setVisibility(View.VISIBLE);

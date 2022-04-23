@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
+                finish();
             }
         });
         icon_search.setOnClickListener(new View.OnClickListener() {
@@ -157,11 +158,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              getProfileGoogle();
         Menu menu =navigationView.getMenu();
         MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
-        String[] userProfileInfo =  SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
-        if(userProfileInfo.length==1)
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null) {
+            String[] userProfileInfo = SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
+            if (userProfileInfo.length == 1)
+                nav_switch_account.setVisible(false);
+        }else
             nav_switch_account.setVisible(false);
 
-        printHashKey();
+//        printHashKey();
     }
     public  void printHashKey()
     {
@@ -201,11 +205,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .into(header_im_close);
     }
     private void getProfile() {
-        header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
-        tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
-        Picasso.get()
-                .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
-                .into(header_im_close);
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null){
+            if(!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals("")){
+                header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
+                tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
+                Picasso.get()
+                        .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                        .into(header_im_close);
+            }
+        }
+
     }
     private void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START, true);

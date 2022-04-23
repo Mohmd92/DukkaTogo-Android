@@ -68,22 +68,21 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
         }
         public void setData(Cart item) {
             this.item = item;
-            if(item.product.name.length()>24)
-                product_name.setText(item.product.name.substring(0,24)+"...");
-            else
-                product_name.setText(item.product.name);
+            if(item.product!=null) {
+                if (item.product.name.length() > 24)
+                    product_name.setText(item.product.name.substring(0, 24) + "...");
+                else
+                    product_name.setText(item.product.name);
 
-            product_price.setText(Integer.toString(item.product.price));
-            product_count.setText(Integer.toString(item.qty));
-            Picasso.get()
-                    .load(item.product.image)
-                    .into(image);
-
+                product_price.setText(""+item.product.price);
+                product_count.setText(Integer.toString(item.qty));
+                Picasso.get()
+                        .load(item.product.image)
+                        .into(image);
+            }
             itemView.setOnClickListener(this); // bind the listener
 
-        }
-        @Override
-        public void onClick(View view) {
+
             relative_plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,7 +101,7 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
                                 pCount++;
                                product_count.setText(""+pCount);
                                 TextView tv_total_price = (TextView) CartActivity.tv_total_price;
-                                int pTotal= Integer.parseInt(tv_total_price.getText().toString());
+                                float pTotal= Integer.parseInt(tv_total_price.getText().toString());
                                 pTotal=pTotal+item.product.price;
                                 tv_total_price.setText(""+pTotal);
                             }else
@@ -135,7 +134,7 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
                                 pCount--;
                                 product_count.setText(""+pCount);
                                 TextView tv_total_price = (TextView) CartActivity.tv_total_price;
-                                int pTotal= Integer.parseInt(tv_total_price.getText().toString());
+                                float pTotal= Integer.parseInt(tv_total_price.getText().toString());
                                 pTotal=pTotal-item.product.price;
                                 tv_total_price.setText(""+pTotal);
                             }else
@@ -156,66 +155,103 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
                 @Override
                 public void onClick(View v) {
                     if(Integer.parseInt(product_count.getText().toString())>1){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
+                        CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID,item.qty,"delete");
+                        Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
+                        call1.enqueue(new Callback<CartMain>() {
+                            @Override
+                            public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+                                CartMain cart = response.body();
+                                System.out.println("resssssssssssss "+response.body().message);
+                                if (cart.status){
+                                    TextView tv_total_price = (TextView) CartActivity.tv_total_price;
 
-                        builder.setTitle(mContext.getString(R.string.delete));
-                        builder.setMessage(mContext.getString(R.string.are_you_sure));
+                                    tv_total_price.setText(""+cart.data.cartTotal);
 
-                        builder.setPositiveButton(mContext.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    TextView tv_num_products = (TextView) CartActivity.tv_num_products;
+                                    int pCount= Integer.parseInt(tv_num_products.getText().toString());
+                                    pCount--;
+                                    tv_num_products.setText(""+pCount);
 
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Do nothing but close the dialog
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
-                                        Settings.Secure.ANDROID_ID);
-                                CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID,item.qty,"delete");
-                                Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
-                                call1.enqueue(new Callback<CartMain>() {
-                                    @Override
-                                    public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                                        CartMain cart = response.body();
-                                        System.out.println("resssssssssssss "+response.body().message);
-                                        if (cart.status){
-                                            TextView tv_total_price = (TextView) CartActivity.tv_total_price;
-
-                                            tv_total_price.setText(""+cart.data.cartTotal);
-
-                                            TextView tv_num_products = (TextView) CartActivity.tv_num_products;
-                                            int pCount= Integer.parseInt(tv_num_products.getText().toString());
-                                            pCount--;
-                                            tv_num_products.setText(""+pCount);
-
-                                            removeAt(getAdapterPosition());
-                                        }else
-                                            Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<CartMain> call, Throwable t) {
-//                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                                        call.cancel();
-                                    }
-                                });
-                                dialog.dismiss();
+                                    removeAt(getAdapterPosition());
+                                }else
+                                    Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
                             }
-                        });
-
-                        builder.setNegativeButton(mContext.getString(R.string.no), new DialogInterface.OnClickListener() {
 
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                // Do nothing
-                                dialog.dismiss();
+                            public void onFailure(Call<CartMain> call, Throwable t) {
+                                Toast.makeText(mContext, "onFailure", Toast.LENGTH_SHORT).show();
+                                call.cancel();
                             }
                         });
-
+//
+//                        Toast.makeText(mContext, "pwwwwwppp "+product_count.getText().toString(), Toast.LENGTH_SHORT).show();
+//
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//
+//                        builder.setTitle(mContext.getString(R.string.delete));
+//                        builder.setMessage(mContext.getString(R.string.are_you_sure));
+//
+//                        builder.setPositiveButton(mContext.getString(R.string.yes), new DialogInterface.OnClickListener() {
+//
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(mContext, "pppp", Toast.LENGTH_SHORT).show();
+//                                // Do nothing but close the dialog
+//
+//                                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
+//                                        Settings.Secure.ANDROID_ID);
+//                                CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID,item.qty,"delete");
+//                                Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
+//                                call1.enqueue(new Callback<CartMain>() {
+//                                    @Override
+//                                    public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+//                                        CartMain cart = response.body();
+//                                        System.out.println("resssssssssssss "+response.body().message);
+//                                        if (cart.status){
+//                                            TextView tv_total_price = (TextView) CartActivity.tv_total_price;
+//
+//                                            tv_total_price.setText(""+cart.data.cartTotal);
+//
+//                                            TextView tv_num_products = (TextView) CartActivity.tv_num_products;
+//                                            int pCount= Integer.parseInt(tv_num_products.getText().toString());
+//                                            pCount--;
+//                                            tv_num_products.setText(""+pCount);
+//
+//                                            removeAt(getAdapterPosition());
+//                                        }else
+//                                            Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<CartMain> call, Throwable t) {
+//                            Toast.makeText(mContext, "onFailure", Toast.LENGTH_SHORT).show();
+//                                        call.cancel();
+//                                    }
+//                                });
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                        builder.setNegativeButton(mContext.getString(R.string.no), new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                                // Do nothing
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        AlertDialog alert = builder.create();
+//                        alert.show();
 
                     }
                 }
 
             });
+        }
+        @Override
+        public void onClick(View view) {
         }
     }
 

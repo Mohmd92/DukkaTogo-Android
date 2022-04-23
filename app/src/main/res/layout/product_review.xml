@@ -478,12 +478,22 @@
                     android:textSize="15sp" />
 
                 <com.dukan.dukkan.util.HorizontalListView
+                    android:visibility="gone"
                     android:id="@+id/HorizontalListView"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="430dp"
                     tools:ignore="RtlSymmetry" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginBottom="430dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/recyclerViewNewProduct"
+                    android:layout_width="match_parent"
+                    android:scrollbars="vertical"
+                    android:layout_height="170dp"
+                    android:paddingStart="20dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

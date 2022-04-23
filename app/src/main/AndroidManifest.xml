@@ -312,6 +312,12 @@
             tools:replace="android:screenOrientation"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.StatisticsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />

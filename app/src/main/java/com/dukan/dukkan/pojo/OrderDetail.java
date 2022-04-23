@@ -18,13 +18,13 @@ public class OrderDetail {
     public String qty;
     @SerializedName("price")
     @Expose
-    public String price;
+    public float price;
     @SerializedName("discount")
     @Expose
-    public Object discount;
+    public String discount;
     @SerializedName("total")
     @Expose
-    public String total;
+    public float total;
     @SerializedName("order_id")
     @Expose
     public String orderId;

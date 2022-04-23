@@ -1,6 +1,7 @@
 package com.dukan.dukkan.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import androidx.annotation.Nullable;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.DriverStatisticsActivity;
+import com.dukan.dukkan.activity.ShowProductActivity;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -106,9 +109,18 @@ public class ReviewSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onFailure(Call<Rate> call, Throwable t) {
                 call.cancel();
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
+                dismiss();
 
             }
         });
+    }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        Intent intent = new Intent(getContext(), ShowProductActivity.class);
+        startActivity(intent);
+//        getActivity().finish();
     }
 }

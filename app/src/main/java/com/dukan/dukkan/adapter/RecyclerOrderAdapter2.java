@@ -2,6 +2,7 @@ package com.dukan.dukkan.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.fragment.ChooseDriverSheetFragment;
 import com.dukan.dukkan.pojo.Order;
 
 import java.util.List;
@@ -68,6 +71,18 @@ public class RecyclerOrderAdapter2 extends RecyclerView.Adapter<RecyclerOrderAda
                 RecyclerOrderDetailAdapter2 adapter = new RecyclerOrderDetailAdapter2(mContext, item.orderDetails);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+                img_barcode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+
+                        ChooseDriverSheetFragment chooseDriverSheetFragment = new ChooseDriverSheetFragment();
+                        bundle.putString("qrcode", item.qrCode);
+                        chooseDriverSheetFragment.setArguments(bundle);
+                        chooseDriverSheetFragment.show(((FragmentActivity)mContext).getSupportFragmentManager()
+                                , chooseDriverSheetFragment.getTag());
+                    }
+                });
             }
 
         }

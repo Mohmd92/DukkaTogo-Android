@@ -25,8 +25,10 @@ import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Order;
+import com.dukan.dukkan.pojo.OrderStatistics;
 import com.dukan.dukkan.pojo.OrderToDelevey;
 import com.dukan.dukkan.pojo.Profile;
+import com.dukan.dukkan.pojo.QrCode;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.pojo.RateParameter;
 import com.dukan.dukkan.pojo.RateStore;
@@ -75,6 +77,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/videos?")
     Call<Video> doGetListVideo(@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/orders/statistics?")
+    Call<OrderStatistics> GetOrderStatistics(@Query("device_id") String device_id, @Query("os") String os, @Query("date_from") String date_from, @Query("date_to") String date_to);
 
 
     @Headers({"api-token: API-TEST-TOKEN"})
@@ -156,13 +162,16 @@ public interface APIInterface {
     Call<CheckOuts> DoCheckOut(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/orders/{id}")
+    Call<QrCode> OrderQR(@Path("id") String id, @Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/orders")
     Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date_from") String date_from,
                              @Query("date_to") String date_to,
                              @Query("user_id") String user_id,
                              @Query("merchant") String merchant,
-                             @Query("status") String status
-    );
+                             @Query("status") String status);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")

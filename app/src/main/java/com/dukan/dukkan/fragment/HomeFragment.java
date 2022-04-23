@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dukan.dukkan.APIClient;
@@ -31,6 +33,9 @@ import com.dukan.dukkan.adapter.BrandAdapter;
 import com.dukan.dukkan.adapter.DeliveryAdapter;
 import com.dukan.dukkan.adapter.MostWantedAdapter;
 import com.dukan.dukkan.adapter.NewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerMostwantedAdapter;
+import com.dukan.dukkan.adapter.RecyclerNewProductAdapter;
+import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.adapter.StoreAdapter;
 import com.dukan.dukkan.pojo.Advertisement;
 import com.dukan.dukkan.pojo.Advertisement2;
@@ -42,6 +47,7 @@ import com.dukan.dukkan.pojo.Delivery;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
 import com.dukan.dukkan.pojo.MostWanted;
+import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.NewProduct;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.pojo.Store;
@@ -59,7 +65,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,RecyclerMostwantedAdapter.ItemClickListener {
     APIInterface apiInterface;
     private HorizontalListView HorizontalListViewStore,HorizontalListViewMost,HorizontalListViewNewProduct,HorizontalListViewBrand,HorizontalListViewDelivery;
     private  SliderLayout sliderLayout;
@@ -68,6 +74,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView desc_advertisement1,title_advertisement1;
     private TextView desc_advertisement2,title_advertisement2;
+    RecyclerView recyclerViewViewMost,recyclerViewNewProduct;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +83,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         sliderLayout = root.findViewById(R.id.sliderLayout);
         img_filter = root.findViewById(R.id.img_filter);
+        recyclerViewNewProduct = root.findViewById(R.id.recyclerViewNewProduct);
+        recyclerViewViewMost = root.findViewById(R.id.recyclerViewViewMost);
         TextView view_all_product = root.findViewById(R.id.view_all_product);
         TextView view_stores = root.findViewById(R.id.view_stores);
         TextView view_most_product = root.findViewById(R.id.view_most_product);
@@ -184,6 +193,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     StoreAdapter customAdapter = new StoreAdapter(getContext(),stores);
                     HorizontalListViewStore.setAdapter(customAdapter);
                     customAdapter.notifyDataSetChanged();
+
+
                     HorizontalListViewStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -193,27 +204,38 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             startActivity(i2);
                         }
                     });
+//                    MostWantedAdapter mostAdapter = new MostWantedAdapter(getContext(),mosted);
+//                    HorizontalListViewMost.setAdapter(mostAdapter);
+//                    mostAdapter.notifyDataSetChanged();
 
-                    MostWantedAdapter mostAdapter = new MostWantedAdapter(getContext(),mosted);
-                    HorizontalListViewMost.setAdapter(mostAdapter);
-                    mostAdapter.notifyDataSetChanged();
-                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,mosted,i);
-                        }
-                    });
+                    LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewViewMost.setLayoutManager(layoutManager);
+                    List<MostWanted> datumListMost = resource.data.mostWanted;
+                    RecyclerMostwantedAdapter adapter = new RecyclerMostwantedAdapter(getContext(), datumListMost);
+                    recyclerViewViewMost.setAdapter(adapter);
+
+//                    HorizontalListViewMost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                           onClikMostwanted(view,mosted,i);
+//                        }
+//                    });
                     /////////////////
+                    LinearLayoutManager layoutManager2= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewNewProduct.setLayoutManager(layoutManager2);
+                    List<NewProduct> datumListNew = resource.data.newProducts;
+                    RecyclerNewProductAdapter adapterNew = new RecyclerNewProductAdapter(getContext(), datumListNew);
+                    recyclerViewNewProduct.setAdapter(adapterNew);
 
-                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
-                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
-                    NewProductAdapter.notifyDataSetChanged();
-                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            onClikMostwanted(view,mosted,i);
-                        }
-                    });
+//                    NewProductAdapter NewProductAdapter = new NewProductAdapter(getContext(),newProduct);
+//                    HorizontalListViewNewProduct.setAdapter(NewProductAdapter);
+//                    NewProductAdapter.notifyDataSetChanged();
+//                    HorizontalListViewNewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            onClikMostwanted(view,mosted,i);
+//                        }
+//                    });
 
                     BrandAdapter brandAdapter = new BrandAdapter(getContext(),brand);
                     HorizontalListViewBrand.setAdapter(brandAdapter);
@@ -376,5 +398,10 @@ void  onClikMostwanted(View view, List<MostWanted> mosted,int i){
     @Override
     public void onRefresh() {
         getHome();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Toast.makeText(getContext(), "pppppppppppp", Toast.LENGTH_SHORT).show();
     }
 }

@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferenceManager.getInstance(getBaseContext()).set_api_token("");
-                startActivity(new Intent(LoginActivity.this, MainMerchantActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
         });

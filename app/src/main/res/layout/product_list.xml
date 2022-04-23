@@ -104,11 +104,21 @@
                 />
         </RelativeLayout>
         <com.dukan.dukkan.util.HorizontalListView
+            android:visibility="gone"
             android:id="@+id/HorizontalListViewMost"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             tools:ignore="RtlSymmetry" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/recyclerViewViewMost"
+            android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:layout_height="160dp"
+            android:paddingStart="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -135,11 +145,21 @@
                 />
         </RelativeLayout>
         <com.dukan.dukkan.util.HorizontalListView
+            android:visibility="gone"
             android:id="@+id/HorizontalListViewNewProduct"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             tools:ignore="RtlSymmetry" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/recyclerViewNewProduct"
+            android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:layout_height="160dp"
+            android:paddingStart="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
@@ -165,7 +185,17 @@
                 android:layout_height="wrap_content"
                 />
         </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/recyclerViewLastOffers"
+            android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:layout_height="160dp"
+            android:paddingStart="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <com.dukan.dukkan.util.HorizontalListView
+            android:visibility="gone"
             android:id="@+id/HorizontalListViewLastOffers"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"

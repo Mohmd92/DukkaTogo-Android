@@ -154,6 +154,8 @@ public class CheckOut extends AppCompatActivity {
                 CheckOutCart cart = response.body();
                 if (cart.status) {
                     Toast.makeText(CheckOut.this, "Done", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(CheckOut.this, MainActivity.class);
+                    startActivity(i);
                     finish();
                 }else
                     Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();

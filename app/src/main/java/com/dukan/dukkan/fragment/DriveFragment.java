@@ -89,16 +89,12 @@ public class DriveFragment extends Fragment {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("TAG111111 ssssss "+ID);
         Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","1","","","","","");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
-                Log.d("TAG111111",response.code()+"");
                 Order resource = response.body();
-                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
                 if(resource.status){
-                    Log.d("TAG111111","111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     RecyclerDriverOrderAdapter adapter = new RecyclerDriverOrderAdapter(getActivity(), datumList);
@@ -110,9 +106,7 @@ public class DriveFragment extends Fragment {
             public void onFailure(Call<Order> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
-
             }
-
         });
     }
 }

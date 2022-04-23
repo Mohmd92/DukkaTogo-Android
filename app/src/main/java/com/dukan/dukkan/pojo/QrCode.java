@@ -5,17 +5,15 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
-    @SerializedName("message")
-    @Expose
-    public String message;
+public class QrCode {
     @SerializedName("status")
     @Expose
     public Boolean status;
     @SerializedName("data")
     @Expose
-    public List<Datum> data =new ArrayList<>();
-    public class Datum {
+    public Data data;
+
+    public class Data {
 
         @SerializedName("id")
         @Expose
@@ -23,66 +21,71 @@ public class Order {
         @SerializedName("order_number")
         @Expose
         public String orderNumber;
-        @SerializedName("user_id")
+        @SerializedName("note")
         @Expose
-        public String userId;
-        @SerializedName("device_id")
-        @Expose
-        public String deviceId;
-        @SerializedName("total")
-        @Expose
-        public float total;
+        public Object note;
         @SerializedName("discount")
         @Expose
         public String discount;
+        @SerializedName("total")
+        @Expose
+        public String total;
         @SerializedName("coupon")
         @Expose
         public String coupon;
-        @SerializedName("note")
+        @SerializedName("buyer_id")
         @Expose
-        public String note;
-        @SerializedName("delivery_id")
+        public Object buyerId;
+        @SerializedName("driver_id")
         @Expose
-        public String deliveryId;
+        public Object driverId;
+        @SerializedName("user_id")
+        @Expose
+        public String userId;
         @SerializedName("status")
         @Expose
         public String status;
-        @SerializedName("address_id")
-        @Expose
-        public String addressId;
         @SerializedName("store_id")
         @Expose
         public String storeId;
-        @SerializedName("payment_gateway_id")
-        @Expose
-        public String paymentGatewayId;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
         @SerializedName("updated_at")
         @Expose
         public String updatedAt;
+        @SerializedName("device_id")
+        @Expose
+        public Object deviceId;
+        @SerializedName("delivery_id")
+        @Expose
+        public String deliveryId;
+        @SerializedName("address_id")
+        @Expose
+        public String addressId;
+        @SerializedName("payment_gateway_id")
+        @Expose
+        public String paymentGatewayId;
         @SerializedName("qr_code")
         @Expose
         public String qrCode;
-        @SerializedName("order_details")
-        @Expose
-        public List<OrderDetail> orderDetails =new ArrayList<>();
         @SerializedName("store")
         @Expose
         public Store store;
+        @SerializedName("order_details")
+        @Expose
+        public List<OrderDetail> orderDetails = null;
         @SerializedName("user")
         @Expose
-        public UserOrder user;
+        public User user;
         @SerializedName("delivery")
         @Expose
         public Delivery delivery;
         @SerializedName("address")
         @Expose
-        public AddressData address;
+        public Address address;
         @SerializedName("payment_gateway")
         @Expose
         public PaymentGateway paymentGateway;
-
     }
 }
