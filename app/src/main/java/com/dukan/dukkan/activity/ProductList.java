@@ -3,7 +3,10 @@ package com.dukan.dukkan.activity;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -39,9 +42,11 @@ import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.adapter.Tabs;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.ProductListFragment;
+import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.CategoryProduct;
 import com.dukan.dukkan.util.HorizontalListView;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +60,7 @@ import retrofit2.Response;
 public class ProductList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ViewPager viewPager;
     private Toolbar toolbar;
-    private TextView title;
+    private TextView title,tv_sala;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
@@ -68,6 +73,25 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
     APIInterface apiInterface;
     List<CategoryProduct> categ = new ArrayList<>();
 
+    int tempCount=0;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 1*1000 - SystemClock.elapsedRealtime()%1000);
+            if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+                if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                    tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                    tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                    tv_sala.setVisibility(View.VISIBLE);
+                }
+            }else {
+                tv_sala.setVisibility(View.GONE);
+                tempCount=0;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +111,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar2);
         title = findViewById(R.id.home_title);
+        tv_sala = findViewById(R.id.tv_sala);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -149,6 +174,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         viewPager.setAdapter(adapter);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
         getCategories();
+        getCartsCount();
     }
 
     @Override
@@ -182,5 +208,54 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 Log.d("TAG111111","  e "+t.getMessage());
             }
         });
+    }
+    private void getCartsCount() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Call<CartMain2> callNew = apiInterface.doGetListCart(ID,"android");
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                if (cart.status) {
+                    System.out.println("KKKKKKKKKKKKK12www223 cart.data.carts.size() "+cart.data.carts.size());
+                    SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(cart.data.carts.size());
+                }
+
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+            }
+
+        });
+    }
+    @Override
+    protected void onResume() {
+        getCartsCount();
+        handler.post(periodicUpdate);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
     }
 }

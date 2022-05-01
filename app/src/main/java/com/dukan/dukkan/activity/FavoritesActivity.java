@@ -2,11 +2,14 @@ package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +25,7 @@ import com.dukan.dukkan.adapter.RecyclerFavoriteAdapter;
 import com.dukan.dukkan.adapter.RecyclerProductAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.pojo.CartMain;
+import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -38,7 +42,26 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
-
+    TextView tv_sala;
+    int tempCount=0;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 1*1000 - SystemClock.elapsedRealtime()%1000);
+            if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+                if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                    tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                    tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                    tv_sala.setVisibility(View.VISIBLE);
+                }
+            }else {
+                tv_sala.setVisibility(View.GONE);
+                tempCount=0;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +69,7 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
         progressBar =findViewById(R.id.progressBar);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
+        tv_sala = findViewById(R.id.tv_sala);
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
@@ -61,6 +85,7 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
        getFavorites();
+        getCartsCount();
     }
     private void getFavorites() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
@@ -101,5 +126,54 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
     @Override
     public void onClick(View view, int position) {
 
+    }
+    @Override
+    protected void onResume() {
+        getCartsCount();
+        handler.post(periodicUpdate);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
+    }
+    private void getCartsCount() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        System.out.println("KKKKKKKKKKKKK12223 "+ID);
+        Call<CartMain2> callNew = apiInterface.doGetListCart(ID,"android");
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                if (cart.status) {
+                    SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(cart.data.carts.size());
+                }
+
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+            }
+
+        });
     }
 }

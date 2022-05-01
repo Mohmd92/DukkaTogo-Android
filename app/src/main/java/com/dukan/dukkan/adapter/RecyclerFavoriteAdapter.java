@@ -28,6 +28,7 @@ import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.IsCart;
+import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -161,6 +162,8 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
                                 if (cart.status) {
                                     text_add.setText(mContext.getString(R.string.remove_to_cart));
                                     item.product.isCart = new IsCart();
+                                    SharedPreferenceManager.getInstance(mContext).setCartCount(SharedPreferenceManager.getInstance(mContext).getCartCount()+1);
+
                                 }
                                 else
                                     Toast.makeText(mContext, cart.message, Toast.LENGTH_SHORT).show();
@@ -184,6 +187,8 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
                                 if (cart.status){
                                     text_add.setText(mContext.getString(R.string.add_to_cart));
                                     item.product.isCart = null;
+                                    SharedPreferenceManager.getInstance(mContext).setCartCount(SharedPreferenceManager.getInstance(mContext).getCartCount()-1);
+
                                 }
 
                                 else

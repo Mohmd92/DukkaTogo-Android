@@ -35,8 +35,7 @@ public class Splash extends AppCompatActivity {
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
                 UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserType();
         }
-//        SharedPreferenceManager.getInstance(getBaseContext()).setCountryId("32");
-//        SharedPreferenceManager.getInstance(getBaseContext()).setCityId("8550");
+        SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(0);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,15 +18,19 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dukan.dukkan.APIClient;
+import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.CheckOut;
 import com.dukan.dukkan.activity.EditAddressActivity;
 import com.dukan.dukkan.activity.ProductsActivity;
+import com.dukan.dukkan.pojo.Address;
 import com.dukan.dukkan.pojo.AllAddress;
 import com.dukan.dukkan.pojo.AllAddress.AddressData;
 import com.dukan.dukkan.pojo.CartMain;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
+import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Rate;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
@@ -44,6 +50,7 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
     int row_index=-1;
+
     public RecyclerAddressAdapter(Context context, List<AllAddress.AddressData> values) {
 
         mValues = values;
@@ -55,8 +62,9 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
 
         AllAddress.AddressData item;
         TextView tv_mobile,tv_address,tv_name,tv_change,tv_address_name;
-        ImageView image;
-
+        ImageView image,img_delete;
+        APIInterface apiInterface;
+        ProgressBar progressBar;
         public RelativeLayout relative;
         public ViewHolder(View v) {
             super(v);
@@ -67,8 +75,11 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
             tv_address = v.findViewById(R.id.tv_address);
             tv_name = v.findViewById(R.id.tv_name);
             tv_change = v.findViewById(R.id.tv_change);
+            img_delete = v.findViewById(R.id.img_delete);
             tv_address_name = v.findViewById(R.id.tv_address_name);
+            progressBar =  v.findViewById(R.id.progressBar);
 
+            apiInterface = APIClient.getClient(mContext).create(APIInterface.class);
         }
         public void setData(AllAddress.AddressData item) {
             this.item = item;
@@ -86,7 +97,35 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
                     mContext.startActivity(i);
                 }
             });
-        }
+            img_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    Call<Address> call1 = apiInterface.DeleteAddress(item.id,ID,"android");
+                    call1.enqueue(new Callback<Address>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onResponse(Call<Address> call, Response<Address> response) {
+                            Address deleAddress = response.body();
+                            if (deleAddress.status) {
+                                removeAt(getAdapterPosition());
+                            }else
+                                Toast.makeText(mContext, deleAddress.message, Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Address> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            call.cancel();
+                        }
+                    });
+                }
+            });
+            }
         @Override
         public void onClick(View view) {
             SharedPreferenceManager.getInstance(mContext).setSelectedAddress(item.id+"&"+item.name+"&"+item.location+"&"+item.mobile+"&"+tv_address_name.getText().toString());
@@ -96,6 +135,11 @@ public class RecyclerAddressAdapter extends RecyclerView.Adapter<RecyclerAddress
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
+        }
+        public void removeAt(int position) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mValues.size());
         }
     }
 

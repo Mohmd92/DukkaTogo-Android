@@ -21,14 +21,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_search" />
-        <ImageView
-            android:id="@+id/icon_buy"
+        <FrameLayout
             android:layout_marginEnd="20dp"
             android:layout_gravity="end"
+            android:layout_width="25dp"
+            android:layout_height="25dp">
+        <ImageView
+            android:id="@+id/icon_buy"
             android:outlineProvider="background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_buy" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_sala"
+                android:textSize="9sp"
+                android:gravity="center"
+                android:fontFamily="@font/abudhbi_regular"
+                android:textColor="@color/white"
+                android:text=""
+                android:layout_gravity="end"
+                android:background="@drawable/button_num1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"/>
+    </FrameLayout>
 
         <ImageView
             android:layout_marginEnd="20dp"

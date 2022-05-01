@@ -119,6 +119,11 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/address")
     Call<Address> AddAddress(@Field("name") String name, @Field("location") String location,@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/address/{id}")
+    Call<Address> DeleteAddress(@Path("id") int id, @Query("device_id") String device_id, @Query("os") String os);
+
     @FormUrlEncoded
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/store_times")

@@ -37,6 +37,7 @@ import com.dukan.dukkan.adapter.RecyclerNewProductAdapter;
 import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.model.SliderItem;
 import com.dukan.dukkan.pojo.CartMain;
+import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.FavoriteMain;
@@ -68,7 +69,7 @@ public class ShowProductActivity extends AppCompatActivity {
     private Toolbar toolbar;
     int productID;
     private SliderLayout sliderLayout;
-    private TextView product_name,product_desc,product_price,tv_rating_num,product_detail;
+    private TextView tv_sala,product_name,product_desc,product_price,tv_rating_num,product_detail;
     private TextView tv_ref,desc_info,product_count,tv_heart;
     RatingBar ratingBar2;
     HorizontalListView HorizontalListView;
@@ -99,6 +100,8 @@ public class ShowProductActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         ImageView ic_share =toolbar.findViewById(R.id.icon_share);
+        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
+        tv_sala =toolbar.findViewById(R.id.tv_sala);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +109,8 @@ public class ShowProductActivity extends AppCompatActivity {
             }
         });
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_buy.setVisibility(View.VISIBLE);
+        icon_notification.setVisibility(View.GONE);
         icon_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,12 +223,17 @@ public class ShowProductActivity extends AppCompatActivity {
                     CartParamenter cartParamenter = new CartParamenter(productID, ID);
                     Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
                     call1.enqueue(new Callback<CartMain>() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                             CartMain cart = response.body();
                             if (cart.status){
                                 rel_add_card_num.setVisibility(View.VISIBLE);
                                 rel_add_to_card.setVisibility(View.GONE);
+                                tv_sala.setVisibility(View.VISIBLE);
+                                SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()+1);
+                                tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+
                             }
                             else
                                 Toast.makeText(ShowProductActivity.this, cart.message, Toast.LENGTH_SHORT).show();
@@ -574,10 +584,36 @@ public class ShowProductActivity extends AppCompatActivity {
                 }
             }
         });
+        getCartsCount();
     }
     @Override
     protected void onResume() {
         super.onResume();
         getProductDetails();
+        getCartsCount();
+    }
+    private void getCartsCount() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        System.out.println("KKKKKKKKKKKKK12223 "+ID);
+        Call<CartMain2> callNew = apiInterface.doGetListCart(ID,"android");
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                if (cart.status) {
+                    SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(cart.data.carts.size());
+                    tv_sala.setVisibility(View.VISIBLE);
+                    tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+            }
+
+        });
     }
 }

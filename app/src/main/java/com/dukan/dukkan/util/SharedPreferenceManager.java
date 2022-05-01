@@ -85,6 +85,15 @@ public class SharedPreferenceManager {
         editor.putInt("PaymentId", PaymentId);
         editor.commit();
     }
+    /////////////
+    public int getCartCount() {
+        return sharedPreferences.getInt("CartCount", 0);
+    }
+
+    public void setCartCount(int CartCount) {
+        editor.putInt("CartCount", CartCount);
+        editor.commit();
+    }
 
     public String get_email() {
         return sharedPreferences.getString("email", "");

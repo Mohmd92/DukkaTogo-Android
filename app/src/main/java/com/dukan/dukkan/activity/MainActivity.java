@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
@@ -15,7 +16,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
@@ -27,16 +30,19 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
 import com.dukan.dukkan.adapter.TabAdapter;
 import com.dukan.dukkan.fragment.CategorySheetFragment;
 import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.HomeFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.TermsSheetFragment;
+import com.dukan.dukkan.pojo.CartMain2;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.UserProfile;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -59,14 +65,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private TextView title,tv_location,header_tv_user_name;
+    private TextView title,tv_location,header_tv_user_name,tv_sala;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
     APIInterface apiInterface;
-
+    int tempCount=0;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 1*1000 - SystemClock.elapsedRealtime()%1000);
+            if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+                if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                    tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                    tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                tv_sala.setVisibility(View.VISIBLE);
+            }
+            }else {
+                tv_sala.setVisibility(View.GONE);
+                tempCount=0;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar);
         title = findViewById(R.id.home_title);
+        tv_sala = findViewById(R.id.tv_sala);
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);
 
         setSupportActionBar(toolbar);
@@ -165,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else
             nav_switch_account.setVisible(false);
 
+        getCartsCount();
 //        printHashKey();
     }
     public  void printHashKey()
@@ -273,5 +299,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        getCartsCount();
+        handler.post(periodicUpdate);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
+    }
+    private void getCartsCount() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        System.out.println("KKKKKKKKKKKKK12223 "+ID);
+        Call<CartMain2> callNew = apiInterface.doGetListCart(ID,"android");
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                if (cart.status) {
+                    SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(cart.data.carts.size());
+                }
+
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+            }
+
+        });
     }
 }

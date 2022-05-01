@@ -84,7 +84,7 @@ public class OrdersActivity extends AppCompatActivity {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","2");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
@@ -114,7 +114,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
         System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","1");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
@@ -125,7 +125,7 @@ public class OrdersActivity extends AppCompatActivity {
                     Log.d("TAG111111","111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList);
+                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList,OrdersActivity.this);
                     recyclerView.setAdapter(adapter);
                 }
                 progressBar.setVisibility(View.GONE);
