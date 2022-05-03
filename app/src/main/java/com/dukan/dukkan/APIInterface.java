@@ -128,13 +128,13 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/store_times")
     Call<StoreTimes> EditTimesWork(@Field("store_id") int store_id
-            ,@Field("days[Sunday][from]") String Sundayfrom,@Field("days[Sunday][to]") String Sundayto
-            ,@Field("days[Monday][from]") String Mondayfrom,@Field("days[Monday][to]") String Mondayto
-            ,@Field("days[Tuesday][from]") String Tuesdayfrom,@Field("days[Tuesday][to]") String Tuesdayto
-            ,@Field("days[Wednesday][from]") String Wednesdayfrom,@Field("days[Wednesday][to]") String Wednesdayto
-            ,@Field("days[Thursday][from]") String Thursdayfrom,@Field("days[Thursday][to]") String Thursdayto
-            ,@Field("days[Friday][from]") String Fridayfrom,@Field("days[Friday][to]") String Fridayto
-            ,@Field("days[Saturday][from]") String Saturdayfrom,@Field("days[Saturday][to]") String Saturdayto);
+            ,@Field("days[Sunday][from]") String Sundayfrom,@Field("days[Sunday][to]") String Sundayto,@Field("days[Sunday][status]") int Sundaystatus
+            ,@Field("days[Monday][from]") String Mondayfrom,@Field("days[Monday][to]") String Mondayto,@Field("days[Monday][status]") int Mondaystatus
+            ,@Field("days[Tuesday][from]") String Tuesdayfrom,@Field("days[Tuesday][to]") String Tuesdayto,@Field("days[Tuesday][status]") int Tuesdaystatus
+            ,@Field("days[Wednesday][from]") String Wednesdayfrom,@Field("days[Wednesday][to]") String Wednesdayto,@Field("days[Wednesday][status]") int Wednesdaystatus
+            ,@Field("days[Thursday][from]") String Thursdayfrom,@Field("days[Thursday][to]") String Thursdayto,@Field("days[Thursday][status]") int Thursdaystatus
+            ,@Field("days[Friday][from]") String Fridayfrom,@Field("days[Friday][to]") String Fridayto,@Field("days[Friday][status]") int status
+            ,@Field("days[Saturday][from]") String Saturdayfrom,@Field("days[Saturday][to]") String Saturdayto,@Field("days[Saturday][status]") int Saturdaystatus);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/address/{id}")

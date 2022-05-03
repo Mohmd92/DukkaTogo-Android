@@ -55,16 +55,28 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-         <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv_day"
-            android:textAllCaps="true"
-            android:fontFamily="@font/abudhbi_bold"
-            android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Sunday"/>
+           <RelativeLayout
+               android:layout_marginTop="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_day"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/Sunday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
         <LinearLayout
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -160,16 +172,28 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv_day2"
-            android:textAllCaps="true"
-            android:fontFamily="@font/abudhbi_bold"
-            android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/monday"/>
+           <RelativeLayout
+               android:layout_marginTop="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_day2"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/monday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
         <LinearLayout
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -265,16 +289,28 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv_day3"
-            android:textAllCaps="true"
-            android:fontFamily="@font/abudhbi_bold"
-            android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tuesday"/>
+           <RelativeLayout
+               android:layout_marginTop="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_day3"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/tuesday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom3"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
         <LinearLayout
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -370,16 +406,28 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-           <TextView
+           <RelativeLayout
                android:layout_marginTop="10dp"
-               android:id="@+id/tv_day4"
-               android:textAllCaps="true"
-               android:fontFamily="@font/abudhbi_bold"
-               android:textSize="22sp"
-               android:textColor="@color/colorPrimary"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/wednesday"/>
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_day4"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/wednesday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom4"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
            <LinearLayout
                android:layout_marginTop="10dp"
                android:orientation="horizontal"
@@ -475,16 +523,28 @@
                    </RelativeLayout>
                </androidx.cardview.widget.CardView>
            </LinearLayout>
-           <TextView
+           <RelativeLayout
                android:layout_marginTop="10dp"
-               android:id="@+id/tv_day5"
-               android:textAllCaps="true"
-               android:fontFamily="@font/abudhbi_bold"
-               android:textSize="22sp"
-               android:textColor="@color/colorPrimary"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/thursday"/>
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_day5"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/thursday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom5"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
            <LinearLayout
                android:layout_marginTop="10dp"
                android:orientation="horizontal"
@@ -580,16 +640,29 @@
                    </RelativeLayout>
                </androidx.cardview.widget.CardView>
            </LinearLayout>
-           <TextView
+           <RelativeLayout
                android:layout_marginTop="10dp"
-               android:id="@+id/tv_day6"
-               android:textAllCaps="true"
-               android:fontFamily="@font/abudhbi_bold"
-               android:textSize="22sp"
-               android:textColor="@color/colorPrimary"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/friday"/>
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/tv_day6"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/friday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom6"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
            <LinearLayout
                android:layout_marginTop="10dp"
                android:orientation="horizontal"
@@ -685,16 +758,29 @@
                    </RelativeLayout>
                </androidx.cardview.widget.CardView>
            </LinearLayout>
-           <TextView
+           <RelativeLayout
                android:layout_marginTop="10dp"
-               android:id="@+id/tv_day7"
-               android:textAllCaps="true"
-               android:fontFamily="@font/abudhbi_bold"
-               android:textSize="22sp"
-               android:textColor="@color/colorPrimary"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/saturday"/>
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/tv_day7"
+                   android:textAllCaps="true"
+                   android:fontFamily="@font/abudhbi_bold"
+                   android:textSize="22sp"
+                   android:textColor="@color/colorPrimary"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/saturday"/>
+               <androidx.appcompat.widget.SwitchCompat
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/swCustom7"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:thumb="@drawable/switch_thumb"
+                   app:track="@drawable/switch_track"/>
+           </RelativeLayout>
+
            <LinearLayout
                android:layout_marginTop="10dp"
                android:orientation="horizontal"

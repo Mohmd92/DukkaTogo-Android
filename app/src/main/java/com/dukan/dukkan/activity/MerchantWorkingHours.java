@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
@@ -26,6 +29,7 @@ import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.StoreTimeWork;
 import com.dukan.dukkan.pojo.StoreTimes;
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +59,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
     TextView tv_time_open6,tv_time_close6;
     TextView tv_time_open7,tv_time_close7;
     ProgressBar progressBar;
+    SwitchCompat swCustom,swCustom2,swCustom3,swCustom4,swCustom5,swCustom6,swCustom7;
+    int sw=0,sw2=0,sw3=0,sw4=0,sw5=0,sw6=0,sw7=0;
     int storeId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,76 @@ public class MerchantWorkingHours extends AppCompatActivity {
         tv_time_open7 = findViewById(R.id.tv_time_open7);
         tv_time_close7 = findViewById(R.id.tv_time_close7);
 
-
+        swCustom = findViewById(R.id.swCustom);
+        swCustom2 = findViewById(R.id.swCustom2);
+        swCustom3 = findViewById(R.id.swCustom3);
+        swCustom4 = findViewById(R.id.swCustom4);
+        swCustom5 = findViewById(R.id.swCustom5);
+        swCustom6 = findViewById(R.id.swCustom6);
+        swCustom7 = findViewById(R.id.swCustom7);
+        swCustom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                     sw=1;
+            }
+        });
+        swCustom2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw2=1;
+            }
+        });
+        swCustom3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw3=1;
+            }
+        });
+        swCustom4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw4=1;
+            }
+        });
+        swCustom5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw5=1;
+            }
+        });
+        swCustom6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw6=1;
+            }
+        });
+        swCustom7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    sw7=1;
+            }
+        });
 
 
         Toolbar toolbar = findViewById(R.id.toolbar2);
@@ -119,44 +194,12 @@ public class MerchantWorkingHours extends AppCompatActivity {
                 startActivity(new Intent(MerchantWorkingHours.this, NotificationsActivity.class));
             }
         });
-//        if(EditableScreen){
-//            card_open.setEnabled(true);
-//            card_close.setEnabled(true);
-//        }else {
-//            card_open.setEnabled(false);
-//            card_close.setEnabled(false);
-//        }
         icon_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setTimeWork();
             }
         });
-//        card_open.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar mcurrentTime = Calendar.getInstance();
-//                int hour = mcurrentTime.get(Calendar.HOUR);
-//                int minute = mcurrentTime.get(Calendar.MINUTE);
-//                TimePickerDialog mTimePicker;
-//                mTimePicker = new TimePickerDialog(MerchantWorkingHours.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @SuppressLint("SetTextI18n")
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-//                        //am pm mode
-//                    String AM_PM;
-//                    if (selectedHour>=0&&selectedHour<12){
-//                        AM_PM=getString(R.string.am);
-//                    }else {
-//                        AM_PM=getString(R.string.pm);
-//                    }
-//                        tv_time_open.setText (  sHour + ":" + sMinute+" "+AM_PM );
-//                    }
-//                }, hour, minute, false);//Yes 24 hour time
-//                mTimePicker.setTitle(getString(R.string.select_time));
-//                mTimePicker.show();
-//            }
-//        });
         card_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -511,13 +554,13 @@ public class MerchantWorkingHours extends AppCompatActivity {
     private void setTimeWork() {
         progressBar.setVisibility(View.VISIBLE);
 
-        Call<StoreTimes> call1 = apiInterface.EditTimesWork(storeId,tv_time_open.getText().toString(),tv_time_close.getText().toString()
-                ,tv_time_open2.getText().toString(),tv_time_close2.getText().toString()
-                ,tv_time_open3.getText().toString(),tv_time_close3.getText().toString()
-                ,tv_time_open4.getText().toString(),tv_time_close4.getText().toString()
-                ,tv_time_open5.getText().toString(),tv_time_close5.getText().toString()
-                ,tv_time_open6.getText().toString(),tv_time_close6.getText().toString()
-                ,tv_time_open7.getText().toString(),tv_time_close7.getText().toString()
+        Call<StoreTimes> call1 = apiInterface.EditTimesWork(storeId,tv_time_open.getText().toString(),tv_time_close.getText().toString(),sw
+                ,tv_time_open2.getText().toString(),tv_time_close2.getText().toString(),sw2
+                ,tv_time_open3.getText().toString(),tv_time_close3.getText().toString(),sw3
+                ,tv_time_open4.getText().toString(),tv_time_close4.getText().toString(),sw4
+                ,tv_time_open5.getText().toString(),tv_time_close5.getText().toString(),sw5
+                ,tv_time_open6.getText().toString(),tv_time_close6.getText().toString(),sw6
+                ,tv_time_open7.getText().toString(),tv_time_close7.getText().toString(),sw7
         );
         call1.enqueue(new Callback<StoreTimes>() {
             @SuppressLint("SetTextI18n")
@@ -554,24 +597,31 @@ public class MerchantWorkingHours extends AppCompatActivity {
                     List<StoreTimeWork> timeWork = resource.data.store.storeTimeWorks;
                     for (StoreTimeWork datum : timeWork) {
                         if(datum.day.equals("Sunday")){
+                            swCustom.setChecked(true);
                            tv_time_open.setText(datum.from);
                            tv_time_close.setText(datum.to);
                         }else if(datum.day.equals("Monday")){
+                            swCustom2.setChecked(true);
                             tv_time_open2.setText(datum.from);
                             tv_time_close2.setText(datum.to);
                         }else if(datum.day.equals("Tuesday")){
+                            swCustom3.setChecked(true);
                             tv_time_open3.setText(datum.from);
                             tv_time_close3.setText(datum.to);
                         }else if(datum.day.equals("Wednesday")){
+                            swCustom4.setChecked(true);
                             tv_time_open4.setText(datum.from);
                             tv_time_close4.setText(datum.to);
                         }else if(datum.day.equals("Thursday")){
+                            swCustom5.setChecked(true);
                             tv_time_open5.setText(datum.from);
                             tv_time_close5.setText(datum.to);
                         }else if(datum.day.equals("Friday")){
+                            swCustom6.setChecked(true);
                             tv_time_open6.setText(datum.from);
                             tv_time_close6.setText(datum.to);
                         }else if(datum.day.equals("Saturday")){
+                            swCustom7.setChecked(true);
                             tv_time_open7.setText(datum.from);
                             tv_time_close7.setText(datum.to);
                         }
