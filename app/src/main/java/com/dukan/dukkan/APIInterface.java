@@ -70,6 +70,10 @@ public interface APIInterface {
     @GET("/api/v1/stores?")
     Call<MultipleStore> doGetListStore(@Query("city_id") int city_id,@Query("country_id") int country_id);
 
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/stores?")
+    Call<MultipleStore> doGetListStoreDelivery(@Query("city_id") int city_id,@Query("country_id") int country_id,@Query("need_delivery") int need_delivery,@Query("delivery_stores") int delivery_stores );
+
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
     Call<Home> doGetListHome(@Query("device_id") String device_id,@Query("os") String os);

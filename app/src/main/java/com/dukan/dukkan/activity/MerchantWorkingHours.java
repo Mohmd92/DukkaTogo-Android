@@ -597,31 +597,31 @@ public class MerchantWorkingHours extends AppCompatActivity {
                     List<StoreTimeWork> timeWork = resource.data.store.storeTimeWorks;
                     for (StoreTimeWork datum : timeWork) {
                         if(datum.day.equals("Sunday")){
-                            swCustom.setChecked(true);
+                            swCustom.setChecked(datum.status);
                            tv_time_open.setText(datum.from);
                            tv_time_close.setText(datum.to);
                         }else if(datum.day.equals("Monday")){
-                            swCustom2.setChecked(true);
+                            swCustom2.setChecked(datum.status);
                             tv_time_open2.setText(datum.from);
                             tv_time_close2.setText(datum.to);
                         }else if(datum.day.equals("Tuesday")){
-                            swCustom3.setChecked(true);
+                            swCustom3.setChecked(datum.status);
                             tv_time_open3.setText(datum.from);
                             tv_time_close3.setText(datum.to);
                         }else if(datum.day.equals("Wednesday")){
-                            swCustom4.setChecked(true);
+                            swCustom4.setChecked(datum.status);
                             tv_time_open4.setText(datum.from);
                             tv_time_close4.setText(datum.to);
                         }else if(datum.day.equals("Thursday")){
-                            swCustom5.setChecked(true);
+                            swCustom5.setChecked(datum.status);
                             tv_time_open5.setText(datum.from);
                             tv_time_close5.setText(datum.to);
                         }else if(datum.day.equals("Friday")){
-                            swCustom6.setChecked(true);
+                            swCustom6.setChecked(datum.status);
                             tv_time_open6.setText(datum.from);
                             tv_time_close6.setText(datum.to);
                         }else if(datum.day.equals("Saturday")){
-                            swCustom7.setChecked(true);
+                            swCustom7.setChecked(datum.status);
                             tv_time_open7.setText(datum.from);
                             tv_time_close7.setText(datum.to);
                         }

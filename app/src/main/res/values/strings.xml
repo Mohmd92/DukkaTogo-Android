@@ -233,5 +233,8 @@
     <string name="the_total_amount">The Total Amount</string>
     <string name="order_has_been_received">The order has been received from the merchant</string>
     <string name="order_has_been_delivered">The request has been delivered to the user</string>
+    <string name="join">Join</string>
+    <string name="store_need_delivery">Store Need Delivery</string>
+    <string name="delivery_stores">Delivery Stores</string>
 
 </resources>

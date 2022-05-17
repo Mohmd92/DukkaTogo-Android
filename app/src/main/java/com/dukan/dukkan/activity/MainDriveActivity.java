@@ -143,7 +143,15 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(MainDriveActivity.this, DriverOrdersActivity.class));
                 closeDrawer();
                 break;
-            case R.id.nav_statistics:
+            case R.id.nav_store_need:
+                startActivity(new Intent(MainDriveActivity.this, StoreNeedActivity.class));
+                closeDrawer();
+                break;
+                case R.id.nav_delivery_stores:
+                startActivity(new Intent(MainDriveActivity.this, DeliveryStoresActivity.class));
+                closeDrawer();
+                break;
+                case R.id.nav_statistics:
                 startActivity(new Intent(MainDriveActivity.this, DriverStatisticsActivity.class));
                 closeDrawer();
                 break;

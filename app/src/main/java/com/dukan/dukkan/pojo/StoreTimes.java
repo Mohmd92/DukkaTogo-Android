@@ -26,6 +26,8 @@ public class StoreTimes {
         @SerializedName("to")
         @Expose
         public String to;
-
+        @SerializedName("status")
+        @Expose
+        public Boolean status;
     }
 }

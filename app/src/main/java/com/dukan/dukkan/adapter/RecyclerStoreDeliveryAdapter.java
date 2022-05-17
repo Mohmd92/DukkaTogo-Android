@@ -1,15 +1,13 @@
 package com.dukan.dukkan.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -27,13 +25,13 @@ import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdapter.ViewHolder> {
+public class RecyclerStoreDeliveryAdapter extends RecyclerView.Adapter<RecyclerStoreDeliveryAdapter.ViewHolder> {
     List<MultipleStore.Datum> mValues;
     Context mContext;
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
     int row_index=-1;
-    public RecyclerStoreAdapter(Context context, List<MultipleStore.Datum> values) {
+    public RecyclerStoreDeliveryAdapter(Context context, List<MultipleStore.Datum> values) {
 
         mValues = values;
         mContext = context;
@@ -44,17 +42,17 @@ public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdap
 
         MultipleStore.Datum item;
         TextView name;
-        ImageView select_item_image;
-        RatingBar ratebar;
+        ImageView img_store;
+        Button join_button;
 
         public RelativeLayout relative;
         public ViewHolder(View v) {
             super(v);
 
             v.setOnClickListener(this);
-            select_item_image = v.findViewById(R.id.image);
+            img_store = v.findViewById(R.id.img_store);
             name = v.findViewById(R.id.tv_name);
-            ratebar = v.findViewById(R.id.ratingBar2);
+            join_button = v.findViewById(R.id.join_button);
 
         }
         public void setData(MultipleStore.Datum item) {
@@ -63,15 +61,13 @@ public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdap
             name.setText(item.name);
                 Picasso.get()
                         .load(item.image)
-                        .into(select_item_image);
-            Log.d("TAG1112111"," item.name "+item.name);
-              ratebar.setRating(item.rate);
-
+                        .into(img_store);
+            join_button.setVisibility(View.GONE);
         }
         @Override
         public void onClick(View view) {
             Intent i2 = new Intent(mContext, ShowStoresActivity.class);
-            i2.putExtra("user", "");
+            i2.putExtra("user", "delivery");
             i2.putExtra("StoreID", item.id);
             i2.putExtra("most", 0);
             i2.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -83,9 +79,9 @@ public class RecyclerStoreAdapter extends RecyclerView.Adapter<RecyclerStoreAdap
     }
 
     @Override
-    public RecyclerStoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerStoreDeliveryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.store_item2, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.store_need_item, parent, false);
 
         return new ViewHolder(view);
     }

@@ -11,8 +11,12 @@ import java.util.List;
  */
 
 public class MultipleStore {
+    @SerializedName("message")
+    @Expose
+    public String message;
     @SerializedName("status")
-    public String status;
+    @Expose
+    public Boolean status;
     @SerializedName("data")
     public List<Datum> data = new ArrayList<>();
     public class Datum {

@@ -10,6 +10,14 @@
             android:icon="@drawable/ic_buy"
             android:title="@string/orders" />
         <item
+            android:id="@+id/nav_delivery_stores"
+            android:icon="@drawable/ic_buy"
+            android:title="@string/delivery_stores" />
+        <item
+            android:id="@+id/nav_store_need"
+            android:icon="@drawable/ic_buy"
+            android:title="@string/store_need_delivery" />
+        <item
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_chart"
             android:title="@string/statistics" />

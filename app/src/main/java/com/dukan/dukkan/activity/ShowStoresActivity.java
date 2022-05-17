@@ -76,6 +76,9 @@ public class ShowStoresActivity extends AppCompatActivity {
         ImageView icon_search =toolbar.findViewById(R.id.icon_search);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
+        if(extras.getString("user").equals("delivery"))
+            icon_buy.setVisibility(View.GONE);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

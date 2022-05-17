@@ -199,6 +199,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Intent i2 = new Intent(getActivity(), ShowStoresActivity.class);
+                            i2.putExtra("user", "");
                             i2.putExtra("StoreID", stores.get(i).id);
                             i2.putExtra("most", 0);
                             startActivity(i2);

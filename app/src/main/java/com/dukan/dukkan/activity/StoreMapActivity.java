@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,27 +76,28 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         callNew.enqueue(new Callback<MultipleStore>() {
             @Override
             public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111", response.code() + "");
                 MultipleStore resource = response.body();
-                String status = resource.status;
+                if(resource.status){
                 List<MultipleStore.Datum> datumList = resource.data;
-//                for (MultipleStore.Datum datum : datumList) {
-//                    displayResponse += datum.id + " " + datum.name + " " + datum.description +"\n";
-//                }
-//                Log.d("TAG111111","  d "+displayResponse);
+
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 RecyclerStoreAdapter adapter = new RecyclerStoreAdapter(getApplicationContext(), datumList);
                 recyclerView.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
 
                 for (MultipleStore.Datum datum : datumList) {
-                    if(datum.lat!=null) {
-                        Log.d("TAG111122"," null");
+                    if (datum.lat != null) {
+                        Log.d("TAG111122", " null");
                         locationArrayList.add(new LatLng(Float.parseFloat(datum.lat), Float.parseFloat(datum.lng)));
                     }
                 }
                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                 mapFragment.getMapAsync(StoreMapActivity.this);
+            }else
+                    Toast.makeText(StoreMapActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
+
+                progressBar.setVisibility(View.GONE);
+
             }
             @Override
             public void onFailure(Call<MultipleStore> call, Throwable t) {

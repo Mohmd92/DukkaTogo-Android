@@ -21,6 +21,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.MerchantProfileActivity;
+import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.adapter.RecyclerMerchantOrderAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
 import com.dukan.dukkan.pojo.Order;
@@ -48,6 +49,7 @@ public class MerchantFragment extends Fragment {
     TextView tv_time_from_work,header_tv_user_name,tv_desc,tv_day,tv_working_hours,tv_view_all;
     RecyclerView recyclerView;
     ImageView image_Merchant,img_store;
+    int storeId;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.content_main_merchant, container, false);
@@ -69,6 +71,19 @@ public class MerchantFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MerchantProfileActivity.class));
+            }
+        });
+        img_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), ProductsActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("title", header_tv_user_name.getText().toString());
+                i.putExtra("store", storeId);
+                i.putExtra("new", 0);
+                i.putExtra("most", 0);
+                i.putExtra("category", 0);
+                startActivity(i);
             }
         });
         getProfile();
@@ -100,7 +115,7 @@ public class MerchantFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
 
-
+                    storeId=resource.data.id;
                     header_tv_user_name.setText(resource.data.name);
                     Picasso.get()
                             .load(resource.data.image)
