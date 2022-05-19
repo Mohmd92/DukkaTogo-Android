@@ -1,18 +1,10 @@
 package com.dukan.dukkan.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
-import com.dukan.dukkan.adapter.RecyclerCartsAdapter;
-import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
-import com.dukan.dukkan.adapter.RecyclerStoreDeliveryAdapter;
+import com.dukan.dukkan.adapter.RecyclerPrivacyPolicyAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreNeedAdapter;
-import com.dukan.dukkan.pojo.Cart;
-import com.dukan.dukkan.pojo.CartMain2;
-import com.dukan.dukkan.pojo.CouponMain;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Privacy;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 import java.util.List;
@@ -38,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StoreNeedActivity extends AppCompatActivity   {
+public class PrivacyPolicyActivity extends AppCompatActivity   {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     APIInterface apiInterface;
@@ -46,7 +34,7 @@ public class StoreNeedActivity extends AppCompatActivity   {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.store_need_delivery);
+        setContentView(R.layout.privacy_policy);
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
@@ -57,37 +45,31 @@ public class StoreNeedActivity extends AppCompatActivity   {
                 finish();
             }
         });
-        getStores1();
+        getPrivacyPolicy();
     }
-    private void getStores1() {
-        int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId());
-        int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCityId());
+    private void getPrivacyPolicy() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleStore> callNew = apiInterface.doGetListStoreDelivery(0,0,1,0);
-        callNew.enqueue(new Callback<MultipleStore>() {
+        Call<Privacy> callNew = apiInterface.getPrivacyList();
+        callNew.enqueue(new Callback<Privacy>() {
             @Override
-            public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {
+            public void onResponse(Call<Privacy> callNew, Response<Privacy> response) {
                 Log.d("TAG111111",response.code()+"");
-                MultipleStore resource = response.body();
+                Privacy resource = response.body();
                 if(resource.status) {
-                    List<MultipleStore.Datum> datumList = resource.data;
+                    List<Privacy.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerStoreNeedAdapter adapter = new RecyclerStoreNeedAdapter(getApplicationContext(), datumList);
+                    RecyclerPrivacyPolicyAdapter adapter = new RecyclerPrivacyPolicyAdapter(getApplicationContext(), datumList);
                     recyclerView.setAdapter(adapter);
                 }
                 else
-                    Toast.makeText(StoreNeedActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(PrivacyPolicyActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
-
             }
             @Override
-            public void onFailure(Call<MultipleStore> call, Throwable t) {
+            public void onFailure(Call<Privacy> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
-
             }
-
         });
     }
 

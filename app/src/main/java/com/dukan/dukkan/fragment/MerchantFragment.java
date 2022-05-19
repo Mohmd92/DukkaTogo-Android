@@ -21,6 +21,7 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.MerchantProfileActivity;
+import com.dukan.dukkan.activity.ProductMerchentActivity;
 import com.dukan.dukkan.activity.ProductsActivity;
 import com.dukan.dukkan.adapter.RecyclerMerchantOrderAdapter;
 import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
@@ -76,7 +77,7 @@ public class MerchantFragment extends Fragment {
         img_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), ProductsActivity.class);
+                Intent i = new Intent(getContext(), ProductMerchentActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("title", header_tv_user_name.getText().toString());
                 i.putExtra("store", storeId);

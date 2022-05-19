@@ -324,6 +324,18 @@
             tools:replace="android:screenOrientation"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.ProductMerchentActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PrivacyPolicyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activity.StoreNeedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

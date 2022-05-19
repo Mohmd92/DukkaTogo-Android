@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.cardview.widget.CardView
         android:layout_margin="5dp"
         android:padding="5dp"
@@ -16,7 +17,13 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="3dp"
         app:contentPadding="0dp">
-
+        <ProgressBar
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_gravity="end"
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
             <RelativeLayout
                 android:padding="10dp"
                 android:orientation="vertical"
@@ -59,4 +66,5 @@
             </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

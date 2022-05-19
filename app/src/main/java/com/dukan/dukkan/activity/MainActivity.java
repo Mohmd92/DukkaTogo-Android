@@ -269,6 +269,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_points:
                 closeDrawer();
                 break;
+                case R.id.nav_privacy_policy:
+                    startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    closeDrawer();
+                break;
             case R.id.nav_chat:
                 closeDrawer();
                 break;

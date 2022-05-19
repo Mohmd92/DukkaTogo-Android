@@ -20,6 +20,7 @@ import com.dukan.dukkan.pojo.CouponMain;
 import com.dukan.dukkan.pojo.Driver;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Home;
+import com.dukan.dukkan.pojo.JoinStore;
 import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
@@ -27,6 +28,7 @@ import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Order;
 import com.dukan.dukkan.pojo.OrderStatistics;
 import com.dukan.dukkan.pojo.OrderToDelevey;
+import com.dukan.dukkan.pojo.Privacy;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.QrCode;
 import com.dukan.dukkan.pojo.Rate;
@@ -73,6 +75,14 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/stores?")
     Call<MultipleStore> doGetListStoreDelivery(@Query("city_id") int city_id,@Query("country_id") int country_id,@Query("need_delivery") int need_delivery,@Query("delivery_stores") int delivery_stores );
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/stores/{id}/join")
+    Call<JoinStore> JoinStores(@Path("id") int id);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/pages")
+    Call<Privacy> getPrivacyList();
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
