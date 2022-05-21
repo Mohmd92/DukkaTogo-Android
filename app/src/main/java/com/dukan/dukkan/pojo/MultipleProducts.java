@@ -46,6 +46,9 @@ public class MultipleProducts {
         @SerializedName("code")
         @Expose
         public String code;
+        @SerializedName("order_status")
+        @Expose
+        public String order_status;
         @SerializedName("created_at")
         @Expose
         public String createdAt;

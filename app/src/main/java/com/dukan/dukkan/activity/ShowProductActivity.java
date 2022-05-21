@@ -118,6 +118,13 @@ public class ShowProductActivity extends AppCompatActivity {
 
             }
         });
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowProductActivity.this, CartActivity.class));
+                finish();
+            }
+        });
         ic_share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

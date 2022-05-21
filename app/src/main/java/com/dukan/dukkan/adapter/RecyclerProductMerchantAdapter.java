@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.APIClient;
@@ -46,7 +47,7 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         MultipleProducts.Data.Product item;
-        TextView tv_price,tv_name,text_add,tv_heart;
+        TextView tv_status,tv_price,tv_name,text_add,tv_heart;
         RatingBar rateProduct;
         ImageView image,img_heart;
         RelativeLayout rel_add_to_card,rel_heart;
@@ -61,6 +62,7 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
             img_heart =  v.findViewById(R.id.img_heart);
             tv_name =  v.findViewById(R.id.tv_name);
             tv_price =  v.findViewById(R.id.tv_price);
+            tv_status =  v.findViewById(R.id.tv_status);
             tv_heart =  v.findViewById(R.id.tv_heart);
             text_add =  v.findViewById(R.id.text_add);
             rateProduct =  v.findViewById(R.id.ratingBar2);
@@ -90,6 +92,13 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                 img_heart.setImageResource(R.drawable.ic_heart_on);
             }else{
                 img_heart.setImageResource(R.drawable.ic_heart);
+            }
+            if(item.order_status.equals("0")) {
+                tv_status.setText(mContext.getString(R.string.unavailable));
+                tv_status.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            }else {
+                tv_status.setText(mContext.getString(R.string.available));
+                tv_status.setTextColor(ContextCompat.getColor(mContext, R.color.green));
             }
             itemView.setOnClickListener(this); // bind the listener
         }

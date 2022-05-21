@@ -55,10 +55,12 @@ public class ProductMerchentActivity extends AppCompatActivity implements  Recyc
         title= extras.getString("title");
         category= extras.getInt("category");
         tv_title.setText(title);
+        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         iconMenu.setVisibility(View.GONE);
+        icon_buy.setVisibility(View.GONE);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
