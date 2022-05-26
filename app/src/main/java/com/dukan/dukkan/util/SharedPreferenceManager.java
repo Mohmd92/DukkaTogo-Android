@@ -161,6 +161,14 @@ public class SharedPreferenceManager {
         editor.putString("UserImage", UserImage);
         editor.commit();
     }
+    public String getUserCurrentType() {
+        return sharedPreferences.getString("UserCurrentType", null);
+    }
+
+    public void setUserCurrentType(String UserCurrentType) {
+        editor.putString("UserCurrentType", UserCurrentType);
+        editor.commit();
+    }
 
     public String getLoginType() {
         return sharedPreferences.getString("LoginType", null);

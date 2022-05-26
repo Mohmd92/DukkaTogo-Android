@@ -30,10 +30,14 @@ import com.dukan.dukkan.fragment.FilterSheetFragment;
 import com.dukan.dukkan.fragment.LogoutSheetFragment;
 import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.fragment.ReviewStoreSheetFragment;
+import com.dukan.dukkan.pojo.Advertisement;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.ShowStore;
+import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.squareup.picasso.Picasso;
+import com.yihsian.slider.library.SliderItemView;
+import com.yihsian.slider.library.SliderLayout;
 
 import java.nio.ShortBuffer;
 import java.util.List;
@@ -56,6 +60,7 @@ public class ShowStoresActivity extends AppCompatActivity {
     float rateStore;
     String imageStore;
     String latitude, longitude;
+    private SliderLayout sliderLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_number = findViewById(R.id.tv_number);
         tv_address = findViewById(R.id.tv_address);
+        sliderLayout = findViewById(R.id.sliderLayout);
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView icon_search =toolbar.findViewById(R.id.icon_search);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
@@ -287,7 +293,15 @@ public class ShowStoresActivity extends AppCompatActivity {
                     rateStore=0;//resource.data.rate;
                     latitude=resource.data.lat;
                     longitude=resource.data.lng;
-
+                    List<Advertisement> advertisement1 = resource.data.advertisements;
+                    SliderItemView view01 = new SliderItemView(getApplicationContext());
+                    for (Advertisement datum : advertisement1) {
+                        view01 = new SliderItemView(getApplicationContext());
+                        view01.setItem2(datum.image,datum.title,"");
+                        sliderLayout.addSlider(view01);
+                    }
+                    if(advertisement1.size()==0)
+                        sliderLayout.setVisibility(View.GONE);
 
                 }else
                     Toast.makeText(ShowStoresActivity.this, resource.message, Toast.LENGTH_SHORT).show();

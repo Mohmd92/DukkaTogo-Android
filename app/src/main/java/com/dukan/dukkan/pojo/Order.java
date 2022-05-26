@@ -16,64 +16,66 @@ public class Order {
     @Expose
     public List<Datum> data =new ArrayList<>();
     public class Datum {
-
         @SerializedName("id")
         @Expose
         public Integer id;
         @SerializedName("order_number")
         @Expose
         public String orderNumber;
-        @SerializedName("user_id")
-        @Expose
-        public String userId;
-        @SerializedName("device_id")
-        @Expose
-        public String deviceId;
-        @SerializedName("total")
-        @Expose
-        public float total;
-        @SerializedName("discount")
-        @Expose
-        public String discount;
-        @SerializedName("coupon")
-        @Expose
-        public String coupon;
         @SerializedName("note")
         @Expose
         public String note;
-        @SerializedName("delivery_id")
+        @SerializedName("discount")
         @Expose
-        public String deliveryId;
+        public String discount;
+        @SerializedName("total")
+        @Expose
+        public float total;
+        @SerializedName("coupon")
+        @Expose
+        public String coupon;
+        @SerializedName("buyer_id")
+        @Expose
+        public String buyerId;
+        @SerializedName("driver_id")
+        @Expose
+        public String driverId;
+        @SerializedName("user_id")
+        @Expose
+        public String userId;
         @SerializedName("status")
         @Expose
         public String status;
-        @SerializedName("address_id")
-        @Expose
-        public String addressId;
         @SerializedName("store_id")
         @Expose
         public String storeId;
-        @SerializedName("payment_gateway_id")
-        @Expose
-        public String paymentGatewayId;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
         @SerializedName("updated_at")
         @Expose
         public String updatedAt;
+        @SerializedName("device_id")
+        @Expose
+        public String deviceId;
+        @SerializedName("delivery_id")
+        @Expose
+        public String deliveryId;
+        @SerializedName("address_id")
+        @Expose
+        public String addressId;
+        @SerializedName("payment_gateway_id")
+        @Expose
+        public String paymentGatewayId;
         @SerializedName("qr_code")
         @Expose
         public String qrCode;
-        @SerializedName("order_details")
-        @Expose
-        public List<OrderDetail> orderDetails =new ArrayList<>();
         @SerializedName("store")
         @Expose
         public Store store;
         @SerializedName("user")
         @Expose
-        public UserOrder user;
+        public User user;
         @SerializedName("delivery")
         @Expose
         public Delivery delivery;
@@ -83,6 +85,9 @@ public class Order {
         @SerializedName("payment_gateway")
         @Expose
         public PaymentGateway paymentGateway;
+        @SerializedName("order_details")
+        @Expose
+        public List<OrderDetail> orderDetails = new ArrayList<>();
 
     }
 }

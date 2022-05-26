@@ -109,7 +109,6 @@ public class CheckOut extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckOuts> callNew, Response<CheckOuts> response) {
                 CheckOuts cart = response.body();
-                System.out.println("HHHHHHHHHHHHHHHHssss "+cart.status);
                 if (cart.status){
                     tv_total_price.setText(String.valueOf(cart.data.cartTotal));
                     tv_delivery_fee.setText(String.valueOf(cart.data.deliveryPrice));
@@ -153,7 +152,7 @@ public class CheckOut extends AppCompatActivity {
             public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
                 CheckOutCart cart = response.body();
                 if (cart.status) {
-                    Toast.makeText(CheckOut.this, "Done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckOut.this, getString(R.string.thank_for_order), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(CheckOut.this, MainActivity.class);
                     startActivity(i);
                     finish();

@@ -12,13 +12,13 @@ public class Cart {
     public Integer id;
     @SerializedName("price")
     @Expose
-    public Integer price;
+    public float price;
     @SerializedName("qty")
     @Expose
     public Integer qty;
     @SerializedName("total")
     @Expose
-    public Integer total;
+    public float total;
     @SerializedName("store_id")
     @Expose
     public String storeId;

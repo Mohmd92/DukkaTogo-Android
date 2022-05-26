@@ -75,11 +75,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private TextView desc_advertisement1,title_advertisement1;
     private TextView desc_advertisement2,title_advertisement2;
     RecyclerView recyclerViewViewMost,recyclerViewNewProduct;
-
+    View root;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.content_main_main, container, false);
+        root = inflater.inflate(R.layout.content_main_main, container, false);
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         sliderLayout = root.findViewById(R.id.sliderLayout);
         img_filter = root.findViewById(R.id.img_filter);
@@ -170,18 +170,26 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     List<Brand> brand = resource.data.brands;
                     List<Delivery> delivery = resource.data.deliveries;
                     Advertisement advertisement1 = resource.data.advertisement;
-                    title_advertisement1.setText(advertisement1.title);
-                    desc_advertisement1.setText(advertisement1.description);
-                    Picasso.get()
-                            .load(advertisement1.image)
-                            .into(image_advertisement1);
+
+                    if(advertisement1!=null) {
+                        title_advertisement1.setText(advertisement1.title);
+                        desc_advertisement1.setText(advertisement1.description);
+                        Picasso.get()
+                                .load(advertisement1.image)
+                                .into(image_advertisement1);
+                    }else
+                        root.findViewById(R.id.adv1).setVisibility(View.GONE);
 
                     Advertisement2 advertisement2 = resource.data.advertisement2;
-                    title_advertisement2.setText(advertisement2.title);
-                    desc_advertisement2.setText(advertisement2.description);
-                    Picasso.get()
-                            .load(advertisement2.image)
-                            .into(image_advertisement2);
+                    if(advertisement2!=null) {
+                        title_advertisement2.setText(advertisement2.title);
+                        desc_advertisement2.setText(advertisement2.description);
+                        Picasso.get()
+                                .load(advertisement2.image)
+                                .into(image_advertisement2);
+                    }else
+                        root.findViewById(R.id.adv2).setVisibility(View.GONE);
+
 
 
                     SliderItemView view01 = new SliderItemView(getContext());
@@ -190,6 +198,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         view01.setItem2(datum.image,datum.name,datum.url);
                         sliderLayout.addSlider(view01);
                     }
+                    if(slid.size()==0)
+                        sliderLayout.setVisibility(View.GONE);
+
                     StoreAdapter customAdapter = new StoreAdapter(getContext(),stores);
                     HorizontalListViewStore.setAdapter(customAdapter);
                     customAdapter.notifyDataSetChanged();
@@ -241,6 +252,10 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     BrandAdapter brandAdapter = new BrandAdapter(getContext(),brand);
                     HorizontalListViewBrand.setAdapter(brandAdapter);
                     customAdapter.notifyDataSetChanged();
+                    if(brand.size()==0){
+                        HorizontalListViewBrand.setVisibility(View.GONE);
+
+                    }
 
                     DeliveryAdapter deliveryAdapter = new DeliveryAdapter(getContext(),delivery);
                     HorizontalListViewDelivery.setAdapter(deliveryAdapter);

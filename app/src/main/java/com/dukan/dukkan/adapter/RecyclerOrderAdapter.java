@@ -72,7 +72,6 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
         public void setData(Order.Datum item) {
             this.item = item;
             linnnar.setVisibility(View.GONE);
-            if(item.status.equals("1")) {
                 linnnar.setVisibility(View.VISIBLE);
                 tv_date.setText(item.createdAt.split("T")[0]);
                 tv_num_products.setText("" + item.orderDetails.size());
@@ -84,14 +83,6 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
                 img_barcode.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Bundle bundle = new Bundle();
-//
-//                        ChooseDriverSheetFragment chooseDriverSheetFragment = new ChooseDriverSheetFragment();
-//                        bundle.putString("qrcode", item.qrCode);
-//                        chooseDriverSheetFragment.setArguments(bundle);
-//                        chooseDriverSheetFragment.show(((FragmentActivity)mContext).getSupportFragmentManager()
-//                                , chooseDriverSheetFragment.getTag());
-
                         final BottomSheetDialog bt=new BottomSheetDialog (Aactivity,R.style.AppBottomSheetDialogTheme);
                         View views= LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_choose_driver,null);
                         ImageView imageView=views.findViewById(R.id.img_qrcode);
@@ -100,7 +91,6 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
                         bt.show();
                     }
                 });
-            }
 
         }
         @Override

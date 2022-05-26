@@ -67,16 +67,66 @@ public class CategorySheetFragment extends BottomSheetDialogFragment {
         rel_driver.setVisibility(View.GONE);
         rel_customer.setVisibility(View.GONE);
         String UserRole=SharedPreferenceManager.getInstance(getContext()).getUserType();
+        String UserCurrentType=SharedPreferenceManager.getInstance(getContext()).getUserCurrentType();
+        System.out.println("UserRoleUserRoleUserRole "+UserRole);
+        if(UserCurrentType.equals("Merchant")){
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_customer);
+
+            Picasso.get()
+                    .load(R.drawable.ic_check)
+                    .placeholder(R.drawable.ic_check)
+                    .into(img_merchant);
+
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_driver);
+        }else if(UserCurrentType.equals("Delivery")){
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_customer);
+
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_merchant);
+
+            Picasso.get()
+                    .load(R.drawable.ic_check)
+                    .placeholder(R.drawable.ic_check)
+                    .into(img_driver);
+        }else if(UserCurrentType.equals("Customer")){
+            Picasso.get()
+                    .load(R.drawable.ic_check)
+                    .placeholder(R.drawable.ic_check)
+                    .into(img_customer);
+
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_merchant);
+
+            Picasso.get()
+                    .load(R.drawable.ic_unchek)
+                    .placeholder(R.drawable.ic_unchek)
+                    .into(img_driver);
+        }
+
         if (UserRole.contains("Merchant"))
             rel_merchant.setVisibility(View.VISIBLE);
-        else if (UserRole.contains("Delivery"))
+         if (UserRole.contains("Delivery"))
             rel_driver.setVisibility(View.VISIBLE);
-        else if (UserRole.contains("Customer"))
+         if (UserRole.contains("Customer"))
             rel_customer.setVisibility(View.VISIBLE);
         Button confirm_button =  view.findViewById(R.id.confirm_button);
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dismiss();
             }
         });

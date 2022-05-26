@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        SharedPreferenceManager.getInstance(getBaseContext()).setUserCurrentType("Customer");
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
@@ -129,11 +131,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         header_im_close.setClipToOutline(true);
         ImageView icon_buy = findViewById(R.id.icon_buy);
+        FrameLayout frame_buy = findViewById(R.id.frame_buy);
         icon_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
                 finish();
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, NotificationsActivity.class));
+
             }
         });
         icon_search.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              getProfileGoogle();
         Menu menu =navigationView.getMenu();
         MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
+        MenuItem nav_Stores = menu.findItem(R.id.nav_Stores);
+        nav_Stores.setVisible(false);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null) {
             String[] userProfileInfo = SharedPreferenceManager.getInstance(getBaseContext()).getUserType().split("&");
             if (userProfileInfo.length == 1)

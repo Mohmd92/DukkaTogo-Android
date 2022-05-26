@@ -45,7 +45,7 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
-    int mostProduct,newProduct=0,store=0,category=0;
+    int mostProduct=0,newProduct=0,store=0,category=0;
     String title="";
 
     @Override
@@ -81,6 +81,14 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
 
             }
         });
+        ImageView icon_buy = findViewById(R.id.icon_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductsActivity.this, CartActivity.class));
+                finish();
+            }
+        });
         icon_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +106,8 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
 
     }
     private void getProducts(int category,int price_from,int price_to) {
+        Log.d("TAGcode", "getProducts");
+
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -105,8 +115,9 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAGcode",response.code()+"");
                 MultipleProducts resource = response.body();
+                Log.d("TAGcode",resource.status+"");
                 if(resource.status) {
                     List<MultipleProducts.Data.Product> newProduct = resource.data.products;
                 RecyclerProductAdapter adapter = new RecyclerProductAdapter(getApplicationContext(), newProduct);
@@ -115,8 +126,8 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
 
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                 recyclerView.setLayoutManager(mLayoutManager);
-
-            }}
+            }
+            }
             @Override
             public void onFailure(Call<MultipleProducts> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());

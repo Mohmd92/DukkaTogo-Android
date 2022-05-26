@@ -18,7 +18,7 @@ public class OrderStatistics {
 
         @SerializedName("total")
         @Expose
-        public Integer total;
+        public float total;
         @SerializedName("count")
         @Expose
         public Integer count;

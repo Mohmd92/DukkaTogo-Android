@@ -24,12 +24,12 @@ public class CartMain2 {
         public List<Cart> carts = new ArrayList<>();
         @SerializedName("cart_total")
         @Expose
-        public Integer cartTotal;
+        public float cartTotal;
         @SerializedName("delivery_price")
         @Expose
         public Integer deliveryPrice;
         @SerializedName("total")
         @Expose
-        public Integer total;
+        public float total;
     }
   }

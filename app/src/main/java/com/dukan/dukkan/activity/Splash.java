@@ -31,9 +31,9 @@ public class Splash extends AppCompatActivity {
                 .detectLeakedClosableObjects()
                 .build());
         SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
-        if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null){
+        if(SharedPreferenceManager.getInstance(getBaseContext()).getUserCurrentType()!=null){
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
-                UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserType();
+                UserRole= SharedPreferenceManager.getInstance(getBaseContext()).getUserCurrentType();
         }
         SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(0);
         new Handler().postDelayed(new Runnable() {

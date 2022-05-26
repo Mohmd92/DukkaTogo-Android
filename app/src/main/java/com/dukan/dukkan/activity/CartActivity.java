@@ -133,7 +133,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     RecyclerCartsAdapter adapter = new RecyclerCartsAdapter(getApplicationContext(), datumList);
                     recyclerView.setAdapter(adapter);
-                    tv_total_price.setText(Integer.toString(cart.data.cartTotal));
+                    tv_total_price.setText(Float.toString(cart.data.cartTotal));
                     tv_num_products.setText(Integer.toString(datumList.size()));
                     adapter.setClickListener(CartActivity.this);
                     if(cart.data.deliveryPrice==null)

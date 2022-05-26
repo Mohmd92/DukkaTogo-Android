@@ -16,7 +16,7 @@ public class MultipleResource {
     @SerializedName("per_page")
     public Integer perPage;
     @SerializedName("total")
-    public Integer total;
+    public float total;
     @SerializedName("total_pages")
     public Integer totalPages;
     @SerializedName("data")

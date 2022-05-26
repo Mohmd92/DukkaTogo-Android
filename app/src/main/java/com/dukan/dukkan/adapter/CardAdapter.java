@@ -85,7 +85,7 @@ public class CardAdapter extends BaseAdapter {
         else
             viewHolder.product_name.setText(mValues.get(i).product.name);
 
-        viewHolder. product_price.setText(Integer.toString(mValues.get(i).product.price));
+        viewHolder. product_price.setText(Float.toString(mValues.get(i).product.price));
         viewHolder.product_count.setText(Integer.toString(mValues.get(i).qty));
         Picasso.get()
                 .load(mValues.get(i).product.image)

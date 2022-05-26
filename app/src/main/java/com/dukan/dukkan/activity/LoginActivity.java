@@ -347,6 +347,7 @@ public class LoginActivity extends AppCompatActivity {
                     for (Role datum : roles) {
                         UserRole=UserRole + datum.name+"&";
                     }
+
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserType(UserRole);
                     SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
                     if(checkboxs.isChecked())

@@ -67,7 +67,7 @@ public class RecyclerOrderAdapter2 extends RecyclerView.Adapter<RecyclerOrderAda
         public void setData(Order.Datum item) {
             this.item = item;
             linnnar.setVisibility(View.GONE);
-            if(item.status.equals("0")) {
+//            if(item.status.equals("0")) {
                 linnnar.setVisibility(View.VISIBLE);
                 tv_date.setText(item.createdAt.split("T")[0]);
                 tv_num_products.setText("" + item.orderDetails.size());
@@ -89,7 +89,7 @@ public class RecyclerOrderAdapter2 extends RecyclerView.Adapter<RecyclerOrderAda
                         bt.show();
                     }
                 });
-            }
+//            }
 
         }
         @Override

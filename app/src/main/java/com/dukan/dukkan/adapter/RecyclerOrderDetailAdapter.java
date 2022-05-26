@@ -56,6 +56,9 @@ public class RecyclerOrderDetailAdapter extends RecyclerView.Adapter<RecyclerOrd
             tv_product_name.setText(item.productName);
             tv_product_qty.setText(item.qty);
             tv_price.setText(""+item.price);
+            Picasso.get()
+                    .load(item.product.image)
+                    .into(image);
 
         }
         @Override

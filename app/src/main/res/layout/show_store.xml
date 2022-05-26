@@ -225,13 +225,13 @@
                     android:src="@drawable/ic_chat"/>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-            <com.dukan.dukkan.util.HorizontalListView
-                android:id="@+id/HorizontalListView"
+            <view
                 android:layout_marginTop="10dp"
+                android:id="@+id/sliderLayout"
+                class="com.yihsian.slider.library.SliderLayout"
+                id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:paddingStart="20dp"
-                tools:ignore="RtlSymmetry" />
+                android:layout_height="170dp" />
             <TextView
                 android:layout_marginTop="10dp"
                 android:textAllCaps="true"

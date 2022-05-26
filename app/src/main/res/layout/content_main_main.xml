@@ -90,6 +90,7 @@
             android:paddingStart="20dp"
             tools:ignore="RtlSymmetry" />
 <include
+    android:id="@+id/adv1"
     layout="@layout/home_ads"
     android:layout_marginTop="5dp"
     android:layout_width="match_parent"
@@ -141,6 +142,7 @@
             android:paddingStart="20dp"
             tools:ignore="RtlSymmetry" />
         <include
+            android:id="@+id/adv2"
             layout="@layout/home_ads2"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -211,6 +213,7 @@
             />
     </RelativeLayout>
     <com.dukan.dukkan.util.HorizontalListView
+        android:layout_marginBottom="30dp"
         android:id="@+id/HorizontalListViewBrand"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -218,6 +221,7 @@
         android:paddingStart="20dp"
         tools:ignore="RtlSymmetry" />
     <RelativeLayout
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:paddingStart="25dp"
         android:paddingEnd="25dp"
@@ -235,6 +239,7 @@
             />
     </RelativeLayout>
     <com.dukan.dukkan.util.HorizontalListView
+        android:visibility="gone"
         android:id="@+id/HorizontalListViewDelivery"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"

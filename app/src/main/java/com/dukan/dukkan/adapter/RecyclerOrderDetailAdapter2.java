@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.pojo.OrderDetail;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,7 +53,9 @@ public class RecyclerOrderDetailAdapter2 extends RecyclerView.Adapter<RecyclerOr
             tv_product_name.setText(item.productName);
             tv_product_qty.setText(item.qty);
             tv_price.setText(""+item.price);
-
+            Picasso.get()
+                    .load(item.product.image)
+                    .into(image);
         }
         @Override
         public void onClick(View view) {

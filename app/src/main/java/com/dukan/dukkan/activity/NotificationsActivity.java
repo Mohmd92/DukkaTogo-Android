@@ -35,9 +35,14 @@ public class NotificationsActivity extends AppCompatActivity {
         icon_search.setVisibility(View.GONE);
         icon_notification.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
-//        if (SharedPreferenceManager.getInstance(getBaseContext()).getUserType().equals("driver")){
-//            icon_notification.setVisibility(View.VISIBLE);
-//        }
+        ImageView icon_buy = findViewById(R.id.icon_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NotificationsActivity.this, CartActivity.class));
+                finish();
+            }
+        });
         setSupportActionBar(toolbar);
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,5 +57,10 @@ public class NotificationsActivity extends AppCompatActivity {
             linear_exist_account.setVisibility(View.VISIBLE);
             linear_no_account.setVisibility(View.GONE);
         }
+        linear_no_notifications.setVisibility(View.VISIBLE);
+        linear_no_account.setVisibility(View.GONE);
+        linear_exist_account.setVisibility(View.GONE);
+
+
     }
 }

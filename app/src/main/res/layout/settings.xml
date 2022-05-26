@@ -117,6 +117,7 @@
                 android:src="@drawable/ic_next"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/card_fingerprint"
             android:layout_marginTop="10dp"
             android:background="@drawable/button3113"

@@ -15,7 +15,7 @@ public class LatestOffer {
     public String description;
     @SerializedName("price")
     @Expose
-    public Integer price;
+    public float price;
     @SerializedName("code")
     @Expose
     public String code;

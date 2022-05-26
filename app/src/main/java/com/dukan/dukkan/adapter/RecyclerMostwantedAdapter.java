@@ -173,6 +173,8 @@ public class RecyclerMostwantedAdapter extends RecyclerView.Adapter<RecyclerMost
                     if(text_add.getText().equals(mContext.getString(R.string.add_to_cart))) {
                         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
                                 Settings.Secure.ANDROID_ID);
+                        System.out.println("HHHHHHHHHHHHhhssssw "+item.id+"   "+ID);
+
                         CartParamenter cartParamenter = new CartParamenter(item.id, ID);
                         Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
                         call1.enqueue(new Callback<CartMain>() {
@@ -180,6 +182,7 @@ public class RecyclerMostwantedAdapter extends RecyclerView.Adapter<RecyclerMost
                             public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                                 CartMain cart = response.body();
                                 if (cart.status) {
+                                    Toast.makeText(mContext, "status", Toast.LENGTH_SHORT).show();
                                     text_add.setText(mContext.getString(R.string.remove_to_cart));
                                     item.isCart =new IsCart();
                                     SharedPreferenceManager.getInstance(mContext).setCartCount(SharedPreferenceManager.getInstance(mContext).getCartCount()+1);

@@ -33,12 +33,12 @@ public class CartMain {
         public List<Cart> carts = new ArrayList<>();
         @SerializedName("cart_total")
         @Expose
-        public Integer cartTotal;
+        public float cartTotal;
         @Expose
         public Integer deliveryPrice;
         @SerializedName("total")
         @Expose
-        public Integer total;
+        public float total;
         @SerializedName("payment_gateway")
         @Expose
         public List<PaymentGateway> paymentGateway =new ArrayList<>();
@@ -54,13 +54,13 @@ public class CartMain {
         public Integer id;
         @SerializedName("price")
         @Expose
-        public Integer price;
+        public float price;
         @SerializedName("qty")
         @Expose
         public Integer qty;
         @SerializedName("total")
         @Expose
-        public Integer total;
+        public float total;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -88,7 +88,7 @@ public class CartMain {
         public String description;
         @SerializedName("price")
         @Expose
-        public Integer price;
+        public float price;
         @SerializedName("code")
         @Expose
         public String code;

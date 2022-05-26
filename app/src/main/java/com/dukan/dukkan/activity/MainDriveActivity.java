@@ -57,6 +57,7 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        SharedPreferenceManager.getInstance(getBaseContext()).setUserCurrentType("Delivery");
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar);

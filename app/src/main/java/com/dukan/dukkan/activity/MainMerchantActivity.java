@@ -59,6 +59,8 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        SharedPreferenceManager.getInstance(getBaseContext()).setUserCurrentType("Merchant");
         drawerLayout = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.home_nav_view);
         toolbar = findViewById(R.id.home_toolbar);
@@ -85,6 +87,14 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
                 getProfile();
         }
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMerchantActivity.this, NotificationsActivity.class));
+
+            }
+        });
         rel_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

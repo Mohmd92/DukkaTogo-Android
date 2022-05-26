@@ -31,13 +31,13 @@ public class CouponMain {
             public List<Object> carts = null;
             @SerializedName("cart_total")
             @Expose
-            public Integer cartTotal;
+            public float cartTotal;
             @SerializedName("delivery_price")
             @Expose
             public Integer deliveryPrice;
             @SerializedName("total")
             @Expose
-            public Integer total;
+            public float total;
             @SerializedName("payment_gateway")
             @Expose
             public List<PaymentGateway> paymentGateway =new ArrayList<>();
