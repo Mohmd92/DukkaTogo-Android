@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.MerchantLastOrdersActivity;
 import com.dukan.dukkan.activity.MerchantProfileActivity;
 import com.dukan.dukkan.activity.ProductMerchentActivity;
 import com.dukan.dukkan.activity.ProductsActivity;
@@ -72,6 +73,12 @@ public class MerchantFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MerchantProfileActivity.class));
+            }
+        });
+        tv_view_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MerchantLastOrdersActivity.class));
             }
         });
         img_store.setOnClickListener(new View.OnClickListener() {

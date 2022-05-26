@@ -1,6 +1,7 @@
 package com.dukan.dukkan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.MerchantOrderDetailsActivity;
 import com.dukan.dukkan.pojo.OrderItem;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerMerchantOrderAdapter.ViewHolder> {
     List<OrderItem> mValues;
@@ -53,6 +57,10 @@ public class RecyclerMerchantOrderAdapter extends RecyclerView.Adapter<RecyclerM
         }
         @Override
         public void onClick(View view) {
+            Intent i2 = new Intent(mContext, MerchantOrderDetailsActivity.class);
+            i2.putExtra("OrderId", item.id);
+            i2.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(i2);
             if (mListener != null) {
                 mListener.onItemClick(item);
             }

@@ -128,10 +128,10 @@ public class ProductMerchentActivity extends AppCompatActivity implements  Recyc
     @Override
     protected void onResume() {
         super.onResume();
-        if(!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")){
-            String[] getFilterDates =  SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
-            getProducts(Integer.parseInt(getFilterDates[0]),Integer.parseInt(getFilterDates[1]),Integer.parseInt(getFilterDates[2]));
-            SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
-        }
+//        if(!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")){
+//            String[] getFilterDates =  SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
+//            getProducts(Integer.parseInt(getFilterDates[0]),Integer.parseInt(getFilterDates[1]),Integer.parseInt(getFilterDates[2]));
+//            SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
+//        }
     }
 }

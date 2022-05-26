@@ -238,7 +238,7 @@
     <string name="delivery_stores">Delivery Stores</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="available">Available</string>
-    <string name="unavailable">UnAvailable</string>
+    <string name="unavailable">Not Available</string>
     <string name="thank_for_order">Thank you for your order</string>
 
 </resources>

@@ -43,6 +43,17 @@ public class NotificationsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserCurrentType().equals("Customer"))
+            icon_buy.setVisibility(View.GONE);
+
+
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+
+            }
+        });
         setSupportActionBar(toolbar);
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override

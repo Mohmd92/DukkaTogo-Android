@@ -18,16 +18,22 @@ import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerMerchantOrder2Adapter;
-import com.dukan.dukkan.adapter.RecyclerOrderAdapter2;
+import com.dukan.dukkan.adapter.RecyclerMerchantOrderAdapter;
 import com.dukan.dukkan.pojo.Order;
+import com.dukan.dukkan.pojo.OrderItem;
+import com.dukan.dukkan.pojo.Profile;
+import com.dukan.dukkan.pojo.StoreTimeWork;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MerchantOrdersDeliveredActivity extends AppCompatActivity {
+public class MerchantLastOrdersActivity extends AppCompatActivity {
     APIInterface apiInterface;
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -35,7 +41,7 @@ public class MerchantOrdersDeliveredActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.merchant_orders_elivered);
+        setContentView(R.layout.merchant_last_order);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerView);
@@ -56,39 +62,37 @@ public class MerchantOrdersDeliveredActivity extends AppCompatActivity {
         icon_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MerchantOrdersDeliveredActivity.this, NotificationsActivity.class));
+                startActivity(new Intent(MerchantLastOrdersActivity.this, NotificationsActivity.class));
             }
         });
-        getOrders();
+        getProfile();
     }
-    private void getOrders() {
+    private void getProfile() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+        String cuarentDay = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(System.currentTimeMillis());
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","1","");
-        callNew.enqueue(new Callback<Order>() {
+        Call<Profile> callNew = apiInterface.UserProfile();
+        callNew.enqueue(new Callback<Profile>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<Order> callNew, Response<Order> response) {
-                Log.d("TAG111111",response.code()+"");
-                Order resource = response.body();
-                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
-                if(resource.status){
-                    Log.d("TAG111111","111111111111111111111111111111111ww");
-                    List<Order.Datum> datumList = resource.data;
+            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
+                Profile resource = response.body();
+                Boolean status = resource.status;
+                if(status) {
+                    List<OrderItem> orders = resource.data.store.orders;
+                    System.out.println("sssssaaaaaaaaaaaaa "+orders.size());
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerMerchantOrder2Adapter adapter = new RecyclerMerchantOrder2Adapter(getApplicationContext(), datumList);
+                    RecyclerMerchantOrderAdapter adapter = new RecyclerMerchantOrderAdapter(getApplicationContext(), orders);
                     recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
                 progressBar.setVisibility(View.GONE);
             }
             @Override
-            public void onFailure(Call<Order> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+            public void onFailure(Call<Profile> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-
             }
-
         });
     }
 }

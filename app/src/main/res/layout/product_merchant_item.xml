@@ -18,16 +18,7 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="2dp"
         app:contentPadding="0dp">
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="end"
-            android:id="@+id/tv_status"
-            android:textColor="@color/black"
-            android:textSize="9sp"
-            android:fontFamily="@font/abudhbi_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
         <LinearLayout
             android:padding="10dp"
             android:orientation="vertical"
@@ -87,6 +78,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
+            <TextView
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="5dp"
+                android:id="@+id/tv_status"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:fontFamily="@font/abudhbi_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <RatingBar
                 android:visibility="gone"
                 android:layout_marginBottom="5dp"

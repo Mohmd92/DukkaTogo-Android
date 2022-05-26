@@ -95,10 +95,10 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
             }
             if(item.order_status.equals("0")) {
                 tv_status.setText(mContext.getString(R.string.unavailable));
-                tv_status.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.unavialable));
             }else {
                 tv_status.setText(mContext.getString(R.string.available));
-                tv_status.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+                tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.avialable));
             }
             itemView.setOnClickListener(this); // bind the listener
         }

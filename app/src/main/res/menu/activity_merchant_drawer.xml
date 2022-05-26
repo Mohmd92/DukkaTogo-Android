@@ -31,6 +31,10 @@
             android:icon="@drawable/ic_swap"
             android:title="@string/switch_accounts" />
         <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_fill_936"
+            android:title="@string/share_app" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
             android:title="@string/sign_out"/>

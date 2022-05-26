@@ -162,6 +162,15 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
                 startActivity(new Intent(MainMerchantActivity.this, SettingActivity.class));
                 closeDrawer();
                 break;
+            case R.id.nav_share:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Here is the share content body";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.full_name));
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+                closeDrawer();
+                break;
                 case R.id.nav_switch_accounts:
                     CategorySheetFragment CategorySheetFragment = new CategorySheetFragment();
                     CategorySheetFragment.show(getSupportFragmentManager()

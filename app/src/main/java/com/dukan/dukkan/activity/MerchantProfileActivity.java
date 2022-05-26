@@ -58,11 +58,14 @@ public class MerchantProfileActivity extends AppCompatActivity {
         ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);
         ImageView icon_filter = toolbar.findViewById(R.id.icon_filter);
+        ImageView icon_buy = toolbar.findViewById(R.id.icon_buy);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
         icon_menu.setVisibility(View.GONE);
         icon_filter.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
         icon_notification.setVisibility(View.GONE);
+        icon_buy.setVisibility(View.GONE);
+
         setSupportActionBar(toolbar);
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +97,7 @@ public class MerchantProfileActivity extends AppCompatActivity {
         rel_licences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MerchantProfileActivity.this, DriverProfileLicenceActivity.class));
+//                startActivity(new Intent(MerchantProfileActivity.this, DriverProfileLicenceActivity.class));
             }
         });
         getProfile();

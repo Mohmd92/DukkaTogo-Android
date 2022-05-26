@@ -95,6 +95,13 @@ public class MerchantOrderDetailsActivity extends AppCompatActivity  implements 
                 finish();
             }
         });
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MerchantOrderDetailsActivity.this, NotificationsActivity.class));
+            }
+        });
         icon_barcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
