@@ -83,6 +83,14 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
         tabLayout = findViewById(R.id.home_tab_layout);
         tabLayout.setVisibility(View.GONE);
         tabsArrayList = new ArrayList<>();
+        ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainDriveActivity.this, NotificationsActivity.class));
+
+            }
+        });
         tabsArrayList.add(new Tabs(0, "Drive", new DriveFragment()));
         MaterialShapeDrawable navViewBackground = (MaterialShapeDrawable) navigationView.getBackground();
         navViewBackground.setShapeAppearanceModel(
