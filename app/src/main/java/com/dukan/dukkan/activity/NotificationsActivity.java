@@ -26,6 +26,7 @@ public class NotificationsActivity extends AppCompatActivity {
         ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);
         ImageView icon_filter = toolbar.findViewById(R.id.icon_filter);
+        ImageView icon_buy = findViewById(R.id.icon_buy);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
         linear_exist_account = findViewById(R.id.linear_exist_account);
         linear_no_account = findViewById(R.id.linear_no_account);
@@ -35,14 +36,14 @@ public class NotificationsActivity extends AppCompatActivity {
         icon_search.setVisibility(View.GONE);
         icon_notification.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
-        ImageView icon_buy = findViewById(R.id.icon_buy);
-        icon_buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(NotificationsActivity.this, CartActivity.class));
-                finish();
-            }
-        });
+        icon_buy.setVisibility(View.GONE);
+//        icon_buy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(NotificationsActivity.this, CartActivity.class));
+//                finish();
+//            }
+//        });
         if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserCurrentType().equals("Customer"))
             icon_buy.setVisibility(View.GONE);
 

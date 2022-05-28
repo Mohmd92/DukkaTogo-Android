@@ -1,4 +1,5 @@
 package com.dukan.dukkan.activity;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ import java.util.TimerTask;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -73,8 +76,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText edit_mail,edit_password;
-    TextView tv_skip,tv_sign_up,tv_forget;
+    EditText edit_mail, edit_password;
+    TextView tv_skip, tv_sign_up, tv_forget;
     APIInterface apiInterface;
     ProgressBar progressBar;
     CheckBox checkboxs;
@@ -90,21 +93,23 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.sign_in);
+        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.d("LoginActivity", "onCreate: " + id);
         FirebaseApp.initializeApp(LoginActivity.this);
         SharedPreferenceManager.getInstance(getBaseContext()).setLoginType("");
-        signInButton =findViewById(R.id.sign_in_button);
-        progressBar =findViewById(R.id.progressBar);
-        edit_mail =findViewById(R.id.edit_mail);
-        edit_password =findViewById(R.id.edit_password);
-        Button confirm_button =findViewById(R.id.confirm_button);
-        tv_sign_up =findViewById(R.id.tv_sign_up);
-        tv_forget =findViewById(R.id.tv_forget);
-        tv_skip =findViewById(R.id.tv_skip);
-        checkboxs =findViewById(R.id.checkboxs);
+        signInButton = findViewById(R.id.sign_in_button);
+        progressBar = findViewById(R.id.progressBar);
+        edit_mail = findViewById(R.id.edit_mail);
+        edit_password = findViewById(R.id.edit_password);
+        Button confirm_button = findViewById(R.id.confirm_button);
+        tv_sign_up = findViewById(R.id.tv_sign_up);
+        tv_forget = findViewById(R.id.tv_forget);
+        tv_skip = findViewById(R.id.tv_skip);
+        checkboxs = findViewById(R.id.checkboxs);
         mFirebaseAuth = FirebaseAuth.getInstance();
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-        if(SharedPreferenceManager.getInstance(getBaseContext()).getPasswordRemember()){
-            System.out.println("9999999999999999999dd "+SharedPreferenceManager.getInstance(getBaseContext()).get_email());
+        if (SharedPreferenceManager.getInstance(getBaseContext()).getPasswordRemember()) {
+            System.out.println("9999999999999999999dd " + SharedPreferenceManager.getInstance(getBaseContext()).get_email());
             edit_mail.setText(SharedPreferenceManager.getInstance(getBaseContext()).get_email());
             edit_password.setText(SharedPreferenceManager.getInstance(getBaseContext()).getPassword());
             checkboxs.setChecked(true);
@@ -112,9 +117,10 @@ public class LoginActivity extends AppCompatActivity {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(edit_mail.getText().toString()) && !TextUtils.isEmpty(edit_password.getText().toString())){
+                if (!TextUtils.isEmpty(edit_mail.getText().toString()) && !TextUtils.isEmpty(edit_password.getText().toString())) {
                     Login();
-                }else
+
+                } else
                     Toast.makeText(LoginActivity.this, getString(R.string.please_enter_email_password), Toast.LENGTH_SHORT).show();
             }
         });
@@ -174,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void signInWithFacebook(AccessToken token) {
         if (!isNetworkAvailable()) {
             Toast.makeText(LoginActivity.this, getString(R.string.CheckInternet), Toast.LENGTH_SHORT).show();
@@ -198,10 +205,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String name = task.getResult().getUser().getDisplayName();
                                 String email = task.getResult().getUser().getEmail();
                                 String image = task.getResult().getUser().getPhotoUrl().toString();
-                                System.out.println("googgggggle "+uid);
-                                System.out.println("googgggggle "+name);
-                                System.out.println("googgggggle "+email);
-                                System.out.println("googgggggle "+image);
+                                System.out.println("googgggggle " + uid);
+                                System.out.println("googgggggle " + name);
+                                System.out.println("googgggggle " + email);
+                                System.out.println("googgggggle " + image);
                                 SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(uid);
                                 SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(name);
                                 SharedPreferenceManager.getInstance(getBaseContext()).set_email(email);
@@ -209,7 +216,6 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferenceManager.getInstance(getBaseContext()).setLoginType("facebook");
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
-
 
 
                             }
@@ -235,6 +241,7 @@ public class LoginActivity extends AppCompatActivity {
             mProgressDialog.dismiss();
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -248,6 +255,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 //        mFirebaseAuth.signInWithCredential(credential)
@@ -275,16 +283,16 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         } else {
-                         String   uid = task.getResult().getUser().getUid();
+                            String uid = task.getResult().getUser().getUid();
                             String name = task.getResult().getUser().getDisplayName();
                             String email = task.getResult().getUser().getEmail();
                             String phone = task.getResult().getUser().getPhoneNumber();
                             String image = task.getResult().getUser().getPhotoUrl().toString();
-                            System.out.println("googgggggle "+uid);
-                            System.out.println("googgggggle "+name);
-                            System.out.println("googgggggle "+email);
-                            System.out.println("googgggggle "+phone);
-                            System.out.println("googgggggle "+image);
+                            System.out.println("googgggggle " + uid);
+                            System.out.println("googgggggle " + name);
+                            System.out.println("googgggggle " + email);
+                            System.out.println("googgggggle " + phone);
+                            System.out.println("googgggggle " + image);
                             SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(uid);
                             SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(name);
                             SharedPreferenceManager.getInstance(getBaseContext()).set_email(email);
@@ -298,40 +306,39 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
+
     private boolean isNetworkAvailable() {
         // Using ConnectivityManager to check for Network Connection
         ConnectivityManager connectivityManager = (ConnectivityManager) this
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager
-                .getActiveNetworkInfo();
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
         //  return  true;
     }
 
     private void signInGmail() {
         Intent signInIntent = mSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent,RC_SIGN_IN);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     private void Login() {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (getCurrentFocus() != null) {
-            inputMethodManager.hideSoftInputFromWindow(
-                   getCurrentFocus().getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         progressBar.setVisibility(View.VISIBLE);
-        User user = new User(edit_mail.getText().toString(),edit_password.getText().toString());
+        User user = new User(edit_mail.getText().toString(), edit_password.getText().toString());
         Call<Login> call1 = apiInterface.login(user);
         call1.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Login login = response.body();
-                if(login.status.equals(false)) {
+                if (login.status.equals(false)) {
                     Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
-                }else {
+                } else {
                     progressBar.setVisibility(View.GONE);
-                  SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
+                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
                     SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.data.name);
                     SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.data.email);
                     SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);
@@ -340,17 +347,17 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(login.data.countryId);
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
                     SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
-                    System.out.println("tttttttttttttttttt "+login.data.apiToken);
+                    System.out.println("tttttttttttttttttt " + login.data.apiToken);
 
                     List<Role> roles = login.data.roles;
-                    String UserRole="";
+                    String UserRole = "";
                     for (Role datum : roles) {
-                        UserRole=UserRole + datum.name+"&";
+                        UserRole = UserRole + datum.name + "&";
                     }
 
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserType(UserRole);
                     SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
-                    if(checkboxs.isChecked())
+                    if (checkboxs.isChecked())
                         SharedPreferenceManager.getInstance(getBaseContext()).setPasswordRemember(true);
                     else
                         SharedPreferenceManager.getInstance(getBaseContext()).setPasswordRemember(false);
@@ -367,6 +374,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
+                Log.e("LoginActivity", "" + t.getMessage());
                 call.cancel();
             }
         });

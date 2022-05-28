@@ -69,12 +69,12 @@ public class ShowProductActivity extends AppCompatActivity {
     private Toolbar toolbar;
     int productID;
     private SliderLayout sliderLayout;
-    private TextView tv_sala,product_name,product_desc,product_price,tv_rating_num,product_detail;
-    private TextView tv_ref,desc_info,product_count,tv_heart;
+    private TextView tv_sala, product_name, product_desc, product_price, tv_rating_num, product_detail;
+    private TextView tv_ref, desc_info, product_count, tv_heart;
     RatingBar ratingBar2;
     HorizontalListView HorizontalListView;
-    LinearLayout liner_description,rel_add_card_num,rel_add_to_card;
-    ImageView img_roow,img_heart;
+    LinearLayout liner_description, rel_add_card_num, rel_add_to_card;
+    ImageView img_roow, img_heart;
     private SliderAdapterExample adapter;
     SliderView sliderView;
     ProgressBar progressBar2;
@@ -85,7 +85,7 @@ public class ShowProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_review);
         Bundle extras = getIntent().getExtras();
-        productID= extras.getInt("productID");
+        productID = extras.getInt("productID");
         toolbar = findViewById(R.id.home_toolbar);
         sliderLayout = findViewById(R.id.sliderLayout);
         product_name = findViewById(R.id.product_name);
@@ -98,10 +98,10 @@ public class ShowProductActivity extends AppCompatActivity {
         tv_heart = findViewById(R.id.tv_heart);
         img_heart = findViewById(R.id.img_heart);
         progressBar2 = findViewById(R.id.progressBar);
-        ImageView iconBack =toolbar.findViewById(R.id.icon_back);
-        ImageView ic_share =toolbar.findViewById(R.id.icon_share);
-        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
-        tv_sala =toolbar.findViewById(R.id.tv_sala);
+        ImageView iconBack = toolbar.findViewById(R.id.icon_back);
+        ImageView ic_share = toolbar.findViewById(R.id.icon_share);
+        ImageView icon_buy = toolbar.findViewById(R.id.icon_buy);
+        tv_sala = toolbar.findViewById(R.id.tv_sala);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,20 +126,20 @@ public class ShowProductActivity extends AppCompatActivity {
             }
         });
         ic_share.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                        String url=getString(R.string.url)+"/products/"+productID;
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(browserIntent);
-                }
-            });
+            @Override
+            public void onClick(View view) {
+                String url = getString(R.string.url) + "/products/" + productID;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
 
-        rel_add_to_card=findViewById(R.id.rel_add_to_card);
-        CardView card_favorite=findViewById(R.id.card_favorite);
-        CardView card_desc=findViewById(R.id.card_desc);
-        CardView card_rating=findViewById(R.id.card_rating);
-        CardView card_customer_reviews=findViewById(R.id.card_customer_reviews);
-        img_roow=findViewById(R.id.img_roows);
+        rel_add_to_card = findViewById(R.id.rel_add_to_card);
+        CardView card_favorite = findViewById(R.id.card_favorite);
+        CardView card_desc = findViewById(R.id.card_desc);
+        CardView card_rating = findViewById(R.id.card_rating);
+        CardView card_customer_reviews = findViewById(R.id.card_customer_reviews);
+        img_roow = findViewById(R.id.img_roows);
         HorizontalListView = findViewById(R.id.HorizontalListView);
         desc_info = findViewById(R.id.desc_info);
         tv_ref = findViewById(R.id.tv_ref);
@@ -152,36 +152,36 @@ public class ShowProductActivity extends AppCompatActivity {
         card_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+                if (!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
                     Bundle bundle = new Bundle();
                     ReviewSheetFragment reviewSheetFragment = new ReviewSheetFragment();
                     bundle.putInt("productID", productID);
                     reviewSheetFragment.setArguments(bundle);
                     reviewSheetFragment.show(getSupportFragmentManager()
                             , reviewSheetFragment.getTag());
-                }else{
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShowProductActivity.this);
 
-                        builder.setTitle(getString(R.string.sign_in));
-                        builder.setMessage(getString(R.string.login_to_rate));
+                    builder.setTitle(getString(R.string.sign_in));
+                    builder.setMessage(getString(R.string.login_to_rate));
 
-                        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(ShowProductActivity.this, LoginActivity.class));
-                                finish();
-                            }
-                        });
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(ShowProductActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
 
-                        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        AlertDialog alert = builder.create();
-                        alert.show();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
@@ -196,13 +196,13 @@ public class ShowProductActivity extends AppCompatActivity {
         card_desc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(liner_description.getVisibility()==View.VISIBLE) {
+                if (liner_description.getVisibility() == View.VISIBLE) {
                     liner_description.setVisibility(View.GONE);
                     img_roow.setRotation(0);
-                }else{
-                        liner_description.setVisibility(View.VISIBLE);
+                } else {
+                    liner_description.setVisibility(View.VISIBLE);
                     img_roow.setRotation(90);
-                    }
+                }
             }
         });
         sliderView = findViewById(R.id.imageSlider);
@@ -225,36 +225,35 @@ public class ShowProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar2.setVisibility(View.VISIBLE);
-                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
-                    CartParamenter cartParamenter = new CartParamenter(productID, ID);
-                    Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
-                    call1.enqueue(new Callback<CartMain>() {
-                        @SuppressLint("SetTextI18n")
-                        @Override
-                        public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                            CartMain cart = response.body();
-                            if (cart.status){
-                                rel_add_card_num.setVisibility(View.VISIBLE);
-                                rel_add_to_card.setVisibility(View.GONE);
-                                tv_sala.setVisibility(View.VISIBLE);
-                                SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()+1);
-                                tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+                CartParamenter cartParamenter = new CartParamenter(productID, ID);
+                Call<CartMain> call1 = apiInterface.cart(ID, cartParamenter);
+                call1.enqueue(new Callback<CartMain>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+                        CartMain cart = response.body();
+                        if (cart.status) {
+                            rel_add_card_num.setVisibility(View.VISIBLE);
+                            rel_add_to_card.setVisibility(View.GONE);
+                            tv_sala.setVisibility(View.VISIBLE);
+                            SharedPreferenceManager.getInstance(getApplicationContext()).setCartCount(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount() + 1);
+                            tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
 
-                            }
-                            else
-                                Toast.makeText(ShowProductActivity.this, cart.message, Toast.LENGTH_SHORT).show();
-                            progressBar2.setVisibility(View.GONE);
-                        }
+                        } else
+                            Toast.makeText(ShowProductActivity.this, cart.message, Toast.LENGTH_SHORT).show();
+                        progressBar2.setVisibility(View.GONE);
+                    }
 
-                        @Override
-                        public void onFailure(Call<CartMain> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<CartMain> call, Throwable t) {
 //                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                            progressBar2.setVisibility(View.GONE);
-                            call.cancel();
-                        }
-                    });
-    }
+                        progressBar2.setVisibility(View.GONE);
+                        call.cancel();
+                    }
+                });
+            }
         });
         relative_plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,48 +261,68 @@ public class ShowProductActivity extends AppCompatActivity {
                 @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                         Settings.Secure.ANDROID_ID);
                 CartParamenter cartParamenter = new CartParamenter(productID, ID);
-                Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
-
+                Call<CartMain> call1 = apiInterface.cart(ID, cartParamenter);
+                progressBar2.setVisibility(View.VISIBLE);
+                relative_plus.setEnabled(false);
+                relative_minus.setEnabled(false);
                 call1.enqueue(new Callback<CartMain>() {
                     @Override
                     public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                         CartMain cart = response.body();
-                        System.out.println("7878788888888888 "+cart.status);
-                        if (cart.status){
-                            int pCount= Integer.parseInt(product_count.getText().toString());
+                        System.out.println("7878788888888888 " + cart.status);
+                        if (cart.status) {
+                            int pCount = Integer.parseInt(product_count.getText().toString());
                             pCount++;
-                            product_count.setText(""+pCount);
-                        }else
-                            Toast.makeText(ShowProductActivity.this, ""+cart.message, Toast.LENGTH_SHORT).show();
+                            product_count.setText("" + pCount);
+                            if (call1.isExecuted()) {
+                                progressBar2.setVisibility(View.GONE);
+                                relative_plus.setEnabled(true);
+                                relative_minus.setEnabled(true);
+                            }
+                        } else {
+                            Toast.makeText(ShowProductActivity.this, "" + cart.message, Toast.LENGTH_SHORT).show();
+                        }
+
 
                     }
+
                     @Override
                     public void onFailure(Call<CartMain> call, Throwable t) {
-                        System.out.println("7878788888888888 "+t.getMessage());
+                        System.out.println("7878788888888888 " + t.getMessage());
                         call.cancel();
                     }
                 });
+
+
             }
 
         });
         relative_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Integer.parseInt(product_count.getText().toString())>1){
+                if (Integer.parseInt(product_count.getText().toString()) > 1) {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
-                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(productID, ID,1,"delete");
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(productID, ID, 1, "delete");
                     Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
+                    progressBar2.setVisibility(View.VISIBLE);
+                    relative_plus.setEnabled(false);
+                    relative_minus.setEnabled(false);
                     call1.enqueue(new Callback<CartMain>() {
                         @Override
                         public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                             CartMain cart = response.body();
-                            if (cart.status){
-                                int pCount= Integer.parseInt(product_count.getText().toString());
+                            if (cart.status) {
+                                int pCount = Integer.parseInt(product_count.getText().toString());
                                 pCount--;
-                                product_count.setText(""+pCount);
-                            }else
-                                Toast.makeText(ShowProductActivity.this, ""+cart.message, Toast.LENGTH_SHORT).show();
+                                product_count.setText("" + pCount);
+                                if (call1.isExecuted()) {
+                                    progressBar2.setVisibility(View.GONE);
+                                    relative_plus.setEnabled(true);
+                                    relative_minus.setEnabled(true);
+                                }
+                            } else
+                                Toast.makeText(ShowProductActivity.this, "" + cart.message, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -321,7 +340,7 @@ public class ShowProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar2.setVisibility(View.VISIBLE);
-                if(tv_heart.getText().toString().equals("false")){
+                if (tv_heart.getText().toString().equals("false")) {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
                     CartParamenter cartParamenter = new CartParamenter(productID, ID);
@@ -334,7 +353,7 @@ public class ShowProductActivity extends AppCompatActivity {
                             if (favorite.status) {
                                 img_heart.setImageResource(R.drawable.ic_heart_on);
                                 tv_heart.setText("true");
-                            }else
+                            } else
                                 Toast.makeText(ShowProductActivity.this, favorite.message, Toast.LENGTH_SHORT).show();
                             progressBar2.setVisibility(View.GONE);
                         }
@@ -346,11 +365,10 @@ public class ShowProductActivity extends AppCompatActivity {
                             call.cancel();
                         }
                     });
-                }
-                else{
+                } else {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
-                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(productID, ID,1,"delete");
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(productID, ID, 1, "delete");
                     Call<FavoriteMain> call1 = apiInterface.favoriteRemove(cartRemoveParamenter);
                     call1.enqueue(new Callback<FavoriteMain>() {
                         @SuppressLint("SetTextI18n")
@@ -360,7 +378,7 @@ public class ShowProductActivity extends AppCompatActivity {
                             if (favorite.status) {
                                 img_heart.setImageResource(R.drawable.ic_heart);
                                 tv_heart.setText("false");
-                            }else
+                            } else
                                 Toast.makeText(ShowProductActivity.this, favorite.message, Toast.LENGTH_SHORT).show();
                             progressBar2.setVisibility(View.GONE);
                         }
@@ -376,6 +394,7 @@ public class ShowProductActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getProductDetails() {
         progressBar2.setVisibility(View.VISIBLE);
         Call<ShowProduct> callNew = apiInterface.productDetails(productID);
@@ -383,12 +402,12 @@ public class ShowProductActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<ShowProduct> callNew, Response<ShowProduct> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111", response.code() + "");
                 ShowProduct resource = response.body();
-                if(resource.status){
-                    productID=resource.data.id;
-                    if(resource.data.category!=null)
-                         product_name.setText(""+resource.data.category.name);
+                if (resource.status) {
+                    productID = resource.data.id;
+                    if (resource.data.category != null)
+                        product_name.setText("" + resource.data.category.name);
                     product_desc.setText(resource.data.name);
                     desc_info.setText(resource.data.name);
                     product_detail.setText(resource.data.description);
@@ -406,7 +425,7 @@ public class ShowProductActivity extends AppCompatActivity {
 //                            onClikMostwanted(view,newProduct,i);
 //                        }
 //                    });
-                    LinearLayoutManager layoutManager2= new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
+                    LinearLayoutManager layoutManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                     recyclerViewNewProduct.setLayoutManager(layoutManager2);
                     List<NewProduct> datumListNew = resource.data.similarProducts;
                     RecyclerNewProductAdapter adapterNew = new RecyclerNewProductAdapter(getApplicationContext(), datumListNew);
@@ -416,41 +435,42 @@ public class ShowProductActivity extends AppCompatActivity {
                     List<SliderItem> sliderItemList = new ArrayList<>();
                     for (Image datum : slid) {
                         SliderItem sliderItem = new SliderItem();
-                            sliderItem.setImageUrl(datum.image);
+                        sliderItem.setImageUrl(datum.image);
                         sliderItemList.add(sliderItem);
                     }
                     adapter.renewItems(sliderItemList);
-                    System.out.println("VVVDDDDDDDDDD "+resource.data.isCart);
-                    if(resource.data.isFavorite){
+                    System.out.println("VVVDDDDDDDDDD " + resource.data.isCart);
+                    if (resource.data.isFavorite) {
                         img_heart.setImageResource(R.drawable.ic_heart_on);
                         tv_heart.setText("true");
-                }else{
+                    } else {
                         img_heart.setImageResource(R.drawable.ic_heart);
                         tv_heart.setText("false");
-                }
-                    if(resource.data.isCart!=null){
+                    }
+                    if (resource.data.isCart != null) {
                         rel_add_card_num.setVisibility(View.VISIBLE);
                         rel_add_to_card.setVisibility(View.GONE);
                         product_count.setText(String.valueOf(resource.data.isCart.qty));
-                    }else {
+                    } else {
                         rel_add_card_num.setVisibility(View.GONE);
                         rel_add_to_card.setVisibility(View.VISIBLE);
                     }
                     List<ShowProduct.Data.ProductDetail> productDetails = resource.data.productDetails;
-                    String details="";
+                    String details = "";
                     for (ShowProduct.Data.ProductDetail datum : productDetails) {
-                        details=details+"key:"+ datum.key+" value:"+ datum.value+" unit:"+ datum.unit+" price:"+ datum.price+" \n";
+                        details = details + "key:" + datum.key + " value:" + datum.value + " unit:" + datum.unit + " price:" + datum.price + " \n";
                     }
                     tv_ref.setText(details);
-                }else
+                } else
                     Toast.makeText(ShowProductActivity.this, resource.message, Toast.LENGTH_SHORT).show();
 
                 progressBar2.setVisibility(View.GONE);
 
             }
+
             @Override
             public void onFailure(Call<ShowProduct> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.d("TAG111111", "  e " + t.getMessage());
                 progressBar2.setVisibility(View.GONE);
 
             }
@@ -458,7 +478,7 @@ public class ShowProductActivity extends AppCompatActivity {
         });
     }
 
-    void  onClikMostwanted(View view, List<NewProduct> mosted, int i){
+    void onClikMostwanted(View view, List<NewProduct> mosted, int i) {
         TextView text_add = (TextView) view.findViewById(R.id.text_add);
         TextView tv_heart = (TextView) view.findViewById(R.id.tv_heart);
         ImageView img_heart = (ImageView) view.findViewById(R.id.img_heart);
@@ -482,11 +502,11 @@ public class ShowProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar2.setVisibility(View.VISIBLE);
-                if(text_add.getText().equals(getString(R.string.add_to_cart))) {
+                if (text_add.getText().equals(getString(R.string.add_to_cart))) {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
                     CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
-                    Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
+                    Call<CartMain> call1 = apiInterface.cart(ID, cartParamenter);
                     call1.enqueue(new Callback<CartMain>() {
                         @Override
                         public void onResponse(Call<CartMain> call, Response<CartMain> response) {
@@ -505,11 +525,10 @@ public class ShowProductActivity extends AppCompatActivity {
                             call.cancel();
                         }
                     });
-                }
-                else{
+                } else {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
-                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID, 1, "delete");
                     Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
                     call1.enqueue(new Callback<CartMain>() {
                         @Override
@@ -537,7 +556,7 @@ public class ShowProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar2.setVisibility(View.VISIBLE);
-                if(tv_heart.getText().toString().equals("false")){
+                if (tv_heart.getText().toString().equals("false")) {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
                     CartParamenter cartParamenter = new CartParamenter(mosted.get(i).id, ID);
@@ -550,7 +569,7 @@ public class ShowProductActivity extends AppCompatActivity {
                             if (favorite.status) {
                                 img_heart.setImageResource(R.drawable.ic_heart_on);
                                 tv_heart.setText("true");
-                            }else
+                            } else
                                 Toast.makeText(ShowProductActivity.this, favorite.message, Toast.LENGTH_SHORT).show();
                             progressBar2.setVisibility(View.VISIBLE);
                         }
@@ -562,11 +581,10 @@ public class ShowProductActivity extends AppCompatActivity {
                             call.cancel();
                         }
                     });
-                }
-                else{
+                } else {
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                             Settings.Secure.ANDROID_ID);
-                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID,1,"delete");
+                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(mosted.get(i).id, ID, 1, "delete");
                     Call<FavoriteMain> call1 = apiInterface.favoriteRemove(cartRemoveParamenter);
                     call1.enqueue(new Callback<FavoriteMain>() {
                         @SuppressLint("SetTextI18n")
@@ -576,7 +594,7 @@ public class ShowProductActivity extends AppCompatActivity {
                             if (favorite.status) {
                                 img_heart.setImageResource(R.drawable.ic_heart);
                                 tv_heart.setText("false");
-                            }else
+                            } else
                                 Toast.makeText(ShowProductActivity.this, favorite.message, Toast.LENGTH_SHORT).show();
                             progressBar2.setVisibility(View.GONE);
                         }
@@ -593,17 +611,19 @@ public class ShowProductActivity extends AppCompatActivity {
         });
         getCartsCount();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         getProductDetails();
         getCartsCount();
     }
+
     private void getCartsCount() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        System.out.println("KKKKKKKKKKKKK12223 "+ID);
-        Call<CartMain2> callNew = apiInterface.doGetListCart(ID,"android");
+        System.out.println("KKKKKKKKKKKKK12223 " + ID);
+        Call<CartMain2> callNew = apiInterface.doGetListCart(ID, "android");
         callNew.enqueue(new Callback<CartMain2>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -617,6 +637,7 @@ public class ShowProductActivity extends AppCompatActivity {
                 }
 
             }
+
             @Override
             public void onFailure(Call<CartMain2> call, Throwable t) {
             }

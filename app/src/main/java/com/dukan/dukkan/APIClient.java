@@ -3,6 +3,8 @@ package com.dukan.dukkan;
 import android.content.Context;
 
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
@@ -47,11 +49,11 @@ public class APIClient {
                 return chain.proceed(newRequest);
             }
         }).build();
-
+        Gson gson =new GsonBuilder().setLenient().create();
          retrofit = new Retrofit.Builder()
                 .client(client2)
                 .baseUrl(context.getString(R.string.url))
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         return retrofit;

@@ -131,7 +131,16 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                 if (cart.status) {
                     datumList = cart.data.carts;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerCartsAdapter adapter = new RecyclerCartsAdapter(getApplicationContext(), datumList);
+                    RecyclerCartsAdapter adapter = new RecyclerCartsAdapter(getApplicationContext(), datumList, new RecyclerCartsAdapter.onProgressChangeState() {
+                        @Override
+                        public void onProgress(boolean result) {
+                            if (result){
+                                progressBar.setVisibility(View.VISIBLE);
+                            }else {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                     recyclerView.setAdapter(adapter);
                     tv_total_price.setText(Float.toString(cart.data.cartTotal));
                     tv_num_products.setText(Integer.toString(datumList.size()));

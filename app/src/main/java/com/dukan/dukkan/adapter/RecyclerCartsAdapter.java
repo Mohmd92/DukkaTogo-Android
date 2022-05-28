@@ -35,23 +35,30 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
     List<Cart> mValues;
     Context mContext;
     private ItemClickListener clickListener;
+    private onProgressChangeState changeState;
     APIInterface apiInterface;
 
-    public RecyclerCartsAdapter(Context context, List<Cart> values) {
+    public RecyclerCartsAdapter(Context context, List<Cart> values, onProgressChangeState changeState) {
 
         mValues = values;
         mContext = context;
 //        mListener=itemListener;
+        this.changeState = changeState;
+    }
+
+    public interface onProgressChangeState {
+        void onProgress(boolean result);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         Cart item;
-        TextView product_name,product_count,product_price;
-        ImageView image,product_color;
-        RelativeLayout relative_plus,relative_minus,relative_delete;
+        TextView product_name, product_count, product_price;
+        ImageView image, product_color;
+        RelativeLayout relative_plus, relative_minus, relative_delete;
 
         public RelativeLayout relative;
+
         public ViewHolder(View v) {
             super(v);
             apiInterface = APIClient.getClient(mContext).create(APIInterface.class);
@@ -66,15 +73,16 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
             relative_delete = v.findViewById(R.id.relative_delete);
 
         }
+
         public void setData(Cart item) {
             this.item = item;
-            if(item.product!=null) {
+            if (item.product != null) {
                 if (item.product.name.length() > 24)
                     product_name.setText(item.product.name.substring(0, 24) + "...");
                 else
                     product_name.setText(item.product.name);
 
-                product_price.setText(""+item.product.price);
+                product_price.setText("" + item.product.price);
                 product_count.setText(Integer.toString(item.qty));
                 Picasso.get()
                         .load(item.product.image)
@@ -89,28 +97,32 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
                     @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
                             Settings.Secure.ANDROID_ID);
                     CartParamenter cartParamenter = new CartParamenter(item.product.id, ID);
-                    Call<CartMain> call1 = apiInterface.cart(ID,cartParamenter);
-
+                    Call<CartMain> call1 = apiInterface.cart(ID, cartParamenter);
+                    startProgress();
                     call1.enqueue(new Callback<CartMain>() {
                         @Override
                         public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                             CartMain cart = response.body();
-                            System.out.println("7878788888888888 "+cart.status);
-                            if (cart.status){
-                                int pCount= Integer.parseInt(product_count.getText().toString());
+                            System.out.println("7878788888888888 " + cart.status);
+                            if (cart.status) {
+                                int pCount = Integer.parseInt(product_count.getText().toString());
                                 pCount++;
-                               product_count.setText(""+pCount);
+                                product_count.setText("" + pCount);
                                 TextView tv_total_price = (TextView) CartActivity.tv_total_price;
-                                float pTotal= Integer.parseInt(tv_total_price.getText().toString());
-                                pTotal=pTotal+item.product.price;
-                                tv_total_price.setText(""+pTotal);
-                            }else
-                                Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
+                                float pTotal = Float.parseFloat(tv_total_price.getText().toString());
+                                pTotal = pTotal + item.product.price;
+                                tv_total_price.setText("" + pTotal);
+                                if (call1.isExecuted()) {
+                                    stopProgress();
+                                }
+                            } else
+                                Toast.makeText(mContext, "" + cart.message, Toast.LENGTH_SHORT).show();
 
                         }
+
                         @Override
                         public void onFailure(Call<CartMain> call, Throwable t) {
-                            System.out.println("7878788888888888 "+t.getMessage());
+                            System.out.println("7878788888888888 " + t.getMessage());
                             call.cancel();
                         }
                     });
@@ -120,63 +132,74 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
             relative_minus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Integer.parseInt(product_count.getText().toString())>1){
-                    @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
-                    CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID,1,"delete");
-                    Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
-                    call1.enqueue(new Callback<CartMain>() {
-                        @Override
-                        public void onResponse(Call<CartMain> call, Response<CartMain> response) {
-                            CartMain cart = response.body();
-                            if (cart.status){
-                                int pCount= Integer.parseInt(product_count.getText().toString());
-                                pCount--;
-                                product_count.setText(""+pCount);
-                                TextView tv_total_price = (TextView) CartActivity.tv_total_price;
-                                float pTotal= Integer.parseInt(tv_total_price.getText().toString());
-                                pTotal=pTotal-item.product.price;
-                                tv_total_price.setText(""+pTotal);
-                            }else
-                                Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
-                        }
+                    if (Integer.parseInt(product_count.getText().toString()) > 1) {
+                        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
+                        CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID, 1, "delete");
+                        Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
+                        startProgress();
+                        call1.enqueue(new Callback<CartMain>() {
+                            @Override
+                            public void onResponse(Call<CartMain> call, Response<CartMain> response) {
+                                CartMain cart = response.body();
+                                if (cart.status) {
+                                    int pCount = Integer.parseInt(product_count.getText().toString());
+                                    pCount--;
 
-                        @Override
-                        public void onFailure(Call<CartMain> call, Throwable t) {
+                                    product_count.setText("" + pCount);
+                                    TextView tv_total_price = (TextView) CartActivity.tv_total_price;
+                                    float pTotal = Float.parseFloat(tv_total_price.getText().toString());
+                                    pTotal = pTotal - item.product.price;
+                                    tv_total_price.setText("" + pTotal);
+                                    if (call.isExecuted()){
+                                        relative_plus.setEnabled(true);
+                                        relative_minus.setEnabled(true);
+                                        changeState.onProgress(false);
+                                    }
+                                } else
+                                    Toast.makeText(mContext, "" + cart.message, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<CartMain> call, Throwable t) {
 //                            Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show();
-                            call.cancel();
-                        }
-                    });
-                }
+                                call.cancel();
+                            }
+                        });
+                    }
                 }
 
             });
             relative_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Integer.parseInt(product_count.getText().toString())>1){
+                    changeState.onProgress(true);
+                    if (Integer.parseInt(product_count.getText().toString()) > 1) {
                         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
                                 Settings.Secure.ANDROID_ID);
-                        CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID,item.qty,"delete");
+                        CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID, item.qty, "delete");
                         Call<CartMain> call1 = apiInterface.cartRemove(cartRemoveParamenter);
                         call1.enqueue(new Callback<CartMain>() {
                             @Override
                             public void onResponse(Call<CartMain> call, Response<CartMain> response) {
                                 CartMain cart = response.body();
-                                System.out.println("resssssssssssss "+response.body().message);
-                                if (cart.status){
+                                System.out.println("resssssssssssss " + response.body().message);
+                                if (cart.status) {
                                     TextView tv_total_price = (TextView) CartActivity.tv_total_price;
 
-                                    tv_total_price.setText(""+cart.data.cartTotal);
+                                    tv_total_price.setText("" + cart.data.cartTotal);
 
                                     TextView tv_num_products = (TextView) CartActivity.tv_num_products;
-                                    int pCount= Integer.parseInt(tv_num_products.getText().toString());
+                                    int pCount = Integer.parseInt(tv_num_products.getText().toString());
                                     pCount--;
-                                    tv_num_products.setText(""+pCount);
+                                    tv_num_products.setText("" + pCount);
 
                                     removeAt(getAdapterPosition());
-                                }else
-                                    Toast.makeText(mContext, ""+cart.message, Toast.LENGTH_SHORT).show();
+                                    if (call1.isExecuted()){
+                                        changeState.onProgress(false);
+                                    }
+                                } else
+                                    Toast.makeText(mContext, "" + cart.message, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -250,6 +273,19 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
 
             });
         }
+
+        private void stopProgress() {
+            relative_plus.setEnabled(true);
+            relative_minus.setEnabled(true);
+            changeState.onProgress(false);
+        }
+
+        private void startProgress() {
+            relative_plus.setEnabled(false);
+            relative_minus.setEnabled(false);
+            changeState.onProgress(true);
+        }
+
         @Override
         public void onClick(View view) {
         }
@@ -262,6 +298,7 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
 
         return new ViewHolder(view);
     }
+
     public void setClickListener(ItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
@@ -271,17 +308,22 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
         Vholder.setData(mValues.get(position));
 
     }
+
     public void removeAt(int position) {
         mValues.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mValues.size());
     }
+
     @Override
     public int getItemCount() {
 
         return mValues.size();
     }
+
     public interface ItemClickListener {
         void onClick(View view, int position);
     }
+
+
 }

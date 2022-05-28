@@ -54,11 +54,12 @@
                 android:textAllCaps="true"
                 android:textColor="@color/blackTheme_colorBackground"
                 android:textSize="22sp" />
+
             <com.smarteist.autoimageslider.SliderView
-                android:layout_marginTop="20dp"
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
+                android:layout_marginTop="20dp"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
@@ -72,15 +73,16 @@
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="1"
                 app:sliderStartAutoCycle="true" />
+
             <view
-                android:visibility="gone"
-                android:background="@android:color/transparent"
                 android:id="@+id/sliderLayout"
                 class="com.yihsian.slider.library.SliderLayout"
                 id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:visibility="gone" />
         </LinearLayout>
 
     </FrameLayout>
@@ -208,77 +210,87 @@
                         android:layout_weight="3"
                         android:background="@drawable/button55"
                         android:gravity="center">
-                <LinearLayout
-                    android:visibility="gone"
-                    android:id="@+id/rel_add_card_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/button55"
-                        android:gravity="center">
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp">
-                        <RelativeLayout
-                            android:id="@+id/relative_plus"
-                            android:gravity="center"
+
+                        <LinearLayout
+                            android:id="@+id/rel_add_card_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/button12p"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:src="@drawable/ic_plus" />
-                        </RelativeLayout>
-                        <View
-                            android:layout_gravity="center_vertical"
-                            android:background="@color/white"
-                            android:layout_width="1dp"
-                            android:layout_height="30dp"/>
-                        <TextView
-                            android:text="01"
-                            android:id="@+id/product_count"
-                            android:background="@drawable/button12m"
+                            android:background="@drawable/button55"
                             android:gravity="center"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/abudhbi_bold"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
-                        <View
-                            android:layout_gravity="center_vertical"
-                            android:background="@color/white"
-                            android:layout_width="1dp"
-                            android:layout_height="30dp"/>
-                        <RelativeLayout
-                            android:id="@+id/relative_minus"
-                            android:gravity="center"
-                            android:layout_gravity="center"
-                            android:background="@drawable/button12m"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent">
-                            <ImageView
-                                android:src="@drawable/ic_minus"
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"/>
-                        </RelativeLayout>
+                            android:visibility="gone">
 
-                    </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:id="@+id/relative_plus"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/button12p"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:src="@drawable/ic_plus" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/product_count"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="4"
+                                    android:background="@drawable/button12m"
+                                    android:fontFamily="@font/abudhbi_bold"
+                                    android:gravity="center"
+                                    android:text="01"
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@color/white" />
+
+                                <RelativeLayout
+                                    android:id="@+id/relative_minus"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/button12m"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:src="@drawable/ic_minus" />
+                                </RelativeLayout>
+
+                            </LinearLayout>
 
 
-                </LinearLayout>
+                        </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/rel_add_to_card"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
+                            android:visibility="visible"
                             android:background="@drawable/button55"
                             android:gravity="center">
 
@@ -298,23 +310,26 @@
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </RelativeLayout>
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_rating"
-                        android:background="@drawable/button3113"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button3113"
                         app:cardCornerRadius="5dp"
                         app:cardElevation="2dp"
                         app:contentPadding="0dp">
+
                         <ImageView
-                            android:layout_gravity="center"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_star"/>
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_star" />
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_favorite"
                         android:layout_width="0dp"
@@ -325,11 +340,12 @@
                         app:cardCornerRadius="5dp"
                         app:cardElevation="2dp"
                         app:contentPadding="0dp">
+
                         <TextView
                             android:id="@+id/tv_heart"
-                            android:visibility="gone"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
 
                         <ImageView
                             android:id="@+id/img_heart"
@@ -358,11 +374,11 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:layout_marginStart="5dp"
                             android:id="@+id/text1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginStart="5dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/abudhbi_bold"
@@ -372,32 +388,32 @@
 
                         <ImageView
                             android:id="@+id/img_roows"
-                            android:layout_marginEnd="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_gravity="end|center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
                             android:rotation="90"
                             android:src="@drawable/ic_next"
                             android:tint="@color/text_dark" />
 
                         <LinearLayout
-                            android:layout_marginStart="10dp"
                             android:id="@+id/liner_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/text1"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:orientation="vertical"
                             android:visibility="gone">
 
                             <View
-                                android:layout_marginEnd="10dp"
                                 android:id="@+id/viewss1"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
+                                android:layout_marginEnd="10dp"
                                 android:background="@color/countss" />
 
                             <TextView
@@ -421,12 +437,12 @@
                                 android:textSize="13sp" />
 
                             <TextView
-                                android:layout_marginEnd="30dp"
                                 android:id="@+id/tv_ref"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="7dp"
+                                android:layout_marginEnd="30dp"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="@font/abudhbi_regular"
                                 android:gravity="center_vertical"
@@ -448,21 +464,21 @@
                     app:contentPadding="0dp">
 
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/abudhbi_bold"
                         android:text="@string/customer_reviews"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
 
                     <ImageView
-                        android:layout_marginEnd="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_next"
                         android:tint="@color/text_dark" />
                 </androidx.cardview.widget.CardView>
@@ -478,32 +494,34 @@
                     android:textSize="15sp" />
 
                 <com.dukan.dukkan.util.HorizontalListView
-                    android:visibility="gone"
                     android:id="@+id/HorizontalListView"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="430dp"
+                    android:visibility="gone"
                     tools:ignore="RtlSymmetry" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginBottom="430dp"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/recyclerViewNewProduct"
                     android:layout_width="match_parent"
-                    android:scrollbars="vertical"
                     android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="430dp"
                     android:paddingStart="20dp"
+                    android:scrollbars="vertical"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
     <ProgressBar
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
