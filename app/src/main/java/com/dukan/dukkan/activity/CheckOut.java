@@ -43,14 +43,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CheckOut extends AppCompatActivity {
-    TextView tv_address_name,tv_change,tv_address,tv_name,tv_mobile,tv_total,tv_total_price,tv_delivery_fee;
-    ImageView check1,check2;
-    Boolean checkOne=true;
+    TextView tv_address_name, tv_change, tv_address, tv_name, tv_mobile, tv_total, tv_total_price, tv_delivery_fee;
+    ImageView check1, check2;
+    Boolean checkOne = true;
     ProgressBar progressBar;
     APIInterface apiInterface;
     RecyclerView recyclerView;
     int address_id;
-    boolean isFirst=true;
+    boolean isFirst = true;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +71,13 @@ public class CheckOut extends AppCompatActivity {
         tv_delivery_fee = findViewById(R.id.tv_delivery_fee);
         check1 = findViewById(R.id.check1);
         check2 = findViewById(R.id.check2);
-        recyclerView =  findViewById(R.id.recyclerView);
-        RelativeLayout rel_cash =  findViewById(R.id.rel_cash);
-        RelativeLayout rel_card =  findViewById(R.id.rel_card);
-        Button checkout_button =  findViewById(R.id.checkout_button);
-        Button redeem_points_button =  findViewById(R.id.redeem_points_button);
+        recyclerView = findViewById(R.id.recyclerView);
+        RelativeLayout rel_cash = findViewById(R.id.rel_cash);
+        RelativeLayout rel_card = findViewById(R.id.rel_card);
+        Button checkout_button = findViewById(R.id.checkout_button);
+        Button redeem_points_button = findViewById(R.id.redeem_points_button);
 
-        ImageView img_back =  findViewById(R.id.img_back);
+        ImageView img_back = findViewById(R.id.img_back);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,18 +99,19 @@ public class CheckOut extends AppCompatActivity {
         });
         CheckOuts();
     }
+
     private void CheckOuts() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("IDIDIDIDIDID "+ID);
-        Call<CheckOuts> callNew = apiInterface.DoCheckOut(ID,"android");
+        System.out.println("IDIDIDIDIDID " + ID);
+        Call<CheckOuts> callNew = apiInterface.DoCheckOut(ID, "android");
         callNew.enqueue(new Callback<CheckOuts>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<CheckOuts> callNew, Response<CheckOuts> response) {
                 CheckOuts cart = response.body();
-                if (cart.status){
+                if (cart.status) {
                     tv_total_price.setText(String.valueOf(cart.data.cartTotal));
                     tv_delivery_fee.setText(String.valueOf(cart.data.deliveryPrice));
                     tv_total.setText(String.valueOf(cart.data.total));
@@ -118,71 +120,83 @@ public class CheckOut extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     List<AddressData> slid = cart.data.addresses;
                     for (AddressData datum : slid) {
-                        address_id=datum.id;
+                        address_id = datum.id;
                         tv_name.setText(datum.name);
                         tv_address.setText(datum.location);
                         tv_mobile.setText(datum.mobile);
                     }
-                }
-                else
+                } else
                     Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
-                isFirst=false;
+                isFirst = false;
             }
+
             @Override
             public void onFailure(Call<CheckOuts> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                isFirst=false;
+                isFirst = false;
             }
 
         });
     }
+
     private void CreateOrders() {
 
 //        Toast.makeText(this, address_id + " ... " +/, Toast.LENGTH_SHORT).show();
-        if(SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId()!=-1){
-        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        progressBar.setVisibility(View.VISIBLE);
-        System.out.println("IDIDIDIDIDID "+ID);
-        Call<CheckOutCart> callNew = apiInterface.CreateOrderCart(address_id, SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId(),ID,"android");
-        callNew.enqueue(new Callback<CheckOutCart>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
-                CheckOutCart cart = response.body();
-                if (cart.status) {
-                    Toast.makeText(CheckOut.this, getString(R.string.thank_for_order), Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(CheckOut.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }else
-                    Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+        if (SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId() != -1) {
+            @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            progressBar.setVisibility(View.VISIBLE);
+            System.out.println("IDIDIDIDIDID " + ID);
+            Call<CheckOutCart> callNew = apiInterface.CreateOrderCart(address_id, SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId(), ID, "android");
+            callNew.enqueue(new Callback<CheckOutCart>() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
+                    CheckOutCart cart = response.body();
+                    if (cart != null) {
+                        if (cart.status) {
+                            Toast.makeText(CheckOut.this, getString(R.string.thank_for_order), Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(CheckOut.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
 
-            }
-            @Override
-            public void onFailure(Call<CheckOutCart> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-            }
+                            Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    } else {
+                        progressBar.setVisibility(View.GONE);
 
-        });
-    }else
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<CheckOutCart> call, Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            });
+
+        } else {
             Toast.makeText(CheckOut.this, R.string.select_payment_method, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     protected void onResume() {
-        if(!isFirst){
-              if(!SharedPreferenceManager.getInstance(getBaseContext()).getSelectedAddress().equals(""))
-              {
-                  String[] SelectedAddress =  SharedPreferenceManager.getInstance(getBaseContext()).getSelectedAddress().split("&");
-                    address_id=Integer.parseInt(SelectedAddress[0]);
-                    tv_name.setText(SelectedAddress[1]);
-                    tv_address.setText(SelectedAddress[2]);
-                    tv_mobile.setText(SelectedAddress[3]);
-                    tv_address_name.setText(SelectedAddress[4]);
-              }
+        if (!isFirst) {
+            if (!SharedPreferenceManager.getInstance(getBaseContext()).getSelectedAddress().equals("")) {
+                String[] SelectedAddress = SharedPreferenceManager.getInstance(getBaseContext()).getSelectedAddress().split("&");
+                address_id = Integer.parseInt(SelectedAddress[0]);
+                tv_name.setText(SelectedAddress[1]);
+                tv_address.setText(SelectedAddress[2]);
+                tv_mobile.setText(SelectedAddress[3]);
+                tv_address_name.setText(SelectedAddress[4]);
+            }
         }
         super.onResume();
     }
