@@ -205,7 +205,7 @@
     <string name="name">Name</string>
     <string name="please_wait">Please wait ....</string>
     <string name="facebook_app_id">1010083496266258</string> <string name="fb_login_protocol_scheme">fb163958234165942</string>
-    <string name="url">https://duekkantogo.de</string>
+    <string name="url">https://duekkantogo.de/api/v1/stores</string>
     <string name="search">Search</string>
     <string name="all">All</string>
     <string name="total_price_for">Total Price For</string>
