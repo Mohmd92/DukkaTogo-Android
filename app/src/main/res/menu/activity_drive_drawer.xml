@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_buy"
             android:title="@string/store_need_delivery" />
         <item
+            android:id="@+id/nav_store_invite"
+            android:icon="@drawable/ic_buy"
+            android:title="@string/store_invite_delivery" />
+        <item
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_chart"
             android:title="@string/statistics" />

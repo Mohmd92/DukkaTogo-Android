@@ -268,6 +268,7 @@
             android:layout_height="45dp"/>
     </LinearLayout>
     </LinearLayout>
+
     <ProgressBar
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -277,4 +278,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
+    <Button
+        android:visibility="gone"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/abudhbi_bold"
+        android:layout_marginTop="30dp"
+        android:id="@+id/invite_button"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:text="@string/invite"
+        android:background="@drawable/button33"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

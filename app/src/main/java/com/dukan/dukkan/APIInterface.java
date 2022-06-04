@@ -25,6 +25,7 @@ import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MultipleProducts;
 import com.dukan.dukkan.pojo.MultipleResource;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.Notifications;
 import com.dukan.dukkan.pojo.Order;
 import com.dukan.dukkan.pojo.OrderStatistics;
 import com.dukan.dukkan.pojo.OrderToDelevey;
@@ -37,6 +38,8 @@ import com.dukan.dukkan.pojo.RateStore;
 import com.dukan.dukkan.pojo.RateStoreParameter;
 import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
+import com.dukan.dukkan.pojo.Request;
+import com.dukan.dukkan.pojo.RequestStatus;
 import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
@@ -50,6 +53,7 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -83,6 +87,10 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/pages")
     Call<Privacy> getPrivacyList();
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/requests")
+    Call<Request> getRequests();
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
@@ -134,6 +142,12 @@ public interface APIInterface {
     @POST("/api/v1/address")
     Call<Address> AddAddress(@Field("name") String name, @Field("location") String location,@Query("device_id") String device_id, @Query("os") String os);
 
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/request_delivery_status")
+    Call<RequestStatus> RequestDeliveryStatus(@Field("request_id") int request_id, @Field("status") String status);
+
+
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/address/{id}")
     Call<Address> DeleteAddress(@Path("id") int id, @Query("device_id") String device_id, @Query("os") String os);
@@ -173,12 +187,24 @@ public interface APIInterface {
     Call<ShowOrder> OrderDetails(@Path("id") int id, @Query("merchant") String merchant, @Query("delivery") String delivery, @Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @DELETE("/api/v1/orders/{id}")
+    Call<ShowOrder> OrderReject(@Path("id") int id);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/users")
     Call<Driver> GetDrivers(@Query("store_id") String store_id , @Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/request_delivery")
+    Call<RequestStatus> RequestDelivery(@Query("delivery_id") int delivery_id);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/checkout")
     Call<CheckOuts> DoCheckOut(@Query("device_id") String device_id, @Query("os") String os);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/notifications")
+    Call<Notifications> getNotifications();
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/orders/{id}")

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -57,6 +58,7 @@ public class DriveFragment extends Fragment {
     TextView tv_last_seen,tv_time_req;
     RecyclerView recyclerView;
     ImageView image_Derive;
+    boolean isFirst=true;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.content_main_driver, container, false);
@@ -86,6 +88,7 @@ public class DriveFragment extends Fragment {
                 .into(image_Derive);
     }
     private void getOrders() {
+
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
@@ -99,6 +102,7 @@ public class DriveFragment extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     RecyclerDriverOrderAdapter adapter = new RecyclerDriverOrderAdapter(getActivity(), datumList);
                     recyclerView.setAdapter(adapter);
+                    isFirst=false;
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -108,5 +112,15 @@ public class DriveFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isFirst) {
+            getOrders();
+            isFirst=true;
+        }
+
     }
 }

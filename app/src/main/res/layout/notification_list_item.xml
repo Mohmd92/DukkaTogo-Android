@@ -28,17 +28,20 @@
             <View
                 android:layout_marginStart="14dp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/lineee"
+                android:background="@color/countss"
                 android:layout_width="2dp"
                 android:layout_height="match_parent"/>
             <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_notification"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/abudhbi_regular"
                 android:textSize="12sp"
                 android:textColor="@color/blackTheme_colorBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="perspiciatis unde omnis istpoe natus error sit voluptatem accusantium doloremque eopsloi laudantium, totam rem aperiam, eaque ipsa."/>
+                />
 
         </LinearLayout>
 

@@ -146,7 +146,7 @@
     <string name="the_points_will_be_immediately_converted_into_credit_for_you_dear">The Points Will Be Immediately Converted Into Credit For You, Dear</string>
     <string name="enjoy_with_us_the_balance_at_22_euros">Enjoy With us The Balance At 22 Euros</string>
     <string name="details">Details</string>
-    <string name="number_of_products">Number Of Products</string>
+    <string name="number_of_products">Number Of Orders</string>
     <string name="euros">Euros</string>
     <string name="paid_money">Paid Money</string>
     <string name="select">select…</string>
@@ -205,7 +205,7 @@
     <string name="name">Name</string>
     <string name="please_wait">Please wait ....</string>
     <string name="facebook_app_id">1010083496266258</string> <string name="fb_login_protocol_scheme">fb163958234165942</string>
-    <string name="url">https://duekkantogo.de/api/v1/stores/</string>
+    <string name="url">https://duekkantogo.de/api/v1/</string>
     <string name="search">Search</string>
     <string name="all">All</string>
     <string name="total_price_for">Total Price For</string>
@@ -235,10 +235,12 @@
     <string name="order_has_been_delivered">The request has been delivered to the user</string>
     <string name="join">Join</string>
     <string name="store_need_delivery">Store Need Delivery</string>
+    <string name="store_invite_delivery">Stores Invite Delivery</string>
     <string name="delivery_stores">Delivery Stores</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="available">Available</string>
     <string name="unavailable">Not Available</string>
     <string name="thank_for_order">Thank you for your order</string>
+    <string name="invite">Invite</string>
 
 </resources>

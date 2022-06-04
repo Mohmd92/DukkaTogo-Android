@@ -25,6 +25,7 @@ import com.dukan.dukkan.adapter.ProductAdapter;
 import com.dukan.dukkan.pojo.OrderDetail;
 import com.dukan.dukkan.pojo.OrderToDelevey;
 import com.dukan.dukkan.pojo.OrderToDelevey;
+import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.util.HorizontalListView;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -88,8 +89,36 @@ public class DriverOrderDetailsActivity extends AppCompatActivity {
         but_reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                orderReject();
             }
+        });
+    }
+    private void orderReject() {
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        progressBar.setVisibility(View.VISIBLE);
+        Call<ShowOrder> callNew = apiInterface.OrderReject(OrderId);
+        callNew.enqueue(new Callback<ShowOrder>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<ShowOrder> callNew, Response<ShowOrder> response) {
+                ShowOrder resource = response.body();
+                if(resource.status){
+                    finish();
+                    Toast.makeText(DriverOrderDetailsActivity.this, resource.message, Toast.LENGTH_SHORT).show();
+                }else
+                    Toast.makeText(DriverOrderDetailsActivity.this, resource.message, Toast.LENGTH_SHORT).show();
+
+                progressBar.setVisibility(View.GONE);
+
+            }
+            @Override
+            public void onFailure(Call<ShowOrder> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+                progressBar.setVisibility(View.GONE);
+
+            }
+
         });
     }
     private void OrderToDelv() {

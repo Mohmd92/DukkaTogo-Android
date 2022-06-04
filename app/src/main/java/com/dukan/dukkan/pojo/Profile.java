@@ -42,13 +42,13 @@ public class Profile {
         public String status;
         @SerializedName("user_id")
         @Expose
-        public Object userId;
+        public String userId;
         @SerializedName("lat")
         @Expose
-        public Object lat;
+        public String lat;
         @SerializedName("lng")
         @Expose
-        public Object lng;
+        public String lng;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -61,6 +61,28 @@ public class Profile {
         @SerializedName("city_id")
         @Expose
         public Integer cityId;
+
+        @SerializedName("status_merchant")
+        @Expose
+        public String status_merchant;
+
+        @SerializedName("reset_code")
+        @Expose
+        public String reset_code;
+
+        @SerializedName("points")
+        @Expose
+        public String points;
+
+        @SerializedName("paid_ponts")
+        @Expose
+        public String paid_ponts;
+
+        @SerializedName("orders_count")
+        @Expose
+        public String orders_count;
+
+
         @SerializedName("google_id")
         @Expose
         public Object googleId;

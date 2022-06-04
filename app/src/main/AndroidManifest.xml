@@ -345,6 +345,24 @@
             tools:replace="android:screenOrientation"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.MyPointsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.DeliveryStoresInviteActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.DriverProfileForMerchentActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activity.MerchantLastOrdersActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

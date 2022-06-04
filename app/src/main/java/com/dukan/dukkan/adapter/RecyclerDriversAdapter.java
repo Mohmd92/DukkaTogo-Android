@@ -11,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dukan.dukkan.R;
+import com.dukan.dukkan.activity.CheckOut;
+import com.dukan.dukkan.activity.DriverProfileActivity;
+import com.dukan.dukkan.activity.DriverProfileForMerchentActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.UserOrder;
@@ -65,6 +69,10 @@ public class RecyclerDriversAdapter extends RecyclerView.Adapter<RecyclerDrivers
         }
         @Override
         public void onClick(View view) {
+            Intent i = new Intent(mContext, DriverProfileForMerchentActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("allData", item.id+"&&"+item.name+"&&"+item.address+"&&"+item.licenseNumber+"&&"+item.image+"&&"+item.status);
+            mContext.startActivity(i);
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
