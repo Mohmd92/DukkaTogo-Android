@@ -57,7 +57,8 @@ public class DriverProfileForMerchentActivity extends AppCompatActivity {
         tv_location = findViewById(R.id.tv_location);
         RelativeLayout rel_licences = findViewById(R.id.rel_licences);
         Button invite_button = findViewById(R.id.invite_button);
-        invite_button.setVisibility(View.VISIBLE);
+        if(getIntent().getExtras().getString("join").equals("true"))
+            invite_button.setVisibility(View.VISIBLE);
         card_personal_info = findViewById(R.id.card_personal_info);
         card_driving_data = findViewById(R.id.card_driving_data);
         tv_driving_license = findViewById(R.id.tv_driving_license);

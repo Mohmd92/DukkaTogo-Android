@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
@@ -30,6 +31,7 @@ import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.pojo.Address;
 import com.dukan.dukkan.pojo.AddressParameter;
 import com.dukan.dukkan.pojo.Request;
+import com.dukan.dukkan.pojo.RequestMerchant;
 import com.dukan.dukkan.pojo.RequestStatus;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -44,13 +46,13 @@ import retrofit2.Response;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<RecyclerStoreDeliveryInviteAdapter.ViewHolder> {
-    List<Request.Datum> mValues;
+    List<RequestMerchant.Datum> mValues;
     Context mContext;
     Activity Aactivity;
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
     int row_index=-1;
-    public RecyclerStoreDeliveryInviteAdapter(Activity activity, Context context, List<Request.Datum> values) {
+    public RecyclerStoreDeliveryInviteAdapter(Activity activity, Context context, List<RequestMerchant.Datum> values) {
 
         mValues = values;
         mContext = context;
@@ -60,7 +62,7 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        Request.Datum item;
+        RequestMerchant.Datum item;
         TextView name;
         ImageView img_store;
         Button join_button;
@@ -76,14 +78,17 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
             join_button = v.findViewById(R.id.join_button);
 
         }
-        public void setData(Request.Datum item) {
+        public void setData(RequestMerchant.Datum item) {
             this.item = item;
 
             name.setText(item.store.name);
-                Picasso.get()
-                        .load(item.store.image)
-                        .into(img_store);
+//                Picasso.get()
+//                        .load(item.store.image)
+//                        .into(img_store);
+            Glide.with(mContext).load(item.store.image).into(img_store);
+
             join_button.setVisibility(View.GONE);
+            System.out.println("IIIIIIII88888 "+item.store.image);
         }
         private void Doee( android.app.Dialog EndDialog,String statts) {
             apiInterface = APIClient.getClient(Aactivity).create(APIInterface.class);
@@ -161,6 +166,6 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
         return mValues.size();
     }
      public interface ItemListener {
-        void onItemClick(Request.Datum item);
+        void onItemClick(RequestMerchant.Datum item);
     }
 }

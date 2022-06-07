@@ -39,6 +39,7 @@ import com.dukan.dukkan.pojo.RateStoreParameter;
 import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.Request;
+import com.dukan.dukkan.pojo.RequestMerchant;
 import com.dukan.dukkan.pojo.RequestStatus;
 import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.pojo.ShowProduct;
@@ -88,9 +89,13 @@ public interface APIInterface {
     @GET("/api/v1/pages")
     Call<Privacy> getPrivacyList();
 
+//    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+//    @GET("/api/v1/requests")
+//    Call<RequestMerchant> getRequests();
+
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/requests")
-    Call<Request> getRequests();
+    Call<RequestMerchant> getRequestsMerchant();
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")

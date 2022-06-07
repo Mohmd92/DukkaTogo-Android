@@ -1,17 +1,26 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -36,7 +45,12 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainMerchantActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ViewPager viewPager;
@@ -49,7 +63,19 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
     private ArrayList<Tabs> tabsArrayList;
     private ImageView header_im_close;
     private TextView tv_location,header_tv_user_name;
-
+    boolean dialogShow=false;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 10 * 1000 - SystemClock.elapsedRealtime() % 1000);
+            if (!dialogShow && !isNetworkAvailable()) {
+                Dialog();
+                dialogShow = true;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +180,16 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
                     startActivity(new Intent(MainMerchantActivity.this, MerchantDriversActivity.class));
                 closeDrawer();
                 break;
+                case R.id.nav_drivers2:
+                    Intent i2 = new Intent(MainMerchantActivity.this, MerchantRequestsActivity.class);
+                    i2.putExtra("title", getString(R.string.requests_drivers));
+                    startActivity(i2);
+                closeDrawer();
+                break;
+            case R.id.nav_privacy_policy:
+                startActivity(new Intent(MainMerchantActivity.this, PrivacyPolicyActivity.class));
+                closeDrawer();
+                break;
                 case R.id.nav_orders_delivered:
                     startActivity(new Intent(MainMerchantActivity.this, MerchantOrdersDeliveredActivity.class));
                 closeDrawer();
@@ -185,5 +221,79 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
                 break;
         }
         return false;
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            try {
+                URL url = new URL("https://www.google.com/");
+                HttpURLConnection urlc = (HttpURLConnection)url.openConnection();
+                urlc.setRequestProperty("User-Agent", "test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1000); // mTimeout is in seconds
+                urlc.connect();
+                return urlc.getResponseCode() == 200;
+            } catch (IOException e) {
+                Log.i("warning", "Error checking internet connection", e);
+                return false;
+            }
+        }
+
+        return false;
+
+    }
+    private void Dialog(){
+        final Dialog EndDialog=new Dialog( MainMerchantActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        EndDialog.setContentView(R.layout.no_internet);
+        EndDialog.setCancelable(false);
+        Button button =  EndDialog.findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isConnected(getApplicationContext())){
+                    dialogShow=false;
+                    EndDialog.dismiss();
+                }else{
+                    Toast.makeText( MainMerchantActivity.this, getString(R.string.no_internet_connect), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        EndDialog.show();
+    }
+    @Override
+    protected void onResume() {
+        handler.post(periodicUpdate);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
     }
 }

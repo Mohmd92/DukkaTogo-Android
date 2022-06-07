@@ -2,6 +2,7 @@ package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -89,11 +90,37 @@ public class DriverOrderDetailsActivity extends AppCompatActivity {
         but_reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderReject();
+                android.app.Dialog EndDialog=new Dialog(DriverOrderDetailsActivity.this,android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+                EndDialog.setContentView(R.layout.dialog_reject_order);
+                EndDialog.setCancelable(false);
+                progressBar =  EndDialog.findViewById(R.id.progressBar);
+                ImageView img_close =  EndDialog.findViewById(R.id.img_close);
+                TextView dialog_ok =  EndDialog.findViewById(R.id.yes_button);
+                TextView dialog_cancel =  EndDialog.findViewById(R.id.no_button);
+                img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EndDialog.dismiss();
+                    }
+                });
+                dialog_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        orderReject(EndDialog);
+                    }
+                });
+                dialog_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       EndDialog.dismiss();
+                    }
+                });
+                EndDialog.show();
+
             }
         });
     }
-    private void orderReject() {
+    private void orderReject(android.app.Dialog EndDialog) {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
@@ -105,10 +132,10 @@ public class DriverOrderDetailsActivity extends AppCompatActivity {
                 ShowOrder resource = response.body();
                 if(resource.status){
                     finish();
-                    Toast.makeText(DriverOrderDetailsActivity.this, resource.message, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DriverOrderDetailsActivity.this, resource.message, Toast.LENGTH_SHORT).show();
                 }else
                     Toast.makeText(DriverOrderDetailsActivity.this, resource.message, Toast.LENGTH_SHORT).show();
-
+                EndDialog.dismiss();
                 progressBar.setVisibility(View.GONE);
 
             }

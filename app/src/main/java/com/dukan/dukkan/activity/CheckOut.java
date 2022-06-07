@@ -23,6 +23,8 @@ import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerLanguageAdapter;
 import com.dukan.dukkan.adapter.RecyclerPaymentAdapter;
+import com.dukan.dukkan.fragment.LogoutSheetFragment;
+import com.dukan.dukkan.fragment.ThankOrderSheetFragment;
 import com.dukan.dukkan.model.DataModeLanguage;
 import com.dukan.dukkan.pojo.Address;
 import com.dukan.dukkan.pojo.AddressData;
@@ -156,10 +158,12 @@ public class CheckOut extends AppCompatActivity {
                     CheckOutCart cart = response.body();
                     if (cart != null) {
                         if (cart.status) {
-                            Toast.makeText(CheckOut.this, getString(R.string.thank_for_order), Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(CheckOut.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
+                            progressBar.setVisibility(View.GONE);
+                            ThankOrderSheetFragment thhankOrderSheetFragment = new ThankOrderSheetFragment();
+                            thhankOrderSheetFragment.show(getSupportFragmentManager()
+                                    , thhankOrderSheetFragment.getTag());
+//                            Toast.makeText(CheckOut.this, getString(R.string.thank_for_order), Toast.LENGTH_SHORT).show();
+
                         } else {
 
                             Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();

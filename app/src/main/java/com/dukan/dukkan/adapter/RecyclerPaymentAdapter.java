@@ -39,7 +39,7 @@ public class RecyclerPaymentAdapter extends RecyclerView.Adapter<RecyclerPayment
 
         PaymentGateway item;
         TextView payment_name;
-        ImageView img_chk;
+        ImageView img_chk,image_cash;
         ConstraintLayout constraintLayout;
 
         public RelativeLayout relative;
@@ -48,6 +48,7 @@ public class RecyclerPaymentAdapter extends RecyclerView.Adapter<RecyclerPayment
 
             v.setOnClickListener(this);
             img_chk = v.findViewById(R.id.img_chk);
+            image_cash = v.findViewById(R.id.image_cash);
             payment_name = v.findViewById(R.id.payment_name);
             constraintLayout = v.findViewById(R.id.constraintLayout);
 
@@ -56,7 +57,9 @@ public class RecyclerPaymentAdapter extends RecyclerView.Adapter<RecyclerPayment
             this.item = item;
 
             payment_name.setText(item.name);
-
+            Picasso.get()
+                    .load(item.image)
+                    .into(image_cash);
 
         }
         @Override

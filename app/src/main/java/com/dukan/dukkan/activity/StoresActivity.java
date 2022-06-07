@@ -1,11 +1,16 @@
 package com.dukan.dukkan.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +38,8 @@ public class StoresActivity extends AppCompatActivity {
     APIInterface apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
+    int tempCount=0;
+    TextView tv_sala;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,23 @@ public class StoresActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar2);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        ImageView icon_buy = toolbar.findViewById(R.id.icon_buy);
+        tv_sala = toolbar.findViewById(R.id.tv_sala);
+        FrameLayout frame_buy = findViewById(R.id.frame_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StoresActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StoresActivity.this, CartActivity.class));
+                finish();
+            }
+        });
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
         icon_notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +84,16 @@ public class StoresActivity extends AppCompatActivity {
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
        getStores();
-
+        if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+            if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                tv_sala.setVisibility(View.VISIBLE);
+            }
+        }else {
+            tv_sala.setVisibility(View.GONE);
+            tempCount=0;
+        }
 
     }
     private void getStores() {

@@ -29,7 +29,7 @@
 
 
         <TextView
-            android:id="@+id/tv_day"
+            android:id="@+id/tv_title"
             android:textAllCaps="true"
             android:fontFamily="@font/abudhbi_bold"
             android:textSize="22sp"

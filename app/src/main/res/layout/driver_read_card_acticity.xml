@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="In Every Happy Moment, I Know An Inescapable Shadow, Sadness, Is Coming."/>
             <ImageView
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_read_card"
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:text="@string/scanning_code"/>
         <LinearLayout
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

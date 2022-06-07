@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_group_11935" />
         <FrameLayout
+            android:id="@+id/frame_buy"
             android:layout_marginEnd="10dp"
             android:layout_gravity="end"
             android:layout_width="25dp"

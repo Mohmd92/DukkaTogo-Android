@@ -242,5 +242,11 @@
     <string name="unavailable">Not Available</string>
     <string name="thank_for_order">Thank you for your order</string>
     <string name="invite">Invite</string>
+    <string name="no_internet_connect">No Internet Connect</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="we_lost_our_internet_connection">We lost our internet connection!</string>
+    <string name="check_your_phone_s_internet_connection">Check your phone internet connection</string>
+    <string name="requests_drivers">Requests Drivers</string>
+    <string name="do_you_really_want_to_reject_the_order">Do you really want to reject the order</string>
 
 </resources>

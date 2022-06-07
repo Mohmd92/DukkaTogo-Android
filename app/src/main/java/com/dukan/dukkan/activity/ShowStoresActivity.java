@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -61,7 +62,8 @@ public class ShowStoresActivity extends AppCompatActivity {
     String imageStore;
     String latitude, longitude;
     private SliderLayout sliderLayout;
-
+    int tempCount=0;
+    TextView tv_sala;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +85,26 @@ public class ShowStoresActivity extends AppCompatActivity {
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
-        if(extras.getString("user").equals("delivery"))
+         tv_sala =toolbar.findViewById(R.id.tv_sala);
+        FrameLayout frame_buy = toolbar.findViewById(R.id.frame_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowStoresActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowStoresActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        if(extras.getString("user").equals("delivery")){
             icon_buy.setVisibility(View.GONE);
+            frame_buy.setVisibility(View.GONE);
+        }
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +119,16 @@ public class ShowStoresActivity extends AppCompatActivity {
 
             }
         });
+        if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+            if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                tv_sala.setVisibility(View.VISIBLE);
+            }
+        }else {
+            tv_sala.setVisibility(View.GONE);
+            tempCount=0;
+        }
         icon_filter.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
         iconMenu.setVisibility(View.GONE);

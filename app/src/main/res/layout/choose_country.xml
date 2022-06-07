@@ -7,8 +7,18 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         tools:context=".activity.MainActivity">
-
-
+    <LinearLayout
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TestActivity">
     <LinearLayout
         android:layout_marginEnd="27dp"
             android:layout_marginStart="27dp"
@@ -119,6 +129,8 @@
             android:background="@drawable/button33"
             android:layout_width="match_parent"
             android:layout_height="45dp"/>
+    </LinearLayout>
+    </ScrollView>
     </LinearLayout>
     <ProgressBar
         app:layout_constraintEnd_toEndOf="parent"

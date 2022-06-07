@@ -28,9 +28,11 @@ public class HelpActivity extends AppCompatActivity {
         ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
         ImageView icon_search = toolbar.findViewById(R.id.icon_search);
         ImageView icon_filter = toolbar.findViewById(R.id.icon_filter);
+        ImageView icon_buy = toolbar.findViewById(R.id.icon_buy);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
         icon_menu.setVisibility(View.GONE);
         icon_filter.setVisibility(View.GONE);
+        icon_buy.setVisibility(View.GONE);
         icon_search.setVisibility(View.GONE);
         icon_notification.setVisibility(View.GONE);
         setSupportActionBar(toolbar);

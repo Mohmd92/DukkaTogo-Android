@@ -1,12 +1,14 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -74,9 +76,25 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
         ImageView icon_notification =toolbar.findViewById(R.id.icon_notification);
+        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
         icon_notification.setVisibility(View.GONE);
         icon_filter.setVisibility(View.GONE);
         iconMenu.setVisibility(View.GONE);
+        FrameLayout frame_buy = toolbar.findViewById(R.id.frame_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavoritesActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavoritesActivity.this, CartActivity.class));
+                finish();
+            }
+        });
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,4 +194,5 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
 
         });
     }
+
 }

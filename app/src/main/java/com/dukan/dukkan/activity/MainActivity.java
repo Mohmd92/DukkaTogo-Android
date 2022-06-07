@@ -11,10 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -27,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -54,6 +59,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.dukan.dukkan.adapter.Tabs;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -74,12 +82,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView header_im_close;
     APIInterface apiInterface;
     int tempCount=0;
+    boolean dialogShow=false;
     Handler handler = new Handler();
     private Runnable periodicUpdate = new Runnable() {
         @SuppressLint("SetTextI18n")
         @Override
         public void run() {
             handler.postDelayed(periodicUpdate, 1*1000 - SystemClock.elapsedRealtime()%1000);
+            if (!dialogShow && !isNetworkAvailable()) {
+                Dialog();
+                dialogShow = true;
+            }
             if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
                 if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
                     tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
@@ -374,5 +387,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         });
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            try {
+                URL url = new URL("https://www.google.com/");
+                HttpURLConnection urlc = (HttpURLConnection)url.openConnection();
+                urlc.setRequestProperty("User-Agent", "test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1000); // mTimeout is in seconds
+                urlc.connect();
+                return urlc.getResponseCode() == 200;
+            } catch (IOException e) {
+                Log.i("warning", "Error checking internet connection", e);
+                return false;
+            }
+        }
+
+        return false;
+
+    }
+    private void Dialog(){
+        final Dialog EndDialog=new Dialog( MainActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        EndDialog.setContentView(R.layout.no_internet);
+        EndDialog.setCancelable(false);
+        Button button =  EndDialog.findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isConnected(getApplicationContext())){
+                    dialogShow=false;
+                    EndDialog.dismiss();
+                }else{
+                    Toast.makeText( MainActivity.this, getString(R.string.no_internet_connect), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        EndDialog.show();
     }
 }

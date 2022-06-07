@@ -3,9 +3,12 @@ package com.dukan.dukkan.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,7 +50,26 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     private Toolbar toolbar;
     int mostProduct=0,newProduct=0,store=0,category=0;
     String title="";
-
+    TextView tv_sala;
+    int tempCount=0;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 1*1000 - SystemClock.elapsedRealtime()%1000);
+            if(SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()>0) {
+                if (tempCount != SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount()){
+                    tempCount = SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount();
+                    tv_sala.setText("" + SharedPreferenceManager.getInstance(getApplicationContext()).getCartCount());
+                    tv_sala.setVisibility(View.VISIBLE);
+                }
+            }else {
+                tv_sala.setVisibility(View.GONE);
+                tempCount=0;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +88,27 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
         ImageView icon_filter =toolbar.findViewById(R.id.icon_filter);
         ImageView iconMenu =toolbar.findViewById(R.id.icon_menu);
         ImageView iconBack =toolbar.findViewById(R.id.icon_back);
+        ImageView icon_buy =toolbar.findViewById(R.id.icon_buy);
+        tv_sala =toolbar.findViewById(R.id.tv_sala);
         iconMenu.setVisibility(View.GONE);
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+        FrameLayout frame_buy = toolbar.findViewById(R.id.frame_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductsActivity.this, CartActivity.class));
+                finish();
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductsActivity.this, CartActivity.class));
                 finish();
             }
         });
@@ -79,14 +118,6 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
             public void onClick(View view) {
                 startActivity(new Intent(ProductsActivity.this, NotificationsActivity.class));
 
-            }
-        });
-        ImageView icon_buy = findViewById(R.id.icon_buy);
-        icon_buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProductsActivity.this, CartActivity.class));
-                finish();
             }
         });
         icon_filter.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +176,33 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
     @Override
     protected void onResume() {
         super.onResume();
+        handler.post(periodicUpdate);
+
         if(!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")){
             String[] getFilterDates =  SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
             getProducts(Integer.parseInt(getFilterDates[0]),Integer.parseInt(getFilterDates[1]),Integer.parseInt(getFilterDates[2]));
             SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
         }
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
     }
 }

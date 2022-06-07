@@ -114,15 +114,12 @@ public class OrdersActivity extends AppCompatActivity {
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
         System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","1");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","0");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
-                Log.d("TAG111111",response.code()+"");
                 Order resource = response.body();
-                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
                 if(resource.status){
-                    Log.d("TAG111111","111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList,OrdersActivity.this);

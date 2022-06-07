@@ -1,5 +1,7 @@
 package com.dukan.dukkan.activity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +42,9 @@ import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Role;
 import com.dukan.dukkan.pojo.User;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -87,7 +94,19 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mSignInClient;
     private CallbackManager callbackManager;
     private ProgressDialog mProgressDialog;
-
+    boolean dialogShow=false;
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void run() {
+            handler.postDelayed(periodicUpdate, 10 * 1000 - SystemClock.elapsedRealtime() % 1000);
+            if (!dialogShow && !isNetworkAvailable()) {
+                Dialog();
+                dialogShow = true;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -380,4 +399,73 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            try {
+                URL url = new URL("https://www.google.com/");
+                HttpURLConnection urlc = (HttpURLConnection)url.openConnection();
+                urlc.setRequestProperty("User-Agent", "test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1000); // mTimeout is in seconds
+                urlc.connect();
+                return urlc.getResponseCode() == 200;
+            } catch (IOException e) {
+                Log.i("warning", "Error checking internet connection", e);
+                return false;
+            }
+        }
+
+        return false;
+
+    }
+    private void Dialog(){
+        final Dialog EndDialog=new Dialog( LoginActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        EndDialog.setContentView(R.layout.no_internet);
+        EndDialog.setCancelable(false);
+        Button button =  EndDialog.findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isConnected(getApplicationContext())){
+                    dialogShow=false;
+                    EndDialog.dismiss();
+                }else{
+                    Toast.makeText( LoginActivity.this, getString(R.string.no_internet_connect), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        EndDialog.show();
+    }
+    @Override
+    protected void onResume() {
+        handler.post(periodicUpdate);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        handler.post(periodicUpdate);
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(periodicUpdate);
+
+        super.onDestroy();
+    }
 }

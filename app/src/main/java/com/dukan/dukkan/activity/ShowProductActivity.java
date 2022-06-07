@@ -122,7 +122,7 @@ public class ShowProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowProductActivity.this, CartActivity.class));
-                finish();
+//                finish();
             }
         });
         ic_share.setOnClickListener(new View.OnClickListener() {

@@ -71,6 +71,13 @@ public class SearchActivity extends AppCompatActivity {
         ImageView icon_reset = toolbar.findViewById(R.id.icon_reset);
         icon_reset.setVisibility(View.GONE);
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
+        icon_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SearchActivity.this, NotificationsActivity.class));
+
+            }
+        });
         setSupportActionBar(toolbar);
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
