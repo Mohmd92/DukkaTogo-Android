@@ -5,11 +5,134 @@
     android:id="@+id/layout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp">
+    <RelativeLayout
+        android:id="@+id/layout1_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp">
 
+
+        <RelativeLayout
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:background="@drawable/button55"
+                    android:visibility="gone"
+                    android:layout_gravity="end"
+                    android:id="@+id/recyclerView_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                <ImageView
+                    android:tint="@color/colorPrimary"
+                    android:visibility="gone"
+                    android:background="@drawable/testrecty"
+                    android:id="@+id/video_user"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_voice_2"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"/>
+
+                <com.github.siyamed.shapeimageview.RoundedImageView
+                    android:visibility="gone"
+                    android:layout_gravity="end"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:id="@+id/imagechar_user"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/wwwq"
+                    app:siBorderColor="@color/serach"
+                    app:siRadius="5dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="end"
+                        android:layout_gravity="end"
+                        android:orientation="horizontal"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginStart="10sp"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/abudhbi_regular"
+                            android:id="@+id/textContentUser_user"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="By the way, did not you see my dog! I present to you Sheldon! 😁"
+                            android:paddingStart="16dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="8dp"
+                            android:textColor="@color/white"
+                            android:background="@drawable/testrecty"/>
+                        <ImageView
+                            android:rotation="90"
+                            android:layout_gravity="bottom"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/testcornery"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="7dp"
+                        android:layout_gravity="end"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginEnd="5dp"
+                            android:text="8:22"
+                            android:textColor="#63697B"
+                            android:id="@+id/tv_time_user"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/abudhbi_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:ignore="SmallSp" />
+                        <ImageView
+                            android:layout_marginStart="3dp"
+                            android:id="@+id/seen_image_user"
+                            android:src="@drawable/ic_seen_off"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout1"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"

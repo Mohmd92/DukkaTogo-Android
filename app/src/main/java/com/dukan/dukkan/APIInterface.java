@@ -11,6 +11,8 @@ import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.ChangePassParameter;
 import com.dukan.dukkan.pojo.ChangePassword;
+import com.dukan.dukkan.pojo.Chat;
+import com.dukan.dukkan.pojo.ChatMessage;
 import com.dukan.dukkan.pojo.CheckOuts;
 import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
@@ -41,6 +43,7 @@ import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.Request;
 import com.dukan.dukkan.pojo.RequestMerchant;
 import com.dukan.dukkan.pojo.RequestStatus;
+import com.dukan.dukkan.pojo.SendChat;
 import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
@@ -96,6 +99,18 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/requests")
     Call<RequestMerchant> getRequestsMerchant();
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/chats")
+    Call<Chat> getChatsList();
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/messages?")
+    Call<ChatMessage> getChatsMessages(@Query("chat_id") int chat_id);
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/messages?")
+    Call<SendChat> SendChat(@Query("chat_id") int chat_id, @Field("message") String message);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")

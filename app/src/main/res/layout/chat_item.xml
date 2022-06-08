@@ -2,26 +2,23 @@
     android:orientation="vertical"
     android:id="@+id/linnnar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="3dp"
-        app:contentPadding="0dp">
+        android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
@@ -36,26 +33,26 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Moahmmed "/>
+                        android:text=" "/>
                     <TextView
-                        android:id="@+id/tv_join_date"
+                        android:id="@+id/tv_msg"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/abudhbi_regular"
                         android:textSize="12sp"
                         android:textColor="@color/blackTheme_colorBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="03/03/2021"
                         tools:ignore="SmallSp" />
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/abudhbi_regular"
                     android:textSize="12sp"
                     android:textColor="@color/blackTheme_colorBackground"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Now"
+                    android:text=""
                     tools:ignore="SmallSp" />
                <RelativeLayout
                    android:id="@+id/frame"
@@ -63,19 +60,19 @@
                    android:layout_height="wrap_content">
 
                    <com.google.android.material.imageview.ShapeableImageView
-                       android:id="@+id/img_launcher_icon"
-                       android:layout_width="wrap_content"
+                       android:id="@+id/img_user"
+                       android:src="@drawable/wwwq"
+                       android:layout_width="@dimen/_50sdp"
                        android:layout_height="wrap_content"
                        android:adjustViewBounds="true"
                        android:background="@android:color/transparent"
                        android:maxWidth="50dp"
                        android:maxHeight="50dp"
-                       android:scaleType="fitXY"
-
                        app:shapeAppearance="?attr/actionButtonStyle"
                        app:shapeAppearanceOverlay="@style/imageViewRounded"
                        app:strokeColor="@android:color/white" />
                    <ImageView
+                       android:id="@+id/img_status"
                        android:layout_marginEnd="3dp"
                        android:layout_marginTop="5dp"
                        android:layout_alignParentEnd="true"
@@ -87,5 +84,12 @@
 
             </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/relative"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center_vertical"
+        android:background="@color/countss"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

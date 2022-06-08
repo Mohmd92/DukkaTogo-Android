@@ -308,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     closeDrawer();
                 break;
             case R.id.nav_chat:
+                startActivity(new Intent(MainActivity.this, ChatListActivity.class));
                 closeDrawer();
                 break;
             case R.id.nav_settings:

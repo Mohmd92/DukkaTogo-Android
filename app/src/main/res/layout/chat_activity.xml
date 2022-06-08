@@ -59,14 +59,12 @@
                     android:layout_height="wrap_content">
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/img_profile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_50sdp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:maxWidth="50dp"
                         android:maxHeight="50dp"
-                        android:scaleType="fitXY"
-
                         app:shapeAppearance="?attr/actionButtonStyle"
                         app:shapeAppearanceOverlay="@style/imageViewRounded"
                         app:strokeColor="@android:color/white" />
@@ -101,17 +99,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_messages"/>
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".TestActivity">
+
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
+                android:layout_marginBottom="100dp"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:scrollbars="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -166,6 +165,7 @@
                 android:src="@drawable/ic_camera"/>
     </LinearLayout>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_marginBottom="25dp"
         android:id="@+id/rel_new_chat"
         app:layout_constraintRight_toRightOf="parent"
@@ -173,6 +173,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <RelativeLayout
+            android:visibility="gone"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="7dp"
             android:id="@+id/rel_category"
@@ -197,17 +198,17 @@
         </RelativeLayout>
 
         <EditText
+            android:layout_marginStart="10dp"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/rel_send"
-            android:layout_toEndOf="@+id/rel_category"
             android:id="@+id/edit_chat_text"
             android:fontFamily="@font/abudhbi_regular"
             android:imeOptions="actionNext"
             android:background="@drawable/edit_shap3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textColorHint="#aeafaf"
             android:hint="@string/type_something"
@@ -231,5 +232,13 @@
             android:src="@drawable/ic_send"/>
         </RelativeLayout>
     </RelativeLayout>
-
+    <ProgressBar
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
