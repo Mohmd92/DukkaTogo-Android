@@ -118,6 +118,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                      sw=1;
+                else
+                    sw=0;
             }
         });
         swCustom2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -127,6 +129,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw2=1;
+                else
+                    sw2=0;
             }
         });
         swCustom3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -136,6 +140,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw3=1;
+                else
+                    sw3=0;
             }
         });
         swCustom4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -145,6 +151,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw4=1;
+                else
+                    sw4 = 0;
             }
         });
         swCustom5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -154,6 +162,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw5=1;
+                else
+                    sw5=0;
             }
         });
         swCustom6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -163,6 +173,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw6=1;
+                else
+                    sw6=0;
             }
         });
         swCustom7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -172,6 +184,8 @@ public class MerchantWorkingHours extends AppCompatActivity {
             {
                 if(isChecked)
                     sw7=1;
+                else
+                    sw7=0;
             }
         });
 
@@ -552,6 +566,7 @@ public class MerchantWorkingHours extends AppCompatActivity {
         getTimeWork();
     }
     private void setTimeWork() {
+        System.out.println("GGGGGGGGGGggaa "+sw);
         progressBar.setVisibility(View.VISIBLE);
 
         Call<StoreTimes> call1 = apiInterface.EditTimesWork(storeId,tv_time_open.getText().toString(),tv_time_close.getText().toString(),sw

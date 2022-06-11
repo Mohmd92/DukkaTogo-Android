@@ -85,6 +85,7 @@ public class MerchantFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), ProductMerchentActivity.class);
+                System.out.println("sssssssssswww "+storeId);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("title", header_tv_user_name.getText().toString());
                 i.putExtra("store", storeId);
@@ -123,7 +124,7 @@ public class MerchantFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
 
-                    storeId=resource.data.id;
+                    storeId=resource.data.store.id;
                     header_tv_user_name.setText(resource.data.name);
                     Picasso.get()
                             .load(resource.data.image)

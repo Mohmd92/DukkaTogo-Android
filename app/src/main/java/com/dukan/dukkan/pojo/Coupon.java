@@ -35,24 +35,29 @@ public class Coupon {
     public String userId;
     @SerializedName("store_id")
     @Expose
-    public String storeId;
+    public Object storeId;
     @SerializedName("category_id")
     @Expose
-    public String categoryId;
+    public Object categoryId;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
-    @SerializedName("product")
+    @SerializedName("type_status")
     @Expose
-    public Product.Datum product;
+    public Object typeStatus;
+    @SerializedName("status")
+    @Expose
+    public String status;
     @SerializedName("store")
     @Expose
-    public Store store;
+    public Object store;
     @SerializedName("category")
     @Expose
     public CategoryProduct category;
-
+    @SerializedName("product")
+    @Expose
+    public NewProduct product;
 }

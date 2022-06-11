@@ -16,12 +16,27 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="3dp"
         app:contentPadding="0dp">
-
             <RelativeLayout
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <androidx.appcompat.widget.SwitchCompat
+                    android:theme="@style/CustomTheme.switchState"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/swCustom3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/switch_thumb2"
+                    app:track="@drawable/switch_track2"/>
+                <ProgressBar
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:id="@+id/progressBar"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"

@@ -6,12 +6,15 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +26,7 @@ import com.dukan.dukkan.pojo.CartParamenter;
 import com.dukan.dukkan.pojo.CartRemoveParamenter;
 import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.MultipleProducts;
+import com.dukan.dukkan.pojo.UpdateProductStatus;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,14 +56,18 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
         ImageView image,img_heart;
         RelativeLayout rel_add_to_card,rel_heart;
         APIInterface apiInterface;
-
+        SwitchCompat swCustom3;
         public RelativeLayout relative;
+        ProgressBar progressBar;
+        int sw3=0;
         public ViewHolder(View v) {
             super(v);
 
             v.setOnClickListener(this);
             image =  v.findViewById(R.id.image);
+            progressBar =  v.findViewById(R.id.progressBar);
             img_heart =  v.findViewById(R.id.img_heart);
+            swCustom3 =  v.findViewById(R.id.swCustom3);
             tv_name =  v.findViewById(R.id.tv_name);
             tv_price =  v.findViewById(R.id.tv_price);
             tv_status =  v.findViewById(R.id.tv_status);
@@ -83,6 +91,7 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                         .into(image);
             tv_price.setText(""+item.price);
             rateProduct.setRating(item.rate);
+            System.out.println("oKKKKKKKKKKKKKK "+item.id);
             if(item.isCart!=null)
                 text_add.setText(mContext.getString(R.string.remove_to_cart));
             else
@@ -101,10 +110,45 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                 tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.avialable));
             }
             itemView.setOnClickListener(this); // bind the listener
+            if(item.status.equals("1"))
+                swCustom3.setChecked(true);
+            else
+                swCustom3.setChecked(false);
+            swCustom3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    progressBar.setVisibility(View.VISIBLE);
+                    if(isChecked)
+                        sw3=1;
+                    else
+                        sw3=0;
+                    Call<UpdateProductStatus> call1 = apiInterface.UpdateStatusProduct(item.id,sw3,"put");
+                    call1.enqueue(new Callback<UpdateProductStatus>() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onResponse(Call<UpdateProductStatus> call, Response<UpdateProductStatus> response) {
+                            UpdateProductStatus updateProductStatus = response.body();
+                            Toast.makeText(mContext, updateProductStatus.message, Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<UpdateProductStatus> call, Throwable t) {
+                            System.out.println("XXXXXXXXXaa "+t.getMessage());
+                            progressBar.setVisibility(View.GONE);
+                            call.cancel();
+                        }
+                    });
+
+                }
+            });
         }
 
         @Override
         public void onClick(View view) {
+
             rel_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

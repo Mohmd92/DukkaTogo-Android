@@ -13,6 +13,7 @@ import com.dukan.dukkan.pojo.ChangePassParameter;
 import com.dukan.dukkan.pojo.ChangePassword;
 import com.dukan.dukkan.pojo.Chat;
 import com.dukan.dukkan.pojo.ChatMessage;
+import com.dukan.dukkan.pojo.ChatNew;
 import com.dukan.dukkan.pojo.CheckOuts;
 import com.dukan.dukkan.pojo.CheckOutCart;
 import com.dukan.dukkan.pojo.City;
@@ -48,6 +49,8 @@ import com.dukan.dukkan.pojo.ShowOrder;
 import com.dukan.dukkan.pojo.ShowProduct;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.StoreTimes;
+import com.dukan.dukkan.pojo.UpdateCouponStatus;
+import com.dukan.dukkan.pojo.UpdateProductStatus;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.pojo.UserList;
 import com.dukan.dukkan.pojo.UserProfile;
@@ -63,6 +66,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -111,6 +115,11 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @POST("/api/v1/messages?")
     Call<SendChat> SendChat(@Query("chat_id") int chat_id, @Field("message") String message);
+
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @POST("/api/v1/chats")
+    Call<ChatNew> NewChat(@Field("user_id") int user_id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
@@ -295,6 +304,16 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/products/{id}")
     Call<ShowProduct> productDetails(@Path("id") int id);
+
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @PUT("/api/v1/products/{id}/update_status")
+    Call<UpdateProductStatus> UpdateStatusProduct(@Path("id") int id, @Field("status") int status, @Field("_method") String _method);
+
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @PUT("/api/v1/coupons/{id}/update_status")
+    Call<UpdateCouponStatus> UpdateStatusCoupon(@Path("id") int id, @Field("status") int status, @Field("_method") String _method);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/users?")

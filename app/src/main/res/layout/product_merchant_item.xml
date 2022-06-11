@@ -78,17 +78,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
-            <TextView
+            <RelativeLayout
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_status"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:fontFamily="@font/abudhbi_regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv_status"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:theme="@style/CustomTheme.switchState"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/swCustom3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumb="@drawable/switch_thumb2"
+                    app:track="@drawable/switch_track2"/>
+                <ProgressBar
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:id="@+id/progressBar"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
             <RatingBar
                 android:visibility="gone"
                 android:layout_marginBottom="5dp"
@@ -156,14 +178,5 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <ProgressBar
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

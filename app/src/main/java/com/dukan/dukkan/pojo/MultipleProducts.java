@@ -58,6 +58,9 @@ public class MultipleProducts {
         @SerializedName("image")
         @Expose
         public String image;
+        @SerializedName("status")
+        @Expose
+        public String status;
         @SerializedName("is_favorite")
         @Expose
         public Boolean isFavorite;

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ import com.dukan.dukkan.fragment.ReviewSheetFragment;
 import com.dukan.dukkan.fragment.ReviewStoreSheetFragment;
 import com.dukan.dukkan.pojo.Advertisement;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.pojo.ChatNew;
 import com.dukan.dukkan.pojo.ShowStore;
 import com.dukan.dukkan.pojo.Slider;
 import com.dukan.dukkan.util.SharedPreferenceManager;
@@ -47,6 +49,8 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class ShowStoresActivity extends AppCompatActivity {
@@ -64,6 +68,8 @@ public class ShowStoresActivity extends AppCompatActivity {
     private SliderLayout sliderLayout;
     int tempCount=0;
     TextView tv_sala;
+    ProgressBar progressBar;
+    String image_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +81,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         tv_num_products = findViewById(R.id.tv_num_products);
         tv_rating_num = findViewById(R.id.tv_rating_num);
+        progressBar = findViewById(R.id.progressBar);
         tv_customer_num = findViewById(R.id.tv_customer_num);
         tv_name = findViewById(R.id.tv_name);
         tv_number = findViewById(R.id.tv_number);
@@ -190,6 +197,7 @@ public class ShowStoresActivity extends AppCompatActivity {
         card_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CreateChat();
             }
         });
         rel_facebook.setOnClickListener(new View.OnClickListener() {
@@ -345,5 +353,37 @@ public class ShowStoresActivity extends AppCompatActivity {
 
         });
     }
+    private void CreateChat() {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<ChatNew> callNew = apiInterface.NewChat(storeId);
+        callNew.enqueue(new Callback<ChatNew>() {
+            @Override
+            public void onResponse(Call<ChatNew> callNew, Response<ChatNew> response) {
+                ChatNew resource = response.body();
+                if(resource.status) {
+                    Intent i2 = new Intent(ShowStoresActivity.this, ChatActivity.class);
+                    i2.putExtra("username", tv_name.getText().toString());
+                    i2.putExtra("image", imageStore);
+                    i2.putExtra("status", String.valueOf(resource.data.status));
+                    i2.putExtra("chat_id", resource.data.id);
+                    i2.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i2);
+                    progressBar.setVisibility(View.GONE);
 
+                }
+                else
+                    Toast.makeText(ShowStoresActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
+
+                progressBar.setVisibility(View.GONE);
+
+            }
+            @Override
+            public void onFailure(Call<ChatNew> call, Throwable t) {
+                Log.d("TAG111111","  e "+t.getMessage());
+                progressBar.setVisibility(View.GONE);
+
+            }
+
+        });
+    }
 }

@@ -24,7 +24,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">51%</item>
     </style>
-
+    <style name="CustomTheme.switchState" parent="Theme.AppCompat.Light">
+    <item name="colorControlActivated">@color/red</item>
+    <item name="android:textOn">On</item>
+    <item name="android:textOff">Off</item>
+</style>
     <style name="Style_TextView2">
         <item name="fontFamily">@font/abudhbi_regular</item>
         <item name="android:textSize">15sp</item>

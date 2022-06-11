@@ -35,7 +35,7 @@ public class CartMain {
         @Expose
         public float cartTotal;
         @Expose
-        public Integer deliveryPrice;
+        public float deliveryPrice;
         @SerializedName("total")
         @Expose
         public float total;
