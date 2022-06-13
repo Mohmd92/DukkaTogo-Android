@@ -45,7 +45,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) row.findViewById(R.id.spinnerTextView);
         textView.setText(contentArray[position]);
         ImageView imageView = (ImageView)row.findViewById(R.id.spinnerImages);
-        String image_url=getContext().getString(R.string.url)+"/assets/flags/"+imageArray[position].toLowerCase()+".png";
+        String image_url=getContext().getString(R.string.url2)+"/assets/flags/"+imageArray[position].toLowerCase()+".png";
         System.out.println("image_urlimage_urlimage_url "+image_url);
             if (!imageArray[position].equals("city"))
                 Picasso.get()

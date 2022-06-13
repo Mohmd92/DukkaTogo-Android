@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dukan.dukkan.APIClient;
 import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
@@ -116,6 +117,8 @@ public class MerchantFragment extends Fragment {
             public void onResponse(Call<Profile> callNew, Response<Profile> response) {
                 Profile resource = response.body();
                 Boolean status = resource.status;
+                System.out.println("sssssaaaaaaaaaaaaa "+status);
+
                 if(status) {
                     List<OrderItem> orders = resource.data.store.orders;
                     System.out.println("sssssaaaaaaaaaaaaa "+orders.size());
@@ -129,9 +132,15 @@ public class MerchantFragment extends Fragment {
                     Picasso.get()
                             .load(resource.data.image)
                             .into(image_Merchant);
-                    Picasso.get()
+//                    Picasso.get()
+//                            .load(resource.data.store.image)
+//                            .into(img_store);
+                    Glide.with(getContext())
                             .load(resource.data.store.image)
+                            .fitCenter()
                             .into(img_store);
+
+                    System.out.println("DSSSSSSSSaaaa q "+resource.data.store.image);
                     List<StoreTimeWork> timeWork = resource.data.store.storeTimeWorks;
                     for (StoreTimeWork datum : timeWork) {
                         if(datum.day.equals(cuarentDay)){
@@ -152,6 +161,7 @@ public class MerchantFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
+                System.out.println("sssssaaaaaaaaaaaaa "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });

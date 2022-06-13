@@ -98,7 +98,6 @@ public class ShowStoresActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowStoresActivity.this, CartActivity.class));
-                finish();
             }
         });
         frame_buy.setOnClickListener(new View.OnClickListener() {

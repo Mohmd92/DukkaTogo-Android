@@ -102,7 +102,6 @@ public class ProductsActivity extends AppCompatActivity implements  RecyclerCart
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ProductsActivity.this, CartActivity.class));
-                finish();
             }
         });
         frame_buy.setOnClickListener(new View.OnClickListener() {

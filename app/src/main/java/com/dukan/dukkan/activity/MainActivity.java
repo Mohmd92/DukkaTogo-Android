@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
-                finish();
             }
         });
         frame_buy.setOnClickListener(new View.OnClickListener() {

@@ -121,5 +121,60 @@ public class Profile {
         public List<Role> roles =  new ArrayList<>();
 
     }
+    public class City {
 
+        @SerializedName("id")
+        @Expose
+        public Integer id;
+        @SerializedName("country_id")
+        @Expose
+        public Integer countryId;
+        @SerializedName("state_id")
+        @Expose
+        public Integer stateId;
+        @SerializedName("name")
+        @Expose
+        public String name;
+        @SerializedName("status")
+        @Expose
+        public Integer status;
+        @SerializedName("deleted_at")
+        @Expose
+        public String deletedAt;
+
+    }
+    public class Country {
+
+        @SerializedName("id")
+        @Expose
+        public Integer id;
+        @SerializedName("iso2")
+        @Expose
+        public String iso2;
+        @SerializedName("iso3")
+        @Expose
+        public String iso3;
+        @SerializedName("name")
+        @Expose
+        public String name;
+        @SerializedName("phone_code")
+        @Expose
+        public String phoneCode;
+        @SerializedName("dialling_pattern")
+        @Expose
+        public String diallingPattern;
+        @SerializedName("region")
+        @Expose
+        public String region;
+        @SerializedName("sub_region")
+        @Expose
+        public String subRegion;
+        @SerializedName("status")
+        @Expose
+        public Integer status;
+        @SerializedName("deleted_at")
+        @Expose
+        public String deletedAt;
+
+    }
     }

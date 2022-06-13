@@ -76,11 +76,15 @@ public class RecyclerMostwantedAdapter extends RecyclerView.Adapter<RecyclerMost
             linear_main =  v.findViewById(R.id.linear_main);
 
         }
+        @SuppressLint("SetTextI18n")
         public void setData(MostWanted item) {
             this.item = item;
 //            category_name.setText(item.name);
             Log.d("TAG111111","item.name "+item.name);
-            tv_name.setText("" + item.name);
+            if(item.name.length()<11)
+                tv_name.setText("" + item.name);
+            else
+                tv_name.setText("" + item.name.substring(0,10)+"...");
             tv_price.setText("" + item.price);
             Picasso.get()
                     .load(item.image)

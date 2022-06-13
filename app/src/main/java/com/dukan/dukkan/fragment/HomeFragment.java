@@ -204,6 +204,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     StoreAdapter customAdapter = new StoreAdapter(getContext(),stores);
                     HorizontalListViewStore.setAdapter(customAdapter);
                     customAdapter.notifyDataSetChanged();
+                    System.out.println("ssssssssssssssxxxx "+stores.size());
 
 
                     HorizontalListViewStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
