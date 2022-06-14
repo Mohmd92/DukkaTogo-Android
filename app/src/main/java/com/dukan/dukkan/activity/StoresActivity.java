@@ -99,7 +99,7 @@ public class StoresActivity extends AppCompatActivity {
         int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId());
         int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCityId());
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleStore> callNew = apiInterface.doGetListStore(0,0);
+        Call<MultipleStore> callNew = apiInterface.doGetListStore(cityId,countryId);
         callNew.enqueue(new Callback<MultipleStore>() {
             @Override
             public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {

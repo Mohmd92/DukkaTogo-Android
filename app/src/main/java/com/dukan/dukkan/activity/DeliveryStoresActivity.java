@@ -52,7 +52,7 @@ public class DeliveryStoresActivity extends AppCompatActivity   {
         int countryId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCountryId());
         int cityId= Integer.parseInt(SharedPreferenceManager.getInstance(getBaseContext()).getCityId());
         progressBar.setVisibility(View.VISIBLE);
-        Call<MultipleStore> callNew = apiInterface.doGetListStoreDelivery(0,0,0,1);
+        Call<MultipleStore> callNew = apiInterface.doGetListStoreDelivery(cityId,countryId,0,1);
         callNew.enqueue(new Callback<MultipleStore>() {
             @Override
             public void onResponse(Call<MultipleStore> callNew, Response<MultipleStore> response) {
