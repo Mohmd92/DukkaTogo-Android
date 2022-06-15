@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/country"/>
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -69,22 +69,23 @@
             <Spinner
                 android:textSize="16sp"
                 android:id="@+id/spinner_country"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="4"
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:spinnerMode="dropdown" />
 
             <ImageView
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:src="@drawable/ic_arrow" />
 
-        </LinearLayout>
+        </RelativeLayout>
         <TextView
             android:fontFamily="@font/abudhbi_regular"
             android:layout_marginTop="10dp"
@@ -93,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/city"/>
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -103,22 +104,24 @@
             <Spinner
                 android:textSize="16sp"
                 android:id="@+id/spinner_city"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="4"
+
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:spinnerMode="dropdown" />
 
             <ImageView
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:src="@drawable/ic_arrow" />
 
-        </LinearLayout>
+        </RelativeLayout>
         <Button
             android:fontFamily="@font/abudhbi_bold"
             android:layout_marginTop="30dp"

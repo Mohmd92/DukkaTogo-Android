@@ -275,6 +275,20 @@
                     android:layout_height="wrap_content"/>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
+        <Button
+            android:visibility="visible"
+            android:layout_marginBottom="150dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/abudhbi_bold"
+            android:layout_marginTop="30dp"
+            android:id="@+id/invite_button"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:text="@string/invite"
+            android:background="@drawable/button33"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
     </LinearLayout>
     </ScrollView>
     <ProgressBar

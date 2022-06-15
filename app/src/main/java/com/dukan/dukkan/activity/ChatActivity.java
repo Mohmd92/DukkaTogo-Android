@@ -118,9 +118,13 @@ public class ChatActivity extends AppCompatActivity {
                 ChatMessage resource = response.body();
                 if(resource.status) {
                     List<ChatMessage.Datum> datumList = resource.data;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                    linearLayoutManager.setReverseLayout(true);
+                   // linearLayoutManager.setStackFromEnd(true);
+                    recyclerView.setLayoutManager(linearLayoutManager);
                     RecyclerChatMessagesAdapter adapter = new RecyclerChatMessagesAdapter(getApplicationContext(), datumList);
                     recyclerView.setAdapter(adapter);
+                   recyclerView.scrollToPosition(0);
                     progressBar.setVisibility(View.GONE);
                 }
             }

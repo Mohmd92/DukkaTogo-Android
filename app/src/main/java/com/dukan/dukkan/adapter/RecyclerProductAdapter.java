@@ -81,8 +81,8 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
         @SuppressLint("SetTextI18n")
         public void setData(MultipleProducts.Data.Product item) {
             this.item = item;
-            if(item.name.length()>10)
-                tv_name.setText(item.name.substring(0,10)+"...");
+            if(item.name.length()>8)
+                tv_name.setText(item.name.substring(0,8)+"..");
             else
                 tv_name.setText(item.name);
                 Picasso.get()

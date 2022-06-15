@@ -221,7 +221,7 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/users")
-    Call<Driver> GetDrivers(@Query("store_id") String store_id , @Query("device_id") String device_id, @Query("os") String os);
+    Call<Driver> GetDrivers(@Query("store_id") int store_id , @Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
     @GET("/api/v1/request_delivery")

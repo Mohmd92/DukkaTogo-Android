@@ -69,19 +69,24 @@ public class MerchantDriversActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<Driver> callNew = apiInterface.GetDrivers("",ID,"android");
+//        Call<Driver> callNew = apiInterface.GetDrivers(SharedPreferenceManager.getInstance(getApplicationContext()).getStoreId(),ID,"android");
+        Call<Driver> callNew = apiInterface.GetDrivers(0,ID,"android");
         callNew.enqueue(new Callback<Driver>() {
             @Override
             public void onResponse(Call<Driver> callNew, Response<Driver> response) {
                 Log.d("TAG111111",response.code()+"");
                 Driver resource = response.body();
-                if(resource.status) {
-                    List<UserOrder> datumList = resource.data;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerDriversAdapter adapter = new RecyclerDriversAdapter(getApplicationContext(), datumList);
-                    recyclerView.setAdapter(adapter);
-                }else
-                    Toast.makeText(MerchantDriversActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
+                if(resource.data!=null) {
+                    if (resource.status) {
+                        List<UserOrder> datumList = resource.data;
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        RecyclerDriversAdapter adapter = new RecyclerDriversAdapter(getApplicationContext(), datumList);
+                        recyclerView.setAdapter(adapter);
+                    } else
+                        Toast.makeText(MerchantDriversActivity.this, "" + resource.message, Toast.LENGTH_SHORT).show();
+                   }else
+                    Toast.makeText(MerchantDriversActivity.this, "" + resource.message, Toast.LENGTH_SHORT).show();
+
                 progressBar.setVisibility(View.GONE);
             }
             @Override

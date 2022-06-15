@@ -86,6 +86,15 @@ public class SharedPreferenceManager {
         editor.commit();
     }
     /////////////
+    public int getStoreId() {
+        return sharedPreferences.getInt("StoreId", 0);
+    }
+
+    public void setStoreId(int StoreId) {
+        editor.putInt("StoreId", StoreId);
+        editor.commit();
+    }
+    /////////////
     public int getCartCount() {
         return sharedPreferences.getInt("CartCount", 0);
     }

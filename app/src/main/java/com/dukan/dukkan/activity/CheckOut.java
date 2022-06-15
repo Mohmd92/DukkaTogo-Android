@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class CheckOut extends AppCompatActivity {
     RecyclerView recyclerView;
     int address_id;
     boolean isFirst = true;
+    LinearLayout linear_no_account,liner2,linear_exist_account;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -78,7 +80,17 @@ public class CheckOut extends AppCompatActivity {
         RelativeLayout rel_card = findViewById(R.id.rel_card);
         Button checkout_button = findViewById(R.id.checkout_button);
         Button redeem_points_button = findViewById(R.id.redeem_points_button);
-
+        linear_exist_account = findViewById(R.id.linear_exist_account);
+        liner2 = findViewById(R.id.liner2);
+        Button but_login =  findViewById(R.id.but_login);
+        but_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CheckOut.this, LoginActivity.class));
+                finish();
+            }
+        });
+        linear_no_account = findViewById(R.id.linear_no_account);
         ImageView img_back = findViewById(R.id.img_back);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +111,16 @@ public class CheckOut extends AppCompatActivity {
                 CreateOrders();
             }
         });
-        CheckOuts();
+        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            linear_exist_account.setVisibility(View.GONE);
+            liner2.setVisibility(View.GONE);
+            linear_no_account.setVisibility(View.VISIBLE);
+        }else {
+            liner2.setVisibility(View.VISIBLE);
+            linear_exist_account.setVisibility(View.VISIBLE);
+            linear_no_account.setVisibility(View.GONE);
+            CheckOuts();
+        }
     }
 
     private void CheckOuts() {
@@ -113,22 +134,24 @@ public class CheckOut extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckOuts> callNew, Response<CheckOuts> response) {
                 CheckOuts cart = response.body();
-                if (cart.status) {
-                    tv_total_price.setText(String.valueOf(cart.data.cartTotal));
-                    tv_delivery_fee.setText(String.valueOf(cart.data.deliveryPrice));
-                    tv_total.setText(String.valueOf(cart.data.total));
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerPaymentAdapter adapter = new RecyclerPaymentAdapter(getApplicationContext(), cart.data.paymentGateway);
-                    recyclerView.setAdapter(adapter);
-                    List<AddressData> slid = cart.data.addresses;
-                    for (AddressData datum : slid) {
-                        address_id = datum.id;
-                        tv_name.setText(datum.name);
-                        tv_address.setText(datum.location);
-                        tv_mobile.setText(datum.mobile);
-                    }
-                } else
-                    Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
+                if (cart != null){
+                    if (cart.status) {
+                        tv_total_price.setText(String.valueOf(cart.data.cartTotal));
+                        tv_delivery_fee.setText(String.valueOf(cart.data.deliveryPrice));
+                        tv_total.setText(String.valueOf(cart.data.total));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        RecyclerPaymentAdapter adapter = new RecyclerPaymentAdapter(getApplicationContext(), cart.data.paymentGateway);
+                        recyclerView.setAdapter(adapter);
+                        List<AddressData> slid = cart.data.addresses;
+                        for (AddressData datum : slid) {
+                            address_id = datum.id;
+                            tv_name.setText(datum.name);
+                            tv_address.setText(datum.location);
+                            tv_mobile.setText(datum.mobile);
+                        }
+                    } else
+                        Toast.makeText(CheckOut.this, cart.message, Toast.LENGTH_SHORT).show();
+            }
                 progressBar.setVisibility(View.GONE);
                 isFirst = false;
             }

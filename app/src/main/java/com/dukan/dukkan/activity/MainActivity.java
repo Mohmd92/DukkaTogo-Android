@@ -136,6 +136,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         tv_location = view.findViewById(R.id.tv_location);
         RelativeLayout rel_profile = view.findViewById(R.id.rel_profile);
+        RelativeLayout rel_sign_in = view.findViewById(R.id.rel_sign_in);
+        Button signInButton = view.findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name()!=null) {
             if (!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals(""))
@@ -213,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              getProfileGoogle();
         Menu menu =navigationView.getMenu();
         MenuItem nav_switch_account = menu.findItem(R.id.nav_switch_accounts);
+        MenuItem nav_logout = menu.findItem(R.id.nav_logout);
         MenuItem nav_Stores = menu.findItem(R.id.nav_Stores);
         nav_Stores.setVisible(false);
         if(SharedPreferenceManager.getInstance(getBaseContext()).getUserType()!=null) {
@@ -221,6 +231,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 nav_switch_account.setVisible(false);
         }else
             nav_switch_account.setVisible(false);
+
+        if(!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            rel_profile.setVisibility(View.VISIBLE);
+            rel_sign_in.setVisibility(View.GONE);
+            nav_logout.setVisible(true);
+        }else {
+            nav_logout.setVisible(false);
+            rel_profile.setVisibility(View.GONE);
+            rel_sign_in.setVisibility(View.VISIBLE);
+        }
+
+
 
         getCartsCount();
 //        printHashKey();
@@ -299,7 +321,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 closeDrawer();
                 break;
                 case R.id.nav_points:
-                startActivity(new Intent(MainActivity.this, MyPointsActivity.class));
+                    if(!SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals(""))
+                          startActivity(new Intent(MainActivity.this, MyPointsActivity.class));
+                    else
+                        Toast.makeText(this,getString(R.string.sign_in_first_point), Toast.LENGTH_SHORT).show();
                 closeDrawer();
                 break;
                 case R.id.nav_privacy_policy:

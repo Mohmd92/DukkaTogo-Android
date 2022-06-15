@@ -27,6 +27,10 @@
             android:icon="@drawable/ic_time_circle"
             android:title="@string/work_hours" />
         <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="@string/chat" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_setting"
             android:title="@string/settings" />

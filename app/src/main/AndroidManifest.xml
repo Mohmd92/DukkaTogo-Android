@@ -263,6 +263,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.DriverProfileLicenceForMerchantActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activity.AddAddressActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

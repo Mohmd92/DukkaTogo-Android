@@ -32,6 +32,7 @@ import com.dukan.dukkan.pojo.OrderItem;
 import com.dukan.dukkan.pojo.Profile;
 import com.dukan.dukkan.pojo.StoreTimeWork;
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.facebook.FacebookSdk;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +56,7 @@ public class MerchantFragment extends Fragment {
     int storeId;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getContext());
         View root = inflater.inflate(R.layout.content_main_merchant, container, false);
         apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         image_Merchant = root.findViewById(R.id.imag);
@@ -121,7 +123,7 @@ public class MerchantFragment extends Fragment {
 
                 if(status) {
                     List<OrderItem> orders = resource.data.store.orders;
-                    System.out.println("sssssaaaaaaaaaaaaa "+orders.size());
+                    System.out.println("sssssaaaaaaaaaaaassssssssssssssa "+resource.data.store.id);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     RecyclerMerchantOrderAdapter adapter = new RecyclerMerchantOrderAdapter(getContext(), orders);
                     recyclerView.setAdapter(adapter);
@@ -139,6 +141,7 @@ public class MerchantFragment extends Fragment {
                             .load(resource.data.store.image)
                             .fitCenter()
                             .into(img_store);
+                    SharedPreferenceManager.getInstance(getApplicationContext()).setStoreId(resource.data.store.id);
 
                     System.out.println("DSSSSSSSSaaaa q "+resource.data.store.image);
                     List<StoreTimeWork> timeWork = resource.data.store.storeTimeWorks;

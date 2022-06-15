@@ -249,5 +249,7 @@
     <string name="check_your_phone_s_internet_connection">Check your phone internet connection</string>
     <string name="requests_drivers">Requests Drivers</string>
     <string name="do_you_really_want_to_reject_the_order">Do you really want to reject the order</string>
+    <string name="sign_in_first_point">Sign in first to show your points</string>
+    <string name="no_account">No Account</string>
 
 </resources>

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/rel_profile"
+    android:layout_height="@dimen/_150sdp"
     android:background="@drawable/shape_nav"
     android:orientation="vertical">
+<RelativeLayout
+    android:visibility="gone"
+    android:layout_centerInParent="true"
+    android:id="@+id/rel_sign_in"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/abudhbi_bold"
+        android:layout_marginTop="30dp"
+        android:id="@+id/sign_in_button"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:text="@string/sign_in"
+        android:background="@drawable/button33"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="40dp"/>
+</RelativeLayout>
+    <RelativeLayout
+    android:id="@+id/rel_profile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_marginStart="20dp"
@@ -58,5 +79,5 @@
         android:layout_below="@+id/linner"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-
+</RelativeLayout>
 </RelativeLayout>

@@ -186,6 +186,10 @@ public class MainMerchantActivity extends AppCompatActivity implements Navigatio
                     startActivity(i2);
                 closeDrawer();
                 break;
+            case R.id.nav_chat:
+                startActivity(new Intent(MainMerchantActivity.this, ChatListActivity.class));
+                closeDrawer();
+                break;
             case R.id.nav_privacy_policy:
                 startActivity(new Intent(MainMerchantActivity.this, PrivacyPolicyActivity.class));
                 closeDrawer();

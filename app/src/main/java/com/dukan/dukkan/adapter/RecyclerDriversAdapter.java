@@ -19,6 +19,7 @@ import com.dukan.dukkan.R;
 import com.dukan.dukkan.activity.CheckOut;
 import com.dukan.dukkan.activity.DriverProfileActivity;
 import com.dukan.dukkan.activity.DriverProfileForMerchentActivity;
+import com.dukan.dukkan.activity.DriverProfileLicenceForMerchantActivity;
 import com.dukan.dukkan.activity.ShowStoresActivity;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.UserOrder;
@@ -69,10 +70,12 @@ public class RecyclerDriversAdapter extends RecyclerView.Adapter<RecyclerDrivers
         }
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(mContext, DriverProfileForMerchentActivity.class);
+            String UserProfileString=item.name+"&&"+item.image+"&&"+item.licenseNumber+"&&"+"null"+"&&"+item.licensePicture+"&&"+item.vehiclePicture+"&&"+item.id;
+
+            Intent i = new Intent(mContext, DriverProfileLicenceForMerchantActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra("join","true");
-            i.putExtra("allData", item.id+"&&"+item.name+"&&"+item.address+"&&"+item.licenseNumber+"&&"+item.image+"&&"+item.status);
+            i.putExtra("UserProfile", UserProfileString);
             mContext.startActivity(i);
             if (mListener != null) {
                 mListener.onItemClick(item);
