@@ -84,8 +84,13 @@ public class ShowProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_review);
-        Bundle extras = getIntent().getExtras();
-        productID = extras.getInt("productID");
+        Bundle extras;
+        try{
+             extras = getIntent().getExtras();
+            productID = extras.getInt("productID");
+        } catch(Exception ex){
+            finish();
+        }
         toolbar = findViewById(R.id.home_toolbar);
         sliderLayout = findViewById(R.id.sliderLayout);
         product_name = findViewById(R.id.product_name);
@@ -105,6 +110,7 @@ public class ShowProductActivity extends AppCompatActivity {
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });

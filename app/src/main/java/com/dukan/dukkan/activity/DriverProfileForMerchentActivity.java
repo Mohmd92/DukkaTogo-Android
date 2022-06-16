@@ -107,23 +107,54 @@ public class DriverProfileForMerchentActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getProfile();
-    }
-    private void getProfile() {
-        String allData= getIntent().getExtras().getString("allData");
-        String[] allDatass = allData.split("&&");
-        delivery_id=Integer.parseInt(allDatass[0]);
-        tv_user_name.setText(""+allDatass[1]);
-        tv_location.setText(""+allDatass[2]);
-        if(allDatass[3]!=null)
-            tv_driving_license.setText(allDatass[3]);
-        Picasso.get()
-                .load(allDatass[4])
-                .into(img_profile);
-        if(allDatass[5].equals("1"))
-            img_profile_true.setVisibility(View.VISIBLE);
+    getProfile();
+}
 
+    private void getProfile() {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<Profile> callNew = apiInterface.UserProfile();
+        callNew.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> callNew, Response<Profile> response) {
+                Profile resource = response.body();
+                Boolean status = resource.status;
+                if(status) {
+                    UserProfile=resource.data;
+//                    StoreInff=resource.data.store;
+                    tv_user_name.setText(resource.data.name);
+                    tv_location.setText(resource.data.address);
+                    if(resource.data.licenseNumber!=null)
+                        tv_driving_license.setText(resource.data.licenseNumber);
+                    tv_affiliation_date.setText("");
+                    Picasso.get()
+                            .load(resource.data.image)
+                            .into(img_profile);
+                }
+                if(resource.data.status.equals("1"))
+                    img_profile_true.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
+//    private void getProfile() {
+//        String allData= getIntent().getExtras().getString("allData");
+//        String[] allDatass = allData.split("&&");
+//        delivery_id=Integer.parseInt(allDatass[0]);
+//        tv_user_name.setText(""+allDatass[1]);
+//        tv_location.setText(""+allDatass[2]);
+//        if(allDatass[3]!=null)
+//            tv_driving_license.setText(allDatass[3]);
+//        Picasso.get()
+//                .load(allDatass[4])
+//                .into(img_profile);
+//        if(allDatass[5].equals("1"))
+//            img_profile_true.setVisibility(View.VISIBLE);
+//
+//    }
     private void RequestDelivery() {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),

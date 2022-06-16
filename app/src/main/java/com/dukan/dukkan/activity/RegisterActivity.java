@@ -1,6 +1,10 @@
 package com.dukan.dukkan.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dukan.dukkan.APIClient;
@@ -33,12 +38,30 @@ import com.dukan.dukkan.pojo.RegisterParameter;
 import com.dukan.dukkan.pojo.Role;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText edit_name,edit_street,edit_mail,edit_password2,edit_password,edit_mobile,edit_postal,edit_city;
@@ -53,6 +76,13 @@ public class RegisterActivity extends AppCompatActivity {
     int currentItem2 = 0;
     long countryId=0;
     long cityId=0;
+    private SignInButton signInButton;
+    GoogleSignInClient mSignInClient;
+    private CallbackManager callbackManager;
+    FirebaseAuth mFirebaseAuth;
+    private ProgressDialog mProgressDialog;
+    private static final int RC_SIGN_IN = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         progressBar =findViewById(R.id.progressBar);
         edit_name =findViewById(R.id.edit_name);
@@ -119,12 +151,107 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, getString(R.string.check_terms), Toast.LENGTH_SHORT).show();
                 else
                     registers();
-
-
             }
         });
+        signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isNetworkAvailable()) {
+                    Toast.makeText(RegisterActivity.this, getString(R.string.CheckInternet), Toast.LENGTH_SHORT).show();
+                } else {
+                    signInGmail();
+                }
+            }
+        });
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mSignInClient = GoogleSignIn.getClient(this, gso);
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.fbLogin);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                signInWithFacebook(loginResult.getAccessToken());
+            }
 
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+            }
+        });
     }
+
+    private void signInWithFacebook(AccessToken token) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(RegisterActivity.this, getString(R.string.CheckInternet), Toast.LENGTH_SHORT).show();
+        } else {
+            showProgressDialog();
+            AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+            mFirebaseAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                hideProgressDialog();
+                            } else {
+                                String uid = task.getResult().getUser().getUid();
+                                String name = task.getResult().getUser().getDisplayName();
+                                String email = task.getResult().getUser().getEmail();
+                                String image = task.getResult().getUser().getPhotoUrl().toString();
+                                System.out.println("googgggggle " + uid);
+                                System.out.println("googgggggle " + name);
+                                System.out.println("googgggggle " + email);
+                                System.out.println("googgggggle " + image);
+                                SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(uid);
+                                SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(name);
+                                SharedPreferenceManager.getInstance(getBaseContext()).set_email(email);
+                                SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(image);
+                                SharedPreferenceManager.getInstance(getBaseContext()).setLoginType("facebook");
+                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                finish();
+
+
+                            }
+
+                        }
+                    });
+        }
+    }
+
+    public void showProgressDialog() {
+
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.please_wait));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
     private void getCountries() {
         progressBar.setVisibility(View.VISIBLE);
         Call<Country> callNew = apiInterface.doGetListCountry();
@@ -296,5 +423,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isNetworkAvailable() {
+        // Using ConnectivityManager to check for Network Connection
+        ConnectivityManager connectivityManager = (ConnectivityManager) this
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+        //  return  true;
+    }
 
+    private void signInGmail() {
+        Intent signInIntent = mSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 }

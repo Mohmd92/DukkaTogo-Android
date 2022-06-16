@@ -173,8 +173,8 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
             relative_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    changeState.onProgress(true);
-                    if (Integer.parseInt(product_count.getText().toString()) > 1) {
+                    if (Integer.parseInt(product_count.getText().toString()) > 0) {
+                        changeState.onProgress(true);
                         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(mContext.getContentResolver(),
                                 Settings.Secure.ANDROID_ID);
                         CartRemoveParamenter cartRemoveParamenter = new CartRemoveParamenter(item.product.id, ID, item.qty, "delete");
@@ -200,10 +200,14 @@ public class RecyclerCartsAdapter extends RecyclerView.Adapter<RecyclerCartsAdap
                                     }
                                 } else
                                     Toast.makeText(mContext, "" + cart.message, Toast.LENGTH_SHORT).show();
+
+                                changeState.onProgress(false);
+
                             }
 
                             @Override
                             public void onFailure(Call<CartMain> call, Throwable t) {
+                                changeState.onProgress(false);
                                 Toast.makeText(mContext, "onFailure", Toast.LENGTH_SHORT).show();
                                 call.cancel();
                             }
