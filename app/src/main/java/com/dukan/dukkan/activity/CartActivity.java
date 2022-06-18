@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -56,11 +57,20 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         linear_no_account = findViewById(R.id.linear_no_account);
         ImageView img_back =  findViewById(R.id.img_back);
         Button but_checkout =  findViewById(R.id.but_checkout);
+        Button redeem_points_button=findViewById(R.id.redeem_points_button);
         Button confirm_button =  findViewById(R.id.confirm_button);
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                check_coupon(edit_discount.getText().toString());
+                if(!TextUtils.isEmpty(edit_discount.getText().toString()))
+                    getCartsCoupon();
+//                check_coupon(edit_discount.getText().toString());
+            }
+        });
+        redeem_points_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getCartsRedeem();
             }
         });
         but_checkout.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +127,75 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
             }
         });
     }
+    private void getCartsCoupon() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    getCurrentFocus().getWindowToken(), 0);
+        }
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        progressBar.setVisibility(View.VISIBLE);
+        Call<CartMain2> callNew = apiInterface.doGetListCartCoupon(ID,"android",edit_discount.getText().toString());
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                if (cart.status) {
+                    System.out.println("KKKKKKKKKKKKK12223xxx 22 "+cart.data.discount_message);
+                    if(cart.data.discount_message.equals("success"))
+                        tv_total_price.setText(String.format("%.2f", cart.data.total));
+                    else
+                        Toast.makeText(CartActivity.this, cart.data.discount_message, Toast.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+                System.out.println("KKKKKKKKKKKKK12223xxx 3 "+t.getMessage());
+                progressBar.setVisibility(View.GONE);
+            }
+
+        });
+    }
+    private void getCartsRedeem() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    getCurrentFocus().getWindowToken(), 0);
+        }
+        @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        progressBar.setVisibility(View.VISIBLE);
+        Call<CartMain2> callNew = apiInterface.doGetListCartRedeem(ID,"android",1);
+        callNew.enqueue(new Callback<CartMain2>() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
+            @Override
+            public void onResponse(Call<CartMain2> callNew, Response<CartMain2> response) {
+                CartMain2 cart = response.body();
+                System.out.println("KKKKKKKKKKKKK12223xxx 1114 " + cart.data.total);
+
+
+                if (cart.status) {
+                    if(cart.data.redeem_message.equals("success"))
+                        tv_total_price.setText(String.format("%.2f", cart.data.total));
+                    else
+                        Toast.makeText(CartActivity.this, cart.data.redeem_message, Toast.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<CartMain2> call, Throwable t) {
+                System.out.println("KKKKKKKKKKKKK12223xxx 3 "+t.getMessage());
+
+                progressBar.setVisibility(View.GONE);
+            }
+
+        });
+    }
     private void getCarts() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -142,7 +221,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                         }
                     });
                     recyclerView.setAdapter(adapter);
-                    tv_total_price.setText(Float.toString(cart.data.cartTotal));
+                    tv_total_price.setText(Float.toString(cart.data.total));
                     tv_num_products.setText(Integer.toString(datumList.size()));
                     adapter.setClickListener(CartActivity.this);
                     if(cart.data.deliveryPrice==null)

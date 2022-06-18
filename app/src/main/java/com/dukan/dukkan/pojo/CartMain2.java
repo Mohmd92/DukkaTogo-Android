@@ -28,8 +28,34 @@ public class CartMain2 {
         @SerializedName("delivery_price")
         @Expose
         public Integer deliveryPrice;
+
         @SerializedName("total")
         @Expose
         public float total;
+
+        @SerializedName("discount_price")
+        @Expose
+        public float discount_price;
+
+        @SerializedName("redeem_points")
+        @Expose
+        public float redeem_points;
+
+        @SerializedName("redeem_price")
+        @Expose
+        public float redeem_price;
+
+        @SerializedName("discount_code")
+        @Expose
+        public String discount_code;
+
+        @SerializedName("discount_message")
+        @Expose
+        public String discount_message;
+
+        @SerializedName("redeem_message")
+        @Expose
+        public String redeem_message;
+
     }
   }

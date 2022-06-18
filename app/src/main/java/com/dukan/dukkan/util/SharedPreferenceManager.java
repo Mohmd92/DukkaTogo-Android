@@ -22,6 +22,13 @@ public class SharedPreferenceManager {
 
         return instance;
     }
+    public int getBadgeCount(){
+        return sharedPreferences.getInt("BadgeCount", 0);
+    }
+    public void setBadgeCount(int BadgeCount){
+        editor.putInt("BadgeCount",BadgeCount);
+        editor.commit();
+    }
     public String getUser_Name() {
         return sharedPreferences.getString("User_Name", null);
     }

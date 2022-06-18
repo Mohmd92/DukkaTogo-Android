@@ -269,6 +269,14 @@ public interface APIInterface {
     Call<CartMain2> doGetListCart(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/carts")
+    Call<CartMain2> doGetListCartCoupon(@Query("device_id") String device_id, @Query("os") String os, @Query("coupon") String coupon);
+
+    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @GET("/api/v1/carts")
+    Call<CartMain2> doGetListCartRedeem(@Query("device_id") String device_id, @Query("os") String os, @Query("redeem") int coupon);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/product_rates")
     Call<Rate> ProductRates(@Query("product_id") int product_id, @Query("device_id") String device_id, @Query("os") String os);
 

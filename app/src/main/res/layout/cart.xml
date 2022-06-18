@@ -136,19 +136,37 @@
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1500$"
+                android:text=""
                 />
         </RelativeLayout>
-        <Button
-            android:id="@+id/but_checkout"
-            android:fontFamily="@font/abudhbi_bold"
-            android:layout_marginTop="30dp"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:text="@string/check_out"
-            android:background="@drawable/button33"
+        <LinearLayout
+            android:id="@+id/liner2"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/but_checkout"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/abudhbi_bold"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="@string/check_out"
+                android:background="@drawable/button33"
+                android:layout_width="0dp"
+                android:layout_height="45dp"/>
+            <Button
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/abudhbi_bold"
+                android:id="@+id/redeem_points_button"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="@string/redeem_points"
+                android:background="@drawable/button33"
+                android:layout_width="0dp"
+                android:layout_height="45dp"/>
+        </LinearLayout>
            </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_no_account"
