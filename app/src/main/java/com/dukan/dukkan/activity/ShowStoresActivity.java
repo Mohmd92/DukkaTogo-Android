@@ -305,7 +305,7 @@ public class ShowStoresActivity extends AppCompatActivity {
     private void getStores() {
         Call<ShowStore> callNew = apiInterface.StoreDetails(storeId);
         callNew.enqueue(new Callback<ShowStore>() {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onResponse(Call<ShowStore> callNew, Response<ShowStore> response) {
                 Log.d("TAG111111",response.code()+"");
@@ -315,7 +315,7 @@ public class ShowStoresActivity extends AppCompatActivity {
                     tv_name.setText(resource.data.name);
                     tv_num_products.setText(""+resource.data.productsCount);
                     tv_customer_num.setText(""+resource.data.customersCount);
-                    tv_rating_num.setText(""+resource.data.rate);
+                    tv_rating_num.setText(""+String.format("%.2f", resource.data.rate));
                     tv_number.setText(resource.data.phone);
                     tv_address.setText(resource.data.address);
                     url_telegram=resource.data.urlTelegram;
