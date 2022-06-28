@@ -46,10 +46,12 @@ public class CountryActivity extends AppCompatActivity {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(countryId);
+                if (!countryId.equals("") && !cityId.equals("")){
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(countryId);
                 SharedPreferenceManager.getInstance(getBaseContext()).setCityId(cityId);
                 startActivity(new Intent(CountryActivity.this, LoginActivity.class));
                 finish();
+            }
             }
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
@@ -67,10 +69,13 @@ public class CountryActivity extends AppCompatActivity {
                 Boolean status = resource.status;
                 if(status) {
                     List<City.Datum> datumList = resource.data;
-                    Integer[] idCity=new Integer[datumList.size()];
-                    String[] name=new String[datumList.size()];
-                    String[] img=new String[datumList.size()];
-                    int i=0;
+                    Integer[] idCity=new Integer[datumList.size()+1];
+                    String[] name=new String[datumList.size()+1];
+                    String[] img=new String[datumList.size()+1];
+                    int i=1;
+                    idCity[0]=0;
+                    name[0]=getString(R.string.select_city);
+                    img[0]="city";
                     for (City.Datum datum : datumList) {
                         idCity[i]=datum.id;
                         name[i]=datum.name;
@@ -123,10 +128,13 @@ public class CountryActivity extends AppCompatActivity {
                 Boolean status = resource.status;
                 if(status) {
                     List<Country.Datum> datumList = resource.data;
-                    Integer[] idCountry=new Integer[datumList.size()];
-                    String[] name=new String[datumList.size()];
-                    String[] img=new String[datumList.size()];
-                    int i=0;
+                    Integer[] idCountry=new Integer[datumList.size()+1];
+                    String[] name=new String[datumList.size()+1];
+                    String[] img=new String[datumList.size()+1];
+                    int i=1;
+                    idCountry[0]=0;
+                    name[0]=getString(R.string.select_country);
+                    img[0]="";
                     for (Country.Datum datum : datumList) {
                         idCountry[i]=datum.id;
                         name[i]=datum.name;

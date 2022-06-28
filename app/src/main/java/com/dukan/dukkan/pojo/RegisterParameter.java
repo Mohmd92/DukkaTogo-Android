@@ -47,5 +47,15 @@ public class RegisterParameter {
         this.username = username;
         this.address = address;
         this.postal_code = postal_code;
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+name);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+email);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+mobile);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+password);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+password_confirmation);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+country_id);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+city_id);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+username);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+address);
+        System.out.println("SWQQQQQQQQQQQQQQQQQQQ "+postal_code);
     }
 }

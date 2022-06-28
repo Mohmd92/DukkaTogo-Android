@@ -35,7 +35,6 @@ import com.dukan.dukkan.pojo.Country;
 import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.RegisterParameter;
-import com.dukan.dukkan.pojo.Role;
 import com.dukan.dukkan.pojo.User;
 import com.dukan.dukkan.util.SharedPreferenceManager;
 import com.facebook.AccessToken;
@@ -54,6 +53,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -384,25 +384,26 @@ public class RegisterActivity extends AppCompatActivity {
         call1.enqueue(new Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
+                Log.e("TAG", "response 33: "+new Gson().toJson(response.body()) );
                 Register register = response.body();
-                if(register.status.equals(false)) {
+                if(!register.status) {
                     Toast.makeText(RegisterActivity.this, register.message, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }else {
                     Toast.makeText(RegisterActivity.this, register.message, Toast.LENGTH_SHORT).show();
 
                     progressBar.setVisibility(View.GONE);
-                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(register.user.apiToken);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(register.user.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).set_email(register.user.email);
+                    SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(register.data.apiToken);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(register.data.name);
+                    SharedPreferenceManager.getInstance(getBaseContext()).set_email(register.data.email);
                     SharedPreferenceManager.getInstance(getBaseContext()).setCity(city);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(register.user.cityId);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(String.valueOf(register.data.cityId));
                     SharedPreferenceManager.getInstance(getBaseContext()).setCountry(country);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(register.user.countryId);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setUserImage("");
-                    List<Role> roles = register.user.roles;
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(String.valueOf(register.data.countryId));
+                    SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(register.data.image);
+                    List<Register.Role> roles = register.data.roles;
                     StringBuilder UserRole= new StringBuilder();
-                    for (Role datum : roles) {
+                    for (Register.Role datum : roles) {
                         UserRole.append(datum.name);
                         UserRole.append("*");
                     }

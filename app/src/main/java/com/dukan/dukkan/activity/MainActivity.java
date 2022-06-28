@@ -289,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals("")){
                 header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
                 tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
+                if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserImage().equals(""))
                 Picasso.get()
                         .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
                         .into(header_im_close);

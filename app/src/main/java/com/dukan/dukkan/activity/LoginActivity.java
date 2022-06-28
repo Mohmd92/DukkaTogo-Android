@@ -39,7 +39,7 @@ import com.dukan.dukkan.pojo.Category;
 import com.dukan.dukkan.pojo.Login;
 import com.dukan.dukkan.pojo.MostWanted;
 import com.dukan.dukkan.pojo.MultipleStore;
-import com.dukan.dukkan.pojo.Role;
+import com.dukan.dukkan.pojo.Register;
 import com.dukan.dukkan.pojo.User;
 
 import java.io.IOException;
@@ -361,16 +361,16 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.data.name);
                     SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.data.email);
                     SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(login.data.cityId);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(String.valueOf(login.data.cityId));
                     SharedPreferenceManager.getInstance(getBaseContext()).setCountry(login.data.country.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(login.data.countryId);
+                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(String.valueOf(login.data.countryId));
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
                     SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
                     System.out.println("tttttttttttttttttt " + login.data.apiToken);
 
-                    List<Role> roles = login.data.roles;
+                    List<Login.Role> roles = login.data.roles;
                     String UserRole = "";
-                    for (Role datum : roles) {
+                    for (Login.Role datum : roles) {
                         UserRole = UserRole + datum.name + "&";
                     }
 

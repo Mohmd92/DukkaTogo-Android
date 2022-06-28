@@ -351,7 +351,7 @@
                     android:layout_height="48dp"
                     android:textColorHint="#aeafaf"
                     android:hint="G-0000"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="14sp"/>
                 <TextView
                     android:fontFamily="@font/abudhbi_regular"
