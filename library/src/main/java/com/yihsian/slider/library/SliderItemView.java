@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,8 @@ import com.squareup.picasso.RequestCreator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class SliderItemView extends RelativeLayout {
@@ -116,21 +119,34 @@ public class SliderItemView extends RelativeLayout {
         this.imageEffectView = (LinearLayout) findViewById(R.id.imageEffectView);
     }
 
-    public void setItem2 (String str, String txt, final String url) {
-        txt_title.setText(txt);
+    public void setItem2 (String str, String txt, final String store_id, final String product_id) {
+        txt_title.setText("");
         imageView.setVisibility(View.VISIBLE);
         relll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("ssssddcccccccccccccccc "+url);
-                String urls=url;
-              if(!TextUtils.isEmpty(url)){
-                  if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                       urls = "http://" + url;
-                  }
-                      Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urls));
-                      getContext().startActivity(browserIntent);
-              }
+                if(!product_id.equals("0")){
+                    Intent i2 = new Intent();
+                    i2.setClassName(getContext().getPackageName(), "com.dukan.dukkan.activity.ShowProductActivity");
+                    i2.putExtra("productID", Integer.parseInt(product_id));
+                    getContext().startActivity(i2);
+                }else if(!store_id.equals("0")){
+                    Intent i2 = new Intent();
+                    i2.setClassName(getContext().getPackageName(), "com.dukan.dukkan.activity.ShowStoresActivity");
+                    i2.setAction(Intent.ACTION_SEND);
+                    i2.putExtra("user", "");
+                    i2.putExtra("StoreID", Integer.parseInt(store_id));
+                    i2.putExtra("most", 0);
+                    getContext().startActivity(i2);
+                }
+//                String urls=url;
+//              if(!TextUtils.isEmpty(url)){
+//                  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+//                       urls = "http://" + url;
+//                  }
+//                      Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urls));
+//                      getContext().startActivity(browserIntent);
+//              }
             }
         });
 

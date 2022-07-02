@@ -27,8 +27,7 @@ public class APIClient {
 
     public static Retrofit getClient(Context context) {
         context = context.getApplicationContext();
-        final String tokeen= SharedPreferenceManager.getInstance(context).get_api_token();
-        System.out.println("tttttttttttttttttt "+tokeen);
+
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 //        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 //        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -40,11 +39,16 @@ public class APIClient {
 //                .client(client)
 //                .build();
 
+        Context finalContext = context;
         OkHttpClient client2 = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+                String tokeen="";
+                if(!SharedPreferenceManager.getInstance(finalContext).get_api_token().equals(""))
+                    tokeen= "Bearer "+SharedPreferenceManager.getInstance(finalContext).get_api_token();
+                System.out.println("tttttttttttttttttt "+tokeen);
                 Request newRequest  = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer "+tokeen)
+                        .addHeader("Authorization", tokeen)
                         .build();
                 return chain.proceed(newRequest);
             }

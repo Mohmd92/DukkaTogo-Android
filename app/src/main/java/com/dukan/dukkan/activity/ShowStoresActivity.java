@@ -334,7 +334,7 @@ public class ShowStoresActivity extends AppCompatActivity {
                     SliderItemView view01 = new SliderItemView(getApplicationContext());
                     for (Advertisement datum : advertisement1) {
                         view01 = new SliderItemView(getApplicationContext());
-                        view01.setItem2(datum.image,datum.title,"");
+                        view01.setItem2(datum.image,datum.title,"0","0");
                         sliderLayout.addSlider(view01);
                     }
                     if(advertisement1.size()==0)

@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +37,8 @@ public class ChatListActivity extends AppCompatActivity {
     APIInterface apiInterface;
     RecyclerView recyclerView;
     ProgressBar progressBar;
-
+    LinearLayout linear_no_account;
+    ScrollView scrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,8 @@ public class ChatListActivity extends AppCompatActivity {
         RelativeLayout rel_new_chat = findViewById(R.id.rel_new_chat);
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
+        linear_no_account =findViewById(R.id.linear_no_account);
+        scrollView =findViewById(R.id.scrollView);
         ImageView img_back = findViewById(R.id.img_back);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +61,22 @@ public class ChatListActivity extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
-        getChats();
+        Button but_login = findViewById(R.id.but_login);
+        but_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChatListActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            scrollView.setVisibility(View.GONE);
+            linear_no_account.setVisibility(View.VISIBLE);
+        }else {
+            scrollView.setVisibility(View.VISIBLE);
+            linear_no_account.setVisibility(View.GONE);
+            getChats();
+        }
     }
     private void getChats() {
         progressBar.setVisibility(View.VISIBLE);

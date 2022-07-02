@@ -1,9 +1,12 @@
 package com.dukan.dukkan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -45,23 +48,47 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     ProgressBar progressBar;
 
     private ArrayList<LatLng> locationArrayList;
+    LinearLayout linear_no_account,linear_exist_account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_store);
+        linear_no_account =findViewById(R.id.linear_no_account);
+        linear_exist_account =findViewById(R.id.linear_exist_account);
         progressBar =findViewById(R.id.progressBar);
         recyclerView =findViewById(R.id.recyclerView);
         ImageView img_back =findViewById(R.id.img_back);
+        ImageView img_back2 =findViewById(R.id.img_back2);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        img_back2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        Button but_login = findViewById(R.id.but_login);
+        but_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StoreMapActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-       getStores();
-
+        if(SharedPreferenceManager.getInstance(getBaseContext()).get_api_token().equals("")) {
+            linear_exist_account.setVisibility(View.GONE);
+            linear_no_account.setVisibility(View.VISIBLE);
+        }else {
+            linear_exist_account.setVisibility(View.VISIBLE);
+            linear_no_account.setVisibility(View.GONE);
+            getStores();
+        }
 
         // in below line we are initializing our array list.
         locationArrayList = new ArrayList<>();

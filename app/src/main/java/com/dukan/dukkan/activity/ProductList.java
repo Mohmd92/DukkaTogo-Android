@@ -1,6 +1,7 @@
 package com.dukan.dukkan.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -112,7 +114,21 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
         toolbar = findViewById(R.id.home_toolbar2);
         title = findViewById(R.id.home_title);
         tv_sala = findViewById(R.id.tv_sala);
-
+        ImageView icon_buy = toolbar.findViewById(R.id.icon_buy);
+        FrameLayout frame_buy = findViewById(R.id.frame_buy);
+        icon_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductList.this, CartActivity.class));
+            }
+        });
+        frame_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductList.this, CartActivity.class));
+                finish();
+            }
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);

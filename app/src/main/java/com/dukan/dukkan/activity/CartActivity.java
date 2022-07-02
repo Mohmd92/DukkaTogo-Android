@@ -41,7 +41,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
     APIInterface apiInterface;
     List<Cart> datumList;
     String extra_str="";
-    LinearLayout linear_no_account,linear_exist_account;
+    LinearLayout linear_no_account,linear_exist_account,liner_no_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
         tv_num_products = findViewById(R.id.tv_num_products);
         progressBar = findViewById(R.id.progressBar);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
+        liner_no_cart = findViewById(R.id.liner_no_cart);
         linear_exist_account = findViewById(R.id.linear_exist_account);
         linear_no_account = findViewById(R.id.linear_no_account);
         ImageView img_back =  findViewById(R.id.img_back);
@@ -228,12 +229,24 @@ public class CartActivity extends AppCompatActivity  implements RecyclerCartsAda
                         extra_str=cart.data.total+"&"+cart.data.cartTotal;
                     else
                      extra_str=cart.data.total+"&"+cart.data.cartTotal+"&"+cart.data.deliveryPrice;
+
+
+                    if(datumList.size()==0){
+                        liner_no_cart.setVisibility(View.VISIBLE);
+                        linear_exist_account.setVisibility(View.GONE);
+                    }
+                }
+                else {
+                    liner_no_cart.setVisibility(View.VISIBLE);
+                    linear_exist_account.setVisibility(View.GONE);
                 }
                     progressBar.setVisibility(View.GONE);
 
             }
             @Override
             public void onFailure(Call<CartMain2> call, Throwable t) {
+                liner_no_cart.setVisibility(View.VISIBLE);
+                linear_exist_account.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
             }
 

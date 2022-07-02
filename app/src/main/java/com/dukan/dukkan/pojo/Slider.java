@@ -25,5 +25,20 @@ public class Slider {
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
+    @SerializedName("user_id")
+    @Expose
+    public String userId;
+    @SerializedName("store_id")
+    @Expose
+    public String storeId;
+    @SerializedName("product_id")
+    @Expose
+    public String productId;
+    @SerializedName("store")
+    @Expose
+    public Store store;
+    @SerializedName("product")
+    @Expose
+    public NewProduct product;
 
 }

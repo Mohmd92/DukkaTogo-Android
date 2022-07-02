@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     SliderItemView view01 = new SliderItemView(getContext());
                     for (Slider datum : slid) {
                         view01 = new SliderItemView(getContext());
-                        view01.setItem2(datum.image,datum.name,datum.url);
+                        view01.setItem2(datum.image,datum.name,datum.storeId,datum.productId);
                         sliderLayout.addSlider(view01);
                     }
                     if(slid.size()==0)

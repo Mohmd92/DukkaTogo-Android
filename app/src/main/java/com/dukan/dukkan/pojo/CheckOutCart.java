@@ -14,64 +14,58 @@ public class CheckOutCart {
     public Boolean status;
     @SerializedName("data")
     @Expose
-    public List<Datum> data = new ArrayList<>();
+    public Data data;
 
-    public class Datum {
+    public class Data {
 
-        @SerializedName("id")
-        @Expose
-        public Integer id;
         @SerializedName("order_number")
         @Expose
         public String orderNumber;
         @SerializedName("note")
         @Expose
-        public String note;
+        public Object note;
         @SerializedName("discount")
         @Expose
-        public String discount;
+        public Integer discount;
         @SerializedName("total")
         @Expose
-        public String total;
+        public Integer total;
         @SerializedName("coupon")
         @Expose
-        public String coupon;
-        @SerializedName("buyer_id")
-        @Expose
-        public String buyerId;
-        @SerializedName("driver_id")
-        @Expose
-        public Object driverId;
-        @SerializedName("user_id")
-        @Expose
-        public String userId;
-        @SerializedName("status")
-        @Expose
-        public String status;
+        public Object coupon;
         @SerializedName("store_id")
         @Expose
         public String storeId;
-        @SerializedName("created_at")
-        @Expose
-        public String createdAt;
-        @SerializedName("updated_at")
-        @Expose
-        public String updatedAt;
-        @SerializedName("device_id")
-        @Expose
-        public String deviceId;
         @SerializedName("delivery_id")
         @Expose
-        public String deliveryId;
+        public Object deliveryId;
         @SerializedName("address_id")
         @Expose
         public String addressId;
         @SerializedName("payment_gateway_id")
         @Expose
         public String paymentGatewayId;
+        @SerializedName("user_id")
+        @Expose
+        public Integer userId;
+        @SerializedName("status")
+        @Expose
+        public Integer status;
+        @SerializedName("updated_at")
+        @Expose
+        public String updatedAt;
+        @SerializedName("created_at")
+        @Expose
+        public String createdAt;
+        @SerializedName("id")
+        @Expose
+        public Integer id;
         @SerializedName("qr_code")
         @Expose
         public String qrCode;
+        @SerializedName("string_status")
+        @Expose
+        public String stringStatus;
 
     }
 }

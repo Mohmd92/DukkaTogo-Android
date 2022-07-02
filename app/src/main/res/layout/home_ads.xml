@@ -17,6 +17,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_weight="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp">
             <TextView
+                android:visibility="gone"
                 android:id="@+id/title_advertisement1"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
@@ -39,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text=""/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/desc_advertisement1"
                 android:layout_below="@+id/title_advertisement1"
                 android:layout_marginStart="5dp"

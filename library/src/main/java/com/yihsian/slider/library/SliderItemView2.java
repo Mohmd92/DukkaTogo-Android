@@ -86,8 +86,8 @@ public class SliderItemView2 extends RelativeLayout {
     }
 
     public void setItem2 (String str, String txt, final String desc) {
-        title_advertisement1.setText(txt);
-        desc_advertisement1.setText(desc);
+        title_advertisement1.setText("");
+        desc_advertisement1.setText("");
         System.out.println("SWQQAAAAdddd 22  "+str);
 
         RequestCreator rq = Picasso.get().load(str);

@@ -47,6 +47,27 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </ScrollView>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/liner_no_fav"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_no_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:fontFamily="@font/abudhbi_regular"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/there_are_no_favorites"/>
+        </LinearLayout>
     </LinearLayout>
     </LinearLayout>
     <ProgressBar

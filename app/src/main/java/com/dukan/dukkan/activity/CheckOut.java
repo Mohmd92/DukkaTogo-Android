@@ -172,7 +172,7 @@ public class CheckOut extends AppCompatActivity {
             @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                     Settings.Secure.ANDROID_ID);
             progressBar.setVisibility(View.VISIBLE);
-            System.out.println("IDIDIDIDIDID " + ID);
+            System.out.println("IDIDIDIDIDID x " + address_id+ " "+ SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId());
             Call<CheckOutCart> callNew = apiInterface.CreateOrderCart(address_id, SharedPreferenceManager.getInstance(getApplicationContext()).getPaymentId(), ID, "android");
             callNew.enqueue(new Callback<CheckOutCart>() {
                 @SuppressLint("SetTextI18n")
@@ -180,7 +180,9 @@ public class CheckOut extends AppCompatActivity {
                 public void onResponse(Call<CheckOutCart> callNew, Response<CheckOutCart> response) {
                     CheckOutCart cart = response.body();
                     if (cart != null) {
+                        System.out.println("IDIDIDIDIDID cart.status " + cart.status);
                         if (cart.status) {
+                            System.out.println("IDIDIDIDIDID 11 " + ID);
                             progressBar.setVisibility(View.GONE);
                             ThankOrderSheetFragment thhankOrderSheetFragment = new ThankOrderSheetFragment();
                             thhankOrderSheetFragment.show(getSupportFragmentManager()
@@ -193,6 +195,7 @@ public class CheckOut extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     } else {
+                        System.out.println("IDIDIDIDIDID null " + null);
                         progressBar.setVisibility(View.GONE);
 
                     }

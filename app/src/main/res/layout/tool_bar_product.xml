@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize">
         <FrameLayout
+            android:id="@+id/frame_buy"
             android:layout_marginEnd="10dp"
             android:layout_width="25dp"
             android:layout_height="25dp">

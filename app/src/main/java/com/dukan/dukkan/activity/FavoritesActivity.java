@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
     RecyclerView recyclerView;
     APIInterface apiInterface;
     ProgressBar progressBar;
+    LinearLayout liner_no_fav;
     private Toolbar toolbar;
     TextView tv_sala;
     int tempCount=0;
@@ -69,6 +71,7 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         progressBar =findViewById(R.id.progressBar);
+        liner_no_fav =findViewById(R.id.liner_no_fav);
         recyclerView =findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar2);
         tv_sala = findViewById(R.id.tv_sala);
@@ -123,8 +126,14 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
 
                     RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                     recyclerView.setLayoutManager(mLayoutManager);
+                    if(datumList.size()==0){
+                        liner_no_fav.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }
 
-
+                }else {
+                    liner_no_fav.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 }
 
 
@@ -134,6 +143,8 @@ public class FavoritesActivity extends AppCompatActivity implements  RecyclerCar
             @Override
             public void onFailure(Call<FavoriteMain> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
+                liner_no_fav.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
             }
 
         });

@@ -48,6 +48,7 @@
                 android:text="@string/no_messages"/>
         </LinearLayout>
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".TestActivity">
@@ -60,6 +61,56 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </ScrollView>
+        <LinearLayout
+            android:id="@+id/linear_no_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_mask_group_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/abudhbi_regular"
+                android:text="@string/my_profile"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/abudhbi_regular"
+                android:gravity="center"
+                android:text="@string/if_you_want_more_information_read_the_attribution_guide_license"
+                android:textColor="@color/blackTheme_colorBackground"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/but_login"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button33"
+                android:fontFamily="@font/abudhbi_bold"
+                android:text="@string/sign_in"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
     <RelativeLayout
         android:visibility="gone"

@@ -2,8 +2,10 @@ package com.dukan.dukkan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -59,7 +61,14 @@ public class NotificationsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         icon_buy.setVisibility(View.GONE);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-
+        Button but_login = findViewById(R.id.confirm_button);
+        but_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NotificationsActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
         if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserCurrentType().equals("Customer"))
             icon_buy.setVisibility(View.GONE);
 
@@ -84,9 +93,10 @@ public class NotificationsActivity extends AppCompatActivity {
         }else {
             linear_exist_account.setVisibility(View.VISIBLE);
             linear_no_account.setVisibility(View.GONE);
+            getNotification();
         }
 
-        getNotification();
+
 
     }
     private void getNotification() {
@@ -102,6 +112,11 @@ public class NotificationsActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     RecyclerNotificationAdapter adapter = new RecyclerNotificationAdapter(getApplicationContext(), datumList);
                     recyclerView.setAdapter(adapter);
+                    if (datumList.size()==0){
+                        linear_no_notifications.setVisibility(View.VISIBLE);
+                        linear_no_account.setVisibility(View.GONE);
+                        linear_exist_account.setVisibility(View.GONE);
+                    }
                 }else{
                     linear_no_notifications.setVisibility(View.VISIBLE);
                     linear_no_account.setVisibility(View.GONE);
@@ -115,6 +130,9 @@ public class NotificationsActivity extends AppCompatActivity {
             public void onFailure(Call<Notifications> call, Throwable t) {
                 Log.d("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
+                linear_no_notifications.setVisibility(View.VISIBLE);
+                linear_no_account.setVisibility(View.GONE);
+                linear_exist_account.setVisibility(View.GONE);
 
             }
 
