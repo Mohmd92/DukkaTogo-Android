@@ -148,7 +148,6 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         return root;
     }
     private void getStores() {
-        Toast.makeText(getContext(), ""+StoreId, Toast.LENGTH_SHORT).show();
         mSwipeRefreshLayout.setRefreshing(true);
         Call<ShowStore> callNew = apiInterface.StoreDetails(StoreId);
         callNew.enqueue(new Callback<ShowStore>() {

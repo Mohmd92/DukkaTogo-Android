@@ -129,18 +129,32 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        toolbar.setNavigationIcon(R.drawable.ic_group_11935);
-        ViewCompat.setLayoutDirection(toolbar, ViewCompat.LAYOUT_DIRECTION_RTL);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-
-            @SuppressLint("RtlHardcoded")
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+//        drawerLayout.addDrawerListener(drawerToggle);
+//        drawerToggle.syncState();
+//        toolbar.setNavigationIcon(R.drawable.ic_menu);
+//        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_menu));
+//        ViewCompat.setLayoutDirection(toolbar, ViewCompat.LAYOUT_DIRECTION_RTL);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//
+//            @SuppressLint("RtlHardcoded")
+//            @Override
+//            public void onClick(View v) {
+//                if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+//                    drawerLayout.closeDrawer(Gravity.RIGHT);
+//                } else {
+//                    drawerLayout.openDrawer(Gravity.RIGHT);
+//                }
+//            }
+//        });
+        ImageView icon_back = toolbar.findViewById(R.id.img_back);
+        ImageView icon_menu = toolbar.findViewById(R.id.icon_menu);
+        icon_menu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
                 if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
                     drawerLayout.closeDrawer(Gravity.RIGHT);
                 } else {
@@ -148,15 +162,14 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
-        ImageView icon_back = toolbar.findViewById(R.id.img_back);
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+            finish();
             }
         });
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
         View view = navigationView.getHeaderView(0);
         TextView header_tv_user_name = view.findViewById(R.id.header_tv_user_name);
         TextView tv_rating_num = view.findViewById(R.id.tv_rating_num);
@@ -195,6 +208,7 @@ public class ProductList extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        drawerLayout.closeDrawer(GravityCompat.END, true);
         return false;
     }
 

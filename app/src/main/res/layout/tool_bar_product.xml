@@ -14,37 +14,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize">
-        <FrameLayout
-            android:id="@+id/frame_buy"
-            android:layout_marginEnd="10dp"
-            android:layout_width="25dp"
-            android:layout_height="25dp">
-            <ImageView
-                android:layout_gravity="end|bottom"
-                android:id="@+id/icon_buy"
-                android:outlineProvider="background"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_buy" />
-            <TextView
-                android:id="@+id/tv_sala"
-                android:textSize="9sp"
-                android:gravity="center"
-                android:fontFamily="@font/abudhbi_regular"
-                android:textColor="@color/white"
-                android:text=""
-                android:layout_gravity="start"
-                android:background="@drawable/button_num1"
-                android:layout_width="15dp"
-                android:layout_height="15dp"/>
-        </FrameLayout>
-
-        <ImageView
-            android:visibility="gone"
-            android:outlineProvider="background"
+        <LinearLayout
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:gravity="end"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_notification" />
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/frame_buy"
+                android:layout_marginEnd="10dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+                <ImageView
+                    android:layout_gravity="end|bottom"
+                    android:id="@+id/icon_buy"
+                    android:outlineProvider="background"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_buy" />
+
+                <TextView
+                    android:id="@+id/tv_sala"
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="@drawable/button_num1"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/icon_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_group_11935" />
+        </LinearLayout>
 
         <ImageView
             android:visibility="gone"
@@ -55,9 +64,7 @@
             android:src="@drawable/ic_search" />
         <ImageView
             android:id="@+id/img_back"
-            android:rotation="180"
             android:layout_marginEnd="20dp"
-            android:layout_gravity="end"
             android:outlineProvider="background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
