@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.dukan.dukkan.pojo.AddressParameter;
 import com.dukan.dukkan.pojo.Request;
 import com.dukan.dukkan.pojo.RequestMerchant;
 import com.dukan.dukkan.pojo.RequestStatus;
+import com.dukan.dukkan.pojo.Store;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -49,14 +51,23 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
     List<RequestMerchant.Datum> mValues;
     Context mContext;
     Activity Aactivity;
+    List<Store> stores;
+
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
-    int row_index=-1;
+    int row_index = -1;
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+        notifyDataSetChanged();
+    }
+
     public RecyclerStoreDeliveryInviteAdapter(Activity activity, Context context, List<RequestMerchant.Datum> values) {
 
         mValues = values;
         mContext = context;
         Aactivity = activity;
+
 //        mListener=itemListener;
     }
 
@@ -69,6 +80,7 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
         ProgressBar progressBar;
         APIInterface apiInterface;
         public RelativeLayout relative;
+
         public ViewHolder(View v) {
             super(v);
 
@@ -78,22 +90,25 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
             join_button = v.findViewById(R.id.join_button);
 
         }
+
         public void setData(RequestMerchant.Datum item) {
             this.item = item;
 
             name.setText(item.store.name);
-//                Picasso.get()
-//                        .load(item.store.image)
-//                        .into(img_store);
-            Glide.with(mContext).load(item.store.image).into(img_store);
+            Picasso.get()
+                    .load(item.store.image)
+                    .into(img_store);
+            // Glide.with(mContext).load(item.store.image).into(img_store);
 
             join_button.setVisibility(View.GONE);
-            System.out.println("IIIIIIII88888 "+item.store.image);
+            System.out.println("IIIIIIII88888 " + item.store.image);
+//            Log.e("TAG", "setData: ", );
         }
-        private void Doee( android.app.Dialog EndDialog,String statts) {
+
+        private void Doee(android.app.Dialog EndDialog, String statts) {
             apiInterface = APIClient.getClient(Aactivity).create(APIInterface.class);
             progressBar.setVisibility(View.VISIBLE);
-            Call<RequestStatus> call1 = apiInterface.RequestDeliveryStatus(item.id,statts);
+            Call<RequestStatus> call1 = apiInterface.RequestDeliveryStatus(item.id, statts);
             call1.enqueue(new Callback<RequestStatus>() {
                 @SuppressLint("SetTextI18n")
                 @Override
@@ -102,10 +117,11 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
                     if (requestStatus.status) {
                         Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
                         EndDialog.dismiss();
-                    }else
+                    } else
                         Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
+
                 @Override
                 public void onFailure(Call<RequestStatus> call, Throwable t) {
                     progressBar.setVisibility(View.GONE);
@@ -113,34 +129,35 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
                 }
             });
         }
+
         @Override
         public void onClick(View view) {
-                android.app.Dialog EndDialog=new Dialog(Aactivity,android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-                EndDialog.setContentView(R.layout.dialog_invite);
-                EndDialog.setCancelable(false);
-                progressBar =  EndDialog.findViewById(R.id.progressBar);
-                ImageView img_close =  EndDialog.findViewById(R.id.img_close);
-                TextView dialog_ok =  EndDialog.findViewById(R.id.yes_button);
-                TextView dialog_cancel =  EndDialog.findViewById(R.id.no_button);
-                img_close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EndDialog.dismiss();
-                    }
-                });
-                dialog_ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Doee(EndDialog,"1");
-                    }
-                });
-                dialog_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Doee(EndDialog,"2");
-                    }
-                });
-                EndDialog.show();
+            android.app.Dialog EndDialog = new Dialog(Aactivity, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+            EndDialog.setContentView(R.layout.dialog_invite);
+            EndDialog.setCancelable(false);
+            progressBar = EndDialog.findViewById(R.id.progressBar);
+            ImageView img_close = EndDialog.findViewById(R.id.img_close);
+            TextView dialog_ok = EndDialog.findViewById(R.id.yes_button);
+            TextView dialog_cancel = EndDialog.findViewById(R.id.no_button);
+            img_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EndDialog.dismiss();
+                }
+            });
+            dialog_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Doee(EndDialog, "1");
+                }
+            });
+            dialog_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Doee(EndDialog, "2");
+                }
+            });
+            EndDialog.show();
             if (mListener != null) {
                 mListener.onItemClick(item);
             }
@@ -157,15 +174,35 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public void onBindViewHolder(ViewHolder Vholder, int position) {
-        Vholder.setData(mValues.get(position));
+        Store store = stores.get(position);
+//        Log.e("TAG", "onBindViewHolder: " + stores.get(position).name);
 
+        Vholder.name.setText(store.name);
+        Picasso.get()
+                .load(store.image)
+                .into(Vholder.img_store);
+        // Glide.with(mContext).load(item.store.image).into(img_store);
+
+        Vholder.join_button.setVisibility(View.GONE);
+       // System.out.println("IIIIIIII88888 " + item.store.image);
+//        RequestMerchant.Datum datum = mValues.get(position);
+//        if (datum.store != null) {
+//
+//            Vholder.setData(datum);
+//        }
+
+
+//        RequestMerchant.Datum datum= mValues.get(position);
+//        Log.e("TAG", "onBindViewHolder: "+datum.store );
     }
+
     @Override
     public int getItemCount() {
 
-        return mValues.size();
+        return stores.size();
     }
-     public interface ItemListener {
+
+    public interface ItemListener {
         void onItemClick(RequestMerchant.Datum item);
     }
 }

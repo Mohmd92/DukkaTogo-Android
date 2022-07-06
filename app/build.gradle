@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.firebase:firebase-client-android:2.5.2'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
     implementation 'com.facebook.android:facebook-android-sdk:4.9.0'
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-auth'

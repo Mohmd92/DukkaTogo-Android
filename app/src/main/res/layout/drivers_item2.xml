@@ -1,5 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+
     android:id="@+id/linnnar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

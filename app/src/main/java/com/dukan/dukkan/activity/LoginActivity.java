@@ -353,6 +353,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Login login = response.body();
                 if (login.status.equals(false)) {
+                    Log.e(TAG, "onResponse: "+login.data.apiToken );
                     Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 } else {

@@ -8,13 +8,19 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/drawable/ic_unchek.xml" value="0.1745" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/activity_home.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/app_bar_home.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/bottom_sheet_switch_account.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/cart.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/cart_item.xml" value="0.4826989619377163" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/check_out.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/driver_order_details_acticity.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/driver_statistics_acticity.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/drivers_item2.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/home_sldider.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/image_slider_layout_item.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/merchant_create_discount.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/merchant_drivers.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/merchant_order_details_acticity.xml" value="0.264" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/merchant_orders_elivered.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/notifications.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/payments_item.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/product_merchant_item.xml" value="0.21302083333333333" />
@@ -23,9 +29,13 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/settings.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/show_store.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/statistics.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/store_invite_delivery.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/store_invite_item.xml" value="0.4" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/store_need_delivery.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/tool_bar.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/tool_bar_review.xml" value="0.1" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/layout/wanted_item.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/DukkaTogo-Android/app/src/main/res/menu/activity_home_drawer_p.xml" value="0.21302083333333333" />
       </map>
     </option>
   </component>

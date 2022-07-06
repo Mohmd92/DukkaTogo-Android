@@ -26,6 +26,7 @@ import com.dukan.dukkan.pojo.Request;
 import com.dukan.dukkan.pojo.RequestMerchant;
 import com.dukan.dukkan.pojo.UserOrder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,19 +37,22 @@ public class MerchantRequestsActivity extends AppCompatActivity {
     APIInterface apiInterface;
     RecyclerView recyclerView;
     ProgressBar progressBar;
+    private RecyclerRequestMerchantAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_drivers);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView_merchant_drivers);
+
         progressBar = findViewById(R.id.progressBar);
         Toolbar toolbar = findViewById(R.id.toolbar2);
         toolbar.setTitle("");
         ImageView icon_back = toolbar.findViewById(R.id.icon_back);
         ImageView icon_edit = toolbar.findViewById(R.id.icon_edit);
-        icon_edit.setVisibility(View.GONE);
+
         ImageView icon_notification = toolbar.findViewById(R.id.icon_notification);
         TextView tv_title = findViewById(R.id.tv_title);
         tv_title.setText(getIntent().getExtras().getString("title"));
@@ -59,16 +63,32 @@ public class MerchantRequestsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         icon_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MerchantRequestsActivity.this, NotificationsActivity.class));
             }
         });
-        getDrivers();
+        recyclerView.setLayoutManager(new LinearLayoutManager(MerchantRequestsActivity.this));
+        recyclerView.setHasFixedSize(true);
+        adapter = new RecyclerRequestMerchantAdapter(MerchantRequestsActivity.this, new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        getDrivers(new GetDataDrivers() {
+            @Override
+            public void onDataComplete(List<RequestMerchant.Datum> data) {
+                adapter.setmValues(data);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
-    private void getDrivers() {
+
+    interface GetDataDrivers {
+        void onDataComplete(List<RequestMerchant.Datum> data);
+    }
+
+    private void getDrivers(GetDataDrivers dataDrivers) {
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -76,20 +96,18 @@ public class MerchantRequestsActivity extends AppCompatActivity {
         callNew.enqueue(new Callback<RequestMerchant>() {
             @Override
             public void onResponse(Call<RequestMerchant> callNew, Response<RequestMerchant> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111", response.code() + "");
                 RequestMerchant resource = response.body();
-                if(resource.status) {
-                    List<RequestMerchant.Datum> datumList = resource.data.data;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerRequestMerchantAdapter adapter = new RecyclerRequestMerchantAdapter(getApplicationContext(), datumList);
-                    recyclerView.setAdapter(adapter);
-                }else
-                    Toast.makeText(MerchantRequestsActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
+                if (resource.status) {
+                    dataDrivers.onDataComplete(resource.data.data);
+                } else
+                    Toast.makeText(MerchantRequestsActivity.this, "" + resource.message, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onFailure(Call<RequestMerchant> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.d("TAG111111", "  e " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
 
             }

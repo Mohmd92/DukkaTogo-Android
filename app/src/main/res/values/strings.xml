@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DÜKKAN TOGO</string>
     <string name="choose_country">Choose Country</string>
-    <string name="please_select_the_required_category_in_order_to_obtain_the_required">Please Select The Required Category In Order To Obtain The Required.</string>
+    <string name="please_select_the_required_category_in_order_to_obtain_the_required">Please Select The Required Account In Order To Obtain The Required.</string>
     <string name="country">Country</string>
     <string name="city">City</string>
     <string name="confirm">confirm</string>
@@ -188,7 +188,7 @@
     <string name="ok">OK</string>
     <string name="join_date">Join Date</string>
     <string name="choose_a_driver">Choose A Driver</string>
-    <string name="choose_category">Choose Category</string>
+    <string name="choose_category">Choose Account</string>
     <string name="merchant">Merchant</string>
     <string name="driver">Driver</string>
     <string name="no_messages">No Messages</string>
