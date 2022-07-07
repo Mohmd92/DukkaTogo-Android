@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,9 +20,9 @@ import com.dukan.dukkan.APIInterface;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.adapter.RecyclerOrderAdapter;
 import com.dukan.dukkan.adapter.RecyclerOrderAdapter2;
-import com.dukan.dukkan.adapter.RecyclerStoreAdapter;
+import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Order;
-import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.dukan.dukkan.pojo.UpdateProductStatus;
 
 import java.util.List;
 
@@ -41,19 +40,19 @@ public class OrdersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.orders);
-        progressBar =findViewById(R.id.progressBar);
-        recyclerView =findViewById(R.id.recyclerView);
-        ImageView img_back =findViewById(R.id.img_back);
-        ImageView image_filter =findViewById(R.id.image_filter);
-        TextView tv_full =findViewById(R.id.tv_full);
-        TextView tv_unfull =findViewById(R.id.tv_unfull);
-        CardView card_fulfilled =findViewById(R.id.card_fulfilled);
-        CardView card_unfulfilled =findViewById(R.id.card_unfulfilled);
+        progressBar = findViewById(R.id.progressBar);
+        recyclerView = findViewById(R.id.recyclerView);
+        ImageView img_back = findViewById(R.id.img_back);
+        ImageView image_filter = findViewById(R.id.image_filter);
+        TextView tv_full = findViewById(R.id.tv_full);
+        TextView tv_unfull = findViewById(R.id.tv_unfull);
+        CardView card_fulfilled = findViewById(R.id.card_fulfilled);
+        CardView card_unfulfilled = findViewById(R.id.card_unfulfilled);
         card_fulfilled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                card_fulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.button12));
-                card_unfulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.edit_shap2));
+                card_fulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button12));
+                card_unfulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_shap2));
                 tv_unfull.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 tv_full.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 getOrders();
@@ -62,8 +61,8 @@ public class OrdersActivity extends AppCompatActivity {
         card_unfulfilled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                card_fulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.edit_shap2));
-                card_unfulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.button12));
+                card_fulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_shap2));
+                card_unfulfilled.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button12));
                 tv_unfull.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 tv_full.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 getOrders2();
@@ -76,65 +75,91 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-       getOrders();
+        getOrders();
 
 
     }
+
     private void getOrders() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","2");
+        Call<Order> callNew = apiInterface.GetAllOrders(ID, "android", "", "", "", "", "", "2");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111", response.code() + "");
                 Order resource = response.body();
-                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
-                if(resource.status){
-                    Log.d("TAG111111","111111111111111111111111111111111ww");
+                Log.d("TAG111111", "111111111111111111111111111111111 resource " + resource.status);
+                if (resource.status) {
+                    Log.d("TAG111111", "111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerOrderAdapter adapter = new RecyclerOrderAdapter(getApplicationContext(), datumList,OrdersActivity.this);
-                recyclerView.setAdapter(adapter);
-            }
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    RecyclerOrderAdapter adapter = new RecyclerOrderAdapter(getApplicationContext(), datumList, OrdersActivity.this);
+                    recyclerView.setAdapter(adapter);
+                }
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-                Log.d("TAG111111 xxxx","  e "+t.getMessage());
+                Log.d("TAG111111 xxxx", "  e " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
 
             }
 
         });
     }
+
     private void getOrders2() {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","","","","","","0");
+        System.out.println("TAG111111 ssssss " + ID);
+        Call<Order> callNew = apiInterface.GetAllOrders(ID, "android", "", "", "", "", "", "0");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
                 Order resource = response.body();
-                if(resource.status){
+                if (resource.status) {
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList,OrdersActivity.this);
+                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList, OrdersActivity.this, new RecyclerOrderAdapter2.ItemListener() {
+                        @Override
+                        public void onItemClick(Order.Datum item) {
+                            //   Toast.makeText(OrdersActivity.this, item.id + "", Toast.LENGTH_SHORT).show();
+                            cancelOrders(item);
+                        }
+                    });
                     recyclerView.setAdapter(adapter);
                 }
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.d("TAG111111", "  e " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
 
             }
 
         });
+    }
+
+    private void cancelOrders(Order.Datum item) {
+        apiInterface.cancelOrders(item.id, 4).enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+
+                Log.e("TAG", "onResponse: " + response.message());
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                Log.e("TAG", "onResponse: " + t.getMessage());
+            }
+        });
+
     }
 
 }

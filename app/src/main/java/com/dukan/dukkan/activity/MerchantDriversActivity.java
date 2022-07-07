@@ -41,7 +41,7 @@ public class MerchantDriversActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_drivers);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView_merchant_drivers);
         progressBar = findViewById(R.id.progressBar);
         Toolbar toolbar = findViewById(R.id.toolbar2);
         toolbar.setTitle("");
@@ -70,7 +70,7 @@ public class MerchantDriversActivity extends AppCompatActivity {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 //        Call<Driver> callNew = apiInterface.GetDrivers(SharedPreferenceManager.getInstance(getApplicationContext()).getStoreId(),ID,"android");
-        Call<Driver> callNew = apiInterface.GetDrivers(0,ID,"android");
+        Call<Driver> callNew = apiInterface.GetDrivers(ID,"android","1");
         callNew.enqueue(new Callback<Driver>() {
             @Override
             public void onResponse(Call<Driver> callNew, Response<Driver> response) {
@@ -79,6 +79,7 @@ public class MerchantDriversActivity extends AppCompatActivity {
                 if(resource.data!=null) {
                     if (resource.status) {
                         List<UserOrder> datumList = resource.data;
+                      //  Log.e("TAG", "onResponse: "+datumList );
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         RecyclerDriversAdapter adapter = new RecyclerDriversAdapter(getApplicationContext(), datumList);
                         recyclerView.setAdapter(adapter);

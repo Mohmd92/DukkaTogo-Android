@@ -77,22 +77,44 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/products")
-    Call<MultipleProducts> doGetListProduct(@Query("device_id") String device_id,@Query("os") String os,@Query("store_id") int store_id,@Query("brand_id") int brand_id
-            ,@Query("category_id") int category_id,@Query("search") String search,@Query("new") int news,@Query("most_wanted") int most_wanted,@Query("price_from") int price_from,@Query("price_to") int price_to);
+    Call<MultipleProducts> doGetListProduct(@Query("device_id") String device_id,
+                                            @Query("os") String os,
+                                            @Query("store_id") int store_id,
+                                            @Query("brand_id") int brand_id
+            , @Query("category_id") int category_id,
+                                            @Query("search") String search,
+                                            @Query("new") int news,
+                                            @Query("most_wanted") int most_wanted,
+                                            @Query("price_from") int price_from,
+                                            @Query("price_to") int price_to);
+
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @GET("/api/v1/products")
+    Call<MultipleProducts> doGetListProduct(@Query("device_id") String device_id,
+                                            @Query("os") String os,
+                                            @Query("store_id") int store_id,
+                                            @Query("brand_id") int brand_id
+                                          , @Query("category_id") int category_id,
+                                            @Query("search") String search,
+                                            @Query("new") int news,
+                                            @Query("most_wanted") int most_wanted,
+                                            @Query("price_from") int price_from,
+                                            @Query("price_to") int price_to,
+                                            @Query("api_token") String token);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/stores?")
-    Call<MultipleStore> doGetListStore(@Query("city_id") int city_id,@Query("country_id") int country_id);
+    Call<MultipleStore> doGetListStore(@Query("city_id") int city_id, @Query("country_id") int country_id);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/stores?")
-    Call<MultipleStore> doGetListStoreDelivery(@Query("city_id") int city_id,@Query("country_id") int country_id,@Query("need_delivery") int need_delivery,@Query("delivery_stores") int delivery_stores );
+    Call<MultipleStore> doGetListStoreDelivery(@Query("city_id") int city_id, @Query("country_id") int country_id, @Query("need_delivery") int need_delivery, @Query("delivery_stores") int delivery_stores);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/stores/{id}/join")
     Call<JoinStore> JoinStores(@Path("id") int id);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/pages")
     Call<Privacy> getPrivacyList();
 
@@ -100,36 +122,37 @@ public interface APIInterface {
 //    @GET("/api/v1/requests")
 //    Call<RequestMerchant> getRequests();
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/requests")
     Call<RequestMerchant> getRequestsMerchant();
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/chats")
     Call<Chat> getChatsList();
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/messages?")
     Call<ChatMessage> getChatsMessages(@Query("chat_id") int chat_id);
+
     @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/messages?")
     Call<SendChat> SendChat(@Query("chat_id") int chat_id, @Field("message") String message);
 
     @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/chats")
     Call<ChatNew> NewChat(@Field("user_id") int user_id);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
-    Call<Home> doGetListHome(@Query("device_id") String device_id,@Query("os") String os);
+    Call<Home> doGetListHome(@Query("device_id") String device_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/videos?")
     Call<Video> doGetListVideo(@Query("device_id") String device_id, @Query("os") String os);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/orders/statistics?")
     Call<OrderStatistics> GetOrderStatistics(@Query("device_id") String device_id, @Query("os") String os, @Query("date_from") String date_from, @Query("date_to") String date_to);
 
@@ -143,7 +166,7 @@ public interface APIInterface {
     Call<Category> doGetListCategory();
 
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/profile")
     Call<Profile> UserProfile();
 
@@ -166,18 +189,19 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/check_coupon/{id}")
     Call<CouponMain> doCheckCoupon(@Path("id") String id);
-    @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
-    @POST("/api/v1/address")
-    Call<Address> AddAddress(@Field("name") String name, @Field("location") String location,@Query("device_id") String device_id, @Query("os") String os);
 
     @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
+    @POST("/api/v1/address")
+    Call<Address> AddAddress(@Field("name") String name, @Field("location") String location, @Query("device_id") String device_id, @Query("os") String os);
+
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/request_delivery_status")
     Call<RequestStatus> RequestDeliveryStatus(@Field("request_id") int request_id, @Field("status") String status);
 
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/address/{id}")
     Call<Address> DeleteAddress(@Path("id") int id, @Query("device_id") String device_id, @Query("os") String os);
 
@@ -185,61 +209,65 @@ public interface APIInterface {
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/store_times")
     Call<StoreTimes> EditTimesWork(@Field("store_id") int store_id
-            ,@Field("days[Sunday][from]") String Sundayfrom,@Field("days[Sunday][to]") String Sundayto,@Field("days[Sunday][status]") int Sundaystatus
-            ,@Field("days[Monday][from]") String Mondayfrom,@Field("days[Monday][to]") String Mondayto,@Field("days[Monday][status]") int Mondaystatus
-            ,@Field("days[Tuesday][from]") String Tuesdayfrom,@Field("days[Tuesday][to]") String Tuesdayto,@Field("days[Tuesday][status]") int Tuesdaystatus
-            ,@Field("days[Wednesday][from]") String Wednesdayfrom,@Field("days[Wednesday][to]") String Wednesdayto,@Field("days[Wednesday][status]") int Wednesdaystatus
-            ,@Field("days[Thursday][from]") String Thursdayfrom,@Field("days[Thursday][to]") String Thursdayto,@Field("days[Thursday][status]") int Thursdaystatus
-            ,@Field("days[Friday][from]") String Fridayfrom,@Field("days[Friday][to]") String Fridayto,@Field("days[Friday][status]") int status
-            ,@Field("days[Saturday][from]") String Saturdayfrom,@Field("days[Saturday][to]") String Saturdayto,@Field("days[Saturday][status]") int Saturdaystatus);
+            , @Field("days[Sunday][from]") String Sundayfrom, @Field("days[Sunday][to]") String Sundayto, @Field("days[Sunday][status]") int Sundaystatus
+            , @Field("days[Monday][from]") String Mondayfrom, @Field("days[Monday][to]") String Mondayto, @Field("days[Monday][status]") int Mondaystatus
+            , @Field("days[Tuesday][from]") String Tuesdayfrom, @Field("days[Tuesday][to]") String Tuesdayto, @Field("days[Tuesday][status]") int Tuesdaystatus
+            , @Field("days[Wednesday][from]") String Wednesdayfrom, @Field("days[Wednesday][to]") String Wednesdayto, @Field("days[Wednesday][status]") int Wednesdaystatus
+            , @Field("days[Thursday][from]") String Thursdayfrom, @Field("days[Thursday][to]") String Thursdayto, @Field("days[Thursday][status]") int Thursdaystatus
+            , @Field("days[Friday][from]") String Fridayfrom, @Field("days[Friday][to]") String Fridayto, @Field("days[Friday][status]") int status
+            , @Field("days[Saturday][from]") String Saturdayfrom, @Field("days[Saturday][to]") String Saturdayto, @Field("days[Saturday][status]") int Saturdaystatus);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/address/{id}")
-    Call<Address> EditAddress(@Path("id") int id,@Body AddressEditParameter addressEditParameter);
+    Call<Address> EditAddress(@Path("id") int id, @Body AddressEditParameter addressEditParameter);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/address")
-    Call<AllAddress> GetAllAddress(@Query("device_id") String device_id,@Query("os") String os);
+    Call<AllAddress> GetAllAddress(@Query("device_id") String device_id, @Query("os") String os);
 
     @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/orders/{id}")
     Call<OrderToDelevey> OrderToDelevry(@Path("id") int id, @Query("device_id") String device_id, @Query("os") String os, @Field("note") String note, @Field("_method") String _method, @Field("status") int status, @Field("add") int add);
 
     @FormUrlEncoded
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/orders")
-    Call<CheckOutCart> CreateOrderCart(@Field("address_id") int address_id, @Field("payment_gateway_id") int payment_gateway_id,@Query("device_id") String device_id, @Query("os") String os);
+    Call<CheckOutCart> CreateOrderCart(@Field("address_id") int address_id, @Field("payment_gateway_id") int payment_gateway_id, @Query("device_id") String device_id, @Query("os") String os);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/orders/{id}")
     Call<ShowOrder> OrderDetails(@Path("id") int id, @Query("merchant") String merchant, @Query("delivery") String delivery, @Query("device_id") String device_id, @Query("os") String os);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @DELETE("/api/v1/orders/{id}")
     Call<ShowOrder> OrderReject(@Path("id") int id);
+//
+//    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+//    @GET("/api/v1/users")
+//    Call<Driver> GetDrivers(@Query("store_id") int store_id , @Query("device_id") String device_id, @Query("os") String os ,@Query("delivery") String delivery);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/users")
-    Call<Driver> GetDrivers(@Query("store_id") int store_id , @Query("device_id") String device_id, @Query("os") String os);
+    Call<Driver> GetDrivers(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/request_delivery")
     Call<RequestStatus> RequestDelivery(@Query("delivery_id") int delivery_id);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/checkout")
     Call<CheckOuts> DoCheckOut(@Query("device_id") String device_id, @Query("os") String os);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/notifications")
     Call<Notifications> getNotifications();
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/orders/{id}")
     Call<QrCode> OrderQR(@Path("id") String id, @Query("device_id") String device_id, @Query("os") String os);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/orders")
     Call<Order> GetAllOrders(@Query("device_id") String device_id, @Query("os") String os, @Query("delivery") String delivery, @Query("date_from") String date_from,
                              @Query("date_to") String date_to,
@@ -247,9 +275,15 @@ public interface APIInterface {
                              @Query("merchant") String merchant,
                              @Query("status") String status);
 
+    @FormUrlEncoded
+    @Headers({"api-token: API-TEST-TOKEN"})
+    @PUT("/api/v1/orders/{id}")
+    Call<Order> cancelOrders(@Path("id") int id, @Field("status") int status);
+
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/favorites")
     Call<FavoriteMain> favorite(@Body CartParamenter cartParamenter);
+
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/register")
@@ -272,7 +306,7 @@ public interface APIInterface {
     @GET("/api/v1/carts")
     Call<CartMain2> doGetListCartCoupon(@Query("device_id") String device_id, @Query("os") String os, @Query("coupon") String coupon);
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @GET("/api/v1/carts")
     Call<CartMain2> doGetListCartRedeem(@Query("device_id") String device_id, @Query("os") String os, @Query("redeem") int coupon);
 
@@ -293,9 +327,9 @@ public interface APIInterface {
     Call<ChangePassword> DoChangePassword(@Body ChangePassParameter changePassParameter);
 
 
-    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
+    @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
     @POST("/api/v1/carts")
-    Call<CartMain> cart(@Query("device_id") String device_id,@Body CartParamenter cartParamenter);
+    Call<CartMain> cart(@Query("device_id") String device_id, @Body CartParamenter cartParamenter);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @POST("/api/v1/carts")

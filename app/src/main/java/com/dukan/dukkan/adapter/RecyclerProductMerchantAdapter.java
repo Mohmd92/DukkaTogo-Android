@@ -110,10 +110,16 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                 tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.avialable));
             }
             itemView.setOnClickListener(this); // bind the listener
-            if(item.status.equals("1"))
+            if(item.status.equals("1")){
                 swCustom3.setChecked(true);
-            else
+                tv_status.setText(mContext.getString(R.string.available));
+                tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.avialable));
+            } else{
                 swCustom3.setChecked(false);
+                tv_status.setText(mContext.getString(R.string.unavailable));
+                tv_status.setBackground(ContextCompat.getDrawable(mContext,R.drawable.unavialable));
+            }
+
             swCustom3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
             {
                 @Override
@@ -122,6 +128,7 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                     progressBar.setVisibility(View.VISIBLE);
                     if(isChecked)
                         sw3=1;
+
                     else
                         sw3=0;
                     Call<UpdateProductStatus> call1 = apiInterface.UpdateStatusProduct(item.id,sw3,"put");
@@ -131,7 +138,9 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                         public void onResponse(Call<UpdateProductStatus> call, Response<UpdateProductStatus> response) {
                             UpdateProductStatus updateProductStatus = response.body();
                             Toast.makeText(mContext, updateProductStatus.message, Toast.LENGTH_SHORT).show();
+
                             progressBar.setVisibility(View.GONE);
+//
                         }
 
                         @Override
@@ -142,8 +151,11 @@ public class RecyclerProductMerchantAdapter extends RecyclerView.Adapter<Recycle
                         }
                     });
 
+
+
                 }
             });
+
         }
 
         @Override

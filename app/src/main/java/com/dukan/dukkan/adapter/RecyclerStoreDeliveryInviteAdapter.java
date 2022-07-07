@@ -105,62 +105,10 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
 //            Log.e("TAG", "setData: ", );
         }
 
-        private void Doee(android.app.Dialog EndDialog, String statts) {
-            apiInterface = APIClient.getClient(Aactivity).create(APIInterface.class);
-            progressBar.setVisibility(View.VISIBLE);
-            Call<RequestStatus> call1 = apiInterface.RequestDeliveryStatus(item.id, statts);
-            call1.enqueue(new Callback<RequestStatus>() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onResponse(Call<RequestStatus> call, Response<RequestStatus> response) {
-                    RequestStatus requestStatus = response.body();
-                    if (requestStatus.status) {
-                        Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
-                        EndDialog.dismiss();
-                    } else
-                        Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<RequestStatus> call, Throwable t) {
-                    progressBar.setVisibility(View.GONE);
-                    call.cancel();
-                }
-            });
-        }
 
         @Override
         public void onClick(View view) {
-            android.app.Dialog EndDialog = new Dialog(Aactivity, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-            EndDialog.setContentView(R.layout.dialog_invite);
-            EndDialog.setCancelable(false);
-            progressBar = EndDialog.findViewById(R.id.progressBar);
-            ImageView img_close = EndDialog.findViewById(R.id.img_close);
-            TextView dialog_ok = EndDialog.findViewById(R.id.yes_button);
-            TextView dialog_cancel = EndDialog.findViewById(R.id.no_button);
-            img_close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EndDialog.dismiss();
-                }
-            });
-            dialog_ok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Doee(EndDialog, "1");
-                }
-            });
-            dialog_cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Doee(EndDialog, "2");
-                }
-            });
-            EndDialog.show();
-            if (mListener != null) {
-                mListener.onItemClick(item);
-            }
+
         }
     }
 
@@ -175,8 +123,42 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
     @Override
     public void onBindViewHolder(ViewHolder Vholder, int position) {
         Store store = stores.get(position);
-//        Log.e("TAG", "onBindViewHolder: " + stores.get(position).name);
-
+        final int pos = position;
+        Vholder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.Dialog EndDialog = new Dialog(Aactivity, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+                EndDialog.setContentView(R.layout.dialog_invite);
+                EndDialog.setCancelable(false);
+                Vholder.progressBar = EndDialog.findViewById(R.id.progressBar);
+                ImageView img_close = EndDialog.findViewById(R.id.img_close);
+                TextView dialog_ok = EndDialog.findViewById(R.id.yes_button);
+                TextView dialog_cancel = EndDialog.findViewById(R.id.no_button);
+                img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EndDialog.dismiss();
+                    }
+                });
+                dialog_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Doee(EndDialog, Vholder, "1", mValues.get(pos).id);
+                     //   Log.e("TAG", "onClick: " + mValues.get(position).id);
+                    }
+                });
+                dialog_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Doee(EndDialog, Vholder, "2", mValues.get(pos).id);
+                    }
+                });
+                EndDialog.show();
+                if (mListener != null) {
+                    //    mListener.onItemClick(item);
+                }
+            }
+        });
         Vholder.name.setText(store.name);
         Picasso.get()
                 .load(store.image)
@@ -184,17 +166,42 @@ public class RecyclerStoreDeliveryInviteAdapter extends RecyclerView.Adapter<Rec
         // Glide.with(mContext).load(item.store.image).into(img_store);
 
         Vholder.join_button.setVisibility(View.GONE);
-       // System.out.println("IIIIIIII88888 " + item.store.image);
-//        RequestMerchant.Datum datum = mValues.get(position);
-//        if (datum.store != null) {
-//
-//            Vholder.setData(datum);
-//        }
+        // System.out.println("IIIIIIII88888 " + item.store.image);
+        RequestMerchant.Datum datum = mValues.get(pos);
+        if (datum.store != null) {
+            Vholder.setData(datum);
+        }
 
 
 //        RequestMerchant.Datum datum= mValues.get(position);
 //        Log.e("TAG", "onBindViewHolder: "+datum.store );
     }
+
+    public void Doee(android.app.Dialog EndDialog, ViewHolder viewHolder, String statts, int id) {
+        APIInterface apiInterface = APIClient.getClient(Aactivity).create(APIInterface.class);
+        viewHolder.progressBar.setVisibility(View.VISIBLE);
+        Call<RequestStatus> call1 = apiInterface.RequestDeliveryStatus(id, statts);
+        call1.enqueue(new Callback<RequestStatus>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<RequestStatus> call, Response<RequestStatus> response) {
+                RequestStatus requestStatus = response.body();
+                if (requestStatus.status) {
+                    Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
+                    EndDialog.dismiss();
+                } else
+                    Toast.makeText(mContext, requestStatus.message, Toast.LENGTH_SHORT).show();
+                viewHolder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<RequestStatus> call, Throwable t) {
+                viewHolder.progressBar.setVisibility(View.GONE);
+                call.cancel();
+            }
+        });
+    }
+
 
     @Override
     public int getItemCount() {
