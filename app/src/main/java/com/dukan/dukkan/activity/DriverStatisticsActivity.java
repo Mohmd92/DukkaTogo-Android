@@ -34,10 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DriverStatisticsActivity extends AppCompatActivity {
-    TextView tv_num_orders,tv_total_cost;
+    TextView tv_num_orders, tv_total_cost;
     RecyclerView recyclerView;
     ProgressBar progressBar;
     APIInterface apiInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,22 +83,23 @@ public class DriverStatisticsActivity extends AppCompatActivity {
                         , driveOrderFilterSheetFragment.getTag());
             }
         });
-            getOrders("","");
+        getOrders("", "");
     }
-    private void getOrders(String dateFrom,String dateTo) {
+
+    private void getOrders(String dateFrom, String dateTo) {
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
-        System.out.println("TAG111111 ssssss "+ID);
-        Call<Order> callNew = apiInterface.GetAllOrders(ID,"android","1",dateFrom,dateTo,"","","1");
+        System.out.println("TAG111111 ssssss " + ID);
+        Call<Order> callNew = apiInterface.GetAllOrders(ID, "android", "1", dateFrom, dateTo, "", "", "1");
         callNew.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> callNew, Response<Order> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d("TAG111111", response.code() + "");
                 Order resource = response.body();
-                Log.d("TAG111111","111111111111111111111111111111111 resource "+resource.status);
-                if(resource.status){
-                    Log.d("TAG111111","111111111111111111111111111111111ww");
+                Log.d("TAG111111", "111111111111111111111111111111111 resource " + resource.status);
+                if (resource.status) {
+                    Log.d("TAG111111", "111111111111111111111111111111111ww");
                     List<Order.Datum> datumList = resource.data;
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     RecyclerMerchantOrder2Adapter adapter = new RecyclerMerchantOrder2Adapter(getApplicationContext(), datumList);
@@ -105,21 +107,23 @@ public class DriverStatisticsActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.d("TAG111111", "  e " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
 
             }
 
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")){
-            String[] getFilterDates =  SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
-            getOrders(getFilterDates[0],getFilterDates[1]);
+        if (!SharedPreferenceManager.getInstance(getApplicationContext()).getFilterDates().equals("")) {
+            String[] getFilterDates = SharedPreferenceManager.getInstance(getBaseContext()).getFilterDates().split("&");
+            getOrders(getFilterDates[0], getFilterDates[1]);
             SharedPreferenceManager.getInstance(getApplicationContext()).setFilterDates("");
         }
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -24,6 +25,7 @@ import com.dukan.dukkan.pojo.FavoriteMain;
 import com.dukan.dukkan.pojo.Order;
 import com.dukan.dukkan.pojo.UpdateProductStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OrdersActivity extends AppCompatActivity {
+public class OrdersActivity extends AppCompatActivity implements RecyclerOrderAdapter2.ItemListener {
     RecyclerView recyclerView;
     APIInterface apiInterface;
     ProgressBar progressBar;
@@ -112,6 +114,7 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void getOrders2() {
+
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
@@ -122,15 +125,15 @@ public class OrdersActivity extends AppCompatActivity {
             public void onResponse(Call<Order> callNew, Response<Order> response) {
                 Order resource = response.body();
                 if (resource.status) {
-                    List<Order.Datum> datumList = resource.data;
+                    List<Order.Datum> datumList = new ArrayList<>();
+                    for (Order.Datum datum : resource.data) {
+                        if (!datum.status.equals("4")) {
+                            datumList.add(datum);
+                        }}
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList, OrdersActivity.this, new RecyclerOrderAdapter2.ItemListener() {
-                        @Override
-                        public void onItemClick(Order.Datum item) {
-                            //   Toast.makeText(OrdersActivity.this, item.id + "", Toast.LENGTH_SHORT).show();
-                            cancelOrders(item);
-                        }
-                    });
+                    RecyclerOrderAdapter2 adapter = new RecyclerOrderAdapter2(getApplicationContext(), datumList, OrdersActivity.this, OrdersActivity.this);
+
+
                     recyclerView.setAdapter(adapter);
                 }
                 progressBar.setVisibility(View.GONE);
@@ -144,22 +147,14 @@ public class OrdersActivity extends AppCompatActivity {
             }
 
         });
-    }
 
-    private void cancelOrders(Order.Datum item) {
-        apiInterface.cancelOrders(item.id, 4).enqueue(new Callback<Order>() {
-            @Override
-            public void onResponse(Call<Order> call, Response<Order> response) {
-
-                Log.e("TAG", "onResponse: " + response.message());
-            }
-
-            @Override
-            public void onFailure(Call<Order> call, Throwable t) {
-                Log.e("TAG", "onResponse: " + t.getMessage());
-            }
-        });
 
     }
 
+
+
+    @Override
+    public void onItemClick(Order.Datum item) {
+
+    }
 }

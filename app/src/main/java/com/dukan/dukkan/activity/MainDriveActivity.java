@@ -200,10 +200,10 @@ public class MainDriveActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(MainDriveActivity.this, QrCodeScaner.class));
                 closeDrawer();
                 break;
-                case R.id.nav_call_us:
-                startActivity(new Intent(MainDriveActivity.this, DriverCallUSActivity.class));
-                closeDrawer();
-                break;
+//                case R.id.nav_call_us:
+//                startActivity(new Intent(MainDriveActivity.this, DriverCallUSActivity.class));
+//                closeDrawer();
+//                break;
 //                case R.id.nav_history_orders:
 //                startActivity(new Intent(MainDriveActivity.this, DriverHistoryOrdersActivity.class));
 //                closeDrawer();

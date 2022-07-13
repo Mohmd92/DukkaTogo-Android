@@ -62,6 +62,7 @@ public class DriverOrderDetailsActivity extends AppCompatActivity implements OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_order_details_acticity);
+
         Toolbar toolbar = findViewById(R.id.toolbar2);
         toolbar.setTitle("");
         OrderId= getIntent().getExtras().getInt("OrderId");
@@ -192,6 +193,7 @@ public class DriverOrderDetailsActivity extends AppCompatActivity implements OnM
     }
 
     private void getOrderDetails() {
+        Log.d("TAG", "onResponse: ");
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         progressBar.setVisibility(View.VISIBLE);
         Call<ShowOrder> callNew = apiInterface.OrderDetails(OrderId,"","1",ID,"android");
@@ -202,6 +204,7 @@ public class DriverOrderDetailsActivity extends AppCompatActivity implements OnM
                 ShowOrder resource = response.body();
                 if(resource.status){
                     tv_date.setText(resource.data.createdAt.split("T")[0]);
+
                     tv_num_products.setText(""+resource.data.orderDetails.size());
 //               tv_start_place.setText(""+resource.data.store.address);
                     tv_start_place.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());

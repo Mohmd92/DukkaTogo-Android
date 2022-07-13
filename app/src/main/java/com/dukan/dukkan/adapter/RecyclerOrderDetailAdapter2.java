@@ -86,7 +86,7 @@ public class RecyclerOrderDetailAdapter2 extends RecyclerView.Adapter<RecyclerOr
     @Override
     public void onBindViewHolder(ViewHolder Vholder, int position) {
         OrderDetail orderDetail = mValues.get(position);
-        Vholder.setData(mValues.get(position));
+        Vholder.setData(orderDetail);
 
 //        Vholder.btnCancel.setOnClickListener(new View.OnClickListener() {
 //            @Override

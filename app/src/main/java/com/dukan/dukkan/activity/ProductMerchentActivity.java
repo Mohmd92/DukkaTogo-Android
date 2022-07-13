@@ -97,7 +97,8 @@ public class ProductMerchentActivity extends AppCompatActivity implements Recycl
         progressBar.setVisibility(View.VISIBLE);
         @SuppressLint("HardwareIds") String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID, "android", store, 0, category, "", newProduct, mostProduct, price_from, price_to, "Bearer 2015|LNGWBnmT6iZVwVaaOutx40QfxRIqQ2BYhv0Utiyv");
+        //"Bearer 2015|LNGWBnmT6iZVwVaaOutx40QfxRIqQ2BYhv0Utiyv"
+        Call<MultipleProducts> callNew = apiInterface.doGetListProduct(ID, "android", store, 0, category, "", newProduct, mostProduct, price_from, price_to, SharedPreferenceManager.getInstance(this).get_api_token());
         callNew.enqueue(new Callback<MultipleProducts>() {
             @Override
             public void onResponse(Call<MultipleProducts> callNew, Response<MultipleProducts> response) {

@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,6 +84,7 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
             linnnar.setVisibility(View.GONE);
             linnnar.setVisibility(View.VISIBLE);
             tv_date.setText(item.createdAt.split("T")[0]);
+
             tv_num_products.setText("" + item.orderDetails.size());
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
             RecyclerOrderDetailAdapter adapter = new RecyclerOrderDetailAdapter(mContext, item.orderDetails);
@@ -121,6 +124,7 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
     public void onBindViewHolder(ViewHolder Vholder, int position) {
         Order.Datum datum = mValues.get(position);
         Vholder.setData(mValues.get(position));
+
 
     }
 
