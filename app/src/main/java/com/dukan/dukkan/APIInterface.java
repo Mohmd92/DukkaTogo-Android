@@ -81,7 +81,7 @@ public interface APIInterface {
                                             @Query("os") String os,
                                             @Query("store_id") int store_id,
                                             @Query("brand_id") int brand_id
-            , @Query("category_id") int category_id,
+                                          , @Query("category_id") int category_id,
                                             @Query("search") String search,
                                             @Query("new") int news,
                                             @Query("most_wanted") int most_wanted,

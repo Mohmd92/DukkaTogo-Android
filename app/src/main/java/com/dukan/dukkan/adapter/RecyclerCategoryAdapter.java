@@ -76,7 +76,9 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter<RecyclerCatego
                     i.putExtra("store", item.storeId);
                     i.putExtra("new", 0);
                     i.putExtra("most", 0);
-                    i.putExtra("category", item.categoryId);
+                    i.putExtra("category", item.id);
+
+            Toast.makeText(mContext, ""+item.name+"---"+item.categoryId, Toast.LENGTH_SHORT).show();
                     mContext.startActivity(i);
         }
     }
