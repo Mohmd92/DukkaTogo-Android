@@ -1,248 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activity.MainActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        tools:context=".activity.MainActivity">
-
-    <LinearLayout
-        android:id="@+id/linear"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linear"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <ImageView
-            android:padding="5dp"
-            android:id="@+id/img_back"
-            android:src="@drawable/ic_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:textAllCaps="true"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/abudhbi_bold"
-            android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cart"/>
-    <LinearLayout
-        android:id="@+id/linear_exist_account"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ScrollView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="330dp"
-            tools:context=".TestActivity">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="5dp"
-                android:id="@+id/recyclerView"
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/abudhbi_bold"
+                android:text="@string/cart"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:id="@+id/linear_exist_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                />
-        </ScrollView>
+                android:orientation="vertical">
 
-        <TextView
-            android:fontFamily="@font/abudhbi_regular"
-            android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/discount_codee"/>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_marginEnd="10dp"
-                android:layout_weight="3"
-                android:fontFamily="@font/abudhbi_regular"
-                android:imeOptions="actionNext"
-                android:id="@+id/edit_discount"
-                android:background="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:textColorHint="#aeafaf"
-                android:hint="00000"
-                android:inputType="text"
-                android:textSize="14sp"/>
-            <Button
-                android:layout_weight="1"
-                android:fontFamily="@font/abudhbi_bold"
-                android:id="@+id/confirm_button"
-                android:textSize="13sp"
-                android:textColor="@color/white"
-                android:text="@string/confirm"
-                android:background="@drawable/button33"
-                android:layout_width="0dp"
-                android:layout_height="48dp"/>
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button33"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <LinearLayout
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="330dp"
+                    android:layout_marginTop="10dp"
+                    tools:context=".TestActivity">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:scrollbars="vertical" />
+                </ScrollView>
+
                 <TextView
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/abudhbi_bold"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_price_for"/>
-                <TextView
-                    android:id="@+id/tv_num_products"
-                    android:layout_marginStart="2dp"
-                    android:fontFamily="@font/abudhbi_bold"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:text="@string/discount_codee"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"/>
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/abudhbi_bold"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/edit_discount"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="3"
+                        android:background="@color/white"
+                        android:fontFamily="@font/abudhbi_regular"
+                        android:hint="00000"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:textColorHint="#aeafaf"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/confirm_button"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button33"
+                        android:fontFamily="@font/abudhbi_bold"
+                        android:text="@string/confirm"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button33">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/abudhbi_bold"
+                            android:text="@string/total_price_for"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_num_products"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/abudhbi_bold"
+                            android:text="3"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/abudhbi_bold"
+                            android:text="@string/item_s"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/abudhbi_bold"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/liner2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/item_s"/>
+                    android:layout_marginTop="20dp">
+
+                    <Button
+                        android:id="@+id/but_checkout"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button33"
+                        android:fontFamily="@font/abudhbi_bold"
+                        android:text="@string/check_out"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/redeem_points_button"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button33"
+                        android:fontFamily="@font/abudhbi_bold"
+                        android:text="@string/redeem_points"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_total_price"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/abudhbi_bold"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                />
-        </RelativeLayout>
-        <LinearLayout
-            android:id="@+id/liner2"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/but_checkout"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/abudhbi_bold"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:text="@string/check_out"
-                android:background="@drawable/button33"
-                android:layout_width="0dp"
-                android:layout_height="45dp"/>
-            <Button
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/abudhbi_bold"
-                android:id="@+id/redeem_points_button"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:text="@string/redeem_points"
-                android:background="@drawable/button33"
-                android:layout_width="0dp"
-                android:layout_height="45dp"/>
-        </LinearLayout>
-           </LinearLayout>
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/liner_no_cart"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_no_cart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:fontFamily="@font/abudhbi_regular"
-                android:textSize="@dimen/_15sdp"
-                android:textColor="@color/black"
+            <LinearLayout
+                android:id="@+id/liner_no_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/there_are_no_cart"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linear_no_account"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-        <ImageView
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mask_group_16"/>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/abudhbi_regular"
-            android:textSize="15sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_profile"/>
-        <TextView
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/abudhbi_regular"
-            android:textSize="12sp"
-            android:textColor="@color/blackTheme_colorBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/if_you_want_more_information_read_the_attribution_guide_license"/>
-        <Button
-            android:layout_gravity="center"
-            android:fontFamily="@font/abudhbi_bold"
-            android:layout_marginTop="20dp"
-            android:id="@+id/confirm_button2"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:text="@string/sign_in"
-            android:background="@drawable/button33"
-            android:layout_width="200dp"
-            android:layout_height="45dp"/>
-    </LinearLayout>
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_no_cart" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:gravity="center"
+                    android:text="@string/there_are_no_cart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_no_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_mask_group_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:text="@string/my_profile"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/abudhbi_regular"
+                    android:gravity="center"
+                    android:text="@string/if_you_want_more_information_read_the_attribution_guide_license"
+                    android:textColor="@color/blackTheme_colorBackground"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/confirm_button2"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button33"
+                    android:fontFamily="@font/abudhbi_bold"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <ProgressBar
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

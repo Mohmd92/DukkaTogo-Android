@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import com.dukan.dukkan.adapter.RecyclerStoreNeedAdapter;
 import com.dukan.dukkan.pojo.MultipleStore;
 import com.dukan.dukkan.pojo.Privacy;
 import com.dukan.dukkan.util.SharedPreferenceManager;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,36 +33,50 @@ public class PrivacyPolicyActivity extends AppCompatActivity   {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     APIInterface apiInterface;
-
+    TextView tvTitle,tvDescription;
+    ImageView imPolicy;
+    private static final String TAG = "PrivacyPolicyActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.privacy_policy);
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
+        tvTitle=findViewById(R.id.tvTitle);
+        imPolicy =findViewById(R.id.imPolicy);
+        tvDescription=findViewById(R.id.tvDescription);
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
         ImageView img_back =  findViewById(R.id.img_back);
+        getPrivacyPolicy();
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        getPrivacyPolicy();
+
     }
     private void getPrivacyPolicy() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Privacy> callNew = apiInterface.getPrivacyList();
+      //  privacy
+        Call<Privacy> callNew = apiInterface.getPrivacyList("14");
         callNew.enqueue(new Callback<Privacy>() {
             @Override
             public void onResponse(Call<Privacy> callNew, Response<Privacy> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.d(TAG,response.code()+"");
                 Privacy resource = response.body();
                 if(resource.status) {
-                    List<Privacy.Datum> datumList = resource.data;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    RecyclerPrivacyPolicyAdapter adapter = new RecyclerPrivacyPolicyAdapter(getApplicationContext(), datumList);
-                    recyclerView.setAdapter(adapter);
+                    Privacy.Datum data =resource.data;
+                   if (data.title!=null&&data.description!=null){
+                       tvTitle.setText(data.title);
+                       tvDescription.setText(data.description);
+                   }
+                    Picasso.get().load(data.image).into(imPolicy);
+//                    List<Privacy.Datum> datumList = new ArrayList<>();
+//                    datumList.add();
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//                    RecyclerPrivacyPolicyAdapter adapter = new RecyclerPrivacyPolicyAdapter(getApplicationContext(), datumList);
+//                    recyclerView.setAdapter(adapter);
                 }
                 else
                     Toast.makeText(PrivacyPolicyActivity.this, ""+resource.message, Toast.LENGTH_SHORT).show();
@@ -67,7 +84,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity   {
             }
             @Override
             public void onFailure(Call<Privacy> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.e(TAG,"  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });

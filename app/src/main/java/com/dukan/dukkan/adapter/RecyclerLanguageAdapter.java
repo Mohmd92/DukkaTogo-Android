@@ -1,6 +1,9 @@
 package com.dukan.dukkan.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +21,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dukan.dukkan.R;
 import com.dukan.dukkan.model.DataModeLanguage;
 import com.dukan.dukkan.pojo.MultipleStore;
+import com.dukan.dukkan.util.LocaleHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerLanguageAdapter extends RecyclerView.Adapter<RecyclerLanguageAdapter.ViewHolder> {
     List<DataModeLanguage> mValues;
-    Context mContext;
+    Activity activity;
     protected ItemListener mListener;
     private AdapterView.OnItemClickListener listener;
-    int row_index=-1;
+    int row_index = -1;
     private int lastCheckedPosition = -1;
     private int initPosition = -1;
-    public RecyclerLanguageAdapter(Context context, List<DataModeLanguage> values) {
+
+    public RecyclerLanguageAdapter( Activity activity, List<DataModeLanguage> values) {
 
         mValues = values;
-        mContext = context;
+       this. activity = activity;
 //        mListener=itemListener;
     }
 
@@ -41,13 +47,13 @@ public class RecyclerLanguageAdapter extends RecyclerView.Adapter<RecyclerLangua
 
         DataModeLanguage item;
         TextView name;
-        ImageView select_item_image,img_chk;
+        ImageView select_item_image, img_chk;
         ConstraintLayout constraintLayout;
 
         public RelativeLayout relative;
+
         public ViewHolder(View v) {
             super(v);
-
             v.setOnClickListener(this);
             select_item_image = v.findViewById(R.id.image);
             img_chk = v.findViewById(R.id.img_chk);
@@ -55,13 +61,14 @@ public class RecyclerLanguageAdapter extends RecyclerView.Adapter<RecyclerLangua
             constraintLayout = v.findViewById(R.id.constraintLayout);
 
         }
+
         public void setData(DataModeLanguage item) {
             this.item = item;
 
             name.setText(item.name);
-                Picasso.get()
-                        .load(item.image)
-                        .into(select_item_image);
+            Picasso.get()
+                    .load(item.image)
+                    .into(select_item_image);
 //                if(item.status){
 //                    initPosition=getAdapterPosition();
 //                    Picasso.get()
@@ -71,32 +78,32 @@ public class RecyclerLanguageAdapter extends RecyclerView.Adapter<RecyclerLangua
 //                }
 
         }
+
         @Override
         public void onClick(View view) {
             if (mListener != null) {
                 mListener.onItemClick(item);
+
             }
         }
     }
 
     @Override
     public RecyclerLanguageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(mContext).inflate(R.layout.language_item, parent, false);
-
+        View view = LayoutInflater.from(activity).inflate(R.layout.language_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder Vholder, int position) {
         Vholder.setData(mValues.get(position));
-        if(Vholder.item.status){
+        if (Vholder.item.status) {
             Picasso.get()
                     .load(R.drawable.ic_check)
                     .placeholder(R.drawable.ic_check)
                     .into(Vholder.img_chk);
         }
-        if(lastCheckedPosition!=-1) {
+        if (lastCheckedPosition != -1) {
             Picasso.get()
                     .load(R.drawable.ic_unchek)
                     .placeholder(R.drawable.ic_unchek)
@@ -118,18 +125,38 @@ public class RecyclerLanguageAdapter extends RecyclerView.Adapter<RecyclerLangua
             public void onClick(View v) {
                 if (lastCheckedPosition >= 0)
                     notifyItemChanged(lastCheckedPosition);
+                switch (Vholder.item.id) {
+                    case 1:
+                        setLocale(activity,"ar");
+                        break;
+                    case 2:
+                        setLocale(activity,"en");
+                        Log.e("TAG", "onClick: "+Vholder.item.id );
+                        break;
+
+                }
                 lastCheckedPosition = Vholder.getAdapterPosition();
-                    notifyItemChanged(lastCheckedPosition);
+                notifyItemChanged(lastCheckedPosition);
                 notifyDataSetChanged();
             }
         });
     }
+
     @Override
     public int getItemCount() {
-
         return mValues.size();
     }
-     public interface ItemListener {
+
+    public interface ItemListener {
         void onItemClick(DataModeLanguage item);
+    }
+
+    public static void setLocale(Context context, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = context.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 }

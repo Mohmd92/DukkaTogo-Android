@@ -105,7 +105,7 @@ public class NotificationsActivity extends AppCompatActivity {
         callNew.enqueue(new Callback<Notifications>() {
             @Override
             public void onResponse(Call<Notifications> callNew, Response<Notifications> response) {
-                Log.d("TAG111111",response.code()+"");
+                Log.e("TAG111111",response.code()+"");
                 Notifications resource = response.body();
                 if(resource.status) {
                     List<Notifications.Datum> datumList = resource.data;
@@ -128,7 +128,7 @@ public class NotificationsActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Notifications> call, Throwable t) {
-                Log.d("TAG111111","  e "+t.getMessage());
+                Log.e("TAG111111","  e "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
                 linear_no_notifications.setVisibility(View.VISIBLE);
                 linear_no_account.setVisibility(View.GONE);

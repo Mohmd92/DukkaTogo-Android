@@ -39,13 +39,13 @@ public class LanguageActivity extends AppCompatActivity {
     private void  getLanguages(){
         arrayList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        arrayList.add(new DataModeLanguage(0, getString(R.string.arabia), R.drawable.suadi,false));
-        arrayList.add(new DataModeLanguage(0, getString(R.string.english), R.drawable.england,true));
-        arrayList.add(new DataModeLanguage(0, getString(R.string.german), R.drawable.germany,false));
-        arrayList.add(new DataModeLanguage(0, getString(R.string.italian), R.drawable.italy,false));
-        arrayList.add(new DataModeLanguage(0, getString(R.string.turkish), R.drawable.turky,false));
+        arrayList.add(new DataModeLanguage(1, getString(R.string.arabia), R.drawable.suadi,false));
+        arrayList.add(new DataModeLanguage(2, getString(R.string.english), R.drawable.england,true));
+        arrayList.add(new DataModeLanguage(3, getString(R.string.german), R.drawable.germany,false));
+        arrayList.add(new DataModeLanguage(4, getString(R.string.italian), R.drawable.italy,false));
+        arrayList.add(new DataModeLanguage(5, getString(R.string.turkish), R.drawable.turky,false));
 
-        RecyclerLanguageAdapter adapter = new RecyclerLanguageAdapter(getApplicationContext(), arrayList);
+        RecyclerLanguageAdapter adapter = new RecyclerLanguageAdapter(this, arrayList);
         recyclerView.setAdapter(adapter);
 
     }

@@ -2,6 +2,8 @@ package com.dukan.dukkan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -73,7 +75,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
         edit_mobile =  findViewById(R.id.edit_mobile);
          tv_edit =  findViewById(R.id.tv_edit);
 
-        tv_user_name.setText(userProfileInfo[8]);
+        tv_user_name.setText(userProfileInfo[0]);
         edit_name.setText(userProfileInfo[0]);
         edit_street.setText(userProfileInfo[3]);
         edit_postal_code.setText(userProfileInfo[4]);
@@ -95,6 +97,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
             spinner_country.setEnabled(true);
             spinner_city.setEnabled(true);
             spinner_mobile.setEnabled(true);
+
         }else {
             tv_edit.setText(getString(R.string.edit));
             edit_name.setEnabled(false);
@@ -105,6 +108,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
             spinner_country.setEnabled(false);
             spinner_city.setEnabled(false);
             spinner_mobile.setEnabled(false);
+
         }
 
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
@@ -284,6 +288,7 @@ public class UserPersonalInfoActivity extends AppCompatActivity {
                     getCurrentFocus().getWindowToken(), 0);
         }
         progressBar.setVisibility(View.VISIBLE);
+        tv_user_name.setText(edit_name.getText());
         UserProfile userProfile = new UserProfile(edit_name.getText().toString(), edit_mail.getText().toString(), countryId, cityId, edit_street.getText().toString(), edit_postal_code.getText().toString(), edit_mobile.getText().toString(), image_url);
         Call<Profile> call1 = apiInterface.updateProfile(userProfile);
         call1.enqueue(new Callback<Profile>() {

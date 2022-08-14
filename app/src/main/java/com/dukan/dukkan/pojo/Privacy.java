@@ -14,7 +14,8 @@ public class Privacy {
     public Boolean status;
     @SerializedName("data")
     @Expose
-    public List<Datum> data =new ArrayList<>();
+    public Datum data;
+//    public List<Datum> data =new ArrayList<>();
     public class Datum {
 
         @SerializedName("id")

@@ -19,7 +19,6 @@ public class SharedPreferenceManager {
     }
     public static SharedPreferenceManager getInstance(Context context) {
         if (instance == null) return new SharedPreferenceManager(context);
-
         return instance;
     }
     public int getBadgeCount(){
@@ -170,7 +169,7 @@ public class SharedPreferenceManager {
         editor.commit();
     }
     public String getUserImage() {
-        return sharedPreferences.getString("UserImage", null);
+        return sharedPreferences.getString("UserImage", "");
     }
 
     public void setUserImage(String UserImage) {

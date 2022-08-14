@@ -46,14 +46,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".TestActivity">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginBottom="110dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/recyclerView"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                />
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    />
+                <ImageView
+                    android:id="@+id/imPolicy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:layout_marginBottom="110dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:id="@+id/recyclerView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="vertical"-->
+<!--                />-->
         </ScrollView>
 
 

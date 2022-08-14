@@ -283,7 +283,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     SpinnerAdapter spinnerMobileArrayAdapter = new SpinnerAdapter(getApplicationContext(), R.layout.country_item, phoneCode, img);
                     spinner_mobile.setAdapter(spinnerMobileArrayAdapter);
-
+                    getCities(Long.valueOf(idCountry[0]));
                     spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -379,6 +379,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        Log.e(TAG, "registers: "+countryId+""+cityId );
         RegisterParameter regisster = new RegisterParameter(edit_name.getText().toString(),edit_mail.getText().toString(),edit_mobile.getText().toString(),edit_password.getText().toString(),edit_password2.getText().toString(),countryId,cityId,edit_name.getText().toString(),edit_street.getText().toString(),edit_postal.getText().toString());
         Call<Register> call1 = apiInterface.register(regisster);
         call1.enqueue(new Callback<Register>() {

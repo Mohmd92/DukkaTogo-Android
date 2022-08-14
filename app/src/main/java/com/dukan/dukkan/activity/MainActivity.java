@@ -289,10 +289,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(!SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name().equals("")){
                 header_tv_user_name.setText(SharedPreferenceManager.getInstance(getBaseContext()).getUser_Name());
                 tv_location.setText(SharedPreferenceManager.getInstance(getBaseContext()).getAddress());
-                if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserImage().equals(""))
-                Picasso.get()
-                        .load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
-                        .into(header_im_close);
+                if(!SharedPreferenceManager.getInstance(getBaseContext()).getUserImage().equals("")){
+                    Picasso.get().load(SharedPreferenceManager.getInstance(getBaseContext()).getUserImage())
+                            .into(header_im_close);
+                }
+
             }
         }
 
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Here is the share content body";
+                String shareBody = "Download Dukkan Togo Store From Here: "+"http://play.google.com/store/apps/details?id=" + getPackageName();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.full_name));
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));

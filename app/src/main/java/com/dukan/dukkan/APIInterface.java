@@ -115,8 +115,8 @@ public interface APIInterface {
     Call<JoinStore> JoinStores(@Path("id") int id);
 
     @Headers({"api-token: API-TEST-TOKEN", "Accept: application/json"})
-    @GET("/api/v1/pages")
-    Call<Privacy> getPrivacyList();
+    @GET("/api/v1/pages/{type}?")
+    Call<Privacy> getPrivacyList(@Path("type") String type);
 
 //    @Headers({"api-token: API-TEST-TOKEN","Accept: application/json"})
 //    @GET("/api/v1/requests")
@@ -146,7 +146,7 @@ public interface APIInterface {
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1")
-    Call<Home> doGetListHome(@Query("device_id") String device_id, @Query("os") String os);
+    Call<Home> doGetListHome(@Query("device_id") String device_id,@Query("city_id") String city_id, @Query("os") String os);
 
     @Headers({"api-token: API-TEST-TOKEN"})
     @GET("/api/v1/videos?")

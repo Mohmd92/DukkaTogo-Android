@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mSignInClient;
     private CallbackManager callbackManager;
     private ProgressDialog mProgressDialog;
-    boolean dialogShow=false;
+    boolean dialogShow = false;
     Handler handler = new Handler();
     private Runnable periodicUpdate = new Runnable() {
         @SuppressLint("SetTextI18n")
@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -352,21 +353,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Login login = response.body();
-                if (login.status.equals(false)) {
+                if (login.status) {
+                    progressBar.setVisibility(View.GONE);
                     Log.e(TAG, "onResponse: "+login.data.apiToken );
-                    Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    progressBar.setVisibility(View.GONE);
                     SharedPreferenceManager.getInstance(getBaseContext()).set_api_token(login.data.apiToken);
                     SharedPreferenceManager.getInstance(getBaseContext()).setUser_Name(login.data.name);
                     SharedPreferenceManager.getInstance(getBaseContext()).set_email(login.data.email);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCityId(String.valueOf(login.data.cityId));
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCountry(login.data.country.name);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(String.valueOf(login.data.countryId));
+                    if(login.data.city!=null && login.data.country!=null && login.data.cityId!=null&&login.data.countryId!=null) {
+                        SharedPreferenceManager.getInstance(getBaseContext()).setCity(login.data.city.name);
+                        SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
+                        SharedPreferenceManager.getInstance(getBaseContext()).setCountry(login.data.country.name);
+                        SharedPreferenceManager.getInstance(getBaseContext()).setCityId(String.valueOf(login.data.cityId));
+                        SharedPreferenceManager.getInstance(getBaseContext()).setCountryId(String.valueOf(login.data.countryId));
+                    }
+
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserImage(login.data.image);
-                    SharedPreferenceManager.getInstance(getBaseContext()).setAddress(login.data.city.name);
+
                     System.out.println("tttttttttttttttttt " + login.data.apiToken);
 
                     List<Login.Role> roles = login.data.roles;
@@ -374,7 +376,6 @@ public class LoginActivity extends AppCompatActivity {
                     for (Login.Role datum : roles) {
                         UserRole = UserRole + datum.name + "&";
                     }
-
                     SharedPreferenceManager.getInstance(getBaseContext()).setUserType(UserRole);
                     SharedPreferenceManager.getInstance(getBaseContext()).setPassword(edit_password.getText().toString());
                     if (checkboxs.isChecked())
@@ -388,6 +389,9 @@ public class LoginActivity extends AppCompatActivity {
                     else
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, login.message, Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
@@ -401,14 +405,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static boolean isConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager)context
+        ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (activeNetwork != null && activeNetwork.isConnected()) {
             try {
                 URL url = new URL("https://www.google.com/");
-                HttpURLConnection urlc = (HttpURLConnection)url.openConnection();
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
                 urlc.setRequestProperty("User-Agent", "test");
                 urlc.setRequestProperty("Connection", "close");
                 urlc.setConnectTimeout(1000); // mTimeout is in seconds
@@ -423,25 +427,27 @@ public class LoginActivity extends AppCompatActivity {
         return false;
 
     }
-    private void Dialog(){
-        final Dialog EndDialog=new Dialog( LoginActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+    private void Dialog() {
+        final Dialog EndDialog = new Dialog(LoginActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         EndDialog.setContentView(R.layout.no_internet);
         EndDialog.setCancelable(false);
-        Button button =  EndDialog.findViewById(R.id.button);
+        Button button = EndDialog.findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isConnected(getApplicationContext())){
-                    dialogShow=false;
+                if (isConnected(getApplicationContext())) {
+                    dialogShow = false;
                     EndDialog.dismiss();
-                }else{
-                    Toast.makeText( LoginActivity.this, getString(R.string.no_internet_connect), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, getString(R.string.no_internet_connect), Toast.LENGTH_SHORT).show();
                 }
             }
         });
         EndDialog.show();
     }
+
     @Override
     protected void onResume() {
         handler.post(periodicUpdate);

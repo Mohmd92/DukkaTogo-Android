@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         System.out.println("sssssssssss... "+ SharedPreferenceManager.getInstance(getContext()).get_api_token());
 
         sliderLayout.removeAllSliders();
-        Call<Home> callNew = apiInterface.doGetListHome(ID,"android");
+        Call<Home> callNew = apiInterface.doGetListHome(ID,SharedPreferenceManager.getInstance(getActivity()).getCityId(),"android");
         callNew.enqueue(new Callback<Home>() {
             @Override
             public void onResponse(Call<Home> callNew, Response<Home> response) {

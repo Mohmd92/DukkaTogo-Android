@@ -134,7 +134,7 @@ public class ShowProductActivity extends AppCompatActivity {
         ic_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = getString(R.string.url) + "/products/" + productID;
+                String url = getString(R.string.url2) + "/products/" + productID;
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(browserIntent);
             }

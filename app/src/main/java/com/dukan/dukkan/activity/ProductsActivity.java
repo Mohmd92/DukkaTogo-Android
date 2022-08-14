@@ -82,6 +82,7 @@ public class ProductsActivity extends AppCompatActivity implements RecyclerCarts
         Bundle extras = getIntent().getExtras();
         newProduct = extras.getInt("new");
         mostProduct = extras.getInt("most");
+        Toast.makeText(this, ""+mostProduct, Toast.LENGTH_SHORT).show();
         store = extras.getInt("store");
         title = extras.getString("title");
         category = extras.getInt("category");
@@ -132,7 +133,8 @@ public class ProductsActivity extends AppCompatActivity implements RecyclerCarts
             }
         });
         apiInterface = APIClient.getClient(this).create(APIInterface.class);
-        if (category!=0){
+
+        if (category==0){
             getProducts(category, 0, 0);
         }
 

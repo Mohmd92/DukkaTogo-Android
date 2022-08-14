@@ -86,7 +86,6 @@ public class CountryActivity extends AppCompatActivity {
 
                     countryId=""+id;
 
-
                     SpinnerAdapter spinnerArrayAdapter = new SpinnerAdapter(getApplicationContext(), R.layout.country_item, name, img);
                     spinner_city.setAdapter(spinnerArrayAdapter);
 
